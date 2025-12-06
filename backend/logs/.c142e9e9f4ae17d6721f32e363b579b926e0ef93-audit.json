@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 30
+    },
+    "auditLog": "logs\\.c142e9e9f4ae17d6721f32e363b579b926e0ef93-audit.json",
+    "files": [
+        {
+            "date": 1765023132623,
+            "name": "logs\\fastorder-2025-12-06.log",
+            "hash": "783959eedb09f95c52b57e61fa04c8ed1f8cb545f8f23c1f4b53892f97ef5548"
+        }
+    ],
+    "hashType": "sha256"
+}
