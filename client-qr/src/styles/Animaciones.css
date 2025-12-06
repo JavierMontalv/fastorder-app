@@ -1,0 +1,179 @@
+/* ===================================================================
+   🎨 Animaciones.css – FASTORDER (Enterprise 2026)
+   -------------------------------------------------------------------
+   Conjunto de animaciones premium estilo Rappi / UberEats / Shopify:
+    • FadeIn
+    • SlideUp / SlideDown
+    • SlideLeft / SlideRight
+    • ScaleIn
+    • Bounce subtle
+    • Skeleton shimmer (loading)
+    • Microtransiciones para botones y cards
+   =================================================================== */
+
+
+/* ---------------------------------------------------------------
+   🔥 Fade-In suave
+---------------------------------------------------------------- */
+.fade-in {
+  animation: fadeIn 0.35s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+
+/* ---------------------------------------------------------------
+   🔥 Slide Up (ideal para modales)
+---------------------------------------------------------------- */
+.slide-up {
+  animation: slideUp 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+/* ---------------------------------------------------------------
+   🔥 Slide Down (para menús desplegables)
+---------------------------------------------------------------- */
+.slide-down {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+/* ---------------------------------------------------------------
+   🔥 Slide Left
+---------------------------------------------------------------- */
+.slide-left {
+  animation: slideLeft 0.35s ease-out;
+}
+
+@keyframes slideLeft {
+  from {
+    transform: translateX(25px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
+/* ---------------------------------------------------------------
+   🔥 Slide Right (para pantallas completas)
+---------------------------------------------------------------- */
+.slide-right {
+  animation: slideRight 0.35s ease-out;
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(-25px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
+/* ---------------------------------------------------------------
+   🔥 Scale In (microanimación estilo tarjetas UberEats)
+---------------------------------------------------------------- */
+.scale-in {
+  animation: scaleIn 0.25s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.94);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+/* ---------------------------------------------------------------
+   💫 Bounce sutil (ideal para botones o notificaciones)
+---------------------------------------------------------------- */
+.bounce {
+  animation: bounce 0.4s ease;
+}
+
+@keyframes bounce {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.06); }
+  70%  { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+
+/* ---------------------------------------------------------------
+   ⭐ Skeleton shimmer (loaders estilo UberEats/Shopify)
+---------------------------------------------------------------- */
+.skeleton {
+  background: linear-gradient(90deg,
+        #e0e0e0 25%,
+        #f7f7f7 37%,
+        #e0e0e0 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+
+/* ---------------------------------------------------------------
+   🔘 Microinteracciones para botones
+---------------------------------------------------------------- */
+.btn-press {
+  transition: transform 0.15s ease;
+}
+
+.btn-press:active {
+  transform: scale(0.94);
+}
+
+
+/* ---------------------------------------------------------------
+   🃏 Hover de tarjetas estilo marketplace
+---------------------------------------------------------------- */
+.card-hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
