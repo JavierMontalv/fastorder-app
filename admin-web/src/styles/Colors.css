@@ -1,0 +1,178 @@
+/* ===================================================================
+   🎨 COMANDA — PALETA GLOBAL 2026 (Enterprise Normalized)
+   Diseñada para Sidebar Dark Glass + Dashboard Claro
+   Compatible con Shopify · Stripe · Linear · Notion
+   Archivo: src/styles/Colors.css
+   =================================================================== */
+
+:root {
+  /* ============================================================
+     🟦 BRAND — IDENTIDAD
+     ============================================================ */
+  --brand-primary: #ff5f57;
+  --brand-primary-hover: #ef3f3a;
+
+  --brand-primary-soft: rgba(245, 112, 112, 0.15);
+  --brand-primary-soft-hover: rgba(245, 112, 112, 0.22);
+
+  --brand-primary-gradient: linear-gradient(135deg, #ff6a58 0%, #ef3f3a 58%, #cf2e2e 100%);
+
+  --brand-accent: #22c55e;
+  --brand-accent-soft: rgba(34, 197, 94, 0.15);
+
+  /* ============================================================
+     🌙 BACKGROUNDS — LIGHT + DARK GLASS
+     ============================================================ */
+
+  /* Dashboard claro */
+  --bg-body: #f6f8fb;
+  --bg-surface: #ffffff;
+  --bg-surface-soft: #f4f7fb;
+  --bg-soft: #eef3f8;
+  --bg-hover: rgba(0, 0, 0, 0.04);
+
+  /* Sidebar / Dark glass */
+  --bg-dark: rgba(8, 15, 30, 0.96);
+  --bg-dark-soft: rgba(12, 20, 40, 0.88);
+  --bg-dark-card: rgba(15, 23, 42, 0.45);
+  --bg-dark-hover: rgba(255, 255, 255, 0.06);
+
+  --gradient-sidebar: linear-gradient(
+    155deg,
+    rgba(6, 12, 25, 0.95) 0%,
+    rgba(10, 18, 35, 0.92) 40%,
+    rgba(12, 20, 42, 0.88) 100%
+  );
+
+  /* ============================================================
+     ✏️ TEXTOS — NORMALIZADO (CANÓNICO)
+     ============================================================ */
+
+  /* Naming canónico */
+  --text-primary: #0b1220;
+  --text-secondary: #2d3a4f;
+  --text-muted: #6a7a90;
+  --text-faint: rgba(0, 0, 0, 0.45);
+
+  /* Dark / glass */
+  --text-light: #e2e8f0;
+  --text-light-secondary: #cbd5e1;
+  --text-light-muted: #94a3b8;
+  --text-light-faint: rgba(255, 255, 255, 0.35);
+
+  --text-white-90: rgba(255, 255, 255, 0.9);
+  --text-white-70: rgba(255, 255, 255, 0.7);
+  --text-white-50: rgba(255, 255, 255, 0.5);
+
+  /* ============================================================
+     🔁 BACKWARD COMPATIBILITY (NO ROMPE NADA)
+     ============================================================ */
+  --text-main: var(--text-primary);
+  --text-soft: var(--text-secondary);
+
+  /* ============================================================
+     🔔 STATES — SISTEMA
+     ============================================================ */
+  --success: #22c55e;
+  --success-soft: rgba(34, 197, 94, 0.15);
+
+  --warning: #eab308;
+  --warning-soft: rgba(234, 179, 8, 0.16);
+
+  --danger: #dc2626;
+  --danger-soft: rgba(220, 38, 38, 0.15);
+
+  --info: #0ea5e9;
+  --info-soft: rgba(14, 165, 233, 0.15);
+
+  /* Alias explícito para acciones destructivas */
+  --destructive: var(--danger);
+  --destructive-soft: var(--danger-soft);
+
+  /* ============================================================
+     📏 BORDERS
+     ============================================================ */
+  --border: #dbe3ee;
+  --border-soft: #e9eef6;
+
+  --border-dark: rgba(255, 255, 255, 0.07);
+  --border-dark-strong: rgba(255, 255, 255, 0.18);
+
+  /* ============================================================
+     🕶️ SHADOWS
+     ============================================================ */
+  --shadow-sm: 0 10px 24px rgba(15, 23, 42, 0.055);
+  --shadow-md: 0 18px 42px rgba(15, 23, 42, 0.12);
+  --shadow-lg: 0 28px 72px rgba(15, 23, 42, 0.18);
+  --shadow-card: 0 22px 58px rgba(15, 23, 42, 0.14);
+
+  /* ============================================================
+     🧩 RADII
+     ============================================================ */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-pill: 999px;
+
+  /* ============================================================
+     🌈 GRADIENTS
+     ============================================================ */
+  --gradient-primary: var(--brand-primary-gradient);
+  --gradient-accent: linear-gradient(135deg, #22c55e, #16a34a);
+  --gradient-dark: radial-gradient(
+    circle at top left,
+    rgba(15, 23, 42, 0.4) 0%,
+    rgba(2, 6, 23, 0.9) 100%
+  );
+
+  --glass-surface: rgba(255, 255, 255, 0.78);
+  --glass-surface-strong: rgba(255, 255, 255, 0.95);
+  --glass-border: rgba(45, 58, 79, 0.11);
+  --glass-shadow: 0 18px 44px rgba(15, 23, 42, 0.09);
+  --overlay-soft: rgba(15, 23, 42, 0.42);
+}
+
+html[data-theme='dark'] {
+  --bg-body: #070b12;
+  --bg-surface: #0c1421;
+  --bg-surface-soft: #111b2b;
+  --bg-soft: #09111d;
+  --bg-hover: rgba(255, 255, 255, 0.06);
+
+  --bg-dark: rgba(3, 7, 18, 0.98);
+  --bg-dark-soft: rgba(9, 14, 25, 0.92);
+  --bg-dark-card: rgba(15, 23, 42, 0.62);
+  --bg-dark-hover: rgba(255, 255, 255, 0.08);
+
+  --gradient-sidebar: linear-gradient(
+    180deg,
+    rgba(5, 10, 18, 0.98) 0%,
+    rgba(8, 14, 25, 0.96) 44%,
+    rgba(11, 18, 31, 0.94) 100%
+  );
+
+  --text-primary: #fbfdff;
+  --text-secondary: #dce7f5;
+  --text-muted: #9baec6;
+  --text-faint: rgba(255, 255, 255, 0.42);
+
+  --text-main: var(--text-primary);
+  --text-soft: var(--text-secondary);
+
+  --border: rgba(148, 163, 184, 0.22);
+  --border-soft: rgba(148, 163, 184, 0.14);
+  --border-dark: rgba(255, 255, 255, 0.09);
+  --border-dark-strong: rgba(255, 255, 255, 0.16);
+
+  --shadow-sm: 0 8px 18px rgba(2, 6, 23, 0.26);
+  --shadow-md: 0 18px 34px rgba(2, 6, 23, 0.32);
+  --shadow-lg: 0 28px 54px rgba(2, 6, 23, 0.4);
+  --shadow-card: 0 26px 56px rgba(2, 6, 23, 0.42);
+
+  --glass-surface: rgba(15, 22, 36, 0.76);
+  --glass-surface-strong: rgba(15, 22, 36, 0.9);
+  --glass-border: rgba(148, 163, 184, 0.16);
+  --glass-shadow: 0 18px 40px rgba(2, 6, 23, 0.4);
+  --overlay-soft: rgba(2, 6, 23, 0.66);
+}

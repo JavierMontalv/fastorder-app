@@ -1,0 +1,848 @@
+@import './Theme.css';
+
+.promociones-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-bottom: 28px;
+  overflow-x: clip;
+}
+
+.promociones-page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at top left, rgba(255, 95, 54, 0.05), transparent 22%),
+    radial-gradient(circle at top right, rgba(14, 165, 233, 0.05), transparent 20%);
+  opacity: 0.9;
+}
+
+.promociones-hero,
+.promociones-tv-spotlight,
+.promociones-stat-card,
+.promocion-card,
+.promocion-editor-panel,
+.promocion-preview-panel,
+.promociones-empty {
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+}
+
+.promociones-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) auto;
+  gap: 24px;
+  padding: 34px;
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 95, 54, 0.12), transparent 26%),
+    radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.12), transparent 24%),
+    linear-gradient(135deg, #fffefc, #f8fbff);
+}
+
+.promociones-kicker {
+  display: inline-flex;
+  width: fit-content;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(255, 95, 54, 0.1);
+  color: #e85b36;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.promociones-hero h1 {
+  margin: 16px 0 10px;
+  font-size: clamp(2.2rem, 3.5vw, 3.6rem);
+  line-height: 0.92;
+  color: #132033;
+  max-width: 840px;
+}
+
+.promociones-hero p {
+  max-width: 760px;
+  margin: 0;
+  color: #607086;
+  line-height: 1.7;
+}
+
+.promociones-hero-actions {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-width: 220px;
+}
+
+.promociones-quick-actions {
+  display: grid;
+  gap: 8px;
+  padding: 18px 18px 20px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.promociones-quick-actions span,
+.promociones-section-chip {
+  color: #708198;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.promociones-quick-actions strong {
+  color: #132033;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.promociones-quick-actions p {
+  margin: 0;
+  color: #607086;
+  line-height: 1.6;
+}
+
+.promociones-quick-buttons {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.promociones-quick-buttons .promocion-action-btn {
+  justify-content: center;
+  width: 100%;
+}
+
+.promociones-primary-btn,
+.promocion-action-btn,
+.promocion-close-btn,
+.promocion-preview-copy button {
+  border: none;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.promociones-primary-btn {
+  min-height: 52px;
+  padding: 0 22px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #ff5f36, #ff906f);
+  color: #fff;
+  font-weight: 800;
+  box-shadow: 0 14px 24px rgba(255, 95, 54, 0.2);
+}
+
+.promociones-primary-btn:hover,
+.promocion-action-btn:hover,
+.promociones-channel-tabs button:hover {
+  transform: translateY(-1px);
+}
+
+.promociones-filter {
+  display: grid;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.promociones-filter span,
+.promocion-field span,
+.promocion-meta span {
+  color: #708198;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.promociones-filter select,
+.promocion-field input,
+.promocion-field textarea,
+.promocion-field select {
+  width: 100%;
+  min-height: 48px;
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(248, 250, 252, 0.95);
+  padding: 12px 14px;
+  color: #132033;
+}
+
+.promocion-field textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.promociones-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.promociones-tv-spotlight {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px 26px;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at top left, rgba(19, 32, 51, 0.06), transparent 26%),
+    linear-gradient(135deg, #fff, #f7fafc);
+}
+
+.promociones-tv-spotlight h2 {
+  margin: 12px 0 10px;
+  font-size: clamp(1.8rem, 2.6vw, 2.5rem);
+  line-height: 1;
+  color: #132033;
+}
+
+.promociones-tv-spotlight p {
+  margin: 0;
+  color: #607086;
+  line-height: 1.75;
+}
+
+.promociones-tv-guidelines {
+  display: grid;
+  gap: 12px;
+  width: min(100%, 520px);
+}
+
+.promociones-tv-guidelines div,
+.promocion-tv-box {
+  display: grid;
+  gap: 6px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: rgba(248, 250, 252, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.promociones-tv-access-card {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background:
+    radial-gradient(circle at top right, rgba(255, 95, 54, 0.1), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.96));
+}
+
+.promociones-tv-access-url {
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(19, 32, 51, 0.06);
+  color: #425166;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.promociones-tv-access-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.promociones-tv-guidelines strong,
+.promocion-tv-box strong {
+  color: #132033;
+}
+
+.promociones-tv-guidelines span,
+.promocion-tv-box span {
+  color: #708198;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.promocion-tv-box p {
+  margin: 0;
+  color: #607086;
+  line-height: 1.55;
+}
+
+.promociones-stat-card {
+  display: grid;
+  gap: 8px;
+  padding: 22px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #fff, #f8fafc);
+}
+
+.promociones-stat-card span {
+  color: #708198;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.promociones-stat-card strong {
+  color: #132033;
+  font-size: clamp(2rem, 2.5vw, 2.35rem);
+  line-height: 1;
+}
+
+.promociones-stat-card small {
+  color: #607086;
+  line-height: 1.5;
+}
+
+.promociones-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.promociones-split-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.promociones-split-column {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+.promociones-section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 24px;
+  border-radius: 26px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+  background: linear-gradient(180deg, #ffffff, #f8fafc);
+}
+
+.promociones-section-head h2 {
+  margin: 10px 0 0;
+  font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+  line-height: 1.04;
+  color: #132033;
+}
+
+.promociones-section-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(19, 32, 51, 0.06);
+}
+
+.promociones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 20px;
+  min-width: 0;
+}
+
+.promociones-grid-single {
+  grid-template-columns: 1fr;
+}
+
+.promocion-card {
+  overflow: hidden;
+  display: grid;
+  border-radius: 28px;
+  background: #fff;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  min-width: 0;
+}
+
+.promocion-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.1);
+}
+
+.promocion-card-tv {
+  border-color: rgba(255, 95, 54, 0.18);
+  box-shadow: 0 22px 42px rgba(255, 95, 54, 0.08);
+}
+
+.promocion-card-media {
+  position: relative;
+  min-height: 210px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.promocion-card-media img,
+.promocion-card-media video,
+.promocion-preview-media img,
+.promocion-preview-media video,
+.promocion-tv-preview-screen img,
+.promocion-tv-preview-screen video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.promocion-media-asset {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.promocion-card-placeholder {
+  width: 88px;
+  height: 88px;
+  border-radius: 26px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 900;
+  backdrop-filter: blur(10px);
+}
+
+.promocion-badge {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.86);
+  color: #132033;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.promocion-badge.tipo {
+  top: 16px;
+  right: 16px;
+}
+
+.promocion-badge.tv {
+  bottom: 16px;
+  left: 16px;
+  color: #7c3aed;
+}
+
+.promocion-badge.media-kind {
+  bottom: 16px;
+  right: 16px;
+  color: #0f766e;
+}
+
+.promocion-badge.estado-activa,
+.promocion-badge.estado-preview {
+  top: 16px;
+  left: 16px;
+  color: #15803d;
+}
+
+.promocion-badge.estado-programada {
+  top: 16px;
+  left: 16px;
+  color: #2563eb;
+}
+
+.promocion-badge.estado-pausada,
+.promocion-badge.estado-borrador {
+  top: 16px;
+  left: 16px;
+  color: #64748b;
+}
+
+.promocion-card-body {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+}
+
+.promocion-copy {
+  display: grid;
+  gap: 8px;
+}
+
+.promocion-copy h3 {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.02;
+  color: #132033;
+}
+
+.promocion-copy p {
+  margin: 0;
+  color: #607086;
+  line-height: 1.6;
+}
+
+.promocion-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.promocion-meta div {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(248, 250, 252, 0.92);
+}
+
+.promocion-meta strong {
+  color: #132033;
+  line-height: 1.4;
+}
+
+.promocion-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.promocion-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 14px;
+  background: #132033;
+  color: #fff;
+  font-weight: 700;
+}
+
+.promocion-action-btn.ghost {
+  background: rgba(19, 32, 51, 0.08);
+  color: #344256;
+}
+
+.promocion-action-btn.danger {
+  background: rgba(220, 38, 38, 0.1);
+  color: #b91c1c;
+}
+
+.promociones-empty {
+  display: grid;
+  gap: 8px;
+  place-items: center;
+  min-height: 240px;
+  padding: 26px;
+  border-radius: 24px;
+  background: #fff;
+  text-align: center;
+  color: #607086;
+}
+
+.promociones-empty strong {
+  color: #132033;
+}
+
+.promocion-editor-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.48);
+  backdrop-filter: blur(6px);
+}
+
+.promocion-editor-shell {
+  width: min(1180px, 100%);
+  max-height: calc(100dvh - 40px);
+  overflow: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.72fr);
+  gap: 20px;
+}
+
+.promocion-editor-panel,
+.promocion-preview-panel {
+  display: grid;
+  gap: 18px;
+  padding: 26px;
+  border-radius: 30px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.98));
+}
+
+.promocion-editor-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.promocion-editor-head h2 {
+  margin: 10px 0 0;
+  color: #132033;
+  font-size: 28px;
+  line-height: 1.02;
+}
+
+.promocion-close-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: rgba(19, 32, 51, 0.07);
+  color: #132033;
+}
+
+.promocion-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.promocion-field {
+  display: grid;
+  gap: 8px;
+}
+
+.promocion-target-hint {
+  grid-column: span 2;
+  display: grid;
+  gap: 6px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(248, 250, 252, 0.92);
+}
+
+.promocion-target-hint.is-tv {
+  background:
+    linear-gradient(135deg, rgba(255, 95, 54, 0.08), rgba(14, 165, 233, 0.08)),
+    #fff;
+}
+
+.promocion-target-hint span {
+  color: #708198;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.promocion-target-hint strong {
+  color: #132033;
+  line-height: 1.35;
+}
+
+.promocion-target-hint p {
+  margin: 0;
+  color: #607086;
+  line-height: 1.55;
+}
+
+.promocion-field-span-2 {
+  grid-column: span 2;
+}
+
+.promocion-color-row {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 10px;
+}
+
+.promocion-editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.promocion-preview-card {
+  overflow: hidden;
+  display: grid;
+  gap: 18px;
+  padding: 18px;
+  min-height: 520px;
+  border-radius: 30px;
+  color: #fff;
+}
+
+.promocion-preview-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.promocion-preview-media {
+  min-height: 220px;
+  border-radius: 26px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.promocion-preview-copy {
+  display: grid;
+  gap: 12px;
+}
+
+.promocion-preview-copy h3 {
+  margin: 0;
+  font-size: 32px;
+  line-height: 0.96;
+}
+
+.promocion-preview-copy p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.7;
+}
+
+.promocion-preview-copy button {
+  width: fit-content;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 14px;
+  background: #fff;
+  color: #111827;
+  font-weight: 800;
+}
+
+.promocion-tv-preview-panel {
+  display: grid;
+  gap: 14px;
+}
+
+.promocion-tv-preview-frame {
+  padding: 14px;
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, #1f2937, #0f172a);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 22px 40px rgba(15, 23, 42, 0.2);
+}
+
+.promocion-tv-preview-screen {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 95, 54, 0.16), transparent 24%),
+    linear-gradient(145deg, #111827, #1f2937);
+}
+
+.promocion-tv-preview-overlay {
+  position: absolute;
+  inset: auto 16px 16px 16px;
+  display: grid;
+  gap: 6px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(8, 17, 31, 0.12), rgba(8, 17, 31, 0.82));
+  color: #fff;
+}
+
+.promocion-tv-preview-overlay span {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.promocion-tv-preview-overlay strong {
+  font-size: 24px;
+  line-height: 1.05;
+}
+
+.promocion-tv-preview-placeholder {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.74);
+  line-height: 1.6;
+}
+
+.promocion-tv-checklist {
+  margin: 0;
+  padding-left: 18px;
+  color: #607086;
+  line-height: 1.7;
+}
+
+@media (max-width: 1120px) {
+  .promociones-split-layout,
+  .promociones-summary,
+  .promociones-grid,
+  .promocion-editor-shell,
+  .promociones-hero,
+  .promociones-tv-spotlight {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .promociones-page {
+    gap: 18px;
+  }
+
+  .promociones-hero,
+  .promocion-card-body,
+  .promocion-editor-panel,
+  .promocion-preview-panel {
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .promocion-form-grid,
+  .promocion-meta,
+  .promocion-field-span-2 {
+    grid-template-columns: 1fr;
+    grid-column: span 1;
+  }
+
+  .promocion-editor-actions,
+  .promocion-actions,
+  .promociones-tv-access-actions {
+    flex-direction: column;
+  }
+
+  .promociones-primary-btn,
+  .promocion-action-btn {
+    width: 100%;
+  }
+
+  .promocion-card-media {
+    min-height: 180px;
+  }
+
+  .promocion-preview-copy h3 {
+    font-size: 26px;
+  }
+
+  .promociones-section-head {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 18px;
+    border-radius: 22px;
+  }
+}

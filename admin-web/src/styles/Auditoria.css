@@ -1,0 +1,137 @@
+.audit-page {
+  display: grid;
+  gap: 18px;
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  color: var(--text-primary);
+}
+
+.audit-hero {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 30px;
+  border: 1px solid var(--border-soft);
+  border-radius: 24px;
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.audit-eyebrow,
+.audit-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.audit-eyebrow { color: var(--brand-primary); }
+.audit-hero h1 { margin: 8px 0 4px; font-size: clamp(28px, 4vw, 42px); line-height: 1; }
+.audit-hero p { margin: 0; color: var(--text-muted); }
+
+.audit-status {
+  flex: 0 0 auto;
+  padding: 9px 12px;
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  color: var(--text-muted);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.audit-status i { width: 7px; height: 7px; border-radius: 50%; background: #f59e0b; }
+
+.audit-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.audit-summary article {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 5px 10px;
+  padding: 20px;
+  border: 1px solid var(--border-soft);
+  border-radius: 18px;
+  background: var(--bg-surface);
+}
+
+.audit-summary svg { grid-row: 1 / 4; color: var(--brand-primary); margin-top: 3px; }
+.audit-summary span { color: var(--text-muted); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+.audit-summary strong { font-size: 28px; line-height: 1; }
+.audit-summary small { color: var(--text-muted); }
+
+.audit-panel {
+  overflow: hidden;
+  border: 1px solid var(--border-soft);
+  border-radius: 22px;
+  background: var(--bg-surface);
+}
+
+.audit-toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.audit-filters { display: flex; align-items: center; gap: 6px; }
+.audit-filters > svg { margin-right: 4px; color: var(--text-muted); }
+.audit-filters button {
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.audit-filters button.active { background: var(--brand-primary-soft); color: var(--text-primary); }
+
+.audit-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: min(280px, 100%);
+  padding: 0 12px;
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  color: var(--text-muted);
+}
+.audit-search input { width: 100%; min-height: 38px; border: 0; outline: 0; background: transparent; color: var(--text-primary); }
+
+.audit-table-head {
+  display: grid;
+  grid-template-columns: 2fr 1fr 0.8fr 0.7fr;
+  gap: 16px;
+  padding: 12px 20px;
+  background: var(--bg-soft);
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.audit-empty { display: grid; justify-items: center; gap: 10px; padding: 64px 24px; text-align: center; }
+.audit-empty-icon { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 18px; background: var(--brand-primary-soft); color: var(--brand-primary); }
+.audit-empty h2 { margin: 4px 0 0; font-size: 20px; }
+.audit-empty p { max-width: 620px; margin: 0; color: var(--text-muted); line-height: 1.6; }
+.audit-scope { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 8px; }
+.audit-scope span { padding: 7px 10px; border: 1px solid var(--border-soft); border-radius: 999px; color: var(--text-muted); font-size: 11px; font-weight: 700; }
+
+@media (max-width: 800px) {
+  .audit-hero, .audit-toolbar { align-items: stretch; flex-direction: column; }
+  .audit-summary { grid-template-columns: 1fr; }
+  .audit-filters { overflow-x: auto; padding-bottom: 3px; }
+  .audit-search { width: 100%; }
+  .audit-table-head { display: none; }
+}
