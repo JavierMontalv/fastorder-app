@@ -2174,3 +2174,159 @@ html[data-theme='dark'] .db-chart-card:hover {
     height: 110px;
   }
 }
+
+/* ============================================================
+   LIGHT MODE — CLEAN OPERATION SURFACES
+   The command-center finish above is intentionally dramatic for
+   dark mode. Light mode must remain a single, calm visual system.
+============================================================ */
+
+html[data-theme='light'] .dashboard-container {
+  color: #171b24;
+}
+
+html[data-theme='light'] .layout-container,
+html[data-theme='light'] .layout-content {
+  background: #f7f6f2;
+}
+
+html[data-theme='light'] .db-command-hero,
+html[data-theme='light'] .db-intelligence-strip article,
+html[data-theme='light'] .db-ai-hero__copy,
+html[data-theme='light'] .db-ai-hero__panel,
+html[data-theme='light'] .db-chart-card,
+html[data-theme='light'] .db-section {
+  border-color: #deded8;
+  background: #ffffff;
+  box-shadow: 0 12px 34px rgba(23, 27, 36, 0.065);
+}
+
+html[data-theme='light'] .db-command-hero {
+  background:
+    radial-gradient(circle at 92% 4%, rgba(255, 95, 87, 0.09), transparent 27%),
+    linear-gradient(135deg, #ffffff 0%, #fbfaf7 100%);
+}
+
+html[data-theme='light'] .db-command-hero::before {
+  background:
+    linear-gradient(rgba(23, 27, 36, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 27, 36, 0.025) 1px, transparent 1px);
+  opacity: 0.48;
+}
+
+html[data-theme='light'] .db-command-hero::after {
+  background: linear-gradient(90deg, rgba(255, 95, 87, 0.12), rgba(20, 184, 166, 0.08));
+  filter: blur(50px);
+}
+
+html[data-theme='light'] .db-command-hero__eyebrow {
+  border-color: rgba(235, 79, 72, 0.22);
+  background: #fff1ef;
+  color: #c83e39;
+}
+
+html[data-theme='light'] .db-command-hero h1,
+html[data-theme='light'] .db-command-hero__panel strong,
+html[data-theme='light'] .db-intelligence-strip strong,
+html[data-theme='light'] .db-ai-hero__copy h2,
+html[data-theme='light'] .db-ai-hero__panel strong,
+html[data-theme='light'] .db-ai-summary-card strong,
+html[data-theme='light'] .db-chart-card__title,
+html[data-theme='light'] .db-section__title,
+html[data-theme='light'] .db-top-list__name,
+html[data-theme='light'] .db-metodos-legend__label,
+html[data-theme='light'] .db-metodos-legend__val {
+  color: #171b24;
+}
+
+html[data-theme='light'] .db-command-hero h1 span {
+  color: #eb4f48;
+}
+
+html[data-theme='light'] .db-command-hero p,
+html[data-theme='light'] .db-command-hero__panel p,
+html[data-theme='light'] .db-command-hero__panel small,
+html[data-theme='light'] .db-intelligence-strip p,
+html[data-theme='light'] .db-ai-hero__copy p,
+html[data-theme='light'] .db-ai-hero__panel p,
+html[data-theme='light'] .db-ai-summary-card p,
+html[data-theme='light'] .db-section__sub {
+  color: #677180;
+}
+
+html[data-theme='light'] .db-command-hero__chips span,
+html[data-theme='light'] .db-command-hero__panel,
+html[data-theme='light'] .db-ai-summary-card,
+html[data-theme='light'] .db-ai-hero__panel-meta span,
+html[data-theme='light'] .db-metodos-total {
+  border-color: #deded8;
+  background: #f7f6f2;
+  color: #333a46;
+  box-shadow: none;
+}
+
+html[data-theme='light'] .db-command-hero__panel {
+  background:
+    radial-gradient(circle at 92% 0%, rgba(20, 184, 166, 0.09), transparent 34%),
+    #f7f6f2;
+}
+
+html[data-theme='light'] .db-command-hero__panel span,
+html[data-theme='light'] .db-intelligence-strip span,
+html[data-theme='light'] .db-metodos-total span {
+  color: #747e8d;
+}
+
+html[data-theme='light'] .db-command-hero__meter {
+  background: #e6e5df;
+}
+
+html[data-theme='light'] .db-intelligence-strip article,
+html[data-theme='light'] .db-ai-hero__copy,
+html[data-theme='light'] .db-ai-hero__panel,
+html[data-theme='light'] .db-chart-card,
+html[data-theme='light'] .db-section {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(14, 165, 233, 0.045), transparent 30%),
+    #ffffff;
+}
+
+html[data-theme='light'] .db-ai-summary-card {
+  background: #f7f6f2;
+}
+
+html[data-theme='light'] .db-chart-card .recharts-cartesian-axis-tick-value,
+html[data-theme='light'] .db-chart-card .recharts-legend-item-text,
+html[data-theme='light'] .db-chart-card .recharts-text {
+  fill: #566171 !important;
+  stroke: transparent !important;
+}
+
+html[data-theme='light'] .db-hour-strip div,
+html[data-theme='light'] .db-top-list__rank,
+html[data-theme='light'] .db-top-list__count {
+  color: #566171;
+}
+
+html[data-theme='light'] .db-top-list__item,
+html[data-theme='light'] .db-metodos-legend__item,
+html[data-theme='light'] .db-ai-support-note {
+  border-color: #e8e7e2;
+}
+
+html[data-theme='light'] .db-metodos-total strong {
+  color: #171b24;
+}
+
+html[data-theme='light'] .db-empty-chart {
+  color: #7a8390;
+}
+
+html[data-theme='light'] .db-kpi-card:hover,
+html[data-theme='light'] .metric-card:hover,
+html[data-theme='light'] .kpi-card:hover,
+html[data-theme='light'] .db-context-card:hover,
+html[data-theme='light'] .db-chart-card:hover {
+  border-color: rgba(235, 79, 72, 0.24);
+  box-shadow: 0 16px 40px rgba(23, 27, 36, 0.09);
+}
