@@ -75,4 +75,8 @@ jobs:
         run: |
           curl --fail --retry 12 --retry-all-errors --retry-delay 10 "https://${CLOUDFRONT_DOMAIN}/"
           curl --fail --retry 12 --retry-all-errors --retry-delay 10 "https://${CLOUDFRONT_DOMAIN}/login"
-          curl --fail --retry 4 --retry-all-errors --retry-delay 5 "https://api.somoscomanda.com/"
+          curl --fail --retry 4 --retry-all-errors --retry-delay 5 \
+            -X OPTIONS "https://api.somoscomanda.com/api/auth/login" \
+            -H "Origin: https://admin.somoscomanda.com" \
+            -H "Access-Control-Request-Method: POST" \
+            -H "Access-Control-Request-Headers: content-type,authorization"
