@@ -1,6 +1,6 @@
 # COMANDA static hosting on AWS
 
-This stack creates a parallel, reversible hosting layer for the two Vite SPAs. It does not change Namecheap DNS, Vercel, EC2, or the existing API.
+This stack is the AWS production hosting layer for the two Vite SPAs. GitHub `main` is the source of truth and GitHub Actions deploys directly to AWS through OIDC. EC2 and the existing API are outside this frontend stack.
 
 ## Components
 
@@ -11,29 +11,30 @@ This stack creates a parallel, reversible hosting layer for the two Vite SPAs. I
 - Separate GitHub OIDC roles restricted to each repository and `main` branch.
 - S3 noncurrent versions retained for 30 days to support rollback.
 
-## Deployed parallel environment
+## Production environment
 
-- CloudFormation stack: `comanda-static-frontends` (`CREATE_COMPLETE`).
+- CloudFormation stack: `comanda-static-frontends` (`UPDATE_COMPLETE`).
 - Admin preview: `https://d2yqtbi3ehl8mo.cloudfront.net`.
 - Menu preview: `https://d1adlxveiv3ha.cloudfront.net`.
 - Admin distribution: `EFX88M70T55PI`.
 - Menu distribution: `E1THVYGIXF2J3N`.
-- ACM certificate: `arn:aws:acm:us-east-1:061039768875:certificate/7d86404f-6732-467a-b2e3-04515f694850` (`PENDING_VALIDATION`).
+- ACM wildcard certificate: `arn:aws:acm:us-east-1:061039768875:certificate/47d216cc-6677-4f0d-89a2-2beab0ace515` (`ISSUED`).
+- Admin alias: `admin.somoscomanda.com`.
+- Menu alias: `menu.somoscomanda.com`.
 
 Both direct S3 origins return HTTP 403. Root and client-side routes return HTTP 200 through CloudFront with the managed security headers policy.
 
-The existing API already authorizes the final origins `https://admin.somoscomanda.com` and `https://menu.somoscomanda.com`. It intentionally rejects the temporary CloudFront hostnames, so API preflight testing against those temporary names is limited without changing EC2. No EC2 or API configuration was changed.
+The existing API authorizes the final origins `https://admin.somoscomanda.com` and `https://menu.somoscomanda.com`. CI verifies those origins with a CORS preflight against `/api/auth/login`. No EC2 or API configuration was changed.
 
-## Namecheap records (do not publish yet)
+## Namecheap records
 
-ACM validation records can be published without moving traffic:
+Wildcard ACM validation record:
 
 | Type | Host | Value |
 | --- | --- | --- |
-| CNAME | `_7b41e9f5509a498e3b435dab06eafc1d.admin` | `_a0e989b4e0a7cf9925db7747293ea0cc.wzccmgtwzk.acm-validations.aws` |
-| CNAME | `_56ea490906b66ebac72cacee368e8c22.menu` | `_dcacb416af779aa781a2882eacc8954a.wzccmgtwzk.acm-validations.aws` |
+| CNAME | `_28d6bfe3f796165d66752759686d2383` | `_e27a343d7ed91dbf47841ca617a8d47b.wzccmgtwzk.acm-validations.aws` |
 
-Traffic cutover records are only applied after ACM is issued and the certificate/aliases are attached to CloudFront:
+Production traffic records:
 
 | Type | Host | Value |
 | --- | --- | --- |
@@ -44,10 +45,10 @@ Traffic cutover records are only applied after ACM is issued and the certificate
 
 Only an approved commit on `main` may assume a deployment role. GitHub Actions builds with locked dependencies, publishes non-hashed files with revalidation, publishes fingerprinted assets as immutable, invalidates CloudFront, and verifies both the SPA route and the API.
 
-The admin workflow remains dormant until `admin-web` exists on `main`. The visual pull request is not merged by this infrastructure change.
+Both workflows are active and verified end to end: build, OIDC, S3 publication, CloudFront invalidation, SPA route and API CORS.
 
 ## Cutover and rollback
 
-Cutover is a later, explicitly authorized phase. After ACM validation, update the stack with `CustomDomainCertificateArn`, wait for both distributions to be `Deployed`, then replace the Namecheap CNAME records. Vercel remains intact during the observation window.
+CloudFront aliases and the wildcard certificate are deployed before changing the Namecheap CNAME records. DNS is changed only after direct `--resolve` HTTPS checks pass for the final hostnames.
 
-Rollback is a DNS change back to `cname.vercel-dns.com`. For an application-only rollback, restore a previous S3 object version and invalidate CloudFront.
+Rollback does not depend on Vercel. Restore the required previous S3 object versions in the versioned bucket and invalidate the corresponding CloudFront distribution. Infrastructure changes are reverted through the previous CloudFormation template/parameters.
