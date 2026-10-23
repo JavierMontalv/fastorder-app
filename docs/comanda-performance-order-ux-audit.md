@@ -26,6 +26,7 @@ La capacidad actual de AWS es suficiente. La lentitud percibida proviene princip
 - Eliminación de `framer-motion` del paquete inicial raíz.
 - Caché de sesión del menú por restaurante durante 60 segundos.
 - Preconexión al dominio de API.
+- Reescritura SPA en CloudFront antes de consultar S3, evitando respuestas de error para rutas como `/:slug`.
 - Imágenes con dimensiones, decodificación asíncrona y prioridad explícita.
 - Reserva tipográfica para nombres largos, evitando saltos y superposiciones.
 - Corrección del uso condicional de hooks en la pantalla de producto.
@@ -54,6 +55,7 @@ Resultado de build: el JavaScript inicial bajó de 699.61 kB a 497.72 kB sin com
 
 - No se modificaron EC2, RDS, API ni DNS.
 - No se agregaron servicios AWS ni capacidad adicional.
+- La CloudFront Function compartida evita lecturas de error y mejora el cache hit de las rutas SPA con un costo marginal.
 - Las dependencias de producción de ambos frontends reportan cero vulnerabilidades conocidas en `npm audit --omit=dev`.
 - RDS figura como públicamente accesible. No se cambió porque cerrarlo exige validar conectividad y grupos de seguridad con la EC2; debe tratarse como una mejora de seguridad separada con reversión preparada.
 
