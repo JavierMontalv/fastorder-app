@@ -27,6 +27,7 @@ La capacidad actual de AWS es suficiente. La lentitud percibida proviene princip
 - Caché de sesión del menú por restaurante durante 60 segundos.
 - Preconexión al dominio de API.
 - Reescritura SPA en CloudFront antes de consultar S3, evitando respuestas de error para rutas como `/:slug`.
+- Los assets inexistentes conservan su error HTTP; ya no reciben `index.html` con un falso estado 200.
 - Imágenes con dimensiones, decodificación asíncrona y prioridad explícita.
 - Reserva tipográfica para nombres largos, evitando saltos y superposiciones.
 - Corrección del uso condicional de hooks en la pantalla de producto.
