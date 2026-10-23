@@ -1,0 +1,339 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Private S3 and CloudFront hosting for COMANDA admin and QR frontends.
+
+Parameters:
+  GitHubOwner:
+    Type: String
+    Default: JavierMontalv
+  CustomDomainCertificateArn:
+    Type: String
+    Default: ''
+    Description: ACM certificate ARN in us-east-1. Leave empty until DNS validation succeeds.
+
+Conditions:
+  UseCustomDomains: !Not [!Equals [!Ref CustomDomainCertificateArn, '']]
+
+Resources:
+  AdminBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      BucketName: !Sub comanda-admin-web-prod-${AWS::AccountId}
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+          - Id: RetainPreviousReleases
+            Status: Enabled
+            NoncurrentVersionExpiration:
+              NoncurrentDays: 30
+      Tags:
+        - Key: Project
+          Value: COMANDA
+        - Key: Environment
+          Value: Production
+        - Key: Application
+          Value: Admin
+
+  MenuBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      BucketName: !Sub comanda-menu-web-prod-${AWS::AccountId}
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+          - Id: RetainPreviousReleases
+            Status: Enabled
+            NoncurrentVersionExpiration:
+              NoncurrentDays: 30
+      Tags:
+        - Key: Project
+          Value: COMANDA
+        - Key: Environment
+          Value: Production
+        - Key: Application
+          Value: Menu
+
+  AdminOriginAccessControl:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: comanda-admin-oac
+        Description: Signed access from CloudFront to the private admin bucket.
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
+  MenuOriginAccessControl:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: comanda-menu-oac
+        Description: Signed access from CloudFront to the private menu bucket.
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
+  AdminDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Comment: COMANDA admin temporary AWS origin
+        Enabled: true
+        Aliases: !If
+          - UseCustomDomains
+          - [admin.somoscomanda.com]
+          - !Ref AWS::NoValue
+        HttpVersion: http2and3
+        IPV6Enabled: true
+        PriceClass: PriceClass_100
+        DefaultRootObject: index.html
+        Origins:
+          - Id: admin-s3-origin
+            DomainName: !GetAtt AdminBucket.RegionalDomainName
+            OriginAccessControlId: !GetAtt AdminOriginAccessControl.Id
+            S3OriginConfig:
+              OriginAccessIdentity: ''
+        DefaultCacheBehavior:
+          TargetOriginId: admin-s3-origin
+          ViewerProtocolPolicy: redirect-to-https
+          Compress: true
+          AllowedMethods: [GET, HEAD, OPTIONS]
+          CachedMethods: [GET, HEAD, OPTIONS]
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+          ResponseHeadersPolicyId: 67f7725c-6f97-4210-82d7-5512b31e9d03
+        CustomErrorResponses:
+          - ErrorCode: 403
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+            ErrorCachingMinTTL: 0
+          - ErrorCode: 404
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+            ErrorCachingMinTTL: 0
+        ViewerCertificate: !If
+          - UseCustomDomains
+          - AcmCertificateArn: !Ref CustomDomainCertificateArn
+            SslSupportMethod: sni-only
+            MinimumProtocolVersion: TLSv1.2_2021
+          - CloudFrontDefaultCertificate: true
+      Tags:
+        - Key: Project
+          Value: COMANDA
+        - Key: Environment
+          Value: Production
+        - Key: Application
+          Value: Admin
+
+  MenuDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Comment: COMANDA menu temporary AWS origin
+        Enabled: true
+        Aliases: !If
+          - UseCustomDomains
+          - [menu.somoscomanda.com]
+          - !Ref AWS::NoValue
+        HttpVersion: http2and3
+        IPV6Enabled: true
+        PriceClass: PriceClass_100
+        DefaultRootObject: index.html
+        Origins:
+          - Id: menu-s3-origin
+            DomainName: !GetAtt MenuBucket.RegionalDomainName
+            OriginAccessControlId: !GetAtt MenuOriginAccessControl.Id
+            S3OriginConfig:
+              OriginAccessIdentity: ''
+        DefaultCacheBehavior:
+          TargetOriginId: menu-s3-origin
+          ViewerProtocolPolicy: redirect-to-https
+          Compress: true
+          AllowedMethods: [GET, HEAD, OPTIONS]
+          CachedMethods: [GET, HEAD, OPTIONS]
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+          ResponseHeadersPolicyId: 67f7725c-6f97-4210-82d7-5512b31e9d03
+        CustomErrorResponses:
+          - ErrorCode: 403
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+            ErrorCachingMinTTL: 0
+          - ErrorCode: 404
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+            ErrorCachingMinTTL: 0
+        ViewerCertificate: !If
+          - UseCustomDomains
+          - AcmCertificateArn: !Ref CustomDomainCertificateArn
+            SslSupportMethod: sni-only
+            MinimumProtocolVersion: TLSv1.2_2021
+          - CloudFrontDefaultCertificate: true
+      Tags:
+        - Key: Project
+          Value: COMANDA
+        - Key: Environment
+          Value: Production
+        - Key: Application
+          Value: Menu
+
+  AdminBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref AdminBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowCloudFrontReadOnly
+            Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
+            Resource: !Sub ${AdminBucket.Arn}/*
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/${AdminDistribution}
+
+  MenuBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MenuBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowCloudFrontReadOnly
+            Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
+            Resource: !Sub ${MenuBucket.Arn}/*
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/${MenuDistribution}
+
+  AdminDeployRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: ComandaAdminGitHubDeployRole
+      Description: Least-privilege OIDC deployment role for the COMANDA admin frontend.
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Federated: !Sub arn:aws:iam::${AWS::AccountId}:oidc-provider/token.actions.githubusercontent.com
+            Action: sts:AssumeRoleWithWebIdentity
+            Condition:
+              StringEquals:
+                token.actions.githubusercontent.com:aud: sts.amazonaws.com
+                token.actions.githubusercontent.com:sub: !Sub repo:${GitHubOwner}/fastorder-app:ref:refs/heads/main
+      Policies:
+        - PolicyName: DeployAdminStaticAssets
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Sid: ListDeploymentBucket
+                Effect: Allow
+                Action:
+                  - s3:GetBucketLocation
+                  - s3:ListBucket
+                Resource: !GetAtt AdminBucket.Arn
+              - Sid: ReplaceDeploymentObjects
+                Effect: Allow
+                Action:
+                  - s3:DeleteObject
+                  - s3:PutObject
+                Resource: !Sub ${AdminBucket.Arn}/*
+              - Sid: InvalidateAdminDistribution
+                Effect: Allow
+                Action: cloudfront:CreateInvalidation
+                Resource: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/${AdminDistribution}
+      Tags:
+        - Key: Project
+          Value: COMANDA
+
+  MenuDeployRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: ComandaMenuGitHubDeployRole
+      Description: Least-privilege OIDC deployment role for the COMANDA QR menu frontend.
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Federated: !Sub arn:aws:iam::${AWS::AccountId}:oidc-provider/token.actions.githubusercontent.com
+            Action: sts:AssumeRoleWithWebIdentity
+            Condition:
+              StringEquals:
+                token.actions.githubusercontent.com:aud: sts.amazonaws.com
+                token.actions.githubusercontent.com:sub: !Sub repo:${GitHubOwner}/fastorder-client-qr:ref:refs/heads/main
+      Policies:
+        - PolicyName: DeployMenuStaticAssets
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Sid: ListDeploymentBucket
+                Effect: Allow
+                Action:
+                  - s3:GetBucketLocation
+                  - s3:ListBucket
+                Resource: !GetAtt MenuBucket.Arn
+              - Sid: ReplaceDeploymentObjects
+                Effect: Allow
+                Action:
+                  - s3:DeleteObject
+                  - s3:PutObject
+                Resource: !Sub ${MenuBucket.Arn}/*
+              - Sid: InvalidateMenuDistribution
+                Effect: Allow
+                Action: cloudfront:CreateInvalidation
+                Resource: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/${MenuDistribution}
+      Tags:
+        - Key: Project
+          Value: COMANDA
+
+Outputs:
+  AdminBucketName:
+    Value: !Ref AdminBucket
+  AdminDistributionId:
+    Value: !Ref AdminDistribution
+  AdminTemporaryDomain:
+    Value: !GetAtt AdminDistribution.DomainName
+  AdminDeployRoleArn:
+    Value: !GetAtt AdminDeployRole.Arn
+  MenuBucketName:
+    Value: !Ref MenuBucket
+  MenuDistributionId:
+    Value: !Ref MenuDistribution
+  MenuTemporaryDomain:
+    Value: !GetAtt MenuDistribution.DomainName
+  MenuDeployRoleArn:
+    Value: !GetAtt MenuDeployRole.Arn
