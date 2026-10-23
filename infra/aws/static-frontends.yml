@@ -273,7 +273,9 @@ Resources:
                 Resource: !Sub ${AdminBucket.Arn}/*
               - Sid: InvalidateAdminDistribution
                 Effect: Allow
-                Action: cloudfront:CreateInvalidation
+                Action:
+                  - cloudfront:CreateInvalidation
+                  - cloudfront:GetInvalidation
                 Resource: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/${AdminDistribution}
       Tags:
         - Key: Project
@@ -294,7 +296,7 @@ Resources:
             Condition:
               StringEquals:
                 token.actions.githubusercontent.com:aud: sts.amazonaws.com
-                token.actions.githubusercontent.com:sub: !Sub repo:${GitHubOwner}/fastorder-client-qr:ref:refs/heads/main
+                token.actions.githubusercontent.com:sub: !Sub repo:${GitHubOwner}/fastorder-client-qr:environment:production
       Policies:
         - PolicyName: DeployMenuStaticAssets
           PolicyDocument:
@@ -314,7 +316,9 @@ Resources:
                 Resource: !Sub ${MenuBucket.Arn}/*
               - Sid: InvalidateMenuDistribution
                 Effect: Allow
-                Action: cloudfront:CreateInvalidation
+                Action:
+                  - cloudfront:CreateInvalidation
+                  - cloudfront:GetInvalidation
                 Resource: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/${MenuDistribution}
       Tags:
         - Key: Project
