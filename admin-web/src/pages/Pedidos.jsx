@@ -984,14 +984,6 @@ export default function Pedidos() {
     }
   };
 
-  const cancelarPedido = async (pedido) => {
-    if (!pedido?.id) return;
-    const confirmado = window.confirm(`Â¿Cancelar el pedido #${pedido.numero || pedido.id}?`);
-    if (!confirmado) return;
-
-    await cambiarEstado(pedido, 'cancelado');
-  };
-
   const noAceptarOCancelarPedido = async (pedido) => {
     if (!pedido?.id) return;
     const esPendiente = pedido.estado === 'pendiente';
@@ -1010,7 +1002,7 @@ export default function Pedidos() {
   const borrarPedido = async (pedido) => {
     if (!pedido?.id) return;
     const confirmado = window.confirm(
-      `Â¿Eliminar definitivamente el pedido #${pedido.numero || pedido.id}? Esta acciÃ³n no se puede deshacer.`
+      `¿Eliminar definitivamente el pedido #${pedido.numero || pedido.id}? Esta acción no se puede deshacer.`
     );
     if (!confirmado) return;
 
@@ -1172,9 +1164,9 @@ export default function Pedidos() {
       );
     } catch (err) {
       const message = err?.status === 404
-        ? 'La versiÃ³n del panel quedÃ³ desfasada. Recarga la pÃ¡gina y vuelve a intentar.'
+        ? 'La versión del panel quedó desfasada. Recarga la página y vuelve a intentar.'
         : err?.status === 401
-          ? 'Tu sesiÃ³n expirÃ³. Inicia sesiÃ³n de nuevo para limpiar la pantalla TV.'
+          ? 'Tu sesión expiró. Inicia sesión de nuevo para limpiar la pantalla TV.'
           : (err?.message || 'No fue posible limpiar los llamados de la TV.');
       toast.error(message);
     } finally {
@@ -1494,7 +1486,7 @@ export default function Pedidos() {
                     >
                       {pedidosListos.map((pedido) => (
                         <option key={pedido.id} value={pedido.id}>
-                          {pedido.mesaLabel} Â· Pedido #{pedido.numero || pedido.id} Â· {formatCurrency(pedido.total)}
+                          {pedido.mesaLabel} · Pedido #{pedido.numero || pedido.id} · {formatCurrency(pedido.total)}
                         </option>
                       ))}
                     </select>
@@ -1682,7 +1674,7 @@ export default function Pedidos() {
               className={`pedidos-refresh-btn pedidos-unir-btn${modoUnirMesas ? ' active' : ''}`}
               onClick={() => modoUnirMesas ? cancelarModoUnir() : setModoUnirMesas(true)}
             >
-              {modoUnirMesas ? 'Cancelar uniÃ³n' : 'Unir mesas'}
+              {modoUnirMesas ? 'Cancelar unión' : 'Unir mesas'}
             </button>
           )}
           </div>
@@ -1763,7 +1755,7 @@ export default function Pedidos() {
               <div className="pedidos-toolbar-filter-cluster">
                 <div className="pedidos-toolbar-secondary-copy">
                   <span>Estado de mesas</span>
-                  <p>Lee el salÃ³n con las mesas creadas en configuraciÃ³n y filtra por disponibilidad real.</p>
+                  <p>Lee el salón con las mesas creadas en configuración y filtra por disponibilidad real.</p>
                 </div>
 
                 <div className="pedidos-subfilters pedidos-subfilters-mesas" role="tablist" aria-label="Filtros por estado de mesa">
@@ -1786,7 +1778,7 @@ export default function Pedidos() {
               <div className="pedidos-toolbar-filter-cluster">
                 <div className="pedidos-toolbar-secondary-copy">
                   <span>Estado de mesas</span>
-                  <p>Filtra las tarjetas por ocupaciÃ³n o disponibilidad del salÃ³n configurado.</p>
+                  <p>Filtra las tarjetas por ocupación o disponibilidad del salón configurado.</p>
                 </div>
 
                 <div className="pedidos-subfilters pedidos-subfilters-mesas" role="tablist" aria-label="Filtros por estado de mesa">
@@ -1830,7 +1822,7 @@ export default function Pedidos() {
           </h2>
           <p>
             {mesaDestacada
-              ? `${mesaDestacada.pedidosActivos} pedido(s) activos Â· ${mesaDestacada.totalItems} item(s) Â· ${mesaDestacada.tiempoTexto} en flujo.`
+              ? `${mesaDestacada.pedidosActivos} pedido(s) activos · ${mesaDestacada.totalItems} item(s) · ${mesaDestacada.tiempoTexto} en flujo.`
               : 'Todos los pedidos visibles ya fueron entregados o no tienen acciones pendientes.'}
           </p>
         </div>
@@ -1867,7 +1859,7 @@ export default function Pedidos() {
         <>
           {modoUnirMesas && (
             <div className="pedidos-unir-instruccion">
-              <span>Selecciona 2 o mÃ¡s mesas operativas fuera de otros grupos. Al confirmar, los tickets activos pasan a la mesa principal y la cuenta queda unificada.</span>
+              <span>Selecciona 2 o más mesas operativas fuera de otros grupos. Al confirmar, los tickets activos pasan a la mesa principal y la cuenta queda unificada.</span>
             </div>
           )}
 
@@ -1988,8 +1980,8 @@ export default function Pedidos() {
               <div className="pedidos-modal" onClick={(e) => e.stopPropagation()}>
                 <h3>Unir mesas seleccionadas</h3>
                 <p>
-                  Elige cuÃ¡l es la <strong>mesa principal</strong>. Los pedidos de todas las
-                  mesas del grupo se mostrarÃ¡n juntos en la cuenta unificada.
+                  Elige cuál es la <strong>mesa principal</strong>. Los pedidos de todas las
+                  mesas del grupo se mostrarán juntos en la cuenta unificada.
                 </p>
 
                 <label className="pedidos-modal-field">
@@ -2002,7 +1994,7 @@ export default function Pedidos() {
                       const mc = mesasConfiguradas.find((m) => m.id === mesaId);
                       return (
                         <option key={mesaId} value={mesaId}>
-                          Mesa {mc?.numero || mesaId}{mc?.nombre ? ` â€” ${mc.nombre}` : ''}
+                          Mesa {mc?.numero || mesaId}{mc?.nombre ? ` — ${mc.nombre}` : ''}
                         </option>
                       );
                     })}
@@ -2037,7 +2029,7 @@ export default function Pedidos() {
                     onClick={confirmarUnionMesas}
                     disabled={uniendoMesas || !mesaPrincipalSeleccionada}
                   >
-                    {uniendoMesas ? 'Uniendo...' : 'Confirmar uniÃ³n'}
+                    {uniendoMesas ? 'Uniendo...' : 'Confirmar unión'}
                   </button>
                 </div>
               </div>
@@ -2048,7 +2040,7 @@ export default function Pedidos() {
           {modalCuentaUnificada && (
             <div className="pedidos-modal-overlay" onClick={() => { setModalCuentaUnificada(null); setCuentaUnificadaData(null); }}>
               <div className="pedidos-modal pedidos-modal-cuenta" onClick={(e) => e.stopPropagation()}>
-                <h3>Cuenta unificada â€” {modalCuentaUnificada.mesaLabel}</h3>
+                <h3>Cuenta unificada — {modalCuentaUnificada.mesaLabel}</h3>
 
                 {cargandoCuenta ? (
                   <div className="pedidos-modal-loading">Cargando cuenta...</div>
@@ -2057,7 +2049,7 @@ export default function Pedidos() {
                     <div className="pedidos-cuenta-mesas">
                       {cuentaUnificadaData.mesas?.map((m) => (
                         <span key={m.id} className="pedidos-cuenta-mesa-chip">
-                          Mesa {m.numero}{m.nombre ? ` â€” ${m.nombre}` : ''}
+                          Mesa {m.numero}{m.nombre ? ` — ${m.nombre}` : ''}
                         </span>
                       ))}
                     </div>
@@ -2073,7 +2065,7 @@ export default function Pedidos() {
                       <div key={pedido.id} className="pedidos-cuenta-pedido">
                         <div className="pedidos-cuenta-pedido-head">
                           <span>
-                            Mesa {pedido.mesa?.numero} Â· Pedido #{pedido.numero || pedido.id}
+                            Mesa {pedido.mesa?.numero} · Pedido #{pedido.numero || pedido.id}
                           </span>
                           <span className={`pedidos-estado-chip pedidos-estado-${pedido.estado}`}>
                             {pedido.estado}
@@ -2083,7 +2075,7 @@ export default function Pedidos() {
                         <ul className="pedidos-cuenta-items">
                           {pedido.items?.map((item) => (
                             <li key={item.id}>
-                              <span>{item.cantidad}Ã— {item.nombreProducto}</span>
+                              <span>{item.cantidad}× {item.nombreProducto}</span>
                               <span>{formatCurrency(item.subtotal || item.totalItem)}</span>
                             </li>
                           ))}

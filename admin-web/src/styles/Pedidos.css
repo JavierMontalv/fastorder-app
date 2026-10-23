@@ -4718,3 +4718,80 @@ html[data-theme='dark'] .pedido-personalizacion-instrucciones {
     min-width: 0;
   }
 }
+
+/* Operación legible en el ancho real del dashboard (viewport menos sidebar). */
+.pedidos-toolbar,
+.pedidos-toolbar * {
+  min-width: 0;
+}
+
+.pedidos-toolbar-secondary {
+  grid-template-columns: 1fr;
+}
+
+.pedidos-toolbar-secondary-block:first-child {
+  grid-template-columns: minmax(170px, 0.55fr) minmax(250px, 0.9fr) minmax(250px, 1fr);
+}
+
+.pedidos-toolbar-secondary-block-end {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pedidos-toolbar-filter-cluster {
+  grid-template-columns: minmax(145px, 0.42fr) minmax(0, 1fr);
+}
+
+.pedidos-toolbar-secondary-copy span,
+.pedidos-toolbar-secondary-copy p,
+.pedidos-tab span,
+.pedidos-subfilter span {
+  overflow-wrap: anywhere;
+}
+
+.pedidos-tab,
+.pedidos-subfilter,
+.pedidos-date-preset {
+  line-height: 1.2;
+}
+
+html[data-theme='light'] .pedidos-page .pedidos-toolbar,
+html[data-theme='light'] .pedidos-page .pedidos-mesas-board {
+  border-color: rgba(148, 163, 184, 0.24);
+  background: #ffffff;
+  box-shadow: 0 16px 38px rgba(15, 23, 42, 0.07);
+}
+
+html[data-theme='light'] .pedidos-page :is(
+  .pedidos-tab,
+  .pedidos-subfilter,
+  .pedidos-date-preset
+) {
+  border-color: #d8e1ec;
+  background: #f8fafc;
+  color: #183047;
+  box-shadow: none;
+}
+
+html[data-theme='light'] .pedidos-page :is(
+  .pedidos-tab,
+  .pedidos-subfilter,
+  .pedidos-date-preset
+).active {
+  border-color: #0b84ff;
+  background: #0b84ff;
+  color: #ffffff;
+  box-shadow: 0 10px 22px rgba(11, 132, 255, 0.18);
+}
+
+@media (max-width: 1380px) {
+  .pedidos-toolbar-secondary-block-end,
+  .pedidos-toolbar-filter-cluster {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 980px) {
+  .pedidos-toolbar-secondary-block:first-child {
+    grid-template-columns: 1fr;
+  }
+}
