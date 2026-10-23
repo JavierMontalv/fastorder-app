@@ -1,0 +1,155 @@
+/* ======================================================================
+   🧩 COMANDA ENTERPRISE 2026 — ESTILOS GLOBALES
+   ----------------------------------------------------------------------
+   Rol:
+   • Capa de cohesión visual global
+   • Une Sidebar + Navbar + Dashboard
+   • NO redefine colores
+   • NO redefine tipografías
+   • NO duplica componentes
+   • SOLO layout, respiración y polish
+   ----------------------------------------------------------------------
+   Archivo: src/styles/estilos.css
+   ====================================================================== */
+
+@import './Theme.css';
+
+/* ======================================================
+   🌍 CONTEXTO GLOBAL DE LA APP
+====================================================== */
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+/* ======================================================
+   🖥️ CONTENEDOR PRINCIPAL DEL DASHBOARD
+   (no reemplaza Dashboard.css, lo complementa)
+====================================================== */
+
+.layout-container {
+  background: var(--bg-body);
+}
+
+/* ======================================================
+   📐 CONTENIDO PRINCIPAL — POLISH
+====================================================== */
+
+.layout-content {
+  position: relative;
+}
+
+/* Evita que el contenido “pegue” con el navbar */
+.layout-content::before {
+  content: '';
+  display: block;
+  height: 8px;
+}
+
+/* ======================================================
+   🧱 CONTENEDORES ESTÁNDAR
+====================================================== */
+
+.fo-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.fo-section {
+  margin-bottom: 32px;
+}
+
+.fo-section-sm {
+  margin-bottom: 20px;
+}
+
+/* ======================================================
+   📊 HEADERS DE PÁGINA (GLOBAL)
+====================================================== */
+
+.fo-page-header {
+  margin-bottom: 28px;
+}
+
+.fo-page-header h1 {
+  font-size: var(--font-3xl);
+  font-weight: var(--weight-bold);
+  color: var(--text-primary);
+  letter-spacing: -0.4px;
+}
+
+.fo-page-header p {
+  margin-top: 6px;
+  font-size: var(--font-md);
+  color: var(--text-muted);
+}
+
+/* ======================================================
+   🧾 EMPTY STATES (GENÉRICO)
+====================================================== */
+
+.fo-empty {
+  margin-top: 48px;
+  padding: 48px;
+
+  text-align: center;
+
+  background: var(--bg-surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.fo-empty-icon {
+  font-size: 40px;
+  margin-bottom: 14px;
+  color: var(--brand-primary);
+}
+
+.fo-empty-title {
+  font-size: 20px;
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+
+.fo-empty-text {
+  margin-top: 8px;
+  font-size: var(--font-md);
+  color: var(--text-secondary);
+}
+
+/* ======================================================
+   🧠 MICRO–POLISH GLOBAL
+====================================================== */
+
+/* Evita selección accidental en íconos UI */
+.fo-no-select {
+  user-select: none;
+}
+
+/* Separador visual neutro */
+.fo-spacer {
+  height: 24px;
+}
+
+/* ======================================================
+   📱 RESPONSIVE GLOBAL
+====================================================== */
+
+@media (max-width: 900px) {
+  .fo-container {
+    padding: 0 8px;
+  }
+
+  .fo-empty {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .fo-page-header h1 {
+    font-size: var(--font-2xl);
+  }
+}

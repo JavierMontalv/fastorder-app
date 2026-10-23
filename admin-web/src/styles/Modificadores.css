@@ -1,0 +1,353 @@
+/* admin-web/src/styles/Modificadores.css */
+/* ======================================================================
+   🧩 Modificadores — COMANDA ENTERPRISE 2026
+   ----------------------------------------------------------------------
+   • Estilos aislados (no mezcla con Producto)
+   • Basado en Theme.css tokens (fo-card, fo-glass, etc.)
+   ====================================================================== */
+
+@import './Theme.css';
+
+.modificadores {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modificadores-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.modificadores-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modificadores-title {
+  font-size: var(--font-xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.02em;
+}
+
+.modificadores-subtitle {
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: var(--font-md);
+}
+
+.modificadores-badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.modificadores-badge {
+  font-size: var(--font-sm);
+  color: var(--text-soft);
+  background: var(--bg-surface-soft);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 6px 10px;
+}
+
+.modificadores-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modificadores-btn {
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.modificadores-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.modificadores-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.modificadores-btn.secundario {
+  background: transparent;
+}
+
+.modificadores-icon-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+  background: var(--bg-surface);
+  cursor: pointer;
+  transition: var(--transition);
+  color: var(--text-main);
+  font-weight: var(--weight-bold);
+}
+
+.modificadores-icon-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.modificadores-icon-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.modificadores-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-soft);
+}
+
+.modificadores-crear {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modificadores-crear-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.modificadores-h3 {
+  font-size: var(--font-lg);
+  font-weight: var(--weight-semibold);
+}
+
+.modificadores-h4 {
+  font-size: var(--font-md);
+  font-weight: var(--weight-semibold);
+}
+
+.modificadores-help {
+  margin-top: 4px;
+  font-size: var(--font-sm);
+  color: var(--text-muted);
+}
+
+.modificadores-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.modificadores-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modificadores-label {
+  font-size: var(--font-sm);
+  color: var(--text-soft);
+}
+
+.modificadores-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  background: var(--bg-surface-soft);
+  border: 1px solid var(--border);
+  font-size: var(--font-md);
+  color: var(--text-main);
+  transition: var(--transition);
+}
+
+.modificadores-input:focus {
+  outline: none;
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 3px var(--brand-primary-soft);
+  background: white;
+}
+
+.modificadores-input:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.modificadores-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modificadores-grupo {
+  padding: 14px;
+}
+
+.modificadores-grupo-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.modificadores-grupo-toggle {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.modificadores-grupo-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.modificadores-meta {
+  font-size: var(--font-sm);
+  color: var(--text-muted);
+}
+
+.modificadores-chip {
+  font-size: var(--font-sm);
+  color: var(--text-soft);
+  background: var(--bg-surface-soft);
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  padding: 6px 10px;
+  white-space: nowrap;
+}
+
+.modificadores-grupo-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.modificadores-crear-opcion {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 12px;
+}
+
+.modificadores-crear-opcion-left {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+.modificadores-crear-opcion-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modificadores-opciones {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modificadores-opcion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-soft);
+}
+
+.modificadores-opcion-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.modificadores-opcion-nombre {
+  font-size: var(--font-md);
+  color: var(--text-main);
+  font-weight: var(--weight-semibold);
+}
+
+.modificadores-opcion-pill {
+  font-size: var(--font-xs);
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  color: var(--text-soft);
+  background: var(--bg-surface-soft);
+}
+
+.modificadores-opcion-precio {
+  font-size: var(--font-sm);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.modificadores-opcion-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.modificadores-empty {
+  padding: 14px;
+  border: 1px dashed var(--border-soft);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.modificadores-empty.mini {
+  padding: 10px 12px;
+}
+
+.modificadores-note {
+  margin-top: 6px;
+  font-size: var(--font-sm);
+  color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .modificadores-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modificadores-crear-opcion-left {
+    grid-template-columns: 1fr;
+  }
+
+  .modificadores-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .modificadores-header-right {
+    justify-content: flex-end;
+  }
+}

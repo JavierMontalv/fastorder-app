@@ -1,0 +1,463 @@
+/* src/styles/Onboarding.css */
+
+@import './Theme.css';
+
+.fo-onboarding {
+  min-height: 100vh;
+  color: #f8fafc;
+  background:
+    radial-gradient(900px 420px at 12% -16%, rgba(255, 76, 41, 0.18), transparent 58%),
+    linear-gradient(135deg, #090b10 0%, #10131b 44%, #17110f 100%);
+}
+
+.fo-onboarding-shell {
+  width: min(1120px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 48px 0;
+}
+
+.fo-onboarding-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 22px;
+  align-items: end;
+  margin-bottom: 22px;
+}
+
+.fo-onboarding-hero {
+  min-width: 0;
+}
+
+.fo-onboarding-eyebrow,
+.fo-onboarding-card-kicker {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border-radius: 999px;
+  border: 1px solid rgba(226, 232, 240, 0.16);
+  background: rgba(255, 255, 255, 0.045);
+  color: #dbe4f0;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.fo-onboarding-eyebrow {
+  height: 28px;
+  padding: 0 11px;
+}
+
+.fo-onboarding-card-kicker {
+  height: 24px;
+  padding: 0 9px;
+  margin-bottom: 10px;
+  color: #ffb29f;
+  border-color: rgba(255, 76, 41, 0.22);
+  background: rgba(255, 76, 41, 0.09);
+}
+
+.fo-onboarding-title {
+  max-width: 760px;
+  margin-top: 14px;
+  color: #ffffff;
+  font-size: 38px;
+  line-height: 1.06;
+  letter-spacing: 0;
+}
+
+.fo-onboarding-subtitle {
+  max-width: 740px;
+  margin-top: 10px;
+  color: #b9c4d3;
+  font-size: 15px;
+}
+
+.fo-onboarding-status,
+.fo-onboarding-aside,
+.fo-onboarding-card {
+  border: 1px solid rgba(226, 232, 240, 0.14);
+  background: rgba(11, 15, 24, 0.88);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+}
+
+.fo-onboarding-status {
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.fo-onboarding-status-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.fo-onboarding-pill {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  height: 28px;
+  padding: 0 11px;
+  border-radius: 999px;
+  background: rgba(255, 76, 41, 0.14);
+  color: #ffb29f;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.fo-onboarding-percent {
+  color: #cbd5e1;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.fo-onboarding-progressbar {
+  height: 9px;
+  margin-top: 12px;
+  border-radius: 999px;
+  background: rgba(226, 232, 240, 0.12);
+  overflow: hidden;
+}
+
+.fo-onboarding-progressfill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #ff4c29, #ff8a63);
+  transition: width 180ms ease;
+}
+
+.fo-onboarding-status-copy {
+  margin-top: 10px;
+  color: #95a3b5;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.fo-onboarding-grid {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 18px;
+}
+
+.fo-onboarding-aside,
+.fo-onboarding-card {
+  border-radius: 8px;
+}
+
+.fo-onboarding-aside {
+  padding: 16px;
+  height: fit-content;
+}
+
+.fo-onboarding-stepper {
+  display: grid;
+  gap: 10px;
+}
+
+.fo-step {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 12px;
+  width: 100%;
+  padding: 12px;
+  text-align: left;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  cursor: default;
+}
+
+.fo-step:not(:disabled) {
+  cursor: pointer;
+}
+
+.fo-step-index {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(226, 232, 240, 0.1);
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.fo-step-copy {
+  min-width: 0;
+}
+
+.fo-step-title,
+.fo-step-desc {
+  display: block;
+}
+
+.fo-step-title {
+  color: #f8fafc;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.fo-step-desc {
+  margin-top: 3px;
+  color: #94a3b8;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.fo-step-active {
+  border-color: rgba(255, 76, 41, 0.36);
+  background: rgba(255, 76, 41, 0.1);
+}
+
+.fo-step-active .fo-step-index {
+  background: #ff4c29;
+  color: #ffffff;
+}
+
+.fo-step-done .fo-step-index {
+  background: rgba(34, 197, 94, 0.18);
+  color: #86efac;
+}
+
+.fo-step-pending {
+  opacity: 0.7;
+}
+
+.fo-onboarding-policy,
+.fo-onboarding-next {
+  border-radius: 8px;
+  border: 1px solid rgba(34, 197, 94, 0.18);
+  background: rgba(6, 78, 59, 0.14);
+}
+
+.fo-onboarding-policy {
+  margin-top: 18px;
+  padding: 15px;
+}
+
+.fo-onboarding-policy-title {
+  color: #d1fae5;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.fo-onboarding-policy p {
+  margin-top: 6px;
+  color: #a7f3d0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.fo-onboarding-card {
+  padding: 24px;
+}
+
+.fo-onboarding-card-head {
+  margin-bottom: 18px;
+}
+
+.fo-onboarding-h2 {
+  color: #ffffff;
+  font-size: 27px;
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+
+.fo-onboarding-p {
+  max-width: 680px;
+  margin-top: 7px;
+  color: #aeb9c9;
+  font-size: 14px;
+}
+
+.fo-onboarding-form {
+  display: grid;
+  gap: 15px;
+}
+
+.fo-onboarding-form-two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.fo-field {
+  display: grid;
+  gap: 8px;
+}
+
+.fo-label {
+  color: #dbe4f0;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.fo-field-hint {
+  justify-self: end;
+  color: #7f8ea3;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.fo-onboarding .fo-input {
+  min-height: 44px;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 8px;
+  background: #0f1624;
+  color: #f8fafc;
+  font-weight: 750;
+}
+
+.fo-onboarding .fo-input::placeholder {
+  color: #64748b;
+}
+
+.fo-onboarding .fo-input:focus {
+  border-color: #ff795c;
+  box-shadow: 0 0 0 3px rgba(255, 76, 41, 0.16);
+  background: #111b2b;
+}
+
+.fo-textarea {
+  min-height: 118px;
+  resize: vertical;
+}
+
+.fo-onboarding-next {
+  padding: 13px 14px;
+  color: #a7f3d0;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.fo-onboarding-next-wide {
+  grid-column: 1 / -1;
+}
+
+.fo-onboarding-loading,
+.fo-onboarding-alert {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  padding: 13px 14px;
+}
+
+.fo-onboarding-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(15, 23, 42, 0.62);
+  color: #cbd5e1;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.fo-onboarding-alert {
+  border: 1px solid rgba(248, 113, 113, 0.32);
+  background: rgba(127, 29, 29, 0.22);
+}
+
+.fo-onboarding-alert-title {
+  color: #fecaca;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.fo-onboarding-alert-text {
+  margin-top: 4px;
+  color: #fca5a5;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.fo-onboarding-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.fo-onboarding-actions-right {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.fo-onboarding .fo-btn {
+  min-height: 42px;
+  border-radius: 8px;
+  font-weight: 900;
+}
+
+.fo-onboarding .fo-btn-primary {
+  background: #ff4c29;
+  color: #ffffff;
+}
+
+.fo-onboarding .fo-btn-primary:hover {
+  background: #ff6848;
+}
+
+.fo-onboarding .fo-btn-outline {
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  color: #dbe4f0;
+  background: rgba(15, 23, 42, 0.42);
+}
+
+.fo-btn-ghost {
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  background: transparent;
+  color: #cbd5e1;
+}
+
+.fo-btn-ghost:hover {
+  background: rgba(148, 163, 184, 0.1);
+}
+
+.fo-spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.28);
+  border-top-color: #ffffff;
+  animation: foSpin 0.75s linear infinite;
+}
+
+@keyframes foSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 980px) {
+  .fo-onboarding-shell {
+    width: min(100% - 24px, 720px);
+    padding: 30px 0;
+  }
+
+  .fo-onboarding-header,
+  .fo-onboarding-grid,
+  .fo-onboarding-form-two {
+    grid-template-columns: 1fr;
+  }
+
+  .fo-onboarding-title {
+    font-size: 31px;
+  }
+}
+
+@media (max-width: 640px) {
+  .fo-onboarding-actions,
+  .fo-onboarding-actions-right {
+    flex-direction: column;
+  }
+
+  .fo-onboarding-actions-right {
+    flex-direction: column-reverse;
+  }
+
+  .fo-onboarding .fo-btn {
+    width: 100%;
+  }
+}

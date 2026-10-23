@@ -1,0 +1,1147 @@
+@import './Theme.css';
+
+html[data-theme='dark'] .pedidos-page,
+html[data-theme='dark'] .productos-container,
+html[data-theme='dark'] .categorias-container,
+html[data-theme='dark'] .promociones-page,
+html[data-theme='dark'] .analiticas-page,
+html[data-theme='dark'] .configuracion-page,
+html[data-theme='dark'] .sia-page,
+html[data-theme='dark'] .team-shell {
+  color: var(--text-primary);
+}
+
+html[data-theme='dark'] :is(
+  .pedidos-hero,
+  .pedidos-toolbar,
+  .pedidos-display-panel,
+  .pedidos-priority-panel,
+  .pedido-card,
+  .pedidos-feedback,
+  .pedidos-summary-card,
+  .pro-card,
+  .productos-operativa-panel,
+  .categorias-header,
+  .categorias-empty,
+  .categorias-error,
+  .modal-categoria,
+  .categoria-card,
+  .catalogo-hero,
+  .catalogo-categorias-panel,
+  .productos-real-panel,
+  .starter-pack-banner,
+  .starter-hero,
+  .starter-module-card,
+  .promociones-hero,
+  .promociones-tv-spotlight,
+  .promociones-stat-card,
+  .promocion-card,
+  .promocion-editor-panel,
+  .promocion-preview-panel,
+  .promociones-empty,
+  .analiticas-hero,
+  .analiticas-toolbar,
+  .analiticas-meta-card,
+  .sia-stats-bar,
+  .sia-economics-card,
+  .sia-locked-card,
+  .sia-sidebar,
+  .sia-chat-panel,
+  .team-hero,
+  .team-panel,
+  .team-strategy-card,
+  .team-summary-card,
+  .configuracion-hero,
+  .config-panel,
+  .configuracion-feedback,
+  .configuracion-footer,
+  .config-mesas-section,
+  .config-mesa-card
+) {
+  background:
+    radial-gradient(circle at top right, rgba(245, 112, 112, 0.08), transparent 32%),
+    linear-gradient(180deg, rgba(15, 22, 36, 0.96), rgba(11, 17, 28, 0.96));
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+html[data-theme='dark'] :is(
+  .pedidos-context-card,
+  .pedidos-hero-chip,
+  .pedidos-sonido-toggle,
+  .pedidos-display-field,
+  .pedidos-display-preview-card,
+  .pedidos-priority-stats > div,
+  .pedido-card-header-stats > div,
+  .pedido-card-meta > div,
+  .pedido-card-resumen-items,
+  .pedido-order-row,
+  .pedido-order-lines,
+  .pedido-order-intent,
+  .pedido-order-money,
+  .categoria-actions .btn-card,
+  .productos-operativa-card,
+  .starter-module-meta,
+  .starter-product-pill,
+  .catalogo-categoria-card,
+  .catalogo-categoria-next-step,
+  .catalogo-producto-mini,
+  .catalogo-producto-mini-card,
+  .catalogo-producto-empty-row,
+  .productos-real-toolbar,
+  .productos-apartado-section,
+  .promociones-quick-actions,
+  .promociones-filter,
+  .promociones-tv-guidelines div,
+  .promocion-tv-box,
+  .promocion-meta div,
+  .promocion-target-hint,
+  .analiticas-rango,
+  .analiticas-tab,
+  .sia-economics-list div,
+  .sia-economics-metrics div,
+  .sia-locked-grid div,
+  .sia-prompt-btn,
+  .sia-lang-btn,
+  .sia-tab,
+  .sia-bubble--ia .sia-bubble__body,
+  .sia-error-bar,
+  .configuracion-stat-card,
+  .config-toggle-row,
+  .config-ia-summary-card,
+  .config-ia-mini,
+  .config-app-preview-toolbar,
+  .config-qr-preview,
+  .config-qr-link,
+  .config-qr-empty,
+  .config-mesa-form,
+  .team-shell-loading,
+  .team-password-toast
+) {
+  background: rgba(19, 28, 43, 0.88);
+  border-color: var(--border);
+  box-shadow: none;
+}
+
+html[data-theme='dark'] .analiticas-tab {
+  background: linear-gradient(180deg, rgba(19, 28, 43, 0.92), rgba(15, 22, 36, 0.92));
+}
+
+html[data-theme='dark'] .analiticas-tab:hover {
+  background: linear-gradient(180deg, rgba(24, 35, 52, 0.96), rgba(15, 22, 36, 0.96));
+  box-shadow: var(--shadow-sm);
+}
+
+html[data-theme='dark'] .analiticas-tab.active {
+  border-color: rgba(245, 112, 112, 0.28);
+  background:
+    radial-gradient(circle at top right, rgba(245, 112, 112, 0.12), transparent 28%),
+    linear-gradient(180deg, rgba(24, 35, 52, 0.98), rgba(15, 22, 36, 0.98));
+  box-shadow: 0 18px 34px rgba(2, 6, 23, 0.28);
+}
+
+html[data-theme='dark'] .analiticas-tab span {
+  color: var(--text-primary);
+}
+
+html[data-theme='dark'] .analiticas-tab small {
+  color: var(--text-secondary);
+}
+
+html[data-theme='dark'] :is(
+  .pedidos-page h1,
+  .pedidos-page h2,
+  .pedidos-page h3,
+  .categorias-container h2,
+  .categorias-container h3,
+  .productos-container h2,
+  .productos-container h3,
+  .productos-container h4,
+  .promociones-page h1,
+  .promociones-page h2,
+  .promociones-page h3,
+  .analiticas-page h1,
+  .analiticas-page h2,
+  .analiticas-page h3,
+  .sia-page h1,
+  .sia-page h2,
+  .sia-page h3,
+  .configuracion-page h1,
+  .configuracion-page h2,
+  .configuracion-page h3,
+  .team-shell h1,
+  .team-shell h2,
+  .team-shell h3
+) {
+  color: var(--text-primary);
+}
+
+html[data-theme='dark'] :is(
+  .pedidos-page p,
+  .categorias-container p,
+  .productos-container p,
+  .promociones-page p,
+  .analiticas-page p,
+  .sia-page p,
+  .configuracion-page p,
+  .team-shell p,
+  .team-shell li
+) {
+  color: var(--text-secondary);
+}
+
+html[data-theme='dark'] :is(
+  .pedidos-page .pedidos-summary-card span,
+  .pedidos-page .pedidos-context-card span,
+  .pedidos-page .pedidos-hero-chip span,
+  .pedidos-page .pedidos-sonido-toggle span,
+  .pedidos-page .pedidos-priority-stats span,
+  .pedidos-page .pedido-card-header-stats span,
+  .pedidos-page .pedido-card-meta span,
+  .pedidos-page .pedidos-display-field span,
+  .pedidos-page .pedidos-display-helper,
+  .pedidos-page .pedidos-display-url,
+  .pedidos-page .pedido-order-id,
+  .pedidos-page .pedido-order-footer-label,
+  .categorias-container .categoria-descripcion,
+  .categorias-container .categoria-count,
+  .productos-container .catalogo-stat-card span,
+  .productos-container .catalogo-categorias-toolbar p,
+  .productos-container .starter-module-meta span,
+  .productos-container .starter-product-pill small,
+  .productos-container .catalogo-producto-mini span,
+  .productos-container .catalogo-producto-empty-row,
+  .productos-container .productos-apartado-head p,
+  .promociones-page .promociones-stat-card span,
+  .promociones-page .promociones-quick-actions span,
+  .promociones-page .promociones-filter span,
+  .promociones-page .promocion-meta span,
+  .analiticas-page .analiticas-meta-card span,
+  .sia-page .sia-economics-kicker,
+  .sia-page .sia-stat__label,
+  .sia-page .sia-stat__pct,
+  .sia-page .sia-sidebar__section-title,
+  .sia-page .sia-sidebar__section-desc,
+  .sia-page .sia-bubble__time,
+  .configuracion-page .configuracion-stat-card span,
+  .configuracion-page .config-field span,
+  .configuracion-page .config-toggle-row span,
+  .configuracion-page .config-qr-link span,
+  .team-shell .team-kicker
+) {
+  color: var(--text-muted);
+}
+
+html[data-theme='dark'] :is(
+  .pedidos-page .pedidos-summary-card strong,
+  .pedidos-page .pedidos-context-card strong,
+  .pedidos-page .pedidos-hero-chip strong,
+  .pedidos-page .pedidos-priority-stats strong,
+  .pedidos-page .pedido-card-header-stats strong,
+  .pedidos-page .pedido-card-meta strong,
+  .pedidos-page .pedido-order-money strong,
+  .pedidos-page .pedido-order-line strong,
+  .pedidos-page .pedidos-display-preview-head h3,
+  .categorias-container .categoria-nombre,
+  .productos-container .catalogo-stat-card strong,
+  .productos-container .starter-module-meta strong,
+  .productos-container .starter-product-pill span,
+  .productos-container .catalogo-producto-mini strong,
+  .productos-container .catalogo-producto-mini b,
+  .productos-container .productos-apartado-head h4,
+  .promociones-page .promociones-stat-card strong,
+  .promociones-page .promociones-quick-actions strong,
+  .promociones-page .promocion-meta strong,
+  .analiticas-page .analiticas-meta-card strong,
+  .sia-page .sia-economics-list strong,
+  .sia-page .sia-economics-metrics strong,
+  .sia-page .sia-locked-grid strong,
+  .sia-page .sia-bubble--ia .sia-bubble__body strong,
+  .configuracion-page .configuracion-stat-card strong,
+  .configuracion-page .config-panel-head h2,
+  .configuracion-page .config-qr-link strong,
+  .configuracion-page .config-qr-head strong,
+  .team-shell .team-summary-card strong
+) {
+  color: var(--text-primary);
+}
+
+html[data-theme='dark'] :is(
+  .pedidos-page input,
+  .pedidos-page select,
+  .pedidos-page textarea,
+  .categorias-container input,
+  .productos-container input,
+  .productos-container select,
+  .productos-container textarea,
+  .promociones-page input,
+  .promociones-page select,
+  .promociones-page textarea,
+  .analiticas-page input,
+  .analiticas-page select,
+  .sia-page input,
+  .sia-page select,
+  .sia-page textarea,
+  .configuracion-page input,
+  .configuracion-page select,
+  .configuracion-page textarea,
+  .team-shell input,
+  .team-shell select,
+  .team-shell textarea
+) {
+  background: rgba(19, 28, 43, 0.84);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+html[data-theme='dark'] :is(
+  .pedidos-page input,
+  .pedidos-page select,
+  .pedidos-page textarea,
+  .categorias-container input,
+  .productos-container input,
+  .productos-container select,
+  .productos-container textarea,
+  .promociones-page input,
+  .promociones-page select,
+  .promociones-page textarea,
+  .analiticas-page input,
+  .analiticas-page select,
+  .sia-page input,
+  .sia-page select,
+  .sia-page textarea,
+  .configuracion-page input,
+  .configuracion-page select,
+  .configuracion-page textarea,
+  .team-shell input,
+  .team-shell select,
+  .team-shell textarea
+)::placeholder {
+  color: var(--text-muted);
+}
+
+html[data-theme='dark'] :is(
+  .pedidos-page input:focus,
+  .pedidos-page select:focus,
+  .pedidos-page textarea:focus,
+  .categorias-container input:focus,
+  .productos-container input:focus,
+  .productos-container select:focus,
+  .productos-container textarea:focus,
+  .promociones-page input:focus,
+  .promociones-page select:focus,
+  .promociones-page textarea:focus,
+  .analiticas-page input:focus,
+  .analiticas-page select:focus,
+  .sia-page input:focus,
+  .sia-page select:focus,
+  .sia-page textarea:focus,
+  .configuracion-page input:focus,
+  .configuracion-page select:focus,
+  .configuracion-page textarea:focus,
+  .team-shell input:focus,
+  .team-shell select:focus,
+  .team-shell textarea:focus
+) {
+  background: rgba(15, 22, 36, 0.98);
+}
+
+html[data-theme='dark'] :is(
+  .pro-card,
+  .categoria-card,
+  .catalogo-stat-card,
+  .catalogo-categoria-card,
+  .catalogo-categorias-panel,
+  .catalogo-filter-chip,
+  .starter-module-card,
+  .promocion-card,
+  .team-refresh-btn,
+  .team-filters button,
+  .team-actions button,
+  .team-modal-actions button,
+  .config-app-live-phone,
+  .config-mesa-card
+) {
+  border-color: var(--border);
+}
+
+html[data-theme='dark'] :is(
+  .pro-card,
+  .categoria-card,
+  .catalogo-stat-card,
+  .catalogo-categoria-card,
+  .catalogo-categorias-panel,
+  .catalogo-filter-chip,
+  .productos-real-panel,
+  .productos-apartado-section,
+  .starter-module-card,
+  .promocion-card,
+  .promociones-section-head,
+  .promociones-empty,
+  .team-refresh-btn,
+  .team-password-toast,
+  .config-app-live-phone,
+  .config-mesa-card
+) {
+  background: linear-gradient(180deg, rgba(15, 22, 36, 0.96), rgba(11, 17, 28, 0.96));
+}
+
+html[data-theme='dark'] :is(
+  .team-refresh-btn,
+  .team-actions button,
+  .team-modal-actions button,
+  .categorias-container .btn-card,
+  .categorias-container .btn-cancelar,
+  .productos-container .catalogo-soft-btn,
+  .productos-container .catalogo-mini-edit-btn,
+  .productos-container .catalogo-outline-btn,
+  .productos-container .starter-module-btn,
+  .catalogo-filter-chip,
+  .pedidos-page .pedido-btn-ghost,
+  .pedidos-page .pedidos-display-segmented button,
+  .promocion-action-btn.ghost,
+  .config-inline-btn.ghost
+) {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+}
+
+html[data-theme='dark'] .pedidos-page .pedidos-display-field input,
+html[data-theme='dark'] .pedidos-page .pedidos-display-field select {
+  background: rgba(19, 28, 43, 0.92);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+html[data-theme='dark'] .pedidos-page .pedidos-display-segmented button:hover:not(.active),
+html[data-theme='dark'] .pedidos-page .pedidos-tab:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme='dark'] .pedidos-page .pedidos-display-url,
+html[data-theme='dark'] .productos-container .catalogo-producto-mini,
+html[data-theme='dark'] .productos-container .catalogo-producto-empty-row,
+html[data-theme='dark'] .productos-container .starter-product-pill,
+html[data-theme='dark'] .productos-container .catalogo-producto-mini-card,
+html[data-theme='dark'] .productos-container .catalogo-categoria-next-step,
+html[data-theme='dark'] .productos-container .productos-real-toolbar,
+html[data-theme='dark'] .productos-container .productos-apartado-section,
+html[data-theme='dark'] .productos-container .productos-apartado-head,
+html[data-theme='dark'] .pedidos-page .pedido-order-lines,
+html[data-theme='dark'] .pedidos-page .pedido-order-intent,
+html[data-theme='dark'] .pedidos-page .pedido-order-money,
+html[data-theme='dark'] .pedidos-page .pedido-card-resumen-items {
+  border-color: var(--border);
+}
+
+html[data-theme='dark'] .productos-container .catalogo-producto-mini:hover,
+html[data-theme='dark'] .productos-container .catalogo-outline-btn:hover,
+html[data-theme='dark'] .productos-container .catalogo-soft-btn:hover,
+html[data-theme='dark'] .productos-container .catalogo-mini-edit-btn:hover {
+  background: rgba(245, 112, 112, 0.12);
+  border-color: rgba(245, 112, 112, 0.24);
+}
+
+html[data-theme='dark'] .productos-container .starter-module-btn {
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.24);
+}
+
+html[data-theme='dark'] .productos-container .productos-plan-usage {
+  background:
+    radial-gradient(circle at top right, rgba(96, 165, 250, 0.08), transparent 34%),
+    linear-gradient(180deg, rgba(15, 22, 36, 0.96), rgba(11, 17, 28, 0.96));
+  border-color: var(--border);
+}
+
+html[data-theme='dark'] .productos-container .productos-plan-usage strong {
+  color: var(--text-primary);
+}
+
+html[data-theme='dark'] .productos-container .productos-plan-usage p,
+html[data-theme='dark'] .productos-container .productos-plan-usage span {
+  color: var(--text-secondary);
+}
+
+html[data-theme='dark'] .productos-container .productos-plan-usage.is-full {
+  background:
+    radial-gradient(circle at top right, rgba(239, 68, 68, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(15, 22, 36, 0.96), rgba(11, 17, 28, 0.96));
+  border-color: rgba(239, 68, 68, 0.24);
+}
+
+html[data-theme='dark'] .pedidos-page .pedidos-feedback-error {
+  background: rgba(88, 28, 39, 0.42);
+  color: #fecdd3;
+  border-color: rgba(244, 63, 94, 0.24);
+}
+
+html[data-theme='dark'] .categorias-container .btn-guardar {
+  box-shadow: 0 18px 32px rgba(245, 112, 112, 0.2);
+}
+
+html[data-theme='dark'] .categoria-card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.26);
+}
+
+html[data-theme='dark'] .sia-page {
+  background: linear-gradient(180deg, rgba(8, 12, 20, 0.98), rgba(11, 17, 28, 0.98));
+}
+
+html[data-theme='dark'] .sia-page .sia-tab:hover,
+html[data-theme='dark'] .sia-page .sia-tab--active,
+html[data-theme='dark'] .sia-page .sia-prompt-btn:hover:not(:disabled),
+html[data-theme='dark'] .sia-page .sia-lang-btn:hover,
+html[data-theme='dark'] .sia-page .sia-lang-btn--active {
+  background: rgba(245, 112, 112, 0.14);
+  border-color: rgba(245, 112, 112, 0.28);
+  color: var(--text-primary);
+}
+
+html[data-theme='dark'] .sia-page .sia-progress-track,
+html[data-theme='dark'] .sia-page .sia-sidebar__divider {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme='dark'] .sia-page .sia-bubble--ia .sia-bubble__body h3 {
+  color: #fca5a5;
+}
+
+html[data-theme='dark'] .sia-page .sia-bubble--ia .sia-bubble__body hr {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme='dark'] :is(
+  .promocion-close-btn,
+  .pm-close,
+  .pro-close-btn
+) {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+
+html[data-theme='dark'] :is(
+  .promocion-close-btn:hover,
+  .pm-close:hover,
+  .pro-close-btn:hover
+) {
+  background: rgba(220, 38, 38, 0.16);
+  color: #fecaca;
+}
+
+html[data-theme='dark'] .productos-container .producto-skeleton,
+html[data-theme='dark'] .categorias-container .categoria-skeleton,
+html[data-theme='dark'] .configuracion-loading,
+html[data-theme='dark'] .db-skeleton {
+  opacity: 0.9;
+}
+
+html[data-theme='dark'] .productos-container :is(
+  .productos-operativa-copy h3,
+  .pro-card-title,
+  .starter-hero-copy h3,
+  .catalogo-hero-copy h3,
+  .catalogo-categorias-toolbar h4,
+  .catalogo-categoria-title-row h5,
+  .catalogo-producto-mini strong,
+  .productos-real-head h3,
+  .productos-apartado-head h4,
+  .starter-module-title-row h4,
+  .starter-module-meta strong,
+  .productos-operativa-card strong,
+  .catalogo-categoria-next-step strong,
+  .starter-pack-copy strong,
+  .pm-title,
+  .pm-label
+) {
+  color: var(--text-primary);
+}
+
+html[data-theme='dark'] .productos-container :is(
+  .productos-operativa-copy p,
+  .pro-card-desc,
+  .starter-hero-copy p,
+  .catalogo-hero-copy p,
+  .catalogo-categorias-toolbar p,
+  .catalogo-categoria-copy p,
+  .catalogo-producto-mini span,
+  .catalogo-producto-empty-row,
+  .productos-real-head p,
+  .productos-apartado-head p,
+  .starter-module-copy p,
+  .productos-operativa-card p,
+  .productos-real-toolbar p,
+  .catalogo-categoria-next-step p,
+  .starter-pack-copy p,
+  .pm-subtitle,
+  .pm-optional,
+  .pm-input-prefix
+) {
+  color: var(--text-secondary);
+}
+
+html[data-theme='dark'] .productos-container :is(
+  .productos-operativa-kicker,
+  .productos-operativa-card-title,
+  .catalogo-categoria-title-row span,
+  .catalogo-categoria-meta span,
+  .productos-real-kicker,
+  .productos-real-metric.neutral,
+  .starter-module-meta,
+  .starter-product-pill,
+  .pm-optional
+) {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border);
+  color: var(--text-secondary);
+}
+
+html[data-theme='dark'] .productos-container :is(
+  .starter-module-stock-chip.healthy,
+  .catalogo-stock-pill.ok,
+  .catalogo-stock-pill.sin_control
+) {
+  background: rgba(16, 185, 129, 0.16);
+  color: #86efac;
+}
+
+html[data-theme='dark'] .productos-container :is(
+  .starter-module-stock-chip.warning,
+  .catalogo-stock-pill.bajo,
+  .productos-real-metric.warning,
+  .catalogo-categoria-meta span.warning
+) {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fcd34d;
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+html[data-theme='dark'] .productos-container :is(
+  .starter-module-stock-chip.danger,
+  .catalogo-stock-pill.critico,
+  .catalogo-stock-pill.agotado,
+  .productos-real-metric.danger,
+  .catalogo-categoria-meta span.danger
+) {
+  background: rgba(239, 68, 68, 0.18);
+  color: #fda4af;
+  border-color: rgba(239, 68, 68, 0.18);
+}
+
+html[data-theme='dark'] .promociones-page :is(
+  .menu-studio,
+  .tv-studio,
+  .menu-studio-form,
+  .menu-studio-preview,
+  .tv-studio-form,
+  .tv-studio-preview,
+  .menu-studio-guides div,
+  .tv-studio-guides div,
+  .promociones-tv-access-card,
+  .menu-studio-upload,
+  .tv-studio-upload,
+  .menu-studio-preview-copy
+) {
+  border-color: var(--border);
+}
+
+html[data-theme='dark'] .promociones-page :is(
+  .menu-studio,
+  .tv-studio
+) {
+  background:
+    radial-gradient(circle at top left, rgba(245, 112, 112, 0.08), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.1), transparent 24%),
+    linear-gradient(180deg, rgba(15, 22, 36, 0.96), rgba(11, 17, 28, 0.96));
+  box-shadow: var(--shadow-sm);
+}
+
+html[data-theme='dark'] .promociones-page :is(
+  .menu-studio-form,
+  .menu-studio-preview,
+  .tv-studio-form,
+  .tv-studio-preview,
+  .menu-studio-guides div,
+  .tv-studio-guides div,
+  .promociones-tv-access-card,
+  .menu-studio-upload,
+  .tv-studio-upload,
+  .menu-studio-preview-copy
+) {
+  background: rgba(19, 28, 43, 0.88);
+  box-shadow: none;
+}
+
+html[data-theme='dark'] .promociones-page :is(
+  .menu-studio-copy h2,
+  .tv-studio-copy h2,
+  .menu-studio-guides strong,
+  .tv-studio-guides strong,
+  .promociones-tv-access-card strong,
+  .menu-studio-preview-copy strong
+) {
+  color: var(--text-primary);
+}
+
+html[data-theme='dark'] .promociones-page :is(
+  .menu-studio-copy p,
+  .tv-studio-copy p,
+  .promociones-tv-access-card p,
+  .menu-studio-upload small,
+  .tv-studio-upload small,
+  .menu-studio-preview-copy p
+) {
+  color: var(--text-secondary);
+}
+
+html[data-theme='dark'] .promociones-page :is(
+  .menu-studio-guides span,
+  .tv-studio-guides span,
+  .promociones-tv-access-card span,
+  .menu-studio-field span,
+  .tv-studio-field span,
+  .menu-studio-upload span,
+  .tv-studio-upload span
+) {
+  color: var(--text-muted);
+}
+
+html[data-theme='dark'] .promociones-page .promociones-tv-access-url {
+  background: rgba(15, 22, 36, 0.98);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+html[data-theme='dark'] .promociones-page :is(
+  .menu-studio-field input,
+  .menu-studio-field textarea,
+  .menu-studio-field select,
+  .menu-studio-upload input,
+  .tv-studio-field input,
+  .tv-studio-field textarea,
+  .tv-studio-field select,
+  .tv-studio-upload input
+) {
+  background: rgba(15, 22, 36, 0.98);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+html[data-theme='dark'] .promociones-page :is(
+  .menu-studio-field input,
+  .menu-studio-field textarea,
+  .menu-studio-field select,
+  .tv-studio-field input,
+  .tv-studio-field textarea,
+  .tv-studio-field select
+)::placeholder {
+  color: var(--text-muted);
+}
+
+html[data-theme='dark'] .promociones-page :is(
+  .menu-studio-secondary,
+  .tv-studio-secondary
+) {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+html[data-theme='dark'] .promociones-page :is(
+  .menu-studio-preview-card,
+  .menu-studio-preview-media
+) {
+  border-color: var(--border);
+}
+
+html[data-theme='dark'] .promociones-page .menu-studio-preview-card {
+  background:
+    radial-gradient(circle at top left, rgba(59, 130, 246, 0.16), transparent 26%),
+    linear-gradient(180deg, rgba(15, 22, 36, 0.98), rgba(19, 28, 43, 0.94));
+}
+
+html[data-theme='dark'] .promociones-page .menu-studio-preview-media {
+  background: linear-gradient(145deg, rgba(30, 41, 59, 0.96), rgba(15, 23, 42, 0.96));
+}
+
+html[data-theme='dark'] .promociones-page .menu-studio-preview-empty {
+  color: var(--text-secondary);
+}
+
+html[data-theme='dark'] .promociones-page .menu-studio-preview-copy span {
+  color: #93c5fd;
+}
+
+html[data-theme='dark'] .promociones-page :is(
+  .tv-studio-preview-overlay,
+  .tv-studio-preview-overlay p
+) {
+  color: #f8fafc;
+}
+
+html[data-theme='dark'] .productos-container :is(
+  .catalogo-categoria-icon,
+  .starter-module-icon
+) {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+html[data-theme='dark'] .productos-container .catalogo-categoria-card.active {
+  border-color: rgba(245, 112, 112, 0.26);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.24);
+}
+
+html[data-theme='dark'] .productos-container .catalogo-producto-mini b,
+html[data-theme='dark'] .productos-container .pro-card-precio {
+  color: #ff8a92;
+}
+
+html[data-theme='dark'] .productos-container :is(
+  .pro-card-btn-edit,
+  .pro-card-btn-delete
+) {
+  border-color: var(--border);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+html[data-theme='dark'] .productos-container .pm-modal,
+html[data-theme='dark'] .productos-container .pm-header {
+  background: linear-gradient(180deg, rgba(15, 22, 36, 0.98), rgba(11, 17, 28, 0.98));
+  border-color: var(--border);
+}
+
+html[data-theme='dark'] .productos-container :is(
+  .pm-body,
+  .pm-footer
+) {
+  background: rgba(11, 17, 28, 0.98);
+  border-color: var(--border);
+}
+
+html[data-theme='dark'] .productos-container :is(
+  .pm-input,
+  .pm-select,
+  .pm-textarea
+) {
+  background: rgba(19, 28, 43, 0.88);
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+
+html[data-theme='dark'] .productos-container :is(
+  .pm-input:hover:not(:disabled),
+  .pm-select:hover:not(:disabled),
+  .pm-textarea:hover:not(:disabled),
+  .pm-input:focus,
+  .pm-select:focus,
+  .pm-textarea:focus
+) {
+  background: rgba(15, 22, 36, 0.98);
+}
+
+html[data-theme='dark'] .productos-container :is(
+  .pm-close,
+  .pm-btn-cancel,
+  .pm-btn-add-cat
+) {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+
+html[data-theme='dark'] .productos-container :is(
+  .pm-close:hover,
+  .pm-btn-cancel:hover:not(:disabled),
+  .pm-btn-add-cat:hover:not(:disabled)
+) {
+  background: rgba(245, 112, 112, 0.12);
+  border-color: rgba(245, 112, 112, 0.24);
+  color: #ffd4d7;
+}
+
+html[data-theme='dark'] .productos-container :is(
+  .pm-stock-mode,
+  .pm-stock-link-card,
+  .pm-stock-summary,
+  .pm-dropzone,
+  .pm-estado-tabs
+) {
+  background: rgba(19, 28, 43, 0.88);
+  border-color: var(--border);
+  color: var(--text-primary);
+  box-shadow: none;
+}
+
+html[data-theme='dark'] .productos-container .pm-stock-summary {
+  background:
+    radial-gradient(circle at top right, rgba(96, 165, 250, 0.08), transparent 38%),
+    rgba(19, 28, 43, 0.92);
+}
+
+html[data-theme='dark'] .productos-container .pm-stock-summary-item {
+  border-bottom-color: rgba(148, 163, 184, 0.14);
+}
+
+html[data-theme='dark'] .productos-container .pm-stock-mode.is-active {
+  background:
+    radial-gradient(circle at top right, rgba(245, 112, 112, 0.12), transparent 36%),
+    rgba(25, 34, 49, 0.98);
+  border-color: rgba(245, 112, 112, 0.3);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+}
+
+html[data-theme='dark'] .productos-container :is(
+  .pm-stock-mode strong,
+  .pm-stock-link-card strong,
+  .pm-stock-summary strong,
+  .pm-dropzone-text strong
+) {
+  color: var(--text-primary);
+}
+
+html[data-theme='dark'] .productos-container :is(
+  .pm-stock-mode span,
+  .pm-stock-link-card span,
+  .pm-stock-summary span,
+  .pm-dropzone-text,
+  .pm-dropzone-hint,
+  .pm-char-count
+) {
+  color: var(--text-secondary);
+}
+
+html[data-theme='dark'] .productos-container :is(
+  .pm-dropzone:hover,
+  .pm-dropzone-over
+) {
+  background: rgba(31, 41, 55, 0.98);
+  border-color: rgba(245, 112, 112, 0.3);
+}
+
+html[data-theme='dark'] .productos-container .pm-dropzone-has-img {
+  border-color: var(--border);
+}
+
+html[data-theme='dark'] .productos-container :is(
+  .pm-estado-tab,
+  .pm-estado-tab:hover:not(:disabled):not(.pm-estado-tab-active-activo):not(.pm-estado-tab-active-inactivo)
+) {
+  color: var(--text-secondary);
+}
+
+html[data-theme='dark'] .productos-container .pm-estado-tab-active-activo {
+  background: rgba(20, 83, 45, 0.34);
+  color: #86efac;
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.2);
+}
+
+html[data-theme='dark'] .productos-container .pm-estado-tab-active-inactivo {
+  background: rgba(88, 28, 39, 0.42);
+  color: #fda4af;
+  box-shadow: 0 0 0 1px rgba(244, 63, 94, 0.2);
+}
+
+html[data-theme='dark'] :is(
+  .estadisticas-header,
+  .estadisticas-kpi-card,
+  .estadisticas-ia-hero,
+  .estadisticas-ia-mini-card,
+  .estadisticas-card,
+  .inventario-intro,
+  .inventario-alerta-resumen,
+  .inventario-alerta-panel,
+  .inventario-kpi-card,
+  .inventario-card,
+  .team-table-wrap,
+  .team-modal,
+  .team-profile-card,
+  .team-password-panel
+) {
+  border-color: var(--border);
+  background:
+    radial-gradient(circle at top right, rgba(245, 112, 112, 0.08), transparent 32%),
+    linear-gradient(180deg, rgba(15, 22, 36, 0.96), rgba(11, 17, 28, 0.96));
+  box-shadow: var(--shadow-sm);
+}
+
+html[data-theme='dark'] :is(
+  .estadisticas-summary div,
+  .estadisticas-ia-inline-stats div,
+  .estadisticas-ranking-item,
+  .estadisticas-empty,
+  .estadisticas-state,
+  .estadisticas-loading,
+  .estadisticas-tooltip,
+  .inventario-highlight div,
+  .inventario-ranking-item,
+  .inventario-recomendacion,
+  .historial-item,
+  .analiticas-loading,
+  .analiticas-vacio,
+  .inventario-tooltip,
+  .team-table th,
+  .team-table td,
+  .team-filters button,
+  .team-actions button,
+  .team-close
+) {
+  background: rgba(19, 28, 43, 0.88);
+  border-color: var(--border);
+  box-shadow: none;
+}
+
+html[data-theme='dark'] :is(
+  .estadisticas-header h2,
+  .estadisticas-summary strong,
+  .estadisticas-kpi-card strong,
+  .estadisticas-ia-hero h3,
+  .estadisticas-ia-progress strong,
+  .estadisticas-ia-inline-stats strong,
+  .estadisticas-ia-mini-card strong,
+  .estadisticas-card-header h3,
+  .estadisticas-ranking-copy strong,
+  .inventario-intro h2,
+  .inventario-highlight strong,
+  .inventario-alerta-resumen-head h3,
+  .inventario-alerta-badge-wrap strong,
+  .inventario-alerta-panel strong,
+  .inventario-kpi-card strong,
+  .inventario-card-header h3,
+  .inventario-ranking-copy strong,
+  .inventario-ranking-total,
+  .inventario-recomendacion strong,
+  .historial-title strong,
+  .team-hero-copy h1,
+  .team-strategy-card h2,
+  .team-summary-card strong,
+  .team-empty-state strong,
+  .team-user-cell strong,
+  .team-access-copy strong,
+  .team-modal-header h2,
+  .team-profile-card strong,
+  .team-password-copy strong,
+  .team-switch,
+  .team-table td
+) {
+  color: var(--text-primary);
+}
+
+html[data-theme='dark'] :is(
+  .estadisticas-header p,
+  .estadisticas-summary span,
+  .estadisticas-kpi-card span,
+  .estadisticas-kpi-card small,
+  .estadisticas-ia-hero p,
+  .estadisticas-ia-inline-stats span,
+  .estadisticas-ia-mini-card span,
+  .estadisticas-ia-mini-card small,
+  .estadisticas-card-header p,
+  .estadisticas-ranking-copy span,
+  .estadisticas-empty,
+  .estadisticas-state,
+  .estadisticas-loading,
+  .estadisticas-tooltip div,
+  .inventario-intro p,
+  .inventario-highlight span,
+  .inventario-alerta-resumen-head p,
+  .inventario-alerta-panel p,
+  .inventario-alerta-panel span,
+  .inventario-kpi-card span,
+  .inventario-kpi-card small,
+  .inventario-card-header p,
+  .inventario-ranking-copy span,
+  .inventario-recomendacion p,
+  .inventario-recomendacion span,
+  .historial-item-body span,
+  .inventario-tooltip div,
+  .team-hero-copy p,
+  .team-strategy-card li,
+  .team-summary-card p,
+  .team-summary-card span,
+  .team-empty-state span,
+  .team-user-cell span,
+  .team-user-cell small,
+  .team-access-copy span,
+  .team-table td small,
+  .team-modal-header p,
+  .team-form-grid label span,
+  .team-password-input span,
+  .team-profile-card span,
+  .team-password-copy p
+) {
+  color: var(--text-secondary);
+}
+
+html[data-theme='dark'] :is(
+  .estadisticas-badge,
+  .inventario-badge,
+  .inventario-alerta-kicker,
+  .team-pill
+) {
+  background: rgba(245, 112, 112, 0.12);
+  color: #ffb4a4;
+  border-color: rgba(245, 112, 112, 0.18);
+}
+
+html[data-theme='dark'] .team-filters button {
+  color: var(--text-primary);
+}
+
+html[data-theme='dark'] .team-filters button.active {
+  background: rgba(255, 255, 255, 0.96);
+  color: #0f172a;
+}
+
+html[data-theme='dark'] .team-actions button {
+  color: var(--text-primary);
+}
+
+html[data-theme='dark'] .team-actions button.danger {
+  background: rgba(127, 29, 29, 0.36);
+  color: #fecaca;
+}
+
+html[data-theme='dark'] .team-table th {
+  color: var(--text-muted);
+}
+
+html[data-theme='dark'] .team-table td {
+  border-bottom-color: var(--border);
+}
+
+html[data-theme='dark'] .team-summary-card-accent {
+  background:
+    radial-gradient(circle at top left, rgba(245, 112, 112, 0.12), transparent 40%),
+    linear-gradient(180deg, rgba(15, 22, 36, 0.96), rgba(11, 17, 28, 0.96));
+}
+
+html[data-theme='dark'] :is(
+  .team-profile-card.active,
+  .inventario-recomendacion,
+  .inventario-alerta-panel-main
+) {
+  background:
+    radial-gradient(circle at top right, rgba(245, 112, 112, 0.12), transparent 34%),
+    rgba(19, 28, 43, 0.94);
+}
+
+html[data-theme='dark'] .inventario-action-btn.secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+html[data-theme='dark'] .inventario-action-feedback.success {
+  background: rgba(20, 83, 45, 0.32);
+  color: #bbf7d0;
+  border-color: rgba(34, 197, 94, 0.22);
+}
+
+html[data-theme='dark'] .inventario-action-feedback.error,
+html[data-theme='dark'] .estadisticas-state-error,
+html[data-theme='dark'] .analiticas-error {
+  background: rgba(88, 28, 39, 0.42);
+  color: #fecdd3;
+  border-color: rgba(244, 63, 94, 0.24);
+}

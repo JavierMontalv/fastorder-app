@@ -1,0 +1,4353 @@
+@import './Theme.css';
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+.public-shell {
+  width: 100%;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(255, 99, 71, 0.16), transparent 26%),
+    radial-gradient(circle at 85% 12%, rgba(9, 132, 227, 0.16), transparent 24%),
+    linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+  color: #0f172a;
+}
+
+.public-shell--dark {
+  background:
+    radial-gradient(circle at top left, rgba(255, 91, 55, 0.18), transparent 24%),
+    radial-gradient(circle at 80% 10%, rgba(45, 212, 191, 0.18), transparent 26%),
+    linear-gradient(180deg, #140f22 0%, #211734 45%, #faf7ff 46%, #f8fafc 100%);
+}
+
+.public-shell--soft {
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+}
+
+.public-topbar {
+  width: min(100%, 1440px);
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.public-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.public-brand img {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  box-shadow: 0 18px 40px rgba(255, 91, 55, 0.28);
+}
+
+.public-brand strong {
+  display: block;
+  font-size: 1.05rem;
+  color: #fff;
+}
+
+.public-brand span {
+  display: block;
+  max-width: 460px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.92rem;
+}
+
+.public-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.public-link-ghost,
+.public-button--ghost {
+  color: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.public-link-ghost {
+  padding: 0.82rem 1.1rem;
+  border-radius: 999px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.public-content {
+  width: min(100%, 1440px);
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.public-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(320px, 420px);
+  gap: 1.5rem;
+  align-items: start;
+  padding: 3rem 0 4.5rem;
+}
+
+.public-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fef3c7;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.public-hero-copy h1 {
+  margin: 1.1rem 0 0.9rem;
+  font-size: clamp(2.3rem, 6vw, 4.8rem);
+  line-height: 0.96;
+  color: #fff;
+  letter-spacing: 0;
+}
+
+.public-hero-copy p {
+  max-width: 700px;
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.public-hero-actions,
+.checkout-success-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 1.6rem;
+}
+
+.public-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.9rem 1.2rem;
+  border-radius: 16px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  background: linear-gradient(135deg, #ff5d47 0%, #ff7b4d 100%);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+  box-shadow: 0 16px 36px rgba(255, 91, 55, 0.22);
+}
+
+.public-button:hover {
+  transform: translateY(-1px);
+  opacity: 0.98;
+}
+
+.public-stats-card {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1.4rem;
+  border-radius: 28px;
+  background: rgba(10, 14, 27, 0.46);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 24px 60px rgba(7, 10, 22, 0.26);
+}
+
+.public-stats-card__head {
+  display: grid;
+  gap: 0.35rem;
+  padding-bottom: 0.75rem;
+}
+
+.public-stats-card__head span {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.public-stats-card__head strong {
+  color: #fff;
+  font-size: 1.15rem;
+  line-height: 1.25;
+}
+
+.public-stat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.public-stat-row:last-child {
+  border-bottom: none;
+}
+
+.public-stat-row strong {
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+.public-sections,
+.public-plan-showcase {
+  margin-top: 3rem;
+}
+
+.public-sections {
+  position: relative;
+  margin-top: 0;
+}
+
+.public-section-heading span,
+.public-closing span {
+  display: block;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #64748b;
+}
+
+.public-section-heading h2,
+.public-closing h2 {
+  margin: 0.6rem 0 0;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.04;
+  color: #0f172a;
+  letter-spacing: 0;
+}
+
+.public-section-heading__copy {
+  max-width: 860px;
+  margin-top: 0.85rem;
+  color: #475569;
+  line-height: 1.75;
+}
+
+.public-section-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.4rem;
+}
+
+.public-section-card,
+.public-plan-card,
+.checkout-success-card {
+  border-radius: 28px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.07);
+}
+
+.public-section-card {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1.5rem;
+}
+
+.public-section-card__eyebrow span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: #fff3ed;
+  color: #c2410c;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.public-section-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #0f172a;
+}
+
+.public-section-card p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.public-plan-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.public-plan-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.45rem;
+  min-height: 100%;
+}
+
+.public-plan-card.is-featured {
+  background: linear-gradient(180deg, #1f1633 0%, #34204c 100%);
+  border-color: rgba(167, 139, 250, 0.42);
+  box-shadow: 0 28px 70px rgba(41, 22, 78, 0.28);
+}
+
+.public-plan-top strong {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 2rem;
+  letter-spacing: 0;
+  color: #0f172a;
+}
+
+.public-plan-top h3 {
+  margin: 0.8rem 0 0;
+  font-size: 1.45rem;
+  color: #0f172a;
+}
+
+.public-plan-top p {
+  margin: 0.6rem 0 0;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.public-plan-card.is-featured .public-plan-top h3,
+.public-plan-card.is-featured .public-plan-top strong {
+  color: #fff;
+}
+
+.public-plan-card.is-featured .public-plan-top p,
+.public-plan-card.is-featured .public-plan-ideal,
+.public-plan-card.is-featured li {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.public-plan-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.72rem;
+  border-radius: 999px;
+  background: #111827;
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+.public-plan-ideal {
+  min-height: 68px;
+  color: #475569;
+  line-height: 1.65;
+}
+
+.public-plan-card ul {
+  margin: 0;
+  padding: 0 0 0 1.15rem;
+  color: #334155;
+  line-height: 1.7;
+  flex: 1;
+}
+
+.public-plan-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ff5d47 0%, #ff7b4d 100%);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 16px 36px rgba(255, 91, 55, 0.18);
+}
+
+.public-plan-card.is-featured .public-plan-cta {
+  background: linear-gradient(135deg, #ffffff 0%, #f3e8ff 100%);
+  color: #2e1065;
+}
+
+.public-closing {
+  margin-top: 3rem;
+  padding: 2rem;
+  border-radius: 32px;
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.public-closing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+.public-closing h2,
+.public-closing p {
+  color: #fff;
+}
+
+.public-closing p {
+  max-width: 760px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+}
+
+.checkout-success {
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.checkout-success-card {
+  max-width: 640px;
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+}
+
+.checkout-success-card img {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  box-shadow: 0 18px 36px rgba(255, 91, 55, 0.2);
+}
+
+.checkout-success-badge {
+  display: inline-flex;
+  margin-top: 1rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  background: #ede9fe;
+  color: #6d28d9;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.checkout-success-card h1 {
+  margin: 1rem 0 0.75rem;
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  letter-spacing: 0;
+  color: #0f172a;
+}
+
+.checkout-success-card p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.checkout-success-reference {
+  margin-top: 1.3rem;
+  padding: 1rem;
+  border-radius: 20px;
+  background: #f8fafc;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+.checkout-success-reference span {
+  display: block;
+  color: #64748b;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.checkout-success-reference strong {
+  display: block;
+  margin-top: 0.45rem;
+  color: #0f172a;
+  font-size: 1.15rem;
+}
+
+.marketing-login-shell {
+  min-height: 100vh;
+  width: 100%;
+  background:
+    linear-gradient(135deg, rgba(255, 91, 55, 0.08) 0%, rgba(255, 255, 255, 0) 34%),
+    linear-gradient(180deg, #fffaf7 0%, #f8fafc 48%, #eef2ff 100%);
+  padding: 1.15rem clamp(1rem, 2vw, 1.6rem) 2rem;
+}
+
+.marketing-login-topbar {
+  width: min(100%, 1560px);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.15rem 0.25rem 1rem;
+}
+
+.marketing-login-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.marketing-login-brand img {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  box-shadow: 0 14px 34px rgba(255, 91, 55, 0.2);
+}
+
+.marketing-login-brand strong {
+  display: block;
+  font-size: 1rem;
+  color: #0f172a;
+}
+
+.marketing-login-brand span {
+  display: block;
+  color: #475569;
+  max-width: 520px;
+}
+
+.marketing-login-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0.8rem 1rem;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #0f172a;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.82);
+  font-weight: 600;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+}
+
+.marketing-login-grid {
+  width: min(100%, 1560px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 430px);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.marketing-login-grid--wide {
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 430px);
+}
+
+.marketing-login-left,
+.marketing-login-card,
+.marketing-checkout-card {
+  border-radius: 28px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.08);
+}
+
+.marketing-login-left {
+  padding: clamp(1rem, 1.6vw, 1.35rem);
+  min-width: 0;
+}
+
+.marketing-hero-band {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  padding: clamp(1.25rem, 2vw, 1.8rem);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.9)),
+    radial-gradient(circle at 8% 0%, rgba(255, 91, 55, 0.16), transparent 28%);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.marketing-announcement {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #fff1eb 0%, #fffaf4 100%);
+  border: 1px solid rgba(251, 146, 60, 0.26);
+  color: #7c2d12;
+  box-shadow: 0 14px 40px rgba(251, 146, 60, 0.08);
+}
+
+.marketing-announcement strong {
+  display: inline-flex;
+  padding: 0.24rem 0.55rem;
+  border-radius: 999px;
+  background: #ff5d47;
+  color: #fff;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.marketing-login-copy h1 {
+  margin: 1.2rem 0 0.8rem;
+  max-width: 900px;
+  font-size: clamp(2.4rem, 4.4vw, 4.45rem);
+  line-height: 1;
+  letter-spacing: 0;
+  color: #0f172a;
+}
+
+.marketing-login-kicker {
+  display: inline-flex;
+  margin-top: 1.4rem;
+  color: #6d28d9;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+}
+
+.marketing-login-copy p,
+.marketing-login-note {
+  color: #475569;
+  line-height: 1.75;
+}
+
+.marketing-login-copy p {
+  max-width: 850px;
+  font-size: 1rem;
+}
+
+.marketing-launch-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.15rem;
+}
+
+.marketing-launch-metrics div {
+  min-height: 78px;
+  padding: 0.95rem 1rem;
+  border-radius: 18px;
+  background: #0f172a;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.marketing-launch-metrics span {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.marketing-launch-metrics strong {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 1.35rem;
+  letter-spacing: 0;
+}
+
+.marketing-trust-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.marketing-trust-pills span {
+  display: inline-flex;
+  padding: 0.55rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(239, 246, 255, 0.94);
+  color: #1d4ed8;
+  font-size: 0.84rem;
+  font-weight: 600;
+  border: 1px solid rgba(37, 99, 235, 0.08);
+}
+
+.marketing-plans-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+  gap: 1rem;
+  align-items: end;
+  margin: 1.35rem 0 0.9rem;
+}
+
+.marketing-plans-head span {
+  display: block;
+  color: #6d28d9;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.marketing-plans-head h2 {
+  margin: 0.35rem 0 0;
+  max-width: 700px;
+  font-size: clamp(1.55rem, 2.4vw, 2.35rem);
+  line-height: 1.06;
+  letter-spacing: 0;
+  color: #0f172a;
+}
+
+.marketing-plans-head p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.65;
+}
+
+.marketing-plan-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 0;
+}
+
+.marketing-plan-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 520px;
+  border-radius: 24px;
+  padding: 1.2rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.96) 100%);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: 0 18px 46px rgba(15, 23, 42, 0.065);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.marketing-plan-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.1);
+}
+
+.marketing-plan-card.is-featured {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(34, 211, 238, 0.2), transparent 34%),
+    linear-gradient(180deg, #0f1b2d 0%, #1d2d47 100%);
+  color: #fff;
+  border-color: rgba(34, 211, 238, 0.28);
+}
+
+.marketing-plan-card--multisite {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(216, 180, 254, 0.24), transparent 34%),
+    linear-gradient(180deg, #261640 0%, #42265c 100%);
+  color: #fff;
+  border-color: rgba(216, 180, 254, 0.34);
+}
+
+.marketing-plan-card.is-selected {
+  border-color: rgba(255, 91, 55, 0.42);
+  box-shadow: 0 24px 60px rgba(255, 91, 55, 0.14);
+}
+
+.marketing-plan-card.is-featured p,
+.marketing-plan-card.is-featured li,
+.marketing-plan-card--multisite p,
+.marketing-plan-card--multisite li {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.marketing-plan-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.marketing-plan-card h3 {
+  margin: 0.75rem 0 0.45rem;
+  min-height: 0;
+  font-size: 1.28rem;
+  line-height: 1.18;
+  letter-spacing: 0;
+  color: #0f172a;
+  text-wrap: balance;
+}
+
+.marketing-plan-card.is-featured h3,
+.marketing-plan-card--multisite h3,
+.marketing-plan-card.is-featured .marketing-plan-price strong,
+.marketing-plan-card--multisite .marketing-plan-price strong {
+  color: #fff;
+}
+
+.marketing-plan-accent {
+  flex: none;
+  padding: 0.36rem 0.58rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.06);
+  color: #475569;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.marketing-plan-card.is-featured .marketing-plan-accent,
+.marketing-plan-card--multisite .marketing-plan-accent {
+  background: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.marketing-plan-price strong {
+  display: block;
+  font-size: clamp(1.52rem, 2vw, 1.92rem);
+  letter-spacing: 0;
+  color: #0f172a;
+}
+
+.marketing-plan-price span {
+  display: block;
+  margin-top: 0.2rem;
+  color: #64748b;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.marketing-plan-card.is-featured .marketing-plan-price span,
+.marketing-plan-card--multisite .marketing-plan-price span {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.marketing-plan-card p {
+  margin: 0.65rem 0 0;
+  color: #334155;
+  min-height: 0;
+  line-height: 1.72;
+  font-size: 0.98rem;
+}
+
+.marketing-plan-card ul {
+  margin: 1.05rem 0 1rem;
+  padding-left: 1rem;
+  line-height: 1.72;
+  color: #1f2937;
+  font-size: 0.96rem;
+}
+
+.marketing-plan-limits {
+  display: grid;
+  gap: 0.45rem;
+  margin: auto 0 1rem;
+}
+
+.marketing-plan-limits span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0.45rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.06);
+  color: #1f2937;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.marketing-plan-card.is-featured .marketing-plan-limits span {
+  background: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.marketing-multisite-tiers {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+}
+
+.marketing-multisite-tiers span {
+  padding: 0.55rem 0.7rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.09);
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.marketing-plan-badge {
+  display: inline-flex;
+  padding: 0.36rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6d28d9;
+  background: #f5f3ff;
+  font-weight: 800;
+}
+
+.marketing-plan-card.is-featured .marketing-plan-badge,
+.marketing-plan-card--multisite .marketing-plan-badge {
+  background: rgba(255, 255, 255, 0.92);
+  color: #4c1d95;
+}
+
+.marketing-plan-button,
+.login-btn {
+  width: 100%;
+  min-height: 48px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ff5d47 0%, #ff7b4d 100%);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 16px 36px rgba(255, 91, 55, 0.2);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+}
+
+.marketing-plan-button:hover:not(:disabled),
+.login-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 20px 42px rgba(255, 91, 55, 0.25);
+}
+
+.marketing-plan-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.56;
+  box-shadow: none;
+}
+
+.marketing-plan-card .marketing-plan-button {
+  margin-top: auto;
+}
+
+.marketing-legalization-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(260px, 0.95fr);
+  gap: 1rem;
+  align-items: start;
+  margin: 0 0 1rem;
+  padding: 1.1rem;
+  border-radius: 22px;
+  border: 1px solid rgba(16, 185, 129, 0.22);
+  background:
+    linear-gradient(135deg, rgba(236, 253, 245, 0.92), rgba(255, 255, 255, 0.96)),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.08), rgba(37, 99, 235, 0.06));
+  box-shadow: 0 18px 46px rgba(15, 23, 42, 0.06);
+}
+
+.marketing-legalization-copy h3 {
+  margin: 0.25rem 0 0.35rem;
+  color: #0f172a;
+  font-size: 1.18rem;
+  letter-spacing: 0;
+}
+
+.marketing-legalization-copy p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.6;
+  font-size: 0.94rem;
+}
+
+.marketing-legalization-list {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.marketing-legalization-list li {
+  position: relative;
+  padding-left: 1.35rem;
+  color: #164e3b;
+  line-height: 1.45;
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+.marketing-legalization-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.42rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: #10b981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12);
+}
+
+.marketing-legalization-actions {
+  grid-column: 1 / -1;
+  justify-content: flex-start;
+}
+
+.marketing-plans-head--secondary {
+  margin-top: 0.2rem;
+}
+
+.marketing-plans-head--secondary h2 {
+  font-size: clamp(1.25rem, 1.8vw, 1.65rem);
+}
+
+.marketing-legal-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  margin: 0 0 1rem;
+  padding: 1rem 1.1rem;
+  border-radius: 22px;
+  border: 1px solid rgba(37, 99, 235, 0.14);
+  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+  box-shadow: 0 18px 46px rgba(15, 23, 42, 0.06);
+}
+
+.marketing-legal-panel h3 {
+  margin: 0.25rem 0 0.35rem;
+  color: #0f172a;
+  font-size: 1.2rem;
+  letter-spacing: 0;
+}
+
+.marketing-legal-panel p {
+  margin: 0;
+  max-width: 860px;
+  color: #475569;
+  line-height: 1.6;
+  font-size: 0.94rem;
+}
+
+.marketing-legal-eyebrow,
+.marketing-legal-acceptance span {
+  display: block;
+  color: #1d4ed8;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.marketing-legal-actions,
+.marketing-legal-mini-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  justify-content: flex-end;
+}
+
+.marketing-legal-link,
+.marketing-legal-mini-actions button {
+  min-height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(37, 99, 235, 0.16);
+  background: #fff;
+  color: #1d4ed8;
+  padding: 0.55rem 0.75rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.marketing-legal-link:hover,
+.marketing-legal-mini-actions button:hover {
+  border-color: rgba(37, 99, 235, 0.34);
+  background: #dbeafe;
+}
+
+.marketing-enterprise-strip {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 1.15rem;
+  border-radius: 24px;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  background:
+    linear-gradient(135deg, rgba(15, 23, 42, 0.96) 0%, rgba(48, 36, 72, 0.96) 100%);
+  color: #fff;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.14);
+}
+
+.marketing-enterprise-strip span {
+  color: rgba(216, 180, 254, 0.9);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.marketing-enterprise-strip h3 {
+  margin: 0.35rem 0 0.45rem;
+  font-size: clamp(1.35rem, 2vw, 2rem);
+  line-height: 1.14;
+  letter-spacing: 0;
+  color: #fff;
+  text-wrap: balance;
+}
+
+.marketing-enterprise-strip p {
+  margin: 0;
+  max-width: 850px;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.72;
+  font-size: 0.98rem;
+}
+
+.marketing-enterprise-pricing {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.marketing-enterprise-pricing strong {
+  font-size: 1.3rem;
+}
+
+.marketing-enterprise-pricing .marketing-plan-button {
+  margin-top: 0.5rem;
+}
+
+.marketing-login-right {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.marketing-login-right--stack {
+  align-content: start;
+}
+
+.marketing-auth-card,
+.marketing-side-note {
+  border-radius: 28px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.08);
+}
+
+.marketing-auth-card {
+  padding: 1.1rem;
+  position: static;
+}
+
+.marketing-auth-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.marketing-auth-tabs button {
+  min-height: 48px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 16px;
+  background: rgba(241, 245, 249, 0.8);
+  color: #475569;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.marketing-auth-tabs button.is-active {
+  background: linear-gradient(135deg, #111827 0%, #1f2a44 100%);
+  color: #fff;
+  border-color: transparent;
+}
+
+.marketing-login-card,
+.marketing-checkout-card {
+  padding: 1.5rem;
+  display: grid;
+  gap: 0.95rem;
+}
+
+.marketing-login-card--flat {
+  box-shadow: none;
+  border: none;
+  background: transparent;
+  padding: 1rem 0.9rem 0.95rem;
+}
+
+.marketing-signup-card {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.marketing-activation-success {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.marketing-activation-success h2 {
+  margin: 0.3rem 0 0;
+  font-size: clamp(1.6rem, 3vw, 2.15rem);
+  line-height: 1.04;
+  letter-spacing: 0;
+  color: #0f172a;
+}
+
+.marketing-activation-success p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.65;
+}
+
+.marketing-activation-summary,
+.marketing-activation-reference {
+  display: grid;
+  gap: 0.3rem;
+  padding: 1rem 1.1rem;
+  border-radius: 20px;
+  background: #f8fafc;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.marketing-activation-summary {
+  background: linear-gradient(135deg, #fff7ed 0%, #fff 100%);
+  border-color: rgba(251, 146, 60, 0.2);
+}
+
+.marketing-activation-summary span,
+.marketing-activation-reference span {
+  color: #64748b;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.marketing-activation-summary strong,
+.marketing-activation-reference strong {
+  color: #0f172a;
+  overflow-wrap: anywhere;
+}
+
+.marketing-signup-head h2 {
+  margin: 0.3rem 0 0.45rem;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1.02;
+  letter-spacing: 0;
+  color: #0f172a;
+}
+
+.marketing-signup-head p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.65;
+}
+
+.marketing-signup-kicker {
+  display: inline-flex;
+  color: #6d28d9;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.marketing-signup-plan {
+  display: grid;
+  gap: 0.2rem;
+  padding: 1rem 1.1rem;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #fff7ed 0%, #fff 100%);
+  border: 1px solid rgba(251, 146, 60, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+}
+
+.marketing-signup-plan span {
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #9a3412;
+}
+
+.marketing-signup-plan strong {
+  font-family: var(--mk-display);
+  font-weight: 600;
+  color: #7c2d12;
+}
+
+.marketing-legal-acceptance {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1rem;
+  border-radius: 20px;
+  border: 1px solid rgba(37, 99, 235, 0.12);
+  background: #eff6ff;
+}
+
+.marketing-legal-acceptance p {
+  margin: 0.35rem 0 0;
+  color: #334155;
+  line-height: 1.55;
+  font-size: 0.9rem;
+}
+
+.marketing-legal-mini-actions {
+  justify-content: flex-start;
+}
+
+.marketing-legal-mini-actions button {
+  min-height: 36px;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.82rem;
+}
+
+.marketing-signup-grid {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.marketing-checkout-header span {
+  display: block;
+  color: #64748b;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.marketing-checkout-header strong {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 1.35rem;
+  color: #0f172a;
+}
+
+.marketing-login-card input,
+.marketing-checkout-card input {
+  width: 100%;
+  min-height: 48px;
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: #f8fafc;
+  padding: 0.85rem 0.95rem;
+  outline: none;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+.marketing-signup-card input {
+  width: 100%;
+  min-height: 54px;
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: #f8fafc;
+  padding: 0.95rem 1rem;
+  outline: none;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+.marketing-login-card input:focus,
+.marketing-checkout-card input:focus,
+.marketing-signup-card input:focus {
+  border-color: rgba(255, 91, 55, 0.5);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(255, 91, 55, 0.1);
+}
+
+.marketing-signup-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding: 0.95rem 1rem;
+  border-radius: 18px;
+  background: #fff7ed;
+  border: 1px solid rgba(251, 146, 60, 0.18);
+  color: #7c2d12;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.marketing-signup-check--privacy {
+  background: #f0fdf4;
+  border-color: rgba(34, 197, 94, 0.2);
+  color: #14532d;
+}
+
+.marketing-signup-check input {
+  width: 18px;
+  min-width: 18px;
+  height: 18px;
+  min-height: 18px;
+  margin-top: 0.22rem;
+  accent-color: #ff5d47;
+}
+
+.marketing-legal-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.marketing-legal-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.58);
+  backdrop-filter: blur(8px);
+}
+
+.marketing-legal-modal__card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 720px);
+  max-height: min(86vh, 760px);
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  border-radius: 24px;
+  background: #fff;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.28);
+}
+
+.marketing-legal-modal__card header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.35rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+  background: linear-gradient(135deg, #f8fafc 0%, #fff7ed 100%);
+}
+
+.marketing-legal-modal__card header span {
+  display: block;
+  color: #6d28d9;
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.marketing-legal-modal__card h2 {
+  margin: 0.35rem 0 0.3rem;
+  color: #0f172a;
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  letter-spacing: 0;
+}
+
+.marketing-legal-modal__card header p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.55;
+}
+
+.marketing-legal-modal__card header button {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.08);
+  color: #0f172a;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.marketing-legal-modal__content {
+  overflow: auto;
+  padding: 1.25rem 1.35rem 1.4rem;
+}
+
+.marketing-legal-modal__content section {
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.marketing-legal-modal__content section:first-child {
+  padding-top: 0;
+}
+
+.marketing-legal-modal__content h3 {
+  margin: 0 0 0.45rem;
+  color: #0f172a;
+  font-size: 1.05rem;
+}
+
+.marketing-legal-modal__content p {
+  margin: 0;
+  color: #334155;
+  line-height: 1.7;
+}
+
+.marketing-legal-version {
+  margin-top: 1rem !important;
+  padding: 0.9rem 1rem;
+  border-radius: 16px;
+  background: #f8fafc;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  font-size: 0.88rem;
+}
+
+.marketing-checkout-warning,
+.login-error {
+  padding: 0.8rem 0.95rem;
+  border-radius: 16px;
+  background: #fff1f2;
+  border: 1px solid rgba(244, 63, 94, 0.18);
+  color: #be123c;
+  font-size: 0.95rem;
+}
+
+.login-logo {
+  display: flex;
+  justify-content: center;
+}
+
+.login-logo-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  box-shadow: 0 14px 36px rgba(255, 91, 55, 0.18);
+}
+
+.login-title {
+  margin: 0;
+  text-align: center;
+  font-size: 1.8rem;
+  color: #0f172a;
+  letter-spacing: 0;
+}
+
+.login-subtitle {
+  margin: -0.35rem 0 0;
+  text-align: center;
+  color: #64748b;
+}
+
+.marketing-side-note {
+  padding: 1.2rem 1.25rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(248,250,252,0.94));
+}
+
+.marketing-side-note__label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #64748b;
+}
+
+.marketing-side-note ol {
+  margin: 0.9rem 0 0;
+  padding-left: 1.2rem;
+  color: #334155;
+  line-height: 1.7;
+}
+
+/* Premium commercial polish: typography, rhythm and perceived value. */
+.marketing-login-shell {
+  --mk-ink: #111827;
+  --mk-muted: #526071;
+  --mk-soft: #f7f8fb;
+  --mk-line: rgba(17, 24, 39, 0.09);
+  --mk-orange: #ff5d47;
+  --mk-blue: #1f5eff;
+  --mk-font: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mk-display: "Space Grotesk", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--mk-font);
+  background:
+    linear-gradient(135deg, rgba(255, 93, 71, 0.08) 0%, rgba(255, 255, 255, 0) 32%),
+    linear-gradient(180deg, #fffdfb 0%, #f7f9fc 50%, #eef4ff 100%);
+  color: var(--mk-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+.marketing-login-shell * {
+  letter-spacing: 0;
+}
+
+.marketing-login-left,
+.marketing-auth-card,
+.marketing-side-note {
+  border-color: var(--mk-line);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 22px 54px rgba(17, 24, 39, 0.07);
+}
+
+.marketing-hero-band {
+  padding: 1.65rem 1.75rem;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(250, 252, 255, 0.94)),
+    linear-gradient(135deg, rgba(255, 93, 71, 0.08), rgba(31, 94, 255, 0.06));
+  border-color: rgba(17, 24, 39, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+.marketing-login-brand strong {
+  font-family: var(--mk-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.marketing-login-brand span,
+.marketing-login-link,
+.marketing-login-copy p,
+.marketing-plans-head p,
+.marketing-legal-panel p,
+.marketing-side-note ol,
+.marketing-signup-head p,
+.marketing-login-note {
+  color: var(--mk-muted);
+}
+
+.marketing-login-link {
+  min-height: 42px;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  box-shadow: 0 10px 28px rgba(17, 24, 39, 0.05);
+}
+
+.marketing-announcement {
+  border-radius: 14px;
+  background: #fff7ed;
+  color: #8a3414;
+  font-weight: 650;
+}
+
+.marketing-announcement strong,
+.marketing-login-kicker,
+.marketing-plans-head span,
+.marketing-legal-eyebrow,
+.marketing-signup-kicker,
+.marketing-side-note__label,
+.marketing-legal-acceptance span {
+  font-family: var(--mk-display);
+  text-transform: none;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.marketing-login-copy h1 {
+  font-family: var(--mk-display);
+  max-width: 840px;
+  font-size: 3.08rem;
+  line-height: 1.06;
+  font-weight: 700;
+  color: var(--mk-ink);
+  text-wrap: balance;
+}
+
+.marketing-login-copy p {
+  max-width: 760px;
+  font-size: 1.04rem;
+  line-height: 1.78;
+}
+
+.marketing-launch-metrics div {
+  min-height: 82px;
+  border-radius: 20px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0)),
+    #0b1220;
+  box-shadow: 0 16px 34px rgba(11, 18, 32, 0.13);
+}
+
+.marketing-launch-metrics span {
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0;
+}
+
+.marketing-launch-metrics strong {
+  font-family: var(--mk-display);
+  font-size: 1.28rem;
+  font-weight: 800;
+}
+
+.marketing-trust-pills span {
+  min-height: 34px;
+  border-radius: 999px;
+  background: #eef6ff;
+  color: #0957d6;
+  font-weight: 750;
+  border-color: rgba(9, 87, 214, 0.12);
+}
+
+.marketing-plans-head {
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.marketing-plans-head h2 {
+  font-family: var(--mk-display);
+  max-width: 760px;
+  font-size: 1.92rem;
+  line-height: 1.11;
+  font-weight: 700;
+  color: var(--mk-ink);
+  text-wrap: balance;
+}
+
+.marketing-plan-card {
+  min-height: 486px;
+  border-radius: 22px;
+  padding: 1.18rem;
+  border-color: rgba(17, 24, 39, 0.09);
+  background: linear-gradient(180deg, #ffffff 0%, #fbfcff 100%);
+  box-shadow: 0 18px 42px rgba(17, 24, 39, 0.065);
+}
+
+.marketing-plan-card.is-featured {
+  background:
+    linear-gradient(160deg, rgba(20, 184, 166, 0.16) 0%, rgba(20, 184, 166, 0) 34%),
+    linear-gradient(180deg, #071c2b 0%, #0b3046 100%);
+  border-color: rgba(45, 212, 191, 0.24);
+  box-shadow: 0 22px 54px rgba(7, 28, 43, 0.22);
+}
+
+.marketing-plan-badge,
+.marketing-plan-accent {
+  font-family: var(--mk-display);
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.marketing-plan-badge {
+  background: #f4f0ff;
+  color: #6d28d9;
+}
+
+.marketing-plan-card h3 {
+  font-family: var(--mk-display);
+  margin-top: 0.65rem;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.marketing-plan-price strong {
+  font-family: var(--mk-display);
+  font-size: 1.62rem;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.marketing-plan-price span {
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.marketing-plan-card p,
+.marketing-plan-card ul {
+  color: #3f4b5f;
+  font-size: 0.93rem;
+  line-height: 1.72;
+}
+
+.marketing-plan-card ul {
+  padding-left: 1.05rem;
+}
+
+.marketing-plan-limits span {
+  min-height: 31px;
+  border-radius: 14px;
+  background: #f1f5f9;
+  color: #273449;
+  font-size: 0.78rem;
+  font-weight: 650;
+}
+
+.marketing-plan-button,
+.login-btn {
+  min-height: 48px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ff5d47 0%, #ff8a50 100%);
+  box-shadow: 0 14px 30px rgba(255, 93, 71, 0.2);
+}
+
+.marketing-legal-panel {
+  padding: 1.15rem 1.2rem;
+  border-radius: 20px;
+  border-color: rgba(31, 94, 255, 0.15);
+  background:
+    linear-gradient(135deg, rgba(239, 246, 255, 0.9), rgba(255, 255, 255, 0.96)),
+    linear-gradient(90deg, rgba(31, 94, 255, 0.06), rgba(255, 93, 71, 0.04));
+  box-shadow: 0 16px 40px rgba(31, 94, 255, 0.06);
+}
+
+.marketing-legal-panel h3 {
+  font-family: var(--mk-display);
+  font-size: 1.12rem;
+  font-weight: 700;
+}
+
+.marketing-legal-link,
+.marketing-legal-mini-actions button {
+  border-color: rgba(31, 94, 255, 0.18);
+  background: rgba(255, 255, 255, 0.88);
+  color: #0b55d9;
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(31, 94, 255, 0.06);
+}
+
+.marketing-enterprise-strip {
+  border-radius: 22px;
+  background: linear-gradient(135deg, #111827 0%, #24324d 100%);
+}
+
+.marketing-enterprise-strip h3 {
+  font-family: var(--mk-display);
+  font-size: 1.72rem;
+  font-weight: 800;
+}
+
+.marketing-auth-card {
+  padding: 1rem;
+  border-radius: 26px;
+}
+
+.marketing-auth-tabs {
+  padding: 0.28rem;
+  gap: 0.3rem;
+  border-radius: 16px;
+  background: #f1f5f9;
+}
+
+.marketing-auth-tabs button {
+  min-height: 42px;
+  border: none;
+  border-radius: 13px;
+  background: transparent;
+  color: #64748b;
+  font-family: var(--mk-display);
+  font-weight: 600;
+}
+
+.marketing-auth-tabs button.is-active {
+  background: #111827;
+  box-shadow: 0 10px 24px rgba(17, 24, 39, 0.16);
+}
+
+.marketing-signup-head h2,
+.marketing-activation-success h2,
+.login-title {
+  font-family: var(--mk-display);
+  font-size: 1.72rem;
+  line-height: 1.12;
+  font-weight: 700;
+}
+
+.marketing-signup-plan,
+.marketing-activation-summary {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffffff 100%);
+  border-color: rgba(255, 93, 71, 0.16);
+}
+
+.marketing-legal-acceptance {
+  border-color: rgba(31, 94, 255, 0.14);
+  background: #f3f8ff;
+}
+
+.marketing-signup-card input,
+.marketing-login-card input,
+.marketing-checkout-card input {
+  border-radius: 14px;
+  background: #f8fafc;
+  color: var(--mk-ink);
+  font-size: 0.95rem;
+}
+
+.marketing-signup-card input::placeholder,
+.marketing-login-card input::placeholder {
+  color: #8a96a8;
+}
+
+.marketing-signup-check {
+  border-radius: 16px;
+  background: #fff7ed;
+  color: #7c2d12;
+  font-size: 0.9rem;
+}
+
+.marketing-signup-check--privacy {
+  background: #f0fdf4;
+  color: #14532d;
+}
+
+.marketing-side-note {
+  padding: 1.25rem;
+  border-radius: 24px;
+}
+
+.marketing-side-note ol {
+  line-height: 1.78;
+}
+
+.marketing-legal-modal__card {
+  font-family: var(--mk-font);
+  border-radius: 24px;
+}
+
+.marketing-legal-modal__card h2 {
+  font-family: var(--mk-display);
+  font-size: 1.72rem;
+  font-weight: 700;
+}
+
+.marketing-legal-modal__content h3 {
+  font-family: var(--mk-display);
+  font-weight: 700;
+}
+
+.marketing-login-grid--wide {
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 400px);
+  gap: 1rem;
+}
+
+.marketing-login-left {
+  padding: 1rem;
+}
+
+.marketing-plans-head--first {
+  align-items: start;
+  margin: 0 0 0.85rem;
+}
+
+.marketing-plans-head--first span {
+  color: #ff5d47;
+}
+
+.marketing-plans-head--first h2 {
+  max-width: 760px;
+  font-size: 2rem;
+  line-height: 1.08;
+}
+
+.marketing-plans-head--first p {
+  max-width: 440px;
+  font-size: 0.93rem;
+  line-height: 1.65;
+}
+
+.marketing-plan-grid--first {
+  gap: 0.85rem;
+}
+
+.marketing-plan-grid--first .marketing-plan-card {
+  min-height: 430px;
+  padding: 1rem;
+}
+
+.marketing-plan-grid--first .marketing-plan-card h3 {
+  font-size: 1.06rem;
+}
+
+.marketing-plan-grid--first .marketing-plan-price strong {
+  font-size: 1.5rem;
+}
+
+.marketing-plan-grid--first .marketing-plan-card p,
+.marketing-plan-grid--first .marketing-plan-card ul {
+  font-size: 0.88rem;
+  line-height: 1.62;
+}
+
+.marketing-plan-grid--first .marketing-plan-card ul {
+  margin: 0.85rem 0 0.8rem;
+}
+
+.marketing-plan-grid--first .marketing-plan-limits {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.38rem;
+}
+
+.marketing-plan-grid--first .marketing-plan-limits span {
+  min-height: 28px;
+  padding: 0.38rem 0.5rem;
+  font-size: 0.72rem;
+}
+
+.marketing-hero-band--compact {
+  margin-top: 1rem;
+  padding: 1.1rem;
+}
+
+.marketing-hero-band--compact .marketing-login-copy h1 {
+  max-width: 760px;
+  font-size: 1.8rem;
+  line-height: 1.14;
+}
+
+.marketing-hero-band--compact .marketing-login-copy p {
+  max-width: 820px;
+  font-size: 0.94rem;
+  line-height: 1.68;
+}
+
+.marketing-hero-band--compact .marketing-launch-metrics {
+  margin-top: 0.95rem;
+}
+
+.marketing-hero-band--compact .marketing-launch-metrics div {
+  min-height: 64px;
+  padding: 0.75rem 0.85rem;
+}
+
+.marketing-hero-band--compact .marketing-launch-metrics strong {
+  font-size: 1rem;
+}
+
+.marketing-legal-panel {
+  margin-top: 0.95rem;
+  margin-bottom: 0.85rem;
+}
+
+.marketing-auth-card {
+  position: sticky;
+  top: 1rem;
+}
+
+/* Full-screen COMANDA brand background. */
+.marketing-login-shell {
+  position: relative;
+  isolation: isolate;
+  overflow-x: hidden;
+  background: #fffaf7;
+}
+
+.marketing-login-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: url("/brand/fondo-comanda.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 0.98;
+  pointer-events: none;
+}
+
+.marketing-login-shell::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.58) 0%, rgba(255, 255, 255, 0.42) 46%, rgba(255, 255, 255, 0.68) 100%),
+    linear-gradient(180deg, rgba(255, 250, 247, 0.3) 0%, rgba(247, 250, 253, 0.74) 100%);
+  pointer-events: none;
+}
+
+.marketing-login-topbar,
+.marketing-login-grid {
+  position: relative;
+  z-index: 1;
+}
+
+.marketing-login-topbar,
+.marketing-login-left,
+.marketing-auth-card,
+.marketing-side-note,
+.marketing-legalization-panel,
+.marketing-legal-panel,
+.marketing-hero-band,
+.marketing-enterprise-strip {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.marketing-login-topbar {
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.marketing-login-left {
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.marketing-auth-card,
+.marketing-side-note,
+.marketing-legalization-panel,
+.marketing-legal-panel,
+.marketing-hero-band,
+.marketing-enterprise-strip {
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.marketing-plan-card {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.marketing-plan-card.is-featured {
+  background:
+    linear-gradient(145deg, rgba(0, 61, 78, 0.98), rgba(0, 35, 48, 0.98)),
+    rgba(0, 48, 63, 0.98);
+}
+
+@media (min-width: 1520px) {
+  .marketing-login-grid,
+  .marketing-login-grid--wide {
+    grid-template-columns: minmax(0, 1fr) minmax(380px, 430px);
+  }
+
+  .marketing-plan-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .marketing-plan-card {
+    min-height: 520px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .marketing-login-grid,
+  .marketing-login-grid--wide,
+  .public-hero,
+  .public-section-grid,
+  .public-plan-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .marketing-auth-card {
+    position: static;
+  }
+
+  .marketing-plans-head {
+    grid-template-columns: 1fr;
+  }
+
+  .marketing-plan-grid,
+  .marketing-enterprise-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .marketing-plan-grid--first .marketing-plan-card {
+    min-height: auto;
+  }
+
+  .marketing-legal-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .marketing-legalization-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .marketing-legal-actions {
+    justify-content: flex-start;
+  }
+
+  .public-stats-card {
+    max-width: 560px;
+  }
+}
+
+@media (max-width: 720px) {
+  .marketing-login-shell,
+  .public-shell--soft {
+    padding: 0.75rem;
+  }
+
+  .marketing-login-topbar,
+  .public-topbar,
+  .public-content {
+    padding-inline: 0.5rem;
+  }
+
+  .marketing-login-brand span,
+  .public-brand span {
+    display: none;
+  }
+
+  .marketing-hero-band,
+  .marketing-login-left,
+  .marketing-auth-card,
+  .marketing-side-note {
+    border-radius: 22px;
+  }
+
+  .marketing-login-copy h1 {
+    font-size: 2.28rem;
+    line-height: 1.04;
+  }
+
+  .marketing-launch-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .marketing-plan-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .marketing-plan-card {
+    min-height: auto;
+  }
+
+  .marketing-auth-card {
+    position: static;
+  }
+
+  .public-closing {
+    padding: 1.5rem;
+  }
+
+  .public-closing-actions {
+    width: 100%;
+  }
+
+  .public-closing-actions .public-button {
+    width: 100%;
+  }
+}
+
+/* Responsive hardening for legalizacion/commercial login. Keep this layer last. */
+.marketing-login-shell,
+.marketing-login-shell *,
+.marketing-legal-modal,
+.marketing-legal-modal * {
+  box-sizing: border-box;
+}
+
+.marketing-login-shell {
+  min-width: 0;
+  overflow-x: clip;
+}
+
+.marketing-login-topbar,
+.marketing-login-grid,
+.marketing-login-left,
+.marketing-login-right,
+.marketing-auth-card,
+.marketing-side-note,
+.marketing-legalization-panel,
+.marketing-legal-panel,
+.marketing-hero-band,
+.marketing-enterprise-strip,
+.marketing-plan-card,
+.marketing-signup-card,
+.marketing-login-card {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.marketing-login-grid,
+.marketing-login-grid--wide {
+  grid-template-columns: minmax(0, 1fr) minmax(20rem, 25rem);
+}
+
+.marketing-login-brand,
+.marketing-login-actions,
+.marketing-legal-actions,
+.marketing-legal-mini-actions,
+.marketing-trust-pills,
+.marketing-plan-card__top,
+.marketing-signup-check,
+.marketing-legal-modal__card header {
+  min-width: 0;
+}
+
+.marketing-login-brand > div,
+.marketing-plans-head > div,
+.marketing-legalization-copy,
+.marketing-plan-card__top > div,
+.marketing-signup-check span,
+.marketing-legal-modal__card header > div {
+  min-width: 0;
+}
+
+.marketing-login-shell h1,
+.marketing-login-shell h2,
+.marketing-login-shell h3,
+.marketing-login-shell p,
+.marketing-login-shell li,
+.marketing-login-shell span,
+.marketing-login-shell strong,
+.marketing-login-shell button,
+.marketing-login-shell input,
+.marketing-legal-modal h2,
+.marketing-legal-modal h3,
+.marketing-legal-modal p {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.marketing-login-brand img {
+  flex: 0 0 auto;
+}
+
+.marketing-plan-grid,
+.marketing-plan-grid--first {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+}
+
+.marketing-plan-card,
+.marketing-plan-grid--first .marketing-plan-card {
+  min-height: auto;
+}
+
+.marketing-plan-limits,
+.marketing-plan-grid--first .marketing-plan-limits {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr));
+}
+
+.marketing-signup-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+}
+
+.marketing-login-card input,
+.marketing-checkout-card input,
+.marketing-signup-card input,
+.marketing-plan-button,
+.login-btn {
+  max-width: 100%;
+}
+
+@media (max-width: 1280px) {
+  .marketing-login-grid,
+  .marketing-login-grid--wide {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .marketing-auth-card {
+    position: static;
+  }
+
+  .marketing-login-right {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .marketing-side-note {
+    order: -1;
+  }
+}
+
+@media (max-width: 1024px) {
+  .marketing-login-shell {
+    padding: 0.9rem;
+  }
+
+  .marketing-login-topbar {
+    width: 100%;
+  }
+
+  .marketing-plans-head,
+  .marketing-plans-head--first,
+  .marketing-plans-head--secondary,
+  .marketing-legalization-panel,
+  .marketing-legal-panel,
+  .marketing-enterprise-strip {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .marketing-legal-actions,
+  .marketing-legalization-actions {
+    justify-content: flex-start;
+  }
+
+  .marketing-plans-head--first h2 {
+    font-size: 1.75rem;
+    line-height: 1.12;
+  }
+}
+
+@media (max-width: 768px) {
+  .marketing-login-shell {
+    padding: 0.75rem;
+  }
+
+  .marketing-login-topbar {
+    align-items: flex-start;
+    padding: 0.65rem;
+    border-radius: 1.1rem;
+  }
+
+  .marketing-login-brand {
+    gap: 0.65rem;
+  }
+
+  .marketing-login-brand img {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 0.85rem;
+  }
+
+  .marketing-login-brand strong {
+    font-size: 0.98rem;
+  }
+
+  .marketing-login-brand span {
+    display: block;
+    max-width: 15rem;
+    font-size: 0.82rem;
+    line-height: 1.35;
+  }
+
+  .marketing-login-link {
+    min-height: 2.5rem;
+    padding: 0.65rem 0.78rem;
+    border-radius: 0.9rem;
+    font-size: 0.85rem;
+  }
+
+  .marketing-login-left,
+  .marketing-auth-card,
+  .marketing-side-note,
+  .marketing-legalization-panel,
+  .marketing-legal-panel,
+  .marketing-hero-band,
+  .marketing-enterprise-strip {
+    border-radius: 1.1rem;
+  }
+
+  .marketing-login-left,
+  .marketing-auth-card {
+    padding: 0.85rem;
+  }
+
+  .marketing-plans-head--first h2 {
+    font-size: 1.55rem;
+  }
+
+  .marketing-plans-head--secondary h2,
+  .marketing-legalization-copy h3,
+  .marketing-legal-panel h3,
+  .marketing-enterprise-strip h3,
+  .marketing-signup-head h2,
+  .login-title {
+    font-size: 1.25rem;
+    line-height: 1.18;
+  }
+
+  .marketing-legalization-panel,
+  .marketing-legal-panel,
+  .marketing-hero-band--compact,
+  .marketing-enterprise-strip {
+    padding: 0.9rem;
+  }
+
+  .marketing-auth-tabs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .marketing-auth-tabs button,
+  .marketing-plan-button,
+  .login-btn {
+    min-height: 2.75rem;
+  }
+
+  .marketing-plan-card {
+    padding: 0.9rem;
+    border-radius: 1rem;
+  }
+
+  .marketing-plan-card__top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .marketing-plan-accent {
+    white-space: normal;
+  }
+
+  .marketing-trust-pills span,
+  .marketing-legal-link,
+  .marketing-legal-mini-actions button {
+    border-radius: 0.85rem;
+  }
+
+  .marketing-legal-modal {
+    padding: 0.75rem;
+    place-items: stretch;
+  }
+
+  .marketing-legal-modal__card {
+    width: 100%;
+    max-height: calc(100dvh - 1.5rem);
+    border-radius: 1rem;
+  }
+
+  .marketing-legal-modal__card header {
+    padding: 1rem;
+  }
+
+  .marketing-legal-modal__content {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .marketing-login-shell {
+    padding: 0.5rem;
+  }
+
+  .marketing-login-topbar {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .marketing-login-actions,
+  .marketing-login-link {
+    width: 100%;
+  }
+
+  .marketing-login-link {
+    text-align: center;
+  }
+
+  .marketing-login-brand span {
+    max-width: none;
+  }
+
+  .marketing-plans-head,
+  .marketing-plans-head--first,
+  .marketing-plans-head--secondary {
+    gap: 0.65rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .marketing-plans-head--first h2 {
+    font-size: 1.35rem;
+    line-height: 1.16;
+  }
+
+  .marketing-plans-head p,
+  .marketing-legalization-copy p,
+  .marketing-legal-panel p,
+  .marketing-plan-card p,
+  .marketing-plan-card li,
+  .marketing-side-note ol,
+  .marketing-login-note,
+  .login-subtitle {
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .marketing-legalization-list {
+    gap: 0.48rem;
+  }
+
+  .marketing-legalization-list li {
+    font-size: 0.86rem;
+    line-height: 1.42;
+  }
+
+  .marketing-legal-actions,
+  .marketing-legal-mini-actions,
+  .marketing-trust-pills {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+  }
+
+  .marketing-legal-link,
+  .marketing-legal-mini-actions button,
+  .marketing-trust-pills span {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .marketing-login-card--flat,
+  .marketing-signup-card {
+    padding-inline: 0;
+  }
+
+  .marketing-signup-check {
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.78rem;
+  }
+
+  .marketing-enterprise-pricing .marketing-plan-button {
+    width: 100%;
+  }
+
+  .marketing-legal-modal__card header {
+    align-items: flex-start;
+  }
+
+  .marketing-legal-modal__card header button {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 380px) {
+  .marketing-login-shell {
+    padding: 0.35rem;
+  }
+
+  .marketing-login-left,
+  .marketing-auth-card,
+  .marketing-side-note,
+  .marketing-legalization-panel,
+  .marketing-legal-panel,
+  .marketing-hero-band,
+  .marketing-enterprise-strip {
+    padding: 0.75rem;
+    border-radius: 0.95rem;
+  }
+
+  .marketing-plans-head--first h2 {
+    font-size: 1.22rem;
+  }
+
+  .marketing-plan-price strong {
+    font-size: 1.18rem;
+  }
+
+  .marketing-login-brand {
+    align-items: flex-start;
+  }
+
+  .marketing-login-brand img {
+    width: 2.35rem;
+    height: 2.35rem;
+  }
+}
+
+/* Production cleanup for public presentation and global typography. */
+:root {
+  --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mk-font: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mk-display: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+html,
+body,
+#root,
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-family) !important;
+}
+
+.public-shell,
+.public-shell *,
+.marketing-login-shell,
+.marketing-login-shell * {
+  box-sizing: border-box;
+}
+
+.public-shell {
+  min-width: 0;
+  overflow-x: clip;
+  font-family: var(--font-family) !important;
+}
+
+.marketing-login-shell {
+  --mk-font: var(--font-family);
+  --mk-display: var(--font-family);
+  font-family: var(--font-family) !important;
+}
+
+.public-shell--dark {
+  background:
+    linear-gradient(180deg, #f7f8fb 0%, #f6f7fb 54%, #ffffff 100%);
+  color: #111827;
+}
+
+.public-topbar,
+.public-content,
+.public-hero,
+.public-hero-copy,
+.public-stats-card,
+.public-sections,
+.public-plan-showcase,
+.public-section-heading,
+.public-section-grid,
+.public-section-card,
+.public-plan-grid,
+.public-plan-card,
+.public-closing {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.public-topbar {
+  width: min(100%, 1180px);
+  padding: max(1rem, env(safe-area-inset-top)) clamp(1rem, 3vw, 1.5rem) 0;
+}
+
+.public-brand,
+.public-topbar-actions,
+.public-hero-actions,
+.public-closing-actions,
+.public-stat-row {
+  min-width: 0;
+}
+
+.public-brand > div,
+.public-hero-copy,
+.public-section-heading,
+.public-plan-top {
+  min-width: 0;
+}
+
+.public-brand strong,
+.public-brand span {
+  color: #111827;
+}
+
+.public-brand span {
+  color: #64748b;
+}
+
+.public-link-ghost {
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: #ffffff;
+  color: #111827;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+}
+
+.public-link-ghost:hover {
+  color: #111827;
+  border-color: rgba(255, 93, 71, 0.32);
+  background: #fff7f3;
+}
+
+.public-content {
+  width: min(100%, 1180px);
+  padding: clamp(1rem, 2.5vw, 2rem) clamp(1rem, 3vw, 1.5rem) clamp(2.5rem, 5vw, 4rem);
+}
+
+.public-hero {
+  grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 26rem);
+  align-items: stretch;
+  gap: clamp(1rem, 2.4vw, 1.5rem);
+  padding: clamp(1.25rem, 4vw, 3rem);
+  border-radius: clamp(1.35rem, 3.4vw, 2rem);
+  background:
+    linear-gradient(135deg, rgba(17, 24, 39, 0.98), rgba(31, 41, 55, 0.96)),
+    radial-gradient(circle at 12% 0%, rgba(255, 93, 71, 0.24), transparent 34%);
+  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.2);
+  overflow: hidden;
+}
+
+.public-kicker {
+  max-width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff7ed;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  letter-spacing: 0;
+  line-height: 1.35;
+  white-space: normal;
+}
+
+.public-hero-copy h1 {
+  max-width: 760px;
+  font-size: clamp(2.25rem, 5.2vw, 4.45rem);
+  line-height: 1.03;
+  color: #ffffff;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.public-hero-copy p {
+  max-width: 700px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(1rem, 1.4vw, 1.12rem);
+  line-height: 1.72;
+}
+
+.public-button {
+  min-width: min(100%, 11rem);
+  border-radius: 1rem;
+  text-align: center;
+  line-height: 1.2;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff5d47 0%, #ff7b4d 100%);
+}
+
+.public-button--ghost {
+  color: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: #ffffff;
+}
+
+.public-button--ghost:hover {
+  color: #111827;
+  background: #fff7ed;
+}
+
+.public-stats-card {
+  align-self: stretch;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+  border-radius: 1.35rem;
+  box-shadow: none;
+}
+
+.public-stats-card__head span,
+.public-section-heading span,
+.public-closing span {
+  letter-spacing: 0;
+}
+
+.public-stats-card__head span,
+.public-stat-row span {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.public-stat-row {
+  align-items: flex-start;
+  flex-wrap: wrap;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.public-stat-row strong {
+  margin-left: auto;
+  text-align: right;
+}
+
+.public-sections,
+.public-plan-showcase {
+  margin-top: clamp(1.5rem, 4vw, 3rem);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: clamp(1.25rem, 3vw, 2rem);
+  background: #ffffff;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.07);
+}
+
+.public-section-heading span {
+  color: #ff5d47;
+  font-weight: 800;
+}
+
+.public-section-heading h2,
+.public-closing h2 {
+  color: #111827;
+  font-size: clamp(1.7rem, 3.5vw, 2.85rem);
+  line-height: 1.08;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.public-section-heading__copy {
+  color: #64748b;
+  font-size: clamp(0.96rem, 1.2vw, 1.05rem);
+  line-height: 1.72;
+}
+
+.public-section-grid,
+.public-plan-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: clamp(0.85rem, 2vw, 1rem);
+}
+
+.public-section-card,
+.public-plan-card {
+  border-radius: 1.25rem;
+  background: #f8fafc;
+  border-color: rgba(148, 163, 184, 0.2);
+  box-shadow: none;
+}
+
+.public-section-card h3,
+.public-plan-top h3 {
+  color: #111827;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.public-section-card p,
+.public-plan-top p,
+.public-plan-ideal,
+.public-plan-card li {
+  color: #475569;
+  line-height: 1.66;
+}
+
+.public-plan-card.is-featured {
+  background: linear-gradient(180deg, #211437 0%, #2e1a49 100%);
+  border-color: rgba(167, 139, 250, 0.32);
+}
+
+.public-plan-card.is-featured .public-plan-top p,
+.public-plan-card.is-featured .public-plan-ideal,
+.public-plan-card.is-featured li {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.public-plan-top strong {
+  color: #111827;
+  font-size: clamp(1.65rem, 3vw, 2rem);
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.public-plan-ideal {
+  min-height: auto;
+}
+
+.public-plan-card ul {
+  flex: 1 1 auto;
+  padding-left: 1.05rem;
+}
+
+.public-plan-cta {
+  border-radius: 1rem;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.public-closing {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(12rem, 18rem);
+  gap: clamp(1rem, 3vw, 1.5rem);
+  align-items: center;
+  background: linear-gradient(135deg, #111827 0%, #182235 100%);
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.public-closing p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.public-closing-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+}
+
+.public-closing-actions .public-button {
+  width: 100%;
+}
+
+.public-shell h1,
+.public-shell h2,
+.public-shell h3,
+.public-shell p,
+.public-shell li,
+.public-shell span,
+.public-shell strong,
+.public-shell a,
+.public-shell button {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+@media (max-width: 900px) {
+  .public-hero,
+  .public-closing {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .public-brand span {
+    display: block;
+  }
+
+  .public-stats-card {
+    width: 100%;
+    max-width: none;
+  }
+
+  .public-stat-row strong {
+    margin-left: 0;
+    text-align: left;
+  }
+}
+
+@media (max-width: 640px) {
+  .public-topbar {
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding-inline: 0.75rem;
+  }
+
+  .public-brand {
+    gap: 0.65rem;
+  }
+
+  .public-brand img {
+    width: 2.85rem;
+    height: 2.85rem;
+    border-radius: 0.95rem;
+  }
+
+  .public-brand span {
+    display: block;
+    max-width: 12.5rem;
+    font-size: 0.82rem;
+    line-height: 1.35;
+  }
+
+  .public-link-ghost {
+    min-height: 2.6rem;
+    padding: 0.65rem 0.8rem;
+    border-radius: 0.95rem;
+    font-size: 0.9rem;
+  }
+
+  .public-content {
+    padding: 0.9rem 0.75rem 2rem;
+  }
+
+  .public-hero,
+  .public-sections,
+  .public-plan-showcase,
+  .public-closing {
+    border-radius: 1.35rem;
+    padding: 1rem;
+  }
+
+  .public-hero-copy h1 {
+    font-size: clamp(2rem, 11vw, 3.05rem);
+    line-height: 1.08;
+  }
+
+  .public-hero-copy p,
+  .public-section-heading__copy,
+  .public-section-card p,
+  .public-plan-top p,
+  .public-plan-ideal,
+  .public-plan-card li,
+  .public-closing p {
+    font-size: 0.98rem;
+    line-height: 1.62;
+  }
+
+  .public-hero-actions,
+  .public-closing-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+  }
+
+  .public-button,
+  .public-plan-cta {
+    width: 100%;
+    min-height: 3rem;
+  }
+
+  .public-stat-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.35rem;
+  }
+
+  .public-section-card,
+  .public-plan-card {
+    padding: 1rem;
+    border-radius: 1.1rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .public-content {
+    padding-inline: 0.5rem;
+  }
+
+  .public-topbar {
+    flex-direction: column;
+  }
+
+  .public-topbar-actions,
+  .public-link-ghost {
+    width: 100%;
+  }
+
+  .public-link-ghost {
+    justify-content: center;
+  }
+
+  .public-hero-copy h1 {
+    font-size: 1.85rem;
+  }
+}
+
+/* Final production theme: professional tinted COMANDA background on /descubre. */
+.public-shell.public-shell--dark {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  background: #e9eef4 !important;
+  color: #111827 !important;
+}
+
+.public-shell.public-shell--dark::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image: url("/brand/fondo-comanda.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.public-shell.public-shell--dark::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 6% 8%, rgba(255, 93, 71, 0.2), transparent 24%),
+    radial-gradient(circle at 86% 22%, rgba(15, 78, 94, 0.16), transparent 28%),
+    linear-gradient(120deg, rgba(236, 242, 247, 0.88) 0%, rgba(225, 233, 240, 0.9) 48%, rgba(241, 246, 250, 0.84) 100%);
+  pointer-events: none;
+}
+
+.public-shell.public-shell--dark .public-topbar,
+.public-shell.public-shell--dark .public-hero,
+.public-shell.public-shell--dark .public-stats-card,
+.public-shell.public-shell--dark .public-sections,
+.public-shell.public-shell--dark .public-plan-showcase,
+.public-shell.public-shell--dark .public-section-card,
+.public-shell.public-shell--dark .public-plan-card,
+.public-shell.public-shell--dark .public-closing {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.public-shell.public-shell--dark .public-topbar {
+  border-radius: 1.25rem;
+  background: rgba(248, 250, 252, 0.82) !important;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.08);
+}
+
+.public-shell.public-shell--dark .public-hero,
+.public-shell.public-shell--dark .public-stats-card,
+.public-shell.public-shell--dark .public-sections,
+.public-shell.public-shell--dark .public-plan-showcase,
+.public-shell.public-shell--dark .public-closing {
+  background:
+    linear-gradient(180deg, rgba(248, 250, 252, 0.9), rgba(240, 245, 249, 0.86)) !important;
+  border: 1px solid rgba(100, 116, 139, 0.16) !important;
+  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.1) !important;
+}
+
+.public-shell.public-shell--dark .public-section-card,
+.public-shell.public-shell--dark .public-plan-card,
+.public-shell.public-shell--dark .public-plan-card.is-featured {
+  background: rgba(250, 252, 254, 0.88) !important;
+  border: 1px solid rgba(100, 116, 139, 0.16) !important;
+  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.06) !important;
+}
+
+.public-shell.public-shell--dark .public-brand strong,
+.public-shell.public-shell--dark .public-brand span,
+.public-shell.public-shell--dark .public-hero-copy h1,
+.public-shell.public-shell--dark .public-section-heading h2,
+.public-shell.public-shell--dark .public-closing h2,
+.public-shell.public-shell--dark .public-section-card h3,
+.public-shell.public-shell--dark .public-plan-top h3,
+.public-shell.public-shell--dark .public-plan-top strong,
+.public-shell.public-shell--dark .public-plan-card.is-featured .public-plan-top h3,
+.public-shell.public-shell--dark .public-plan-card.is-featured .public-plan-top strong,
+.public-shell.public-shell--dark .public-stats-card__head strong,
+.public-shell.public-shell--dark .public-stat-row strong {
+  color: #111827 !important;
+  text-shadow: none !important;
+}
+
+.public-shell.public-shell--dark .public-hero-copy p,
+.public-shell.public-shell--dark .public-section-heading__copy,
+.public-shell.public-shell--dark .public-section-card p,
+.public-shell.public-shell--dark .public-plan-top p,
+.public-shell.public-shell--dark .public-plan-ideal,
+.public-shell.public-shell--dark .public-plan-card li,
+.public-shell.public-shell--dark .public-plan-card.is-featured .public-plan-top p,
+.public-shell.public-shell--dark .public-plan-card.is-featured .public-plan-ideal,
+.public-shell.public-shell--dark .public-plan-card.is-featured li,
+.public-shell.public-shell--dark .public-closing p,
+.public-shell.public-shell--dark .public-stat-row span,
+.public-shell.public-shell--dark .public-stats-card__head span {
+  color: #475569 !important;
+  text-shadow: none !important;
+}
+
+.public-shell.public-shell--dark .public-kicker,
+.public-shell.public-shell--dark .public-section-heading span,
+.public-shell.public-shell--dark .public-closing span {
+  color: #d84a32 !important;
+  background: rgba(255, 241, 235, 0.78) !important;
+  border: 1px solid rgba(255, 93, 71, 0.14) !important;
+  text-shadow: none !important;
+}
+
+.public-shell.public-shell--dark .public-stats-card__head span,
+.public-shell.public-shell--dark .public-section-heading span,
+.public-shell.public-shell--dark .public-closing span {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.38rem 0.68rem;
+  border-radius: 999px;
+  line-height: 1.25;
+}
+
+.public-shell.public-shell--dark .public-stat-row {
+  border-bottom-color: rgba(148, 163, 184, 0.22) !important;
+}
+
+.public-shell.public-shell--dark .public-button--ghost {
+  color: #111827 !important;
+  background: rgba(255, 255, 255, 0.78) !important;
+  border-color: rgba(17, 24, 39, 0.12) !important;
+}
+
+.public-shell.public-shell--dark .public-plan-card.is-featured .public-plan-cta {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #ff5d47 0%, #ff7b4d 100%) !important;
+}
+
+.public-shell.public-shell--dark .public-hero {
+  position: relative;
+  align-items: center;
+  padding: clamp(2rem, 4.5vw, 4rem) clamp(1.6rem, 4vw, 3rem);
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(237, 244, 249, 0.9) 58%, rgba(221, 235, 242, 0.92) 100%) !important;
+}
+
+.public-shell.public-shell--dark .public-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 6% 8%, rgba(255, 93, 71, 0.16), transparent 26%),
+    radial-gradient(circle at 92% 20%, rgba(15, 78, 94, 0.12), transparent 28%);
+  pointer-events: none;
+}
+
+.public-shell.public-shell--dark .public-hero::after {
+  content: "";
+  position: absolute;
+  left: clamp(1.2rem, 3vw, 2rem);
+  right: clamp(1.2rem, 3vw, 2rem);
+  bottom: 0;
+  height: 0.38rem;
+  border-radius: 999px 999px 0 0;
+  background: linear-gradient(90deg, #ff5d47, rgba(15, 78, 94, 0.45), transparent);
+  opacity: 0.85;
+}
+
+.public-shell.public-shell--dark .public-hero-copy,
+.public-shell.public-shell--dark .public-stats-card {
+  position: relative;
+  z-index: 1;
+}
+
+.public-shell.public-shell--dark .public-hero-copy h1 {
+  max-width: 680px;
+  font-size: clamp(3.1rem, 5.6vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+
+.public-shell.public-shell--dark .public-hero-copy p {
+  max-width: 620px;
+  margin-top: 1.2rem;
+  color: #40556b !important;
+  font-size: clamp(1rem, 1.2vw, 1.12rem);
+}
+
+.public-shell.public-shell--dark .public-hero-actions {
+  margin-top: 2rem;
+}
+
+.public-shell.public-shell--dark .public-hero-actions .public-button {
+  width: auto;
+  min-width: 11rem;
+  box-shadow: 0 18px 38px rgba(255, 93, 71, 0.18);
+}
+
+.public-shell.public-shell--dark .public-stats-card {
+  align-self: center;
+  min-height: 360px;
+  padding: clamp(1.25rem, 2.4vw, 1.7rem);
+  border-radius: 1.4rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(239, 246, 250, 0.78)) !important;
+}
+
+.public-shell.public-shell--dark .public-stats-card__head {
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.public-shell.public-shell--dark .public-stats-card__head strong {
+  display: block;
+  margin-top: 0.65rem;
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  line-height: 1.15;
+}
+
+.public-shell.public-shell--dark .public-stat-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  min-height: 4.7rem;
+}
+
+.public-shell.public-shell--dark .public-stat-row span {
+  color: #53677c !important;
+}
+
+.public-shell.public-shell--dark .public-stat-row strong {
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(15, 78, 94, 0.08);
+  color: #0f2430 !important;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .public-shell.public-shell--dark::before {
+    background-position: 28% top;
+  }
+
+  .public-shell.public-shell--dark::after {
+    background:
+      radial-gradient(circle at 0% 4%, rgba(255, 93, 71, 0.18), transparent 28%),
+      linear-gradient(180deg, rgba(236, 242, 247, 0.92) 0%, rgba(226, 234, 241, 0.94) 100%);
+  }
+
+  .public-shell.public-shell--dark .public-topbar {
+    border-radius: 1rem;
+  }
+
+  .public-shell.public-shell--dark .public-hero,
+  .public-shell.public-shell--dark .public-sections,
+  .public-shell.public-shell--dark .public-plan-showcase,
+  .public-shell.public-shell--dark .public-closing {
+    background: rgba(248, 250, 252, 0.9) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .public-shell.public-shell--dark .public-hero {
+    padding: 1.35rem;
+  }
+
+  .public-shell.public-shell--dark .public-hero-copy h1 {
+    max-width: none;
+    font-size: clamp(2.25rem, 10vw, 3.45rem);
+    line-height: 1.05;
+  }
+
+  .public-shell.public-shell--dark .public-stats-card {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .public-shell.public-shell--dark .public-hero-actions .public-button {
+    width: 100%;
+  }
+
+  .public-shell.public-shell--dark .public-stat-row {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: auto;
+  }
+
+  .public-shell.public-shell--dark .public-stat-row strong {
+    width: fit-content;
+    white-space: normal;
+  }
+}
+
+/* Final visual pass for /descubre: branded, readable and less raw. */
+.public-shell.public-shell--dark {
+  background:
+    linear-gradient(135deg, rgba(14, 23, 38, 0.74), rgba(21, 34, 45, 0.52)),
+    url('/brand/fondo-comanda.png') center top / cover fixed,
+    linear-gradient(180deg, #dfe8ef 0%, #edf3f7 46%, #e7eef4 100%) !important;
+}
+
+.public-shell.public-shell--dark::after {
+  background:
+    radial-gradient(circle at 16% 12%, rgba(255, 93, 71, 0.18), transparent 30%),
+    radial-gradient(circle at 88% 18%, rgba(11, 72, 88, 0.22), transparent 34%),
+    linear-gradient(180deg, rgba(223, 232, 239, 0.34), rgba(232, 240, 245, 0.82) 48%, rgba(226, 235, 242, 0.94)) !important;
+}
+
+.public-shell.public-shell--dark .public-content {
+  max-width: 1180px;
+  padding-top: clamp(1.2rem, 2vw, 1.8rem);
+}
+
+.public-shell.public-shell--dark .public-topbar {
+  max-width: 1180px;
+  background: rgba(13, 26, 38, 0.72) !important;
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.16);
+}
+
+.public-shell.public-shell--dark .public-brand strong,
+.public-shell.public-shell--dark .public-brand span {
+  color: #ffffff !important;
+}
+
+.public-shell.public-shell--dark .public-brand span {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+.public-shell.public-shell--dark .public-link-ghost {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+.public-shell.public-shell--dark .public-hero {
+  grid-template-columns: minmax(0, 1.18fr) minmax(300px, 0.82fr);
+  gap: clamp(1.25rem, 3vw, 2rem);
+  padding: clamp(2.2rem, 4vw, 3.2rem);
+  border-radius: 2rem;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(255, 111, 77, 0.3), transparent 34%),
+    radial-gradient(circle at 95% 20%, rgba(28, 101, 119, 0.38), transparent 36%),
+    linear-gradient(135deg, rgba(13, 23, 36, 0.98) 0%, rgba(20, 30, 48, 0.96) 54%, rgba(24, 48, 58, 0.92) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 34px 90px rgba(15, 23, 42, 0.26) !important;
+}
+
+.public-shell.public-shell--dark .public-hero::before {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06), transparent 52%),
+    radial-gradient(circle at 82% 86%, rgba(255, 93, 71, 0.14), transparent 30%);
+}
+
+.public-shell.public-shell--dark .public-hero::after {
+  left: clamp(1.4rem, 3vw, 2.3rem);
+  right: clamp(1.4rem, 3vw, 2.3rem);
+  height: 0.28rem;
+  background: linear-gradient(90deg, #ff5d47 0%, #ff9b6c 34%, rgba(128, 207, 214, 0.58) 72%, transparent 100%);
+}
+
+.public-shell.public-shell--dark .public-kicker {
+  color: #ffe8dc !important;
+  background: rgba(255, 93, 71, 0.16) !important;
+  border-color: rgba(255, 142, 111, 0.22) !important;
+}
+
+.public-shell.public-shell--dark .public-hero-copy h1 {
+  max-width: 640px;
+  color: #ffffff !important;
+  text-wrap: balance;
+}
+
+.public-shell.public-shell--dark .public-hero-copy p {
+  color: rgba(232, 240, 247, 0.82) !important;
+}
+
+.public-shell.public-shell--dark .public-stats-card {
+  min-height: 340px;
+  align-self: stretch;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.07)) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 26px 70px rgba(2, 8, 23, 0.22) !important;
+}
+
+.public-shell.public-shell--dark .public-stats-card__head span {
+  color: rgba(226, 232, 240, 0.66) !important;
+  background: transparent !important;
+  border: 0 !important;
+  padding: 0 !important;
+}
+
+.public-shell.public-shell--dark .public-stats-card__head strong,
+.public-shell.public-shell--dark .public-stat-row strong {
+  color: #ffffff !important;
+}
+
+.public-shell.public-shell--dark .public-stat-row {
+  border-bottom-color: rgba(255, 255, 255, 0.11) !important;
+}
+
+.public-shell.public-shell--dark .public-stat-row span {
+  color: rgba(226, 232, 240, 0.74) !important;
+}
+
+.public-shell.public-shell--dark .public-stat-row strong {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.public-shell.public-shell--dark .public-sections,
+.public-shell.public-shell--dark .public-plan-showcase,
+.public-shell.public-shell--dark .public-closing {
+  border-radius: 2rem;
+  background:
+    linear-gradient(180deg, rgba(241, 246, 249, 0.93), rgba(229, 238, 244, 0.9)) !important;
+}
+
+.public-shell.public-shell--dark .public-sections,
+.public-shell.public-shell--dark .public-plan-showcase {
+  padding: clamp(1.5rem, 3vw, 2.4rem);
+}
+
+.public-shell.public-shell--dark .public-section-card,
+.public-shell.public-shell--dark .public-plan-card,
+.public-shell.public-shell--dark .public-plan-card.is-featured {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(246, 250, 252, 0.78)) !important;
+}
+
+@media (max-width: 900px) {
+  .public-shell.public-shell--dark .public-topbar,
+  .public-shell.public-shell--dark .public-hero,
+  .public-shell.public-shell--dark .public-sections,
+  .public-shell.public-shell--dark .public-plan-showcase,
+  .public-shell.public-shell--dark .public-closing {
+    border-radius: 1.4rem;
+  }
+
+  .public-shell.public-shell--dark .public-hero {
+    grid-template-columns: 1fr;
+    padding: 1.35rem;
+  }
+
+  .public-shell.public-shell--dark .public-stats-card {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .public-shell.public-shell--dark {
+    background:
+      linear-gradient(180deg, rgba(15, 23, 42, 0.24), rgba(226, 235, 242, 0.9)),
+      url('/brand/fondo-comanda.png') 26% top / auto 42rem no-repeat,
+      linear-gradient(180deg, #dfe8ef 0%, #e8f0f5 100%) !important;
+  }
+
+  .public-shell.public-shell--dark .public-content {
+    padding-inline: 0.9rem;
+  }
+
+  .public-shell.public-shell--dark .public-topbar {
+    margin-inline: 0.9rem;
+    width: auto;
+  }
+
+  .public-shell.public-shell--dark .public-hero-copy h1 {
+    font-size: clamp(2.25rem, 11vw, 3.05rem);
+  }
+}
+
+/* Match /login to the final /descubre visual system. */
+.marketing-login-shell {
+  --mk-font: var(--font-family);
+  --mk-display: var(--font-family);
+  min-height: 100vh;
+  padding: clamp(0.9rem, 2vw, 1.35rem);
+  background:
+    linear-gradient(135deg, rgba(14, 23, 38, 0.72), rgba(21, 34, 45, 0.5)),
+    url('/brand/fondo-comanda.png') center top / cover fixed,
+    linear-gradient(180deg, #dfe8ef 0%, #edf3f7 46%, #e7eef4 100%) !important;
+  color: #0f172a;
+  font-family: var(--mk-font);
+}
+
+.marketing-login-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 16% 12%, rgba(255, 93, 71, 0.18), transparent 30%),
+    radial-gradient(circle at 88% 18%, rgba(11, 72, 88, 0.22), transparent 34%),
+    linear-gradient(180deg, rgba(223, 232, 239, 0.26), rgba(232, 240, 245, 0.76) 50%, rgba(226, 235, 242, 0.93));
+}
+
+.marketing-login-shell > * {
+  position: relative;
+  z-index: 1;
+}
+
+.marketing-login-topbar,
+.marketing-login-grid {
+  max-width: 1180px;
+}
+
+.marketing-login-topbar {
+  padding: 0.85rem 1rem;
+  border-radius: 1.25rem;
+  background: rgba(13, 26, 38, 0.72) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.16);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.marketing-login-brand strong,
+.marketing-login-brand span {
+  color: #ffffff !important;
+}
+
+.marketing-login-brand span {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+.marketing-login-link {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  box-shadow: none !important;
+}
+
+.marketing-login-grid--wide {
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 360px);
+  gap: clamp(1.1rem, 2vw, 1.5rem);
+  padding-top: clamp(1.1rem, 2vw, 1.5rem);
+}
+
+.marketing-login-left {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.25rem, 2.8vw, 2.2rem) !important;
+  border-radius: 2rem !important;
+  background:
+    radial-gradient(circle at 8% 10%, rgba(255, 111, 77, 0.28), transparent 34%),
+    radial-gradient(circle at 94% 20%, rgba(28, 101, 119, 0.34), transparent 36%),
+    linear-gradient(135deg, rgba(13, 23, 36, 0.98) 0%, rgba(20, 30, 48, 0.96) 54%, rgba(24, 48, 58, 0.92) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 34px 90px rgba(15, 23, 42, 0.26) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.marketing-login-left::after {
+  content: "";
+  position: absolute;
+  left: clamp(1.4rem, 3vw, 2.3rem);
+  right: clamp(1.4rem, 3vw, 2.3rem);
+  bottom: 0;
+  height: 0.28rem;
+  border-radius: 999px 999px 0 0;
+  background: linear-gradient(90deg, #ff5d47 0%, #ff9b6c 34%, rgba(128, 207, 214, 0.58) 72%, transparent 100%);
+}
+
+.marketing-plans-head {
+  align-items: center;
+  gap: clamp(1rem, 2vw, 2rem);
+}
+
+.marketing-plans-head span,
+.marketing-login-kicker,
+.marketing-legal-eyebrow,
+.marketing-signup-kicker,
+.marketing-side-note__label,
+.marketing-enterprise-strip span {
+  color: #ffe8dc !important;
+  background: rgba(255, 93, 71, 0.16) !important;
+  border: 1px solid rgba(255, 142, 111, 0.22) !important;
+  border-radius: 999px;
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.38rem 0.68rem;
+  line-height: 1.25;
+  letter-spacing: 0.08em;
+}
+
+.marketing-plans-head h2,
+.marketing-login-copy h1 {
+  max-width: 660px;
+  color: #ffffff !important;
+  font-family: var(--mk-display);
+  font-size: clamp(2.35rem, 4.4vw, 4rem);
+  line-height: 1.01;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.marketing-plans-head--secondary h2,
+.marketing-legalization-copy h3,
+.marketing-legal-panel h3,
+.marketing-enterprise-strip h3,
+.marketing-login-copy h1 {
+  font-size: clamp(1.55rem, 2.4vw, 2.25rem);
+}
+
+.marketing-plans-head p,
+.marketing-login-copy p {
+  color: rgba(232, 240, 247, 0.82) !important;
+}
+
+.marketing-legalization-panel,
+.marketing-legal-panel,
+.marketing-hero-band,
+.marketing-enterprise-strip {
+  border-radius: 1.45rem !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.07)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 26px 70px rgba(2, 8, 23, 0.14) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.marketing-legalization-copy h3,
+.marketing-legal-panel h3,
+.marketing-enterprise-strip h3,
+.marketing-legalization-list li,
+.marketing-enterprise-pricing strong {
+  color: #ffffff !important;
+}
+
+.marketing-legalization-copy p,
+.marketing-legal-panel p,
+.marketing-enterprise-strip p,
+.marketing-enterprise-pricing span,
+.marketing-launch-metrics span {
+  color: rgba(226, 232, 240, 0.76) !important;
+}
+
+.marketing-legalization-list li::before {
+  background: #2dd4bf !important;
+  box-shadow: 0 0 0 0.25rem rgba(45, 212, 191, 0.14) !important;
+}
+
+.marketing-legal-link,
+.marketing-legal-mini-actions button {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+.marketing-plan-grid {
+  gap: clamp(0.9rem, 1.8vw, 1.05rem);
+}
+
+.marketing-plan-card,
+.marketing-plan-card.is-featured {
+  border-radius: 1.35rem !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(246, 250, 252, 0.82)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.34) !important;
+  box-shadow: 0 18px 48px rgba(2, 8, 23, 0.16) !important;
+}
+
+.marketing-plan-card.is-selected {
+  border-color: rgba(255, 93, 71, 0.62) !important;
+  box-shadow: 0 20px 54px rgba(255, 93, 71, 0.18) !important;
+}
+
+.marketing-plan-card h3,
+.marketing-plan-card.is-featured h3,
+.marketing-plan-card .marketing-plan-price strong,
+.marketing-plan-card.is-featured .marketing-plan-price strong {
+  color: #111827 !important;
+}
+
+.marketing-plan-card p,
+.marketing-plan-card li,
+.marketing-plan-card.is-featured p,
+.marketing-plan-card.is-featured li,
+.marketing-plan-price span {
+  color: #475569 !important;
+}
+
+.marketing-plan-badge,
+.marketing-plan-card.is-featured .marketing-plan-badge {
+  background: rgba(255, 93, 71, 0.12) !important;
+  color: #d84a32 !important;
+}
+
+.marketing-plan-accent,
+.marketing-plan-card.is-featured .marketing-plan-accent,
+.marketing-plan-limits span,
+.marketing-plan-card.is-featured .marketing-plan-limits span {
+  background: rgba(15, 78, 94, 0.08) !important;
+  color: #0f2430 !important;
+}
+
+.marketing-login-right {
+  position: sticky;
+  top: 1rem;
+}
+
+.marketing-auth-card,
+.marketing-side-note {
+  border-radius: 1.55rem !important;
+  background:
+    linear-gradient(180deg, rgba(241, 246, 249, 0.94), rgba(229, 238, 244, 0.92)) !important;
+  border: 1px solid rgba(100, 116, 139, 0.16) !important;
+  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.14) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.marketing-auth-tabs {
+  background: rgba(15, 78, 94, 0.08) !important;
+}
+
+.marketing-auth-tabs button.is-active {
+  color: #ffffff !important;
+  background: #0d1a26 !important;
+  box-shadow: 0 14px 34px rgba(2, 8, 23, 0.18);
+}
+
+.marketing-auth-tabs button:not(.is-active) {
+  color: #43576c !important;
+}
+
+.marketing-login-card--flat,
+.marketing-signup-card,
+.marketing-activation-success {
+  background: transparent !important;
+}
+
+.login-title,
+.marketing-signup-head h2,
+.marketing-activation-success h2,
+.marketing-signup-plan strong,
+.marketing-side-note li {
+  color: #111827 !important;
+}
+
+.login-subtitle,
+.marketing-login-note,
+.marketing-signup-head p,
+.marketing-activation-success p,
+.marketing-signup-plan span,
+.marketing-legal-acceptance p {
+  color: #53677c !important;
+}
+
+.marketing-signup-grid input,
+.marketing-login-card input {
+  background: rgba(255, 255, 255, 0.78) !important;
+  border: 1px solid rgba(100, 116, 139, 0.18) !important;
+  color: #111827 !important;
+}
+
+.marketing-signup-grid input:focus,
+.marketing-login-card input:focus {
+  border-color: rgba(255, 93, 71, 0.55) !important;
+  box-shadow: 0 0 0 4px rgba(255, 93, 71, 0.12) !important;
+}
+
+.marketing-plan-button,
+.login-btn {
+  border-radius: 1rem !important;
+  background: linear-gradient(135deg, #ff5d47 0%, #ff7b4d 100%) !important;
+  box-shadow: 0 18px 38px rgba(255, 93, 71, 0.18) !important;
+}
+
+.marketing-legal-acceptance,
+.marketing-signup-check,
+.marketing-checkout-warning,
+.marketing-activation-summary,
+.marketing-activation-reference {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border-color: rgba(100, 116, 139, 0.16) !important;
+}
+
+.marketing-side-note ol {
+  color: #475569 !important;
+}
+
+.marketing-legal-modal__card {
+  font-family: var(--mk-font);
+}
+
+@media (max-width: 1180px) {
+  .marketing-login-grid--wide {
+    grid-template-columns: 1fr;
+  }
+
+  .marketing-login-right {
+    position: static;
+  }
+}
+
+@media (max-width: 900px) {
+  .marketing-login-topbar,
+  .marketing-login-left,
+  .marketing-auth-card,
+  .marketing-side-note {
+    border-radius: 1.35rem !important;
+  }
+
+  .marketing-plans-head {
+    grid-template-columns: 1fr;
+  }
+
+  .marketing-plan-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .marketing-login-shell {
+    padding: 0.75rem;
+    background:
+      linear-gradient(180deg, rgba(15, 23, 42, 0.24), rgba(226, 235, 242, 0.9)),
+      url('/brand/fondo-comanda.png') 26% top / auto 42rem no-repeat,
+      linear-gradient(180deg, #dfe8ef 0%, #e8f0f5 100%) !important;
+  }
+
+  .marketing-login-topbar {
+    align-items: stretch;
+  }
+
+  .marketing-login-left,
+  .marketing-auth-card,
+  .marketing-side-note {
+    padding: 1rem !important;
+  }
+
+  .marketing-plans-head h2 {
+    font-size: clamp(2rem, 10vw, 2.8rem);
+  }
+
+  .marketing-plans-head--secondary h2,
+  .marketing-legalization-copy h3,
+  .marketing-legal-panel h3,
+  .marketing-enterprise-strip h3,
+  .marketing-login-copy h1 {
+    font-size: clamp(1.35rem, 7vw, 1.85rem);
+  }
+}
+
+/* Fullscreen COMANDA watermark on both public sales views. */
+.public-shell.public-shell--dark,
+.marketing-login-shell {
+  position: relative;
+  isolation: isolate;
+  background:
+    linear-gradient(180deg, rgba(244, 248, 251, 0.86), rgba(231, 239, 245, 0.9)),
+    url('/brand/fondo-comanda.png') center center / cover fixed no-repeat,
+    #e7eef4 !important;
+}
+
+.public-shell.public-shell--dark::before,
+.marketing-login-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background: url('/brand/fondo-comanda.png') center center / cover no-repeat;
+  opacity: 0.96;
+}
+
+.public-shell.public-shell--dark::after,
+.marketing-login-shell::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(245, 248, 251, 0.2), rgba(245, 248, 251, 0.36) 48%, rgba(224, 234, 242, 0.42)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.32), rgba(232, 240, 246, 0.62));
+}
+
+.public-shell.public-shell--dark > *,
+.marketing-login-shell > * {
+  position: relative;
+  z-index: 1;
+}
+
+.public-shell.public-shell--dark .public-topbar,
+.marketing-login-topbar {
+  background: rgba(13, 26, 38, 0.7) !important;
+}
+
+.public-shell.public-shell--dark .public-hero,
+.marketing-login-left {
+  background:
+    radial-gradient(circle at 8% 10%, rgba(255, 111, 77, 0.2), transparent 34%),
+    radial-gradient(circle at 94% 20%, rgba(28, 101, 119, 0.25), transparent 36%),
+    linear-gradient(135deg, rgba(13, 23, 36, 0.93) 0%, rgba(20, 30, 48, 0.9) 54%, rgba(24, 48, 58, 0.86) 100%) !important;
+}
+
+.public-shell.public-shell--dark .public-sections,
+.public-shell.public-shell--dark .public-plan-showcase,
+.public-shell.public-shell--dark .public-closing,
+.marketing-auth-card,
+.marketing-side-note {
+  background:
+    linear-gradient(180deg, rgba(245, 249, 252, 0.9), rgba(232, 241, 246, 0.84)) !important;
+}
+
+@media (max-width: 640px) {
+  .public-shell.public-shell--dark,
+  .marketing-login-shell {
+    background:
+      linear-gradient(180deg, rgba(244, 248, 251, 0.82), rgba(231, 239, 245, 0.9)),
+      url('/brand/fondo-comanda.png') center top / auto 100dvh fixed no-repeat,
+      #e7eef4 !important;
+  }
+
+  .public-shell.public-shell--dark::before,
+  .marketing-login-shell::before {
+    background-size: auto 100dvh;
+    background-position: center top;
+  }
+
+  .public-shell.public-shell--dark::after,
+  .marketing-login-shell::after {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(232, 240, 246, 0.58));
+  }
+}
+
+/* Mobile login priority: show access form before legal/marketing content. */
+@media (max-width: 768px) {
+  .marketing-login-grid,
+  .marketing-login-grid--wide {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .marketing-login-right {
+    display: contents;
+    order: -2;
+    position: static !important;
+  }
+
+  .marketing-auth-card {
+    order: 0;
+  }
+
+  .marketing-side-note {
+    order: 2 !important;
+  }
+
+  .marketing-login-left {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .marketing-plans-head--secondary {
+    order: 0;
+    margin: 0 !important;
+    padding: 0.95rem;
+    border-radius: 1.15rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.06));
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .marketing-plan-grid--first {
+    order: 1;
+    margin-top: 0 !important;
+  }
+
+  .marketing-plans-head--first {
+    order: 2;
+    margin-top: 0.35rem;
+  }
+
+  .marketing-legalization-panel {
+    order: 3;
+  }
+
+  .marketing-legal-panel {
+    order: 4;
+  }
+
+  .marketing-trust-pills {
+    order: 5;
+  }
+
+  .marketing-hero-band {
+    order: 6;
+  }
+
+  .marketing-enterprise-strip {
+    order: 7;
+  }
+
+  .marketing-plan-grid--first .marketing-plan-card {
+    padding: 1.05rem !important;
+    border-radius: 1.25rem !important;
+    box-shadow: 0 20px 52px rgba(2, 8, 23, 0.18) !important;
+  }
+
+  .marketing-plan-grid--first .marketing-plan-card.is-selected {
+    transform: translateY(-2px);
+    border-color: rgba(255, 93, 71, 0.78) !important;
+    box-shadow: 0 24px 60px rgba(255, 93, 71, 0.22) !important;
+  }
+
+  .marketing-plan-grid--first .marketing-plan-button {
+    min-height: 3rem;
+    font-size: 0.98rem;
+  }
+}
+
+/* Login conversion priority: plans first, access panel beside them, support content below. */
+.marketing-login-grid,
+.marketing-login-grid--wide {
+  max-width: 1280px !important;
+  grid-template-columns: minmax(0, 1fr) minmax(330px, 360px) !important;
+  align-items: start;
+}
+
+.marketing-login-left {
+  display: flex !important;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.marketing-plans-head--first {
+  order: 0;
+  margin: 0 !important;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
+  align-items: end;
+  padding: 0.15rem 0 0.15rem;
+}
+
+.marketing-plans-head--first span {
+  color: #ffe8dc !important;
+}
+
+.marketing-plans-head--first span::before {
+  content: 'Planes Comanda';
+  font-size: inherit;
+}
+
+.marketing-plans-head--first span {
+  font-size: 0;
+}
+
+.marketing-plans-head--first h2,
+.marketing-plans-head--first p {
+  font-size: 0 !important;
+}
+
+.marketing-plans-head--first h2::before {
+  content: 'Elige el plan ideal para activar tu restaurante';
+  display: block;
+  max-width: 760px;
+  color: #ffffff;
+  font-size: clamp(1.85rem, 3vw, 2.75rem);
+  line-height: 1.02;
+}
+
+.marketing-plans-head--first p::before {
+  content: 'Comienza con carta QR, suma pedidos por mesa o activa herramientas inteligentes para vender con una operacion mas profesional desde el primer dia.';
+  display: block;
+  max-width: 360px;
+  color: rgba(232, 240, 247, 0.82);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.marketing-plans-head--first h2 {
+  max-width: 760px !important;
+  font-size: clamp(1.85rem, 3vw, 2.75rem) !important;
+  line-height: 1.02 !important;
+}
+
+.marketing-plans-head--first p {
+  max-width: 360px;
+  font-size: 0.95rem;
+}
+
+.marketing-plans-head--secondary {
+  display: none !important;
+}
+
+.marketing-plan-grid--first {
+  order: 1;
+  margin-top: 0 !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 0.85rem !important;
+}
+
+.marketing-plan-grid--first .marketing-plan-card {
+  min-height: 0 !important;
+  padding: 1.05rem !important;
+  border-radius: 1.2rem !important;
+}
+
+.marketing-plan-grid--first .marketing-plan-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(255, 93, 71, 0.95), rgba(15, 78, 94, 0.62));
+  opacity: 0.9;
+}
+
+.marketing-plan-grid--first .marketing-plan-card.is-featured::before,
+.marketing-plan-grid--first .marketing-plan-card.is-selected::before {
+  background: linear-gradient(90deg, #ff5d47, #ffb36b, #2dd4bf);
+}
+
+.marketing-plan-grid--first .marketing-plan-card__top {
+  gap: 0.55rem;
+}
+
+.marketing-plan-grid--first .marketing-plan-card h3 {
+  margin-top: 0.55rem !important;
+  font-size: 1.2rem !important;
+  letter-spacing: -0.02em !important;
+}
+
+.marketing-plan-grid--first .marketing-plan-price strong {
+  font-size: clamp(1.26rem, 1.9vw, 1.62rem) !important;
+  letter-spacing: -0.02em !important;
+}
+
+.marketing-plan-grid--first .marketing-plan-card p,
+.marketing-plan-grid--first .marketing-plan-card li {
+  font-size: 0.86rem !important;
+  line-height: 1.48 !important;
+}
+
+.marketing-plan-grid--first .marketing-plan-card ul {
+  margin: 0.72rem 0 0.8rem !important;
+  list-style: none !important;
+  padding-left: 0 !important;
+}
+
+.marketing-plan-grid--first .marketing-plan-card li {
+  position: relative;
+  padding-left: 1.15rem;
+}
+
+.marketing-plan-grid--first .marketing-plan-card li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.63em;
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: #0f4e5e;
+  box-shadow: 0 0 0 0.22rem rgba(15, 78, 94, 0.08);
+}
+
+.marketing-plan-grid--first .marketing-plan-limits {
+  gap: 0.35rem;
+  margin-bottom: 0.8rem !important;
+}
+
+.marketing-plan-grid--first .marketing-plan-limits span {
+  min-height: 26px;
+  padding: 0.34rem 0.55rem;
+  font-size: 0.76rem;
+}
+
+.marketing-plan-grid--first .marketing-plan-button {
+  min-height: 44px !important;
+  border-radius: 0.9rem !important;
+}
+
+.marketing-legalization-panel {
+  order: 2;
+}
+
+.marketing-legal-panel {
+  order: 3;
+}
+
+.marketing-trust-pills {
+  order: 4;
+}
+
+.marketing-hero-band {
+  order: 5;
+}
+
+.marketing-enterprise-strip {
+  order: 6;
+}
+
+.marketing-login-right {
+  align-self: start;
+}
+
+.marketing-auth-card {
+  padding: 1rem !important;
+}
+
+.marketing-side-note {
+  margin-top: 1rem;
+}
+
+@media (min-width: 1181px) {
+  .marketing-login-shell {
+    padding-top: 0.9rem !important;
+  }
+
+  .marketing-login-topbar {
+    max-width: 1280px !important;
+  }
+
+  .marketing-login-grid--wide {
+    padding-top: 0.95rem !important;
+  }
+}
+
+@media (max-width: 1180px) {
+  .marketing-login-grid,
+  .marketing-login-grid--wide {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  .marketing-login-left {
+    order: 0 !important;
+  }
+
+  .marketing-login-right {
+    order: 1 !important;
+    display: block !important;
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .marketing-plans-head--first {
+    grid-template-columns: 1fr;
+    padding: 0.95rem;
+    border-radius: 1.15rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.06));
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .marketing-plan-grid--first {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)) !important;
+  }
+}
+
+.marketing-plans-head--first span {
+  font-size: 0 !important;
+}
+
+.marketing-plans-head--first span::before {
+  font-size: 0.78rem !important;
+}
+
+.marketing-plans-head--first h2,
+.marketing-plans-head--first p {
+  font-size: 0 !important;
+}
+
+.marketing-plans-head--first h2::before {
+  font-size: clamp(1.85rem, 3vw, 2.75rem) !important;
+}
+
+.marketing-plans-head--first p::before {
+  font-size: 0.95rem !important;
+}

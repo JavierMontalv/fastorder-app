@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f1f5f9"/>
+      <stop offset="100%" style="stop-color:#e2e8f0"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg)"/>
+  <!-- Plate circle -->
+  <circle cx="200" cy="140" r="72" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2"/>
+  <circle cx="200" cy="140" r="60" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <!-- Fork -->
+  <g transform="translate(148,95)" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round">
+    <line x1="0" y1="0" x2="0" y2="20"/>
+    <line x1="-5" y1="0" x2="-5" y2="12"/>
+    <line x1="5" y1="0" x2="5" y2="12"/>
+    <line x1="-5" y1="12" x2="5" y2="12"/>
+    <line x1="0" y1="20" x2="0" y2="55"/>
+  </g>
+  <!-- Knife -->
+  <g transform="translate(252,95)" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round">
+    <path d="M0,0 C6,8 6,20 0,22" fill="#cbd5e1" stroke="#94a3b8"/>
+    <line x1="0" y1="22" x2="0" y2="55"/>
+  </g>
+  <!-- Food dots on plate -->
+  <circle cx="188" cy="130" r="8" fill="#fca5a5" opacity="0.7"/>
+  <circle cx="208" cy="138" r="10" fill="#fdba74" opacity="0.7"/>
+  <circle cx="196" cy="152" r="7" fill="#86efac" opacity="0.7"/>
+  <circle cx="215" cy="125" r="6" fill="#fca5a5" opacity="0.6"/>
+  <!-- Label -->
+  <rect x="130" y="230" width="140" height="28" rx="14" fill="#e2e8f0"/>
+  <text x="200" y="249" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#94a3b8" text-anchor="middle">Sin imagen</text>
+</svg>

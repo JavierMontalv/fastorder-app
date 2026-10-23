@@ -1,0 +1,919 @@
+/* src/styles/SoporteIA.css */
+/* ====================================================================
+   🤖 Soporte IA – COMANDA ADMIN 2026 (REDESIGN COMPLETO)
+   ==================================================================== */
+
+/* ══════════════════════════════════════════════
+   VARIABLES
+══════════════════════════════════════════════ */
+.sia-page {
+  --sia-primary: #4f46e5;
+  --sia-primary-dark: #4338ca;
+  --sia-primary-light: #eef2ff;
+  --sia-surface: #ffffff;
+  --sia-surface-2: #f8fafc;
+  --sia-border: rgba(148, 163, 184, 0.3);
+  --sia-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
+  --sia-shadow-md: 0 8px 32px rgba(15, 23, 42, 0.12);
+  --sia-text: #0f172a;
+  --sia-text-muted: #64748b;
+  --sia-radius: 1rem;
+  --sia-radius-sm: 0.6rem;
+}
+
+/* ══════════════════════════════════════════════
+   PAGE WRAPPER
+══════════════════════════════════════════════ */
+.sia-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.75rem;
+  min-height: calc(100vh - 64px);
+  background: #f1f5f9;
+  font-family: system-ui, -apple-system, 'Inter', sans-serif;
+  color: var(--sia-text);
+}
+
+html[data-theme='dark'] .sia-page {
+  --sia-surface: rgba(11, 17, 28, 0.96);
+  --sia-surface-2: rgba(19, 28, 43, 0.92);
+  --sia-border: rgba(148, 163, 184, 0.18);
+  --sia-text: var(--text-primary);
+  --sia-text-muted: var(--text-muted);
+  --sia-shadow: 0 12px 30px rgba(2, 6, 23, 0.2);
+  --sia-shadow-md: 0 18px 38px rgba(2, 6, 23, 0.3);
+}
+
+/* ══════════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════════ */
+.sia-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.sia-header__left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.sia-header__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--sia-text);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sia-header__icon {
+  font-size: 1.3rem;
+}
+
+.sia-header__sub {
+  font-size: 0.875rem;
+  color: var(--sia-text-muted);
+  margin: 0;
+}
+
+.sia-header__right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* ── Badges ── */
+.sia-badge {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.3rem 0.8rem;
+  border-radius: 99px;
+  letter-spacing: 0.01em;
+}
+
+.sia-badge--activa  { background: #dcfce7; color: #15803d; }
+.sia-badge--trial   { background: #fef9c3; color: #a16207; }
+.sia-badge--agotada { background: #fee2e2; color: #dc2626; }
+.sia-badge--desactivada, .sia-badge--bloqueada { background: #f1f5f9; color: #64748b; }
+.sia-badge--loading { background: #f1f5f9; color: #94a3b8; }
+
+.sia-plan-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.3rem 0.75rem;
+  border-radius: 99px;
+  background: var(--sia-primary-light);
+  color: var(--sia-primary);
+  border: 1px solid rgba(79, 70, 229, 0.2);
+}
+
+/* ══════════════════════════════════════════════
+   STATS BAR
+══════════════════════════════════════════════ */
+.sia-stats-bar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: var(--sia-surface);
+  border: 1px solid var(--sia-border);
+  border-radius: var(--sia-radius);
+  padding: 0.9rem 1.4rem;
+  box-shadow: var(--sia-shadow);
+  flex-wrap: wrap;
+}
+
+.sia-economics-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) repeat(2, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.sia-economics-card {
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.1rem 1.15rem;
+  border-radius: 1rem;
+  background: #fff;
+  border: 1px solid var(--sia-border);
+  box-shadow: var(--sia-shadow);
+}
+
+.sia-economics-card--hero {
+  background:
+    radial-gradient(circle at top right, rgba(79, 70, 229, 0.12), transparent 30%),
+    linear-gradient(135deg, #ffffff, #f6f7ff 62%, #eef2ff);
+}
+
+.sia-economics-kicker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sia-text-muted);
+}
+
+.sia-economics-card h3 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.1;
+  color: var(--sia-text);
+}
+
+.sia-economics-card p {
+  margin: 0;
+  color: var(--sia-text-muted);
+  line-height: 1.55;
+}
+
+.sia-economics-list,
+.sia-economics-metrics {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.sia-economics-list div,
+.sia-economics-metrics div {
+  display: grid;
+  gap: 0.3rem;
+  padding: 0.8rem 0.85rem;
+  border-radius: 0.85rem;
+  background: rgba(248, 250, 252, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.sia-economics-list span,
+.sia-economics-metrics span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sia-text-muted);
+}
+
+.sia-economics-list strong,
+.sia-economics-metrics strong {
+  font-size: 1rem;
+  color: var(--sia-text);
+}
+
+.sia-feature-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sia-feature-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  background: var(--sia-primary-light);
+  color: var(--sia-primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid rgba(79, 70, 229, 0.2);
+}
+
+.sia-feature-empty {
+  color: var(--sia-text-muted);
+  font-size: 0.84rem;
+}
+
+.sia-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.sia-stat--bar {
+  flex: 1;
+  min-width: 180px;
+}
+
+.sia-stat__label {
+  font-size: 0.75rem;
+  color: var(--sia-text-muted);
+  font-weight: 500;
+}
+
+.sia-stat__value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--sia-text);
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.sia-stat__sep {
+  color: var(--sia-text-muted);
+  font-weight: 400;
+}
+
+.sia-stat__value--highlight {
+  color: var(--sia-primary);
+}
+
+.sia-stat__pct {
+  font-size: 0.75rem;
+  color: var(--sia-text-muted);
+  margin-top: 0.25rem;
+}
+
+.sia-progress-track {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.sia-progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--sia-primary), #818cf8);
+  transition: width 0.6s ease;
+}
+
+.sia-progress-fill--warn   { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.sia-progress-fill--danger { background: linear-gradient(90deg, #ef4444, #f87171); }
+
+.sia-stat--warning {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #b45309;
+  background: #fef3c7;
+  border-radius: var(--sia-radius-sm);
+  padding: 0.4rem 0.8rem;
+}
+
+.sia-locked-shell {
+  display: grid;
+}
+
+.sia-locked-card {
+  display: grid;
+  gap: 1rem;
+  padding: 1.35rem;
+  border-radius: 1rem;
+  background:
+    radial-gradient(circle at top right, rgba(245, 158, 11, 0.12), transparent 28%),
+    linear-gradient(180deg, #fff, #fffaf0);
+  border: 1px solid rgba(245, 158, 11, 0.18);
+  box-shadow: var(--sia-shadow);
+}
+
+.sia-locked-card h3 {
+  margin: 0;
+  font-size: 1.45rem;
+  line-height: 1.08;
+  color: var(--sia-text);
+}
+
+.sia-locked-card p {
+  margin: 0;
+  color: var(--sia-text-muted);
+  line-height: 1.65;
+}
+
+.sia-locked-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.sia-locked-grid div {
+  display: grid;
+  gap: 0.3rem;
+  padding: 0.85rem 0.9rem;
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.sia-locked-grid span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sia-text-muted);
+}
+
+.sia-locked-grid strong {
+  color: var(--sia-text);
+  line-height: 1.4;
+}
+
+/* ══════════════════════════════════════════════
+   LAYOUT (SIDEBAR + CHAT)
+══════════════════════════════════════════════ */
+.sia-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 1.25rem;
+  flex: 1;
+}
+
+/* ══════════════════════════════════════════════
+   SIDEBAR
+══════════════════════════════════════════════ */
+.sia-sidebar {
+  background: var(--sia-surface);
+  border: 1px solid var(--sia-border);
+  border-radius: var(--sia-radius);
+  box-shadow: var(--sia-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+}
+
+/* Tabs de categorías */
+.sia-sidebar__tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid var(--sia-border);
+}
+
+.sia-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  padding: 0.65rem 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--sia-text-muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.sia-tab span:first-child {
+  font-size: 1rem;
+}
+
+.sia-tab:hover {
+  background: var(--sia-primary-light);
+  color: var(--sia-primary);
+}
+
+.sia-tab--active {
+  color: var(--sia-primary);
+  border-bottom-color: var(--sia-primary);
+  background: var(--sia-primary-light);
+  font-weight: 600;
+}
+
+/* Prompts */
+.sia-sidebar__prompts {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sia-sidebar__section-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--sia-text-muted);
+  margin: 0 0 0.25rem;
+}
+
+.sia-sidebar__section-desc {
+  font-size: 0.8rem;
+  color: var(--sia-text-muted);
+  line-height: 1.4;
+  margin: 0 0 0.6rem;
+}
+
+.sia-prompt-btn {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  text-align: left;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--sia-radius-sm);
+  background: var(--sia-surface-2);
+  border: 1px solid var(--sia-border);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--sia-text);
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s, transform 0.1s;
+}
+
+.sia-prompt-btn__text {
+  flex: 1;
+  color: inherit;
+  white-space: normal;
+}
+
+.sia-prompt-btn__icon {
+  flex-shrink: 0;
+  color: var(--sia-primary);
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.sia-prompt-btn:hover:not(:disabled) {
+  background: var(--sia-primary-light);
+  border-color: rgba(79, 70, 229, 0.4);
+  transform: translateY(-1px);
+}
+
+.sia-prompt-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Divider */
+.sia-sidebar__divider {
+  height: 1px;
+  background: var(--sia-border);
+  margin: 0;
+}
+
+/* Bloque traducción */
+.sia-sidebar__translate {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.sia-lang-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+}
+
+.sia-lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: var(--sia-radius-sm);
+  background: var(--sia-surface-2);
+  border: 1px solid var(--sia-border);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.sia-lang-btn:hover {
+  background: var(--sia-primary-light);
+  border-color: rgba(79, 70, 229, 0.35);
+}
+
+.sia-lang-btn--active {
+  background: var(--sia-primary-light);
+  border-color: var(--sia-primary);
+  color: var(--sia-primary);
+  font-weight: 600;
+}
+
+.sia-translate-cta {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border-radius: var(--sia-radius-sm);
+  background: linear-gradient(135deg, var(--sia-primary), var(--sia-primary-dark));
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  transition: opacity 0.15s, transform 0.1s;
+}
+
+.sia-translate-cta:hover:not(:disabled) {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.sia-translate-cta:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ══════════════════════════════════════════════
+   CHAT PANEL
+══════════════════════════════════════════════ */
+.sia-chat-panel {
+  background: var(--sia-surface);
+  border: 1px solid var(--sia-border);
+  border-radius: var(--sia-radius);
+  box-shadow: var(--sia-shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Ventana de mensajes */
+.sia-chat-window {
+  flex: 1;
+  max-height: 520px;
+  min-height: 280px;
+  overflow-y: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  scroll-behavior: smooth;
+}
+
+.sia-chat-window::-webkit-scrollbar { width: 5px; }
+.sia-chat-window::-webkit-scrollbar-track { background: transparent; }
+.sia-chat-window::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
+
+/* ── Burbujas ── */
+.sia-bubble {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  max-width: 80%;
+}
+
+.sia-bubble--ia {
+  align-self: flex-start;
+}
+
+.sia-bubble--user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+/* Avatar IA */
+.sia-bubble__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sia-primary), #818cf8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sia-bubble__avatar span {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.sia-bubble__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+/* Cuerpo del mensaje */
+.sia-bubble__body {
+  padding: 0.85rem 1.1rem;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+/* IA: fondo gris claro, texto oscuro (BUG CORREGIDO) */
+.sia-bubble--ia .sia-bubble__body {
+  background: #f1f5f9;
+  color: #0f172a;          /* ← color legible, era el bug original */
+  border: 1px solid #e2e8f0;
+  border-radius: 4px 1rem 1rem 1rem;
+}
+
+/* Usuario: azul */
+.sia-bubble--user .sia-bubble__body {
+  background: linear-gradient(135deg, var(--sia-primary), var(--sia-primary-dark));
+  color: #ffffff;
+  border-radius: 1rem 4px 1rem 1rem;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+}
+
+/* Typing indicator */
+.sia-bubble__body--typing {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 56px;
+  padding: 0.9rem 1.1rem;
+}
+
+.sia-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #94a3b8;
+  animation: siaDotPulse 1.2s infinite ease-in-out;
+}
+
+.sia-dot:nth-child(2) { animation-delay: 0.2s; }
+.sia-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes siaDotPulse {
+  0%, 80%, 100% { transform: scale(1); opacity: 0.5; }
+  40% { transform: scale(1.4); opacity: 1; }
+}
+
+/* Meta (hora + copiar) */
+.sia-bubble__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0 0.2rem;
+}
+
+.sia-bubble--user .sia-bubble__meta {
+  justify-content: flex-end;
+}
+
+.sia-bubble__time {
+  font-size: 0.7rem;
+  color: var(--sia-text-muted);
+}
+
+.sia-copy-btn {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--sia-text-muted);
+  background: none;
+  border: 1px solid var(--sia-border);
+  border-radius: 99px;
+  padding: 0.15rem 0.6rem;
+  cursor: pointer;
+  transition: color 0.12s, background 0.12s;
+}
+
+.sia-copy-btn:hover {
+  background: var(--sia-primary-light);
+  color: var(--sia-primary);
+  border-color: rgba(79, 70, 229, 0.3);
+}
+
+.sia-copy-btn--ok {
+  color: #15803d;
+  background: #dcfce7;
+  border-color: #bbf7d0;
+}
+
+/* Markdown dentro de burbujas IA */
+.sia-bubble--ia .sia-bubble__body p { margin: 0.45rem 0; }
+.sia-bubble--ia .sia-bubble__body p:first-child { margin-top: 0; }
+.sia-bubble--ia .sia-bubble__body p:last-child { margin-bottom: 0; }
+.sia-bubble--ia .sia-bubble__body h3 { font-size: 0.95rem; font-weight: 700; color: #312e81; margin: 0.9rem 0 0.35rem; }
+.sia-bubble--ia .sia-bubble__body strong { font-weight: 700; color: #0f172a; }
+.sia-bubble--ia .sia-bubble__body ul { margin: 0.4rem 0 0.6rem; padding-left: 1.2rem; }
+.sia-bubble--ia .sia-bubble__body li { margin-bottom: 0.3rem; }
+.sia-bubble--ia .sia-bubble__body hr { border: none; height: 1px; background: #e2e8f0; margin: 0.75rem 0; }
+
+/* ── Error bar ── */
+.sia-error-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0 1.5rem;
+  padding: 0.7rem 1rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--sia-radius-sm);
+  font-size: 0.85rem;
+  color: #dc2626;
+}
+
+.sia-error-bar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #dc2626;
+  padding: 0 0.25rem;
+  flex-shrink: 0;
+}
+
+/* ── Input area ── */
+.sia-input-area {
+  padding: 1rem 1.25rem 1.25rem;
+  border-top: 1px solid var(--sia-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sia-textarea-wrap {
+  position: relative;
+}
+
+.sia-textarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  padding-bottom: 1.6rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  background: var(--sia-surface-2);
+  color: var(--sia-text);
+  border: 2px solid var(--sia-border);
+  border-radius: var(--sia-radius-sm);
+  resize: none;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.sia-textarea:focus {
+  border-color: var(--sia-primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.sia-textarea:disabled {
+  opacity: 0.65;
+}
+
+.sia-char-count {
+  position: absolute;
+  bottom: 0.45rem;
+  right: 0.75rem;
+  font-size: 0.7rem;
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+.sia-input-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* Botón enviar */
+.sia-send-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 130px;
+  padding: 0.65rem 1.5rem;
+  border-radius: var(--sia-radius-sm);
+  background: linear-gradient(135deg, var(--sia-primary), var(--sia-primary-dark));
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+  transition: opacity 0.15s, transform 0.1s;
+  justify-content: center;
+}
+
+.sia-send-btn:hover:not(:disabled) {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.sia-send-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.sia-send-shortcut {
+  font-size: 0.72rem;
+  opacity: 0.7;
+  font-weight: 400;
+}
+
+/* Spinner dentro del botón */
+.sia-send-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: siaSpin 0.7s linear infinite;
+}
+
+@keyframes siaSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .sia-economics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sia-layout {
+    grid-template-columns: 260px 1fr;
+  }
+
+  .sia-locked-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .sia-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sia-sidebar {
+    order: 2;
+  }
+
+  .sia-chat-panel {
+    order: 1;
+  }
+
+  .sia-stats-bar {
+    gap: 0.75rem;
+  }
+
+  .sia-stat--bar {
+    min-width: 100%;
+    order: 3;
+  }
+
+  .sia-send-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .sia-page {
+    padding: 1rem;
+  }
+
+  .sia-sidebar__tabs {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .sia-lang-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sia-locked-grid {
+    grid-template-columns: 1fr;
+  }
+}
