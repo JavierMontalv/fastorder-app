@@ -102,11 +102,34 @@ Resources:
         SigningBehavior: always
         SigningProtocol: sigv4
 
+  SpaRewriteFunction:
+    Type: AWS::CloudFront::Function
+    Properties:
+      Name: comanda-spa-rewrite
+      AutoPublish: true
+      FunctionConfig:
+        Comment: Rewrite extensionless SPA routes to the cached index document.
+        Runtime: cloudfront-js-2.0
+      FunctionCode: |
+        function handler(event) {
+          var request = event.request;
+          var uri = request.uri || '/';
+          var isDirectory = uri.charAt(uri.length - 1) === '/';
+          var lastSegment = uri.substring(uri.lastIndexOf('/') + 1);
+          var hasExtension = lastSegment.indexOf('.') !== -1;
+
+          if (isDirectory || !hasExtension) {
+            request.uri = '/index.html';
+          }
+
+          return request;
+        }
+
   AdminDistribution:
     Type: AWS::CloudFront::Distribution
     Properties:
       DistributionConfig:
-        Comment: COMANDA admin temporary AWS origin
+        Comment: COMANDA admin production AWS origin
         Enabled: true
         Aliases: !If
           - UseCustomDomains
@@ -130,6 +153,9 @@ Resources:
           CachedMethods: [GET, HEAD, OPTIONS]
           CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
           ResponseHeadersPolicyId: 67f7725c-6f97-4210-82d7-5512b31e9d03
+          FunctionAssociations:
+            - EventType: viewer-request
+              FunctionARN: !GetAtt SpaRewriteFunction.FunctionARN
         CustomErrorResponses:
           - ErrorCode: 403
             ResponseCode: 200
@@ -157,7 +183,7 @@ Resources:
     Type: AWS::CloudFront::Distribution
     Properties:
       DistributionConfig:
-        Comment: COMANDA menu temporary AWS origin
+        Comment: COMANDA menu production AWS origin
         Enabled: true
         Aliases: !If
           - UseCustomDomains
@@ -181,6 +207,9 @@ Resources:
           CachedMethods: [GET, HEAD, OPTIONS]
           CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
           ResponseHeadersPolicyId: 67f7725c-6f97-4210-82d7-5512b31e9d03
+          FunctionAssociations:
+            - EventType: viewer-request
+              FunctionARN: !GetAtt SpaRewriteFunction.FunctionARN
         CustomErrorResponses:
           - ErrorCode: 403
             ResponseCode: 200
