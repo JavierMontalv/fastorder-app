@@ -173,6 +173,19 @@ export default function PedidoCard({
     };
   }, [grupo, pedidoPrincipal, puedeMarcarPagado, resolverAccionEstado, tienePedidos]);
 
+  const resumenComensales = useMemo(() => {
+    const comensales = new Map();
+    (grupo?.pedidos || []).forEach((pedido) => {
+      const nombre = String(pedido?.clienteNombre || '').trim() || `Pedido #${pedido?.numero || pedido?.id}`;
+      const actual = comensales.get(nombre) || { nombre, total: 0, items: 0, pedidos: 0 };
+      actual.total += Number(pedido?.total || 0);
+      actual.items += Number(pedido?.totalItems || 0);
+      actual.pedidos += 1;
+      comensales.set(nombre, actual);
+    });
+    return [...comensales.values()].sort((a, b) => b.total - a.total || a.nombre.localeCompare(b.nombre));
+  }, [grupo]);
+
   const badgeLabel = tienePedidos ? formatEstadoPedido(grupo.estadoDominante) : mesaEstadoLabel;
   const badgeClassName = tienePedidos
     ? `pedido-badge pedido-badge-estado estado-${grupo.estadoDominante}`
@@ -221,6 +234,12 @@ export default function PedidoCard({
               <h3>{grupo.mesaLabel}</h3>
               {aliasMesa && <span className="pedido-card-context-chip">{aliasMesa}</span>}
               <span className={badgeClassName}>
+                {grupo.estadoDominante === 'preparacion' ? (
+                  <span className="pedido-cooking-pan" aria-hidden="true">
+                    <span className="pedido-cooking-pan-body" />
+                    <span className="pedido-cooking-pan-handle" />
+                  </span>
+                ) : null}
                 {badgeLabel}
               </span>
             </div>
@@ -396,6 +415,32 @@ export default function PedidoCard({
                 Desglose por ticket con items, notas, estado financiero y acciones operativas.
               </p>
             </div>
+
+            {tieneMesaAsignada && resumenComensales.length > 0 ? (
+              <div className="pedido-diner-summary" aria-label={`Resumen de ${resumenComensales.length} comensales`}>
+                <div className="pedido-diner-summary-head">
+                  <div>
+                    <span>Cuenta compartida</span>
+                    <strong>{resumenComensales.length} comensal(es) identificados</strong>
+                  </div>
+                  <small>Una mesa · sin tarjetas duplicadas</small>
+                </div>
+                <div className="pedido-diner-summary-list">
+                  {resumenComensales.map((comensal) => (
+                    <div key={comensal.nombre} className="pedido-diner-row">
+                      <span className="pedido-diner-avatar" aria-hidden="true">
+                        {comensal.nombre.charAt(0).toUpperCase()}
+                      </span>
+                      <div>
+                        <strong>{comensal.nombre}</strong>
+                        <small>{comensal.pedidos} pedido(s) · {comensal.items} item(s)</small>
+                      </div>
+                      {puedeVerTotales ? <b>{formatCurrency(comensal.total)}</b> : null}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
 
             <div className="pedido-detail-grid">
               {grupo.pedidos.map((pedido) => {
