@@ -278,7 +278,7 @@ export default function Login() {
       return;
     }
 
-    const email = portal?.brand?.supportEmail || 'ventas@somoscomanda.com';
+    const email = portal?.brand?.supportEmail || 'comercial@somosbreviatech.com';
     window.location.href = `mailto:${email}?subject=${encodeURIComponent('Cotización Comanda Multisede')}&body=${encodeURIComponent(message)}`;
   };
 
