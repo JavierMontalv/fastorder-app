@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import './App.css';
 import './styles/DarkTheme.css';
@@ -15,11 +15,11 @@ import Analiticas from './pages/Analiticas';
 import Auditoria from './pages/Auditoria';
 import CambiarPassword from './pages/CambiarPassword';
 import Categorias from './pages/Categorias';
-import ComercialInfo from './pages/ComercialInfo';
+import Inicio from './pages/Inicio';
 import Configuracion from './pages/Configuracion';
 import Dashboard from './pages/Dashboard';
 import DisplayScreen from './pages/DisplayScreen';
-import Login from './pages/Login';
+import AdminLogin from './pages/AdminLogin';
 import Onboarding from './pages/Onboarding';
 import Pedidos from './pages/Pedidos';
 import PlanCheckoutSuccess from './pages/PlanCheckoutSuccess';
@@ -33,6 +33,14 @@ import CrearRestaurante from './pages/superadmin/CrearRestaurante';
 import Restaurantes from './pages/superadmin/Restaurantes';
 import SolicitudesComerciales from './pages/superadmin/SolicitudesComerciales';
 import UsuariosSuperadmin from './pages/superadmin/Usuarios';
+
+function LegacyLogin() {
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
+  const activation = params.has('plan') || params.get('modo') === 'activar';
+  if (activation) params.set('modo', 'activar');
+  return <Navigate to={`${activation ? '/inicio' : '/admin'}${params.size ? `?${params}` : ''}`} replace />;
+}
 
 export default function App() {
   return (
@@ -53,9 +61,11 @@ export default function App() {
               />
 
               <Routes>
-                <Route path="/login" element={<Login />} />
+                <Route path="/inicio" element={<Inicio />} />
+                <Route path="/admin" element={<AdminLogin />} />
+                <Route path="/login" element={<LegacyLogin />} />
                 <Route path="/cambiar-password" element={<CambiarPassword />} />
-                <Route path="/descubre" element={<ComercialInfo />} />
+                <Route path="/descubre" element={<Navigate to="/inicio" replace />} />
                 <Route path="/planes/gracias" element={<PlanCheckoutSuccess />} />
                 <Route path="/display/:slug" element={<DisplayScreen />} />
 

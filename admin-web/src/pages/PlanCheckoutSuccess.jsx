@@ -244,7 +244,7 @@ export default function PlanCheckoutSuccess() {
 
           {error ? <p className="login-error">{error}</p> : null}
           <div className="checkout-success-actions">
-            <Link className="public-button" to="/login">
+            <Link className="public-button" to="/admin">
               Volver al portal comercial
             </Link>
             <Link className="public-button public-button--ghost" to="/descubre">

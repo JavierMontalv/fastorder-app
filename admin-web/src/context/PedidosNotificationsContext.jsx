@@ -71,7 +71,7 @@ export function PedidosNotificationsProvider({ children }) {
   useEffect(() => {
     if (typeof document === 'undefined') return undefined;
 
-    const estaEnPanel = !['/login', '/descubre', '/planes/gracias', '/cambiar-password'].includes(location.pathname);
+    const estaEnPanel = !['/inicio', '/admin', '/login', '/descubre', '/planes/gracias', '/cambiar-password'].includes(location.pathname);
     if (!estaEnPanel) return undefined;
 
     const tituloBase = 'Comanda | Panel de control';
