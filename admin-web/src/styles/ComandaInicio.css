@@ -18,3 +18,40 @@
 @media(max-width:760px){.cm-access-story h1 br{display:block}}
 
 .cm-resource-main{max-width:1040px;margin:auto;padding:40px 40px 70px}.cm-resource-main>nav{font-size:10px;color:#66765e;margin-bottom:45px}.cm-resource-main article>header{max-width:780px}.cm-resource h1{font-size:clamp(36px,4.5vw,60px);margin:22px 0 26px}.cm-resource article>header>p{font-size:16px;line-height:1.9}.cm-resource-content{max-width:730px;margin:45px 0}.cm-resource-content section{margin:32px 0}.cm-resource-content h2{font-size:25px;letter-spacing:-1px;margin-bottom:15px}.cm-resource-content p{font-size:14px;line-height:1.95}.cm-resource-cta{background:#e9eddf;border:1px solid #d4deca;padding:35px;border-radius:10px}.cm-resource-cta>div{display:flex;flex-wrap:wrap;gap:24px;align-items:center;margin-top:25px}.cm-resource-related{margin-top:45px}.cm-resource-related h2{font-size:26px;margin-bottom:18px}.cm-resource-related>a{display:block;padding:15px 0;border-bottom:1px solid #d3dccf;font-size:13px}.cm-resource-links>div{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}.cm-resource-links a{position:relative;border:1px solid #d4ddcf;background:#fff;padding:26px 45px 26px 24px;border-radius:8px}.cm-resource-links strong{display:block;font-size:15px;margin-bottom:10px}.cm-resource-links a>span{display:block;font-size:11px;line-height:1.9;color:#5b6855}.cm-resource-links b{position:absolute;right:22px;top:22px;color:#bb4d32}@media(max-width:760px){.cm-resource-main{padding:28px 22px 45px}.cm-resource-main>nav{margin-bottom:30px}.cm-resource article>header>p{font-size:13px}.cm-resource-content p{font-size:12px}.cm-resource-content h2{font-size:23px}.cm-resource-cta{padding:25px 20px}.cm-resource-links>div{grid-template-columns:1fr}.cm-resource .cm-nav>.cm-text-link{font-size:9px}}
+/* Commercial identity: readable type, purposeful pricing and accessible contrast. */
+.cm-public{--cm-coral:#c84228}
+.cm-public .cm-button{background:#c84228;font-size:14px;cursor:pointer}
+.cm-public .cm-button:hover{background:#a93320}
+.cm-public .cm-button-outline{background:transparent;color:#253b2e!important;border-color:#9fac9e}
+.cm-public .cm-button-outline:hover{background:#edf1e8}
+.cm-public .cm-button-light{background:#e5efdc;color:#19362a!important}
+.cm-public .cm-how h2,.cm-public .cm-how h3{color:#f7f8ef}
+.cm-public .cm-how p{color:#d9e5d4}
+.cm-public .cm-how .cm-eyebrow{color:#d9e5d4}
+.cm-public .cm-eyebrow{font-size:10px}
+.cm-public .cm-nav nav{font-size:13px}
+.cm-public .cm-hero-copy>p{font-size:15px;line-height:1.85}
+.cm-public .cm-hero-copy>.cm-entry-price{font-size:13px;margin:-20px 0 28px}
+.cm-public .cm-entry-price strong{color:#253b2e;font-weight:750}
+.cm-public .cm-section-heading>p,.cm-public .cm-benefits p{font-size:14px;line-height:1.85}
+.cm-public .cm-benefits small{font-size:11px}
+.cm-public .cm-plan{display:flex;flex-direction:column;padding:30px 27px}
+.cm-public .cm-plan-top{min-height:40px;gap:12px;flex-wrap:wrap}
+.cm-public .cm-plan-top>span{font-size:12px}
+.cm-public .cm-plan-top>b{font-size:9px;letter-spacing:.08em}
+.cm-public .cm-plan h3{font-size:28px;letter-spacing:-.04em}
+.cm-public .cm-plan>p{font-size:13px}
+.cm-public .cm-price{font-size:46px;margin:24px 0;letter-spacing:-.04em;flex-wrap:wrap}
+.cm-public .cm-price small{font-size:12px;letter-spacing:0;white-space:nowrap}
+.cm-public .cm-plan ul{flex:1;min-height:0;margin:0 0 24px;padding-top:22px;border-top:1px solid #dfe3dd}
+.cm-public .cm-plan li{font-size:13px;line-height:1.7;margin-bottom:12px}
+.cm-public .cm-plan-limits{display:flex;flex-wrap:wrap;gap:8px;padding:18px 0 0;margin-top:auto;font-size:11px}
+.cm-public .cm-plan-limits span{background:#f0f3ed;border-radius:5px;padding:5px 8px}
+.cm-public .cm-plan>.cm-button{width:100%;margin-top:24px}
+.cm-public .cm-plan-note{font-size:12px;line-height:1.8}
+.cm-public .cm-faq summary{font-size:15px}
+.cm-public .cm-faq details p,.cm-public .cm-how li p{font-size:14px;line-height:1.85}
+.cm-public .cm-footer p,.cm-public .cm-footer a,.cm-public .cm-footer button{font-size:13px}
+.cm-public .cm-resource-links a>span,.cm-public .cm-resource-content p{font-size:14px}
+@media(max-width:760px){.cm-public .cm-hero-copy>p{font-size:14px}.cm-public .cm-hero-copy>.cm-entry-price{font-size:12px}.cm-public .cm-plan{padding:27px 23px}.cm-public .cm-plan-top{min-height:30px}.cm-public .cm-price{font-size:42px}.cm-public .cm-plan li{font-size:14px}.cm-public .cm-plan-limits{font-size:12px}}
+
