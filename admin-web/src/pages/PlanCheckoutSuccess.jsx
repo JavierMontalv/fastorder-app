@@ -22,7 +22,7 @@ const emptyActivation = {
 
 export default function PlanCheckoutSuccess() {
   const [searchParams] = useSearchParams();
-  const plan = String(searchParams.get('plan') || '').toUpperCase();
+  const plan = ({ base: 'Básico', basico: 'Básico', pro: 'Pro', ia: 'Premium', premium: 'Premium' })[searchParams.get('plan')] || 'Comanda';
   const reference = searchParams.get('reference') || '';
   const claim = searchParams.get('claim') || '';
   const [status, setStatus] = useState('pending');
@@ -244,7 +244,7 @@ export default function PlanCheckoutSuccess() {
 
           {error ? <p className="login-error">{error}</p> : null}
           <div className="checkout-success-actions">
-            <Link className="public-button" to="/login">
+            <Link className="public-button" to="/admin">
               Volver al portal comercial
             </Link>
             <Link className="public-button public-button--ghost" to="/descubre">

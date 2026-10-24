@@ -22,6 +22,12 @@ export default function ProtectedRoute({ children, roles }) {
 
   const location = useLocation();
 
+  useEffect(() => {
+    if (sessionReady && isAuthenticated && redirectPath === location.pathname) {
+      limpiarRedirect();
+    }
+  }, [sessionReady, isAuthenticated, redirectPath, location.pathname, limpiarRedirect]);
+
   // ======================================================
   // ⏳ Esperar a que AuthContext decida TODO
   // ======================================================
@@ -37,7 +43,7 @@ export default function ProtectedRoute({ children, roles }) {
   // 🔐 No autenticado → Login
   // ======================================================
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to={location.pathname === '/' ? '/inicio' : '/admin'} replace />;
   }
 
   // ======================================================
@@ -48,10 +54,6 @@ export default function ProtectedRoute({ children, roles }) {
   // ======================================================
   if (redirectPath && location.pathname !== redirectPath) {
     return <Navigate to={redirectPath} replace />;
-  }
-
-  if (redirectPath && location.pathname === redirectPath) {
-    limpiarRedirect();
   }
 
   // ======================================================
