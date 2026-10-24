@@ -18,6 +18,7 @@ if (isPublic) {
   else ReactDOM.createRoot(root).render(app);
 } else {
   const { default: App } = await import('./App');
+  await import('./styles/Responsive.css');
   await import('@fontsource-variable/inter');
   await import('react-toastify/dist/ReactToastify.css');
   ReactDOM.createRoot(root).render(<App />);
