@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useLayoutEffect, useMemo, useStat
 import { useLocation } from 'react-router-dom';
 
 const THEME_STORAGE_KEY = 'comanda_admin_theme';
-const LIGHT_ONLY_ROUTES = ['/login', '/cambiar-password', '/descubre', '/planes/gracias'];
+const LIGHT_ONLY_ROUTES = ['/inicio', '/admin', '/login', '/cambiar-password', '/descubre', '/planes/gracias'];
 
 const ThemeContext = createContext({
   theme: 'light',

@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
   // 🧠 Resolver destino SOLO para flujos explícitos
   // =====================================================
   const resolverDestinoInicial = useCallback((usuario) => {
-    if (!usuario) return '/login';
+    if (!usuario) return '/admin';
 
     const { rol, onboarding_completado, restauranteId, sedeActivaId } = usuario;
 
@@ -149,7 +149,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('comanda_sede_activa_id');
     setToken(null);
     setUser(null);
-    setRedirectPath('/login');
+    setRedirectPath('/admin');
     setSessionReady(true);
   };
 
