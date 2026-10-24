@@ -24,6 +24,7 @@ env:
   VITE_API_URL: https://api.somoscomanda.com/api
   VITE_ASSETS_URL: https://api.somoscomanda.com
   VITE_SOCKET_URL: https://api.somoscomanda.com
+  VITE_PUBLIC_SITE_URL: https://www.somoscomanda.com
 
 jobs:
   build-deploy-verify:
