@@ -55,3 +55,28 @@
 .cm-public .cm-resource-links a>span,.cm-public .cm-resource-content p{font-size:14px}
 @media(max-width:760px){.cm-public .cm-hero-copy>p{font-size:14px}.cm-public .cm-hero-copy>.cm-entry-price{font-size:12px}.cm-public .cm-plan{padding:27px 23px}.cm-public .cm-plan-top{min-height:30px}.cm-public .cm-price{font-size:42px}.cm-public .cm-plan li{font-size:14px}.cm-public .cm-plan-limits{font-size:12px}}
 
+
+/* The plan link covers its card while retaining native keyboard navigation. */
+.cm-public .cm-plan{transition:background-color .22s ease,border-color .22s ease,box-shadow .22s ease,transform .22s ease}
+.cm-public .cm-plan-link::after{content:'';position:absolute;inset:0;border-radius:10px}
+.cm-public .cm-plan:focus-within{background:#edf2e8;border-color:#52745b;box-shadow:0 12px 30px #203a2814}
+.cm-public .cm-plan-featured:focus-within{background:#fff0e6;border-color:#c84228}
+.cm-public .cm-plan-link:focus-visible{outline:none}
+.cm-public .cm-plan-link:focus-visible::after{outline:3px solid #c84228;outline-offset:4px}
+.cm-public .cm-plan>.cm-plan-link:hover{transform:none}
+.cm-public .cm-resource-links a{transition:background-color .22s ease,border-color .22s ease,box-shadow .22s ease}
+.cm-public .cm-resource-links a:focus-visible{background:#edf2e8;border-color:#52745b}
+@media(hover:hover){.cm-public .cm-plan:hover{background:#edf2e8;border-color:#52745b;box-shadow:0 12px 30px #203a2814;transform:translateY(-4px)}.cm-public .cm-plan-featured:hover{background:#fff0e6;border-color:#c84228}.cm-public .cm-plan:hover>.cm-button-outline{background:#253f30;border-color:#253f30;color:#fff!important}.cm-public .cm-resource-links a:hover{background:#edf2e8;border-color:#52745b;box-shadow:0 8px 22px #203a2810}}
+@media(prefers-reduced-motion:reduce){.cm-public .cm-plan,.cm-public .cm-resource-links a{transition:none}.cm-public .cm-plan:hover{transform:none}}
+
+/* Fluid commercial and access layouts from compact phones to wide desktops. */
+.cm-public *{box-sizing:border-box}
+.cm-public .cm-hero-copy,.cm-public .cm-plan,.cm-public .cm-section-heading>*,.cm-public .cm-access-grid>*,.cm-public .cm-footer>div{min-width:0}
+.cm-public .cm-price{overflow-wrap:normal}
+.cm-public .cm-price small{display:inline-block}
+.cm-public .cm-footer a,.cm-public .cm-access-footer a{overflow-wrap:anywhere}
+.cm-public .cm-plan-link,.cm-public .cm-menu-button{min-height:44px}
+@media(min-width:761px) and (max-width:1100px){.cm-public .cm-plan{padding:24px 18px}.cm-public .cm-plan h3{font-size:24px}.cm-public .cm-price{font-size:36px}.cm-public .cm-price small{display:block;margin-left:0;margin-top:5px}.cm-public .cm-plan-top{min-height:65px}.cm-public .cm-plan li{font-size:13px}}
+@media(min-width:761px) and (max-width:900px){.cm-public .cm-hero{grid-template-columns:1fr;gap:40px}.cm-public .cm-hero-copy{max-width:650px}.cm-public .cm-product-art{width:100%;max-width:600px;margin:auto}.cm-public .cm-how{grid-template-columns:1fr}.cm-public .cm-access-grid{grid-template-columns:1fr;max-width:620px;gap:32px}.cm-public .cm-nav{gap:18px}.cm-public .cm-nav nav{gap:14px;font-size:12px}}
+@media(max-width:420px){.cm-public .cm-hero h1{font-size:clamp(30px,9.8vw,40px);letter-spacing:-.055em}.cm-public .cm-hero-actions{flex-wrap:wrap;gap:18px}.cm-public .cm-hero-foot{flex-wrap:wrap}.cm-public .cm-resource-main>nav{overflow-wrap:anywhere}.cm-public .cm-plan-top{align-items:flex-start}.cm-public .cm-footer{grid-template-columns:1fr}.cm-public .cm-closing h2{font-size:46px}}
+@media(max-width:760px){.cm-public input,.cm-public select,.cm-public textarea{font-size:16px}.cm-public .cm-form-grid{grid-template-columns:1fr}.cm-public .cm-access-footer{padding-inline:20px;line-height:1.9}.cm-public .cm-resource .cm-nav>.cm-text-link{font-size:12px}}

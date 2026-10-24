@@ -36,7 +36,7 @@ export default function AdminLogin() {
           {error ? <p className="cm-error" role="alert">{error}</p> : null}
           <button className="cm-button" type="submit" disabled={busy}>{busy ? 'Ingresando…' : 'Entrar a mi restaurante →'}</button>
         </form>
-        <a className="cm-text-link" href="mailto:ventas@somoscomanda.com?subject=Ayuda%20con%20mi%20acceso%20a%20Comanda">¿Necesitas ayuda para ingresar?</a><div className="cm-access-divider" /><p>¿Todavía no tienes Comanda?<br /><Link className="cm-text-link" to="/inicio#planes">Conoce los planes o solicita una demo ↗</Link></p>
+        <a className="cm-text-link" href="mailto:comercial@somosbreviatech.com?subject=Ayuda%20con%20mi%20acceso%20a%20Comanda">¿Necesitas ayuda para ingresar?</a><div className="cm-access-divider" /><p>¿Todavía no tienes Comanda?<br /><Link className="cm-text-link" to="/inicio#planes">Conoce los planes o solicita una demo ↗</Link></p>
       </section>
     </main>
     <footer className="cm-access-footer">© {new Date().getFullYear()} Comanda · Brevia Tech SAS</footer>

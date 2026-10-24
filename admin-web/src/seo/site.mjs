@@ -73,7 +73,7 @@ export function pageMetadata(path) {
 
 export function structuredData(path) {
   const home = SITE_ORIGIN + HOME_PATH;
-  const organization = { '@type': 'Organization', '@id': SITE_ORIGIN + '/#organization', name: 'Comanda', legalName: 'BREVIA TECH SAS', url: home, logo: SITE_ORIGIN + '/brand/comanda-icon.png', email: 'ventas@somoscomanda.com', parentOrganization: { '@type': 'Organization', name: 'Brevia Tech SAS', url: 'https://www.somosbreviatech.com/' } };
+  const organization = { '@type': 'Organization', '@id': SITE_ORIGIN + '/#organization', name: 'Comanda', legalName: 'BREVIA TECH SAS', url: home, logo: SITE_ORIGIN + '/brand/comanda-icon.png', email: 'comercial@somosbreviatech.com', parentOrganization: { '@type': 'Organization', name: 'Brevia Tech SAS', url: 'https://www.somosbreviatech.com/' } };
   const website = { '@type': 'WebSite', '@id': SITE_ORIGIN + '/#website', name: 'Comanda', alternateName: ['Somos Comanda', 'Comanda de Brevia Tech', 'somoscomanda.com'], url: home, inLanguage: 'es-CO', publisher: { '@id': organization['@id'] } };
   const page = publicPages.find(p => p.path === path);
   const graph = [organization, website, { '@type': 'WebPage', name: page?.title || HOME_TITLE, url: SITE_ORIGIN + (page?.path || HOME_PATH), description: page?.description || HOME_DESCRIPTION, inLanguage: 'es-CO', isPartOf: { '@id': website['@id'] } }];
