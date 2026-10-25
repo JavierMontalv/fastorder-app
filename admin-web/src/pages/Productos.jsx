@@ -35,6 +35,7 @@ import { MENU_STARTER_PACK } from '../constants/menuStarterPack';
 
 import '../styles/Dashboard.css';
 import '../styles/Productos.css';
+import '../styles/ProductosWorkspace.css';
 
 function normalizeText(value = '') {
   return String(value).trim().toLowerCase();
@@ -1401,30 +1402,22 @@ export default function Productos() {
       : 'Aplicar plantilla base';
 
   return (
-    <div className="productos-container fadeIn">
+    <div className="productos-container productos-workspace fadeIn">
       <div className="module-header">
         <div className="module-header-left">
           <h2>Productos</h2>
-          <p>Gestiona todos los productos del restaurante en una vista clara, ordenada por categorias reales del menu.</p>
+          <p>Tu carta, organizada. Actualiza productos, precios y disponibilidad en un solo lugar.</p>
         </div>
 
         <div className="module-header-right">
-          <input
-            type="text"
-            placeholder="Buscar productos..."
-            value={busqueda}
-            onChange={(e) => setBusqueda(e.target.value)}
-            className="input-base input-search"
-          />
-
           <button type="button" className="btn-secondary" onClick={() => setShowIntake(value => !value)} aria-expanded={showIntake}>
             {showIntake ? 'Ocultar carga rápida' : 'Cargar con fotos'}
           </button>
           <button type="button" className="btn-secondary" onClick={() => setOpenCategoriaQuick(true)}>
             Nueva categoría
           </button>
-          <button className="btn-primary" onClick={handleNuevo} disabled={limiteProductosAlcanzado}>
-            ➕ Nuevo
+          <button className="btn-primary" onClick={() => handleNuevo()} disabled={limiteProductosAlcanzado}>
+            + Nuevo producto
           </button>
         </div>
       </div>
@@ -1438,15 +1431,29 @@ export default function Productos() {
             {limiteProductosPlan > 0
               ? `${productosDisponiblesPlan} cupo${productosDisponiblesPlan === 1 ? '' : 's'} disponible${productosDisponiblesPlan === 1 ? '' : 's'} en ${planActual?.nombre || 'el plan actual'}.`
               : cargandoPlan
-                ? 'Validando limites reales del restaurante...'
-                : 'El plan activo no reporto limite de productos.'}
+                ? 'Consultando los límites de tu plan…'
+                : 'Tu plan no reporta un límite de productos.'}
           </p>
         </div>
         {limiteProductosAlcanzado ? (
-          <span className="productos-plan-usage__status">Limite alcanzado</span>
+          <span className="productos-plan-usage__status">Límite alcanzado</span>
         ) : (
           <span className="productos-plan-usage__status">Disponible</span>
         )}
+      </div>
+
+      <div className="pw-filters" role="search" aria-label="Filtrar productos">
+        <label className="pw-search">Buscar en tu carta
+          <input type="search" placeholder="Nombre, descripción o categoría…" value={busqueda} onChange={e => setBusqueda(e.target.value)} />
+        </label>
+        <label>Categoría
+          <select value={filtroCategoria} onChange={e => setFiltroCategoria(e.target.value)}>
+            <option value="todos">Todas las categorías</option>
+            {categorias.map(c => <option key={c.id} value={String(c.id)}>{c.nombre}</option>)}
+          </select>
+        </label>
+        {(busqueda || filtroCategoria !== 'todos') && <button type="button" className="catalogo-soft-btn" onClick={() => { setBusqueda(''); setFiltroCategoria('todos'); }}>Limpiar filtros</button>}
+        <span className="pw-result" role="status">{loading ? 'Cargando…' : `${productosFiltrados.length} producto${productosFiltrados.length === 1 ? '' : 's'}`}</span>
       </div>
 
       {loading ? (
@@ -1458,13 +1465,13 @@ export default function Productos() {
       ) : productosFiltrados.length === 0 ? (
         <div className="empty-state">
           <div className="empty-state-icon">📦</div>
-          <h3 className="empty-state-title">Aún no hay productos en esta vista</h3>
+          <h3 className="empty-state-title">{productos.length ? 'No encontramos coincidencias' : 'Empieza a construir tu carta'}</h3>
           <p className="empty-state-text">
-            Empieza por crear el primer producto del restaurante.
+            {productos.length ? 'Prueba otro nombre o cambia la categoría seleccionada.' : 'Crea tu primer producto o carga varias fotografías para comenzar.'}
           </p>
           <div className="empty-state-actions">
-            <button className="btn-primary" onClick={handleNuevo} disabled={limiteProductosAlcanzado}>
-              ➕ Crear producto
+            <button className="btn-primary" onClick={() => handleNuevo()} disabled={limiteProductosAlcanzado}>
+              + Crear producto
             </button>
           </div>
         </div>
@@ -1473,7 +1480,7 @@ export default function Productos() {
           <div className="productos-real-head">
             <div>
               <span className="productos-real-kicker">Detalle de productos</span>
-              <h3>Todos los productos cargados</h3>
+              <h3>Tu carta de productos</h3>
               <p>
                 {productosFiltrados.length} resultado{productosFiltrados.length === 1 ? '' : 's'} en esta vista.
               </p>
@@ -1486,15 +1493,6 @@ export default function Productos() {
             </div>
           </div>
 
-          <div className="productos-real-toolbar">
-            <p>
-              Productos organizados por categoria para revisar rapido la carta completa. Edita precio, categoria, visibilidad y stock desde cada tarjeta.
-            </p>
-            <button className="catalogo-soft-btn" onClick={handleNuevo} disabled={limiteProductosAlcanzado}>
-              Nuevo producto
-            </button>
-          </div>
-
           <div className="productos-apartados-list">
             {productosPorApartadoVista.map((apartado) => (
               <section key={apartado.id} className="productos-apartado-section">
@@ -1503,10 +1501,10 @@ export default function Productos() {
                     <span>{apartado.icono}</span>
                     <h4>{apartado.nombre}</h4>
                   </div>
-                  <p>
-                    {apartado.productos.length} producto{apartado.productos.length === 1 ? '' : 's'} organizado
-                    {apartado.productos.length === 1 ? '' : 's'} en este apartado.
-                  </p>
+                  <div className="pw-category-actions">
+                    <p>{apartado.productos.length} producto{apartado.productos.length === 1 ? '' : 's'}</p>
+                    <button type="button" className="catalogo-soft-btn" onClick={() => handleNuevo(apartado.id === 'sin-categoria' ? '' : apartado.id)} disabled={limiteProductosAlcanzado} aria-label={`Añadir producto a ${apartado.nombre}`}>+ Añadir</button>
+                  </div>
                 </div>
 
                 <div className="productos-grid productos-grid--apartado">

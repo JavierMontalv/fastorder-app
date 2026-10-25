@@ -58,7 +58,7 @@ export default function TarjetaProducto({ producto, onEdit, onDelete }) {
           alt={producto.nombre}
           className="pro-card-img"
           loading="lazy"
-          onError={(e) => { e.currentTarget.src = PLACEHOLDER; }}
+          onError={(e) => { if (!e.currentTarget.src.endsWith(PLACEHOLDER)) e.currentTarget.src = PLACEHOLDER; }}
         />
 
         {/* Categoría — top-right glass pill */}
@@ -81,15 +81,15 @@ export default function TarjetaProducto({ producto, onEdit, onDelete }) {
             <p className="pro-card-desc">{producto.descripcion}</p>
           )}
           {alergenos ? (
-            <div className="pro-allergen-note" title={`Alergenos: ${alergenos}`}>
+            <div className="pro-allergen-note" title={`Alérgenos: ${alergenos}`}>
               <span>!</span>
-              <strong>Alergenos</strong>
+              <strong>Alérgenos</strong>
               <em>{alergenos}</em>
             </div>
           ) : null}
           <div className="pro-stock-row">
             <span className={`pro-stock-badge ${stockBadgeClass}`}>
-              {disponible ? (producto.estadoStock === 'sin_control' ? 'Disponible' : producto.estadoStock) : 'Agotado'}
+              {disponible ? ({sin_control: 'Disponible', disponible: 'Disponible', normal: 'Disponible', bajo: 'Stock bajo', critico: 'Stock crítico', agotado: 'Agotado'}[producto.estadoStock] || 'Disponible') : 'Agotado'}
             </span>
             <span className="pro-stock-text">{stockResumen}</span>
           </div>
@@ -103,6 +103,8 @@ export default function TarjetaProducto({ producto, onEdit, onDelete }) {
             <button
               className="pro-card-btn-edit"
               onClick={() => onEdit(producto)}
+              type="button"
+              aria-label={`Editar ${producto.nombre}`}
               title="Editar producto"
             >
               <IconEdit />
@@ -113,6 +115,8 @@ export default function TarjetaProducto({ producto, onEdit, onDelete }) {
               <button
                 className="pro-card-btn-delete"
                 onClick={() => onDelete(producto.id)}
+                type="button"
+                aria-label={`Eliminar ${producto.nombre}`}
                 title="Eliminar producto"
               >
                 <IconTrash />
