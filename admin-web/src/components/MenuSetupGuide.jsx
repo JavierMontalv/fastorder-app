@@ -19,6 +19,7 @@ export default function MenuSetupGuide({ storageKey }) {
   const [storageWarning, setStorageWarning] = useState(false);
   const dialogRef = useRef(null);
   const dockRef = useRef(null);
+  const wasOpenRef = useRef(false);
   const stepHeadingRef = useRef(null);
   const step = menuSetupSteps[current];
   const Icon = icons[current];
@@ -36,8 +37,14 @@ export default function MenuSetupGuide({ storageKey }) {
       dialog.close();
       document.body.style.overflow = previousOverflow;
       if (previousFocus?.isConnected) previousFocus.focus();
-      else dockRef.current?.querySelector('button')?.focus();
     };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open && wasOpenRef.current && document.activeElement === document.body) {
+      dockRef.current?.querySelector('button')?.focus();
+    }
+    wasOpenRef.current = open;
   }, [open]);
 
   useEffect(() => { if (open) stepHeadingRef.current?.focus(); }, [current, open, complete]);
