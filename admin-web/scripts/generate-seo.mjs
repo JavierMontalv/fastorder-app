@@ -11,6 +11,9 @@ const portal = (await configResponse.json()).data;
 if (!portal?.plans?.cards?.length) throw new Error('La configuración de planes no es válida');
 const snapshot = { plans: portal.plans, payment: { setupState: { checkoutReady: Boolean(portal.payment?.setupState?.checkoutReady) } } };
 const shell = await fs.readFile('dist/index.html', 'utf8');
+// Public search identity: one explicit PNG candidate, same stable approved asset.
+// Keep administrative/browser fallback icons in the untouched application shell.
+const publicShell = shell.replace(/<link\b[^>]*\brel="(?:shortcut )?icon"[^>]*>\s*/gi, '');
 const escape = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
 const json = value => JSON.stringify(value).replaceAll('<', '\\u003c');
 await fs.mkdir('dist/seo', { recursive: true });
@@ -19,6 +22,7 @@ for (const route of ['/inicio', ...publicPages.map(p => p.path)]) {
   const metadata = pageMetadata(route);
   const tags = `<meta name="robots" content="index,follow,max-image-preview:large" />
 <link rel="canonical" href="${metadata.canonical}" />
+<link rel="icon" type="image/png" sizes="96x96" href="${SITE_ORIGIN}/brand/comanda-favicon-96.png" />
 <meta property="og:type" content="website" /><meta property="og:site_name" content="Comanda" />
 <meta property="og:locale" content="es_CO" /><meta property="og:title" content="${escape(metadata.title)}" />
 <meta property="og:description" content="${escape(metadata.description)}" /><meta property="og:url" content="${metadata.canonical}" />
@@ -27,7 +31,7 @@ for (const route of ['/inicio', ...publicPages.map(p => p.path)]) {
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="${escape(metadata.title)}" /><meta name="twitter:description" content="${escape(metadata.description)}" />
 <meta name="twitter:image" content="${SITE_ORIGIN}/brand/comanda-social.png" /><meta name="twitter:image:alt" content="Comanda: menú QR y pedidos para restaurantes" /><script id="comanda-structured-data" type="application/ld+json">${json(structuredData(route))}</script>`;
-  const html = shell.replace(/<title>.*?<\/title>/s, `<title>${escape(metadata.title)}</title>`)
+  const html = publicShell.replace(/<title>.*?<\/title>/s, `<title>${escape(metadata.title)}</title>`)
     .replace(/<meta name="description" content=".*?"\s*\/>/, `<meta name="description" content="${escape(metadata.description)}" />`)
     .replace(/<meta name="robots" content=".*?"\s*\/>/, tags)
     .replace('<div id="root"></div>', `<div id="root">${render(route, snapshot)}</div><script id="comanda-public-data" type="application/json">${json(snapshot)}</script>`);

@@ -11,3 +11,7 @@ Después de publicar: verificar HTTP, MIME, PNG cuadrado, identidad de archivos,
 Referencias oficiales:
 - https://developers.google.com/search/docs/appearance/favicon-in-search
 - https://developers.google.com/search/docs/appearance/site-names
+
+## Referencia pública inequívoca
+
+El HTML público generado declara una sola etiqueta rel=icon, con URL absoluta al PNG 96 aprobado y estable. La aplicación administrativa conserva sus alternativas para navegadores. Este ajuste elimina selección entre candidatos explícitos; no prueba que esa selección fuera la causa del icono que Google muestra ni invalida su caché. La sesión de Search Console de Chrome no está disponible en el navegador conectado; al abrir la propiedad se muestra la página pública de acceso. No se ha enviado una solicitud de indexación.
