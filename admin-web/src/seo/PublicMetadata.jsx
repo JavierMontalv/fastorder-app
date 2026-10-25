@@ -14,6 +14,15 @@ export default function PublicMetadata({ path = '/inicio' }) {
     }
     meta('meta[name="description"]', 'content', metadata.description);
     meta('meta[name="robots"]', 'content', new URLSearchParams(window.location.search).has('modo') ? 'noindex,follow' : 'index,follow,max-image-preview:large');
+    meta('meta[property="og:type"]', 'content', 'website');
+    meta('meta[property="og:site_name"]', 'content', 'Comanda');
+    meta('meta[property="og:locale"]', 'content', 'es_CO');
+    meta('meta[name="twitter:card"]', 'content', 'summary_large_image');
+    meta('meta[name="twitter:title"]', 'content', metadata.title);
+    meta('meta[name="twitter:description"]', 'content', metadata.description);
+    meta('meta[name="twitter:image"]', 'content', SITE_ORIGIN + '/brand/comanda-social.png');
+    meta('meta[name="twitter:image:alt"]', 'content', 'Comanda: menú QR y pedidos para restaurantes');
+    meta('meta[property="og:image:alt"]', 'content', 'Comanda: menú QR y pedidos para restaurantes');
     meta('meta[property="og:title"]', 'content', metadata.title);
     meta('meta[property="og:description"]', 'content', metadata.description);
     meta('meta[property="og:url"]', 'content', metadata.canonical);
