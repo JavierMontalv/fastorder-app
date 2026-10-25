@@ -9,6 +9,7 @@
 // • Política clara: SOLO carga manual (botón “Aplicar”)
 // ======================================================================
 
+import { latestAnalyticsRequest } from '../utils/analyticsWorkspace.mjs';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   obtenerAlertasInventario,
@@ -80,16 +81,16 @@ export default function useAnaliticaInventario({
   // 🧷 Refs de estabilidad
   // --------------------------------------------------
   const mountedRef = useRef(false);
-  const loadingRef = useRef(false);
+  const requestRef = useRef(null);
+  if (!requestRef.current) requestRef.current = latestAnalyticsRequest();
 
   // --------------------------------------------------
   // 🚀 Carga analítica (PARALELA + AISLADA)
   // --------------------------------------------------
   const cargarAnalitica = useCallback(async () => {
-    if (loadingRef.current) return;
+    const request = requestRef.current.begin();
 
     try {
-      loadingRef.current = true;
       setLoading(true);
       setError(null);
 
@@ -116,7 +117,7 @@ export default function useAnaliticaInventario({
             .catch(() => [])
         ]);
 
-      if (!mountedRef.current) return;
+      if (!mountedRef.current || !requestRef.current.isCurrent(request)) return;
 
       setHistorial(Array.isArray(historialData) ? historialData : []);
       setAlertasActivasActualesDetalle(
@@ -127,7 +128,7 @@ export default function useAnaliticaInventario({
       setTendencias(Array.isArray(tendenciasData) ? tendenciasData : []);
       setRecomendaciones(Array.isArray(recomendacionesData) ? recomendacionesData : []);
     } catch (err) {
-      if (!mountedRef.current) return;
+      if (!mountedRef.current || !requestRef.current.isCurrent(request)) return;
 
       setHistorial([]);
       setAlertasActivasActualesDetalle([]);
@@ -137,8 +138,7 @@ export default function useAnaliticaInventario({
       setRecomendaciones([]);
       setError(err?.message || 'Error cargando analítica de inventario');
     } finally {
-      loadingRef.current = false;
-      if (mountedRef.current) setLoading(false);
+      if (mountedRef.current && requestRef.current.isCurrent(request)) setLoading(false);
     }
   }, [fechaInicio, fechaFin]);
 
@@ -154,6 +154,7 @@ export default function useAnaliticaInventario({
 
     return () => {
       mountedRef.current = false;
+      requestRef.current.invalidate();
     };
   }, [autoLoad, cargarAnalitica]);
 
