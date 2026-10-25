@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import {
   Bar,
   BarChart,
@@ -28,7 +28,8 @@ const COLORES_SEVERIDAD = {
 
 function capitalizar(texto) {
   if (!texto) return 'Sin dato';
-  return texto.charAt(0).toUpperCase() + texto.slice(1);
+  const label = String(texto).replaceAll('_', ' ');
+  return label.charAt(0).toUpperCase() + label.slice(1);
 }
 
 function TooltipInventario({ active, payload, label, theme }) {
@@ -74,6 +75,7 @@ export default function AnaliticasInventario({ fechaInicio, fechaFin, rangoInval
   const [accionCargando, setAccionCargando] = useState(null);
   const [accionError, setAccionError] = useState(null);
   const [accionOk, setAccionOk] = useState(null);
+  const actionLock = useRef(false);
 
   const chartTheme = useMemo(() => getChartTheme(isDark), [isDark]);
 
@@ -142,7 +144,8 @@ export default function AnaliticasInventario({ fechaInicio, fechaFin, rangoInval
   }, [alertaActivaPrincipal, recomendaciones]);
 
   async function manejarMarcarLeida() {
-    if (!alertaActivaPrincipal?.id) return;
+    if (!alertaActivaPrincipal?.id || actionLock.current) return;
+    actionLock.current = true;
 
     try {
       setAccionCargando('leida');
@@ -154,12 +157,14 @@ export default function AnaliticasInventario({ fechaInicio, fechaFin, rangoInval
     } catch (err) {
       setAccionError(err.message || 'No fue posible marcar la alerta como leída.');
     } finally {
+      actionLock.current = false;
       setAccionCargando(null);
     }
   }
 
   async function manejarResolver() {
-    if (!alertaActivaPrincipal?.id) return;
+    if (!alertaActivaPrincipal?.id || actionLock.current) return;
+    actionLock.current = true;
 
     try {
       setAccionCargando('resolver');
@@ -171,6 +176,7 @@ export default function AnaliticasInventario({ fechaInicio, fechaFin, rangoInval
     } catch (err) {
       setAccionError(err.message || 'No fue posible resolver la alerta.');
     } finally {
+      actionLock.current = false;
       setAccionCargando(null);
     }
   }
@@ -188,7 +194,7 @@ export default function AnaliticasInventario({ fechaInicio, fechaFin, rangoInval
   }
 
   if (error) {
-    return <div className="analiticas-error">{error}</div>;
+    return <div className="analiticas-error" role="alert"><p>{error}</p><button type="button" className="aw-refresh" onClick={recargar}>Reintentar</button></div>;
   }
 
   return (
@@ -196,10 +202,9 @@ export default function AnaliticasInventario({ fechaInicio, fechaFin, rangoInval
       <section className="inventario-intro">
         <div>
           <span className="inventario-badge">Inventario operativo</span>
-          <h2>Alertas críticas, cumplimiento SLA y foco de reposición</h2>
+          <h2>Control de inventario</h2>
           <p>
-            Esta vista aterriza lo que más te puede romper la operación: alertas abiertas, duración en
-            riesgo y productos que más repiten incidentes.
+            Revisa las alertas abiertas, los productos que necesitan reposición y los tiempos de atención.
           </p>
         </div>
 
@@ -309,8 +314,8 @@ export default function AnaliticasInventario({ fechaInicio, fechaFin, rangoInval
                 </button>
               </div>
 
-              {accionError && <div className="inventario-action-feedback error">{accionError}</div>}
-              {accionOk && <div className="inventario-action-feedback success">{accionOk}</div>}
+              {accionError && <div className="inventario-action-feedback error" role="alert">{accionError}</div>}
+              {accionOk && <div className="inventario-action-feedback success" role="status">{accionOk}</div>}
             </article>
 
             <article className="inventario-alerta-panel inventario-alerta-panel-checklist">

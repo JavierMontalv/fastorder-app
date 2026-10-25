@@ -19,6 +19,7 @@ import {
 import { obtenerAnaliticaPro } from '../services/analiticasService';
 import { useTheme } from '../context/ThemeContext';
 import { PAYMENT_COLORS, getChartTheme } from '../utils/chartTheme';
+import { analyticsQuery } from '../utils/analyticsWorkspace.mjs';
 import '../styles/Estadisticas.css';
 
 const moneda = new Intl.NumberFormat('es-CO', {
@@ -43,12 +44,6 @@ function formatoCompactoCOP(valor) {
   if (numeroValor >= 1000000) return `$${decimal.format(numeroValor / 1000000)}M`;
   if (numeroValor >= 1000) return `$${decimal.format(numeroValor / 1000)}K`;
   return moneda.format(numeroValor);
-}
-
-function resolverFiltro(presetRango) {
-  if (presetRango === '30d') return '30d';
-  if (presetRango === 'custom') return 'rango';
-  return '7d';
 }
 
 function normalizarRespuesta(data) {
@@ -122,6 +117,7 @@ export default function Estadisticas({ presetRango, fechaInicio, fechaFin, rango
   const [analytics, setAnalytics] = useState(() => normalizarRespuesta());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [revision, setRevision] = useState(0);
 
   useEffect(() => {
     let isMounted = true;
@@ -133,11 +129,7 @@ export default function Estadisticas({ presetRango, fechaInicio, fechaFin, rango
         setLoading(true);
         setError(null);
 
-        const { data } = await obtenerAnaliticaPro({
-          filtro: resolverFiltro(presetRango),
-          desde: presetRango === 'custom' ? fechaInicio : undefined,
-          hasta: presetRango === 'custom' ? fechaFin : undefined
-        });
+        const { data } = await obtenerAnaliticaPro(analyticsQuery({ presetRango, fechaInicio, fechaFin }));
 
         if (!isMounted) return;
         setAnalytics(normalizarRespuesta(data?.data));
@@ -155,7 +147,7 @@ export default function Estadisticas({ presetRango, fechaInicio, fechaFin, rango
     return () => {
       isMounted = false;
     };
-  }, [presetRango, fechaInicio, fechaFin, rangoInvalido]);
+  }, [presetRango, fechaInicio, fechaFin, rangoInvalido, revision]);
 
   const mejorHora = useMemo(() => {
     if (!analytics.pedidosPorHora.length) return 'Sin picos detectados';
@@ -188,10 +180,10 @@ export default function Estadisticas({ presetRango, fechaInicio, fechaFin, rango
 
   const estadoIATexto = useMemo(() => {
     const labels = {
-      activa: 'Operativa y lista para consumir',
+      activa: 'Disponible',
       trial: 'Disponible en modo prueba',
       agotada: 'Presupuesto mensual agotado',
-      desactivada: 'Desactivada por configuracion',
+      desactivada: 'Desactivada por configuración',
       bloqueada: 'Bloqueada para este restaurante'
     };
 
@@ -286,7 +278,7 @@ export default function Estadisticas({ presetRango, fechaInicio, fechaFin, rango
   }
 
   if (error) {
-    return <div className="estadisticas-state estadisticas-state-error">{error}</div>;
+    return <div className="estadisticas-state estadisticas-state-error" role="alert"><p>{error}</p><button type="button" className="aw-refresh" onClick={() => setRevision(value => value + 1)}>Reintentar</button></div>;
   }
 
   return (
@@ -343,24 +335,25 @@ export default function Estadisticas({ presetRango, fechaInicio, fechaFin, rango
       <section className="estadisticas-insight-grid">
         <article className="estadisticas-insight-card accent-sales">
           <span>Lectura comercial</span>
-          <strong>{diaPico ? `${diaPico.fecha} fue el mejor dia` : 'Sin ventas suficientes'}</strong>
-          <p>{diaPico ? `Pico de ${moneda.format(diaPico.total)} frente a un promedio de ${moneda.format(ventasPromedio)}.` : 'Aun no hay suficientes puntos para leer tendencia.'}</p>
+          <strong>{diaPico ? `${diaPico.fecha} fue el mejor día` : 'Sin ventas suficientes'}</strong>
+          <p>{diaPico ? `Pico de ${moneda.format(diaPico.total)} frente a un promedio de ${moneda.format(ventasPromedio)}.` : 'Aún no hay suficientes puntos para leer tendencia.'}</p>
         </article>
         <article className="estadisticas-insight-card accent-demand">
-          <span>Presion operativa</span>
-          <strong>{pedidosHoraMax ? mejorHora : 'Sin concentracion horaria'}</strong>
+          <span>Demanda por hora</span>
+          <strong>{pedidosHoraMax ? mejorHora : 'Sin concentración horaria'}</strong>
           <p>Usa este pico para reforzar cocina, caja y entrega en la franja con mayor carga.</p>
         </article>
         <article className="estadisticas-insight-card accent-payment">
-          <span>Concentracion de pago</span>
+          <span>Concentración de pago</span>
           <strong>{metodoPrincipal ? `${metodoPrincipal.metodo || 'No definido'} ${metodoPrincipal.porcentaje.toFixed(1)}%` : 'Sin pagos'}</strong>
-          <p>{metodoPrincipal ? `${moneda.format(metodoPrincipal.valor)} del ingreso pasa por este medio.` : 'Cuando entren pagos, aqui se vera el canal dominante.'}</p>
+          <p>{metodoPrincipal ? `${moneda.format(metodoPrincipal.valor)} del ingreso pasa por este medio.` : 'Cuando entren pagos, aquí se verá el canal dominante.'}</p>
         </article>
       </section>
 
-      <section className="estadisticas-ia-strip">
+      <details className="aw-ai"><summary>Consumo de IA <span>Este mes · {analytics.ia.planNombre}</span></summary>
+<section className="estadisticas-ia-strip">
         <article className="estadisticas-ia-hero">
-          <span className="estadisticas-badge">Economia IA</span>
+          <span className="estadisticas-badge">Consumo mensual de IA</span>
           <h3>{analytics.ia.planNombre}</h3>
           <p>
             {analytics.ia.nombreRestaurante || 'Tu restaurante'} ha consumido <strong>USD {decimal.format(analytics.ia.costoUSD)}</strong> de un
@@ -377,10 +370,10 @@ export default function Estadisticas({ presetRango, fechaInicio, fechaFin, rango
                       ? 'warn'
                       : ''
                 }`}
-                style={{ width: `${Math.min(100, analytics.ia.porcentajePresupuesto)}%` }}
+                style={{ width: `${Math.max(0, Math.min(100, analytics.ia.porcentajePresupuesto))}%` }}
               />
             </div>
-            <strong>{Math.min(100, analytics.ia.porcentajePresupuesto).toFixed(1)}% del presupuesto mensual</strong>
+            <strong>{Math.max(0, Math.min(100, analytics.ia.porcentajePresupuesto)).toFixed(1)}% del presupuesto mensual</strong>
           </div>
 
           <div className="estadisticas-ia-inline-stats">
@@ -409,7 +402,7 @@ export default function Estadisticas({ presetRango, fechaInicio, fechaFin, rango
           <article className="estadisticas-ia-mini-card">
             <span>Tokens procesados</span>
             <strong>{numero.format(analytics.ia.tokensTotal)}</strong>
-            <small>Consumo real acumulado desde backend</small>
+            <small>Consumo registrado este mes</small>
           </article>
 
           <article className="estadisticas-ia-mini-card">
@@ -421,10 +414,11 @@ export default function Estadisticas({ presetRango, fechaInicio, fechaFin, rango
           <article className="estadisticas-ia-mini-card">
             <span>Funciones activas</span>
             <strong>{numero.format(analytics.ia.funcionesDisponibles.length)}</strong>
-            <small>{analytics.ia.funcionesDisponibles.join(' · ') || 'Sin funciones disponibles'}</small>
+            <small>{analytics.ia.funcionesDisponibles.map(name => ({ mejorarDescripcion: 'Mejorar descripciones', generarDescripcion: 'Crear descripciones', sugerirPrecio: 'Sugerir precios', sugerirCombos: 'Sugerir combos', traducirMenu: 'Traducir menú', soporteIA: 'Asistente de soporte', propuestaCatalogoIA: 'Organizar catálogo' }[name] || name)).join(' · ') || 'Sin funciones disponibles'}</small>
           </article>
         </div>
       </section>
+      </details>
 
       <div className="estadisticas-grid">
         <article className="estadisticas-card estadisticas-card-large">
@@ -439,29 +433,29 @@ export default function Estadisticas({ presetRango, fechaInicio, fechaFin, rango
                 <strong>{formatoCompactoCOP(ventasPromedio)}</strong>
               </div>
               <div>
-                <span>Ultimo dia</span>
+                <span>Último día</span>
                 <strong>{formatoCompactoCOP(ultimaVenta)}</strong>
               </div>
               <div className={variacionVentas >= 0 ? 'positive' : 'negative'}>
-                <span>Variacion</span>
-                <strong>{primeraVenta ? `${variacionVentas >= 0 ? '+' : ''}${variacionVentas.toFixed(1)}%` : '0%'}</strong>
+                <span>Variación</span>
+                <strong>{primeraVenta ? `${variacionVentas >= 0 ? '+' : ''}${variacionVentas.toFixed(1)}%` : 'Sin base'}</strong>
               </div>
             </div>
           </div>
 
           <div className="estadisticas-chart">
-            <ResponsiveContainer width="100%" height={320}>
+            {ventasExtendidas.length === 0 ? <div className="estadisticas-empty">No hay ventas registradas en este rango. Prueba otro período.</div> : <ResponsiveContainer width="100%" height={320}>
               <ComposedChart data={ventasExtendidas} margin={{ top: 18, right: 20, left: 4, bottom: 8 }}>
                 <defs>
                   <linearGradient id="estadisticasVentasGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#ff5f57" stopOpacity={0.46} />
-                    <stop offset="58%" stopColor="#ffb199" stopOpacity={0.16} />
-                    <stop offset="100%" stopColor="#ff5f36" stopOpacity={0} />
+                    <stop offset="0%" stopColor="#b94b30" stopOpacity={0.46} />
+                    <stop offset="58%" stopColor="#d5b196" stopOpacity={0.16} />
+                    <stop offset="100%" stopColor="#b94b30" stopOpacity={0} />
                   </linearGradient>
                   <linearGradient id="estadisticasVentasStroke" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stopColor="#ff5f57" />
-                    <stop offset="48%" stopColor="#f97316" />
-                    <stop offset="100%" stopColor="#14b8a6" />
+                    <stop offset="0%" stopColor="#b94b30" />
+                    <stop offset="48%" stopColor="#b94b30" />
+                    <stop offset="100%" stopColor="#547c59" />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="4 8" stroke={chartTheme.grid} vertical={false} />
@@ -473,11 +467,11 @@ export default function Estadisticas({ presetRango, fechaInicio, fechaFin, rango
                   width={72}
                   tick={{ fill: chartTheme.axis, fontSize: 12, fontWeight: 800 }}
                 />
-                <Tooltip content={<CustomTooltip theme={chartTheme} />} cursor={{ stroke: '#ff5f36', strokeOpacity: 0.2 }} />
+                <Tooltip content={<CustomTooltip theme={chartTheme} />} cursor={{ stroke: '#b94b30', strokeOpacity: 0.2 }} />
                 {ventasPromedio > 0 && (
                   <ReferenceLine
                     y={ventasPromedio}
-                    stroke="#14b8a6"
+                    stroke="#547c59"
                     strokeDasharray="8 8"
                     strokeOpacity={0.8}
                   />
@@ -490,7 +484,7 @@ export default function Estadisticas({ presetRango, fechaInicio, fechaFin, rango
                   strokeWidth={4.4}
                   fill="url(#estadisticasVentasGradient)"
                   dot={false}
-                  activeDot={{ r: 6, strokeWidth: 3, stroke: chartTheme.surfaceStroke, fill: '#ff5f36' }}
+                  activeDot={{ r: 6, strokeWidth: 3, stroke: chartTheme.surfaceStroke, fill: '#b94b30' }}
                   isAnimationActive
                   animationDuration={800}
                 />
@@ -498,14 +492,14 @@ export default function Estadisticas({ presetRango, fechaInicio, fechaFin, rango
                   type="monotone"
                   dataKey="promedio"
                   name="Promedio"
-                  stroke="#14b8a6"
+                  stroke="#547c59"
                   strokeWidth={2.4}
                   strokeDasharray="7 7"
                   dot={false}
                   activeDot={false}
                 />
               </ComposedChart>
-            </ResponsiveContainer>
+            </ResponsiveContainer>}
           </div>
         </article>
 
@@ -518,15 +512,15 @@ export default function Estadisticas({ presetRango, fechaInicio, fechaFin, rango
           </div>
 
           <div className="estadisticas-chart">
-            <ResponsiveContainer width="100%" height={320}>
+            {pedidosPorHoraVisual.length === 0 ? <div className="estadisticas-empty">No hay pedidos registrados por hora en este rango.</div> : <ResponsiveContainer width="100%" height={320}>
               <BarChart data={pedidosPorHoraVisual} margin={{ top: 18, right: 16, left: 0, bottom: 8 }}>
                 <defs>
                   <linearGradient id="estadisticasPedidosGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#0ea5e9" stopOpacity={0.98} />
-                    <stop offset="100%" stopColor="#38bdf8" stopOpacity={0.64} />
+                    <stop offset="0%" stopColor="#547c59" stopOpacity={0.98} />
+                    <stop offset="100%" stopColor="#a8c2a1" stopOpacity={0.64} />
                   </linearGradient>
                   <linearGradient id="estadisticasPedidosPico" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#ff5f57" />
+                    <stop offset="0%" stopColor="#b94b30" />
                     <stop offset="100%" stopColor="#f59e0b" />
                   </linearGradient>
                 </defs>
@@ -534,7 +528,7 @@ export default function Estadisticas({ presetRango, fechaInicio, fechaFin, rango
                 <XAxis dataKey="hora" tickLine={false} axisLine={false} minTickGap={12} tick={{ fill: chartTheme.axis, fontSize: 12, fontWeight: 800 }} />
                 <YAxis tickLine={false} axisLine={false} allowDecimals={false} width={42} tick={{ fill: chartTheme.axis, fontSize: 12, fontWeight: 800 }} />
                 <Tooltip content={<CustomTooltip theme={chartTheme} />} cursor={{ fill: chartTheme.cursor }} />
-                {pedidosHoraMax > 0 && <ReferenceLine y={pedidosHoraMax} stroke="#ff5f57" strokeDasharray="6 8" strokeOpacity={0.38} />}
+                {pedidosHoraMax > 0 && <ReferenceLine y={pedidosHoraMax} stroke="#b94b30" strokeDasharray="6 8" strokeOpacity={0.38} />}
                 <Bar
                   dataKey="pedidos"
                   name="Pedidos"
@@ -549,7 +543,7 @@ export default function Estadisticas({ presetRango, fechaInicio, fechaFin, rango
                   ))}
                 </Bar>
               </BarChart>
-            </ResponsiveContainer>
+            </ResponsiveContainer>}
           </div>
 
           <div className="estadisticas-hour-heatmap" aria-label="Intensidad de pedidos por hora">
@@ -572,7 +566,7 @@ export default function Estadisticas({ presetRango, fechaInicio, fechaFin, rango
           </div>
 
           <div className="estadisticas-payment-layout">
-            <div className="estadisticas-payment-chart">
+            <div className="estadisticas-payment-chart" hidden={!metodosPagoVisual.length}>
               <ResponsiveContainer width="100%" height={270}>
                 <PieChart>
                   <Pie
@@ -603,7 +597,7 @@ export default function Estadisticas({ presetRango, fechaInicio, fechaFin, rango
 
             <div className="estadisticas-payment-legend">
               {metodosPagoVisual.length === 0 ? (
-                <div className="estadisticas-empty">Sin metodos de pago en este rango.</div>
+                <div className="estadisticas-empty">Sin métodos de pago en este rango.</div>
               ) : (
                 metodosPagoVisual.map((metodo) => (
                   <div key={metodo.metodo || metodo.color} className="estadisticas-payment-row">
@@ -642,7 +636,7 @@ export default function Estadisticas({ presetRango, fechaInicio, fechaFin, rango
                       <strong>{producto.nombre || 'Producto sin nombre'}</strong>
                       <span>{numero.format(producto.cantidad)} unidades despachadas</span>
                     </div>
-                    <small>{producto.participacion.toFixed(1)}% del mix</small>
+                    <small>{producto.participacion.toFixed(1)}% de este ranking</small>
                     <div className="estadisticas-ranking-progress">
                       <i style={{ width: `${Math.max(5, producto.participacion)}%` }} />
                     </div>
