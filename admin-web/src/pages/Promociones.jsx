@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { obtenerRestaurante } from '../api/restauranteApi';
 import { AuthContext } from '../context/AuthContext';
@@ -10,7 +10,9 @@ import {
   obtenerPromociones
 } from '../services/promocionesService';
 import { normalizeAssetUrl } from '../config/env';
+import { filterPromotions, promotionMediaKind, promotionFileError, promotionFormError, promotionDateInput as toDateInput, promotionDateLabel as formatDate } from '../utils/promociones.mjs';
 import '../styles/Promociones.css';
+import '../styles/PromocionesWorkspace.css';
 
 const ESTADOS = [
   { value: 'borrador', label: 'Borrador' },
@@ -21,10 +23,10 @@ const ESTADOS = [
 ];
 
 const TIPOS = [
-  { value: 'banner', label: 'Banner del menu QR' },
-  { value: 'modal', label: 'Popup del menu QR' },
-  { value: 'card', label: 'Tarjeta destacada del menu QR' },
-  { value: 'full', label: 'Pantalla TV (solo display de turnos)' }
+  { value: 'banner', label: 'Banner del menú QR' },
+  { value: 'modal', label: 'Ventana emergente del menú QR' },
+  { value: 'card', label: 'Tarjeta destacada del menú QR' },
+  { value: 'full', label: 'Pantalla TV' }
 ];
 
 const EMPTY_FORM = {
@@ -46,35 +48,11 @@ const decimal = new Intl.NumberFormat('es-CO', {
   maximumFractionDigits: 2
 });
 
-function formatDate(dateValue) {
-  if (!dateValue) return 'Sin fecha';
-  const date = new Date(dateValue);
-  if (Number.isNaN(date.getTime())) return 'Sin fecha';
-  return date.toLocaleDateString('es-CO', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric'
-  });
-}
-
-function toDateInput(dateValue) {
-  if (!dateValue) return '';
-  const date = new Date(dateValue);
-  if (Number.isNaN(date.getTime())) return '';
-  return date.toISOString().slice(0, 10);
-}
-
 function estadoBadgeLabel(estado) {
   return ESTADOS.find((item) => item.value === estado)?.label || estado;
 }
 
-function mediaKindFromUrl(value = '') {
-  const raw = String(value || '').trim().toLowerCase();
-  if (!raw) return 'empty';
-  if (raw.startsWith('blob:')) return 'unknown';
-  if (/\.(mp4|webm|mov)(\?|#|$)/i.test(raw)) return 'video';
-  return 'image';
-}
+const mediaKindFromUrl = promotionMediaKind;
 
 function renderMediaPreview(src, alt, className = '') {
   const mediaKind = mediaKindFromUrl(src);
@@ -96,11 +74,11 @@ function isTvPromo(promo) {
 }
 
 function getPromoChannelLabel(tipo) {
-  return tipo === 'full' ? 'Pantalla TV' : 'Menu QR';
+  return tipo === 'full' ? 'Pantalla TV' : 'Menú QR';
 }
 
 function getPreviewLabel(tipo) {
-  return TIPOS.find((item) => item.value === tipo)?.label || 'Promocion';
+  return TIPOS.find((item) => item.value === tipo)?.label || 'Promoción';
 }
 
 export default function Promociones() {
@@ -115,6 +93,17 @@ export default function Promociones() {
   const [form, setForm] = useState(EMPTY_FORM);
   const [mediaArchivo, setMediaArchivo] = useState(null);
   const [mediaPreview, setMediaPreview] = useState('');
+  const [busqueda, setBusqueda] = useState('');
+  const [filtroCanal, setFiltroCanal] = useState('todos');
+  const [loadError, setLoadError] = useState('');
+  const [formError, setFormError] = useState('');
+  const [deletePromo, setDeletePromo] = useState(null);
+  const [pendingAction, setPendingAction] = useState(null);
+  const saveLock = useRef(false);
+  const actionLock = useRef(false);
+  const editorRef = useRef(null);
+  const confirmRef = useRef(null);
+
 
   const promocionesTV = useMemo(
     () => promociones.filter((promo) => isTvPromo(promo)),
@@ -126,19 +115,8 @@ export default function Promociones() {
     [promociones]
   );
 
-  const promocionesFiltradasMenu = useMemo(() => {
-    return promociones.filter((promo) => {
-      const cumpleEstado = filtroEstado === 'todos' || promo.estado === filtroEstado;
-      return cumpleEstado && !isTvPromo(promo);
-    });
-  }, [filtroEstado, promociones]);
-
-  const promocionesFiltradasTV = useMemo(() => {
-    return promociones.filter((promo) => {
-      const cumpleEstado = filtroEstado === 'todos' || promo.estado === filtroEstado;
-      return cumpleEstado && isTvPromo(promo);
-    });
-  }, [filtroEstado, promociones]);
+  const promocionesFiltradasMenu = useMemo(() => filterPromotions(promociones, { estado: filtroEstado, canal: 'menu', query: busqueda }), [promociones, filtroEstado, busqueda]);
+  const promocionesFiltradasTV = useMemo(() => filterPromotions(promociones, { estado: filtroEstado, canal: 'tv', query: busqueda }), [promociones, filtroEstado, busqueda]);
 
   const resumen = useMemo(() => {
     const activas = promociones.filter((promo) => promo.estado === 'activa').length;
@@ -183,6 +161,7 @@ export default function Promociones() {
   const cargarPromociones = async () => {
     try {
       setLoading(true);
+      setLoadError('');
       const data = await obtenerPromociones();
       const lista = Array.isArray(data) ? data : [];
       const sedeActualId = typeof window !== 'undefined'
@@ -194,7 +173,7 @@ export default function Promociones() {
         : lista;
       setPromociones(listaTenant);
     } catch (error) {
-      toast.error(error?.response?.data?.message || 'No se pudieron cargar las promociones.');
+      setLoadError(error?.response?.data?.message || 'No se pudieron cargar las promociones. Intenta nuevamente.');
     } finally {
       setLoading(false);
     }
@@ -221,8 +200,10 @@ export default function Promociones() {
     const handleSedeChanged = () => {
       setPromociones([]);
       setRestaurante(null);
+      setDeletePromo(null);
       cerrarEditor();
       cargarPromociones();
+      obtenerRestaurante().then(response => setRestaurante(response?.data?.data || response?.data || null)).catch(() => setRestaurante(null));
     };
 
     window.addEventListener('comanda:sede-changed', handleSedeChanged);
@@ -236,6 +217,31 @@ export default function Promociones() {
       window.URL.revokeObjectURL(mediaPreview);
     };
   }, [mediaPreview]);
+
+  useEffect(() => {
+    if (formError && editorOpen) editorRef.current?.querySelector('[role="alert"]')?.focus();
+  }, [formError, editorOpen]);
+
+  useEffect(() => {
+    if (!editorOpen && !deletePromo) return undefined;
+    const dialog = deletePromo ? confirmRef.current : editorRef.current;
+    const previous = document.activeElement;
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const controls = () => [...dialog.querySelectorAll('button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]')].filter(node => node.getClientRects().length);
+    controls()[0]?.focus();
+    const onKey = event => {
+      if (event.key === 'Escape' && !saveLock.current && !actionLock.current) { if (deletePromo) setDeletePromo(null); else setEditorOpen(false); }
+      if (event.key === 'Tab') {
+        const list = controls(), first = list[0], last = list[list.length - 1];
+        if (!first) { event.preventDefault(); return; }
+        if (event.shiftKey && (document.activeElement === first || !dialog.contains(document.activeElement))) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && (document.activeElement === last || !dialog.contains(document.activeElement))) { event.preventDefault(); first.focus(); }
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => { document.body.style.overflow = overflow; document.removeEventListener('keydown', onKey); if (previous?.isConnected) previous.focus(); };
+  }, [editorOpen, deletePromo]);
 
   const abrirEditor = (promo = null, defaults = {}) => {
     if (promo) {
@@ -254,7 +260,7 @@ export default function Promociones() {
         colorPrincipal: promo.colorPrincipal || '#ff5f36'
       });
       setMediaArchivo(null);
-      setMediaPreview(normalizeAssetUrl(promo.imagenUrl) || '');
+      setMediaPreview('');
     } else {
       setEditingPromoId(null);
       setForm({ ...EMPTY_FORM, ...defaults });
@@ -262,10 +268,13 @@ export default function Promociones() {
       setMediaPreview('');
     }
 
+    setFormError('');
     setEditorOpen(true);
   };
 
   const cerrarEditor = () => {
+    if (saveLock.current) return;
+    setFormError('');
     setEditorOpen(false);
     setEditingPromoId(null);
     setForm(EMPTY_FORM);
@@ -281,24 +290,10 @@ export default function Promociones() {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    const isImage = String(file.type || '').startsWith('image/');
-    const isVideo = ['video/mp4', 'video/webm', 'video/quicktime'].includes(file.type);
-
-    if (!isImage && !isVideo) {
-      toast.error('Solo puedes subir imagenes o videos cortos MP4, WEBM o MOV.');
-      return;
-    }
-
-    if (isImage && file.size > 5 * 1024 * 1024) {
-      toast.error('La imagen supera el limite de 5 MB.');
-      return;
-    }
-
-    if (isVideo && file.size > 25 * 1024 * 1024) {
-      toast.error('El video supera el limite de 25 MB.');
-      return;
-    }
-
+    const error = promotionFileError(file);
+    if (error) { setFormError(error); event.target.value = ''; return; }
+    const isVideo = file.type.startsWith('video/');
+    setFormError('');
     setMediaArchivo(file);
     setMediaPreview(window.URL.createObjectURL(file));
 
@@ -310,22 +305,20 @@ export default function Promociones() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!form.titulo.trim()) {
-      toast.error('El titulo de la promocion es obligatorio.');
-      return;
-    }
-
-    if (form.fechaInicio && form.fechaFin && form.fechaInicio > form.fechaFin) {
-      toast.error('La fecha final no puede ser menor que la fecha inicial.');
-      return;
-    }
+    if (saveLock.current) return;
+    const currentForm = { ...form, ...Object.fromEntries(new FormData(event.currentTarget)) };
+    setForm(currentForm);
+    const error = promotionFormError(currentForm, mediaArchivo);
+    if (error) { setFormError(error); return; }
+    setFormError('');
+    saveLock.current = true;
 
     const payloadBase = {
-      ...form,
-      imagenUrl: form.imagenUrl?.trim() || null,
-      prioridad: Number(form.prioridad) || 1,
-      fechaInicio: form.fechaInicio || null,
-      fechaFin: form.fechaFin || null
+      ...currentForm,
+      imagenUrl: currentForm.imagenUrl?.trim() || null,
+      prioridad: Number(currentForm.prioridad) || 1,
+      fechaInicio: currentForm.fechaInicio || null,
+      fechaFin: currentForm.fechaFin || null
     };
 
     const payload = mediaArchivo
@@ -345,48 +338,56 @@ export default function Promociones() {
 
       if (editingPromoId) {
         await actualizarPromocion(editingPromoId, payload);
-        toast.success('Promocion actualizada.');
+        toast.success('Promoción actualizada.');
       } else {
         await crearPromocion(payload);
-        toast.success('Promocion creada.');
+        toast.success('Promoción creada.');
       }
 
+      saveLock.current = false;
       cerrarEditor();
       await cargarPromociones();
     } catch (error) {
-      toast.error(error?.response?.data?.message || 'No se pudo guardar la promocion.');
+      setFormError(error?.response?.data?.message || 'No se pudo guardar la promoción. Puedes intentarlo nuevamente.');
     } finally {
+      saveLock.current = false;
       setSaving(false);
     }
   };
 
   const handleDelete = async (promo) => {
-    if (!window.confirm(`Eliminar la promocion "${promo.titulo}"?`)) return;
+    if (actionLock.current) return;
+    actionLock.current = true;
+    setPendingAction(promo.id);
 
     try {
       await eliminarPromocion(promo.id);
-      toast.success('Promocion eliminada.');
+      setDeletePromo(null);
+      toast.success('Promoción eliminada.');
       await cargarPromociones();
     } catch (error) {
-      toast.error(error?.response?.data?.message || 'No se pudo eliminar la promocion.');
-    }
+      toast.error(error?.response?.data?.message || 'No se pudo eliminar la promoción.');
+    } finally { actionLock.current = false; setPendingAction(null); }
   };
 
   const handleToggleEstado = async (promo) => {
+    if (actionLock.current) return;
+    actionLock.current = true;
+    setPendingAction(promo.id);
     const estadoObjetivo = promo.estado === 'activa' ? 'pausada' : 'activa';
 
     try {
       await cambiarEstadoPromocion(promo.id, { estado: estadoObjetivo });
-      toast.success(`Promocion ${estadoObjetivo === 'activa' ? 'activada' : 'pausada'}.`);
+      toast.success(`Promoción ${estadoObjetivo === 'activa' ? 'activada' : 'pausada'}.`);
       await cargarPromociones();
     } catch (error) {
       toast.error(error?.response?.data?.message || 'No se pudo cambiar el estado.');
-    }
+    } finally { actionLock.current = false; setPendingAction(null); }
   };
 
   const abrirPantallaTV = () => {
     if (!restaurante?.slug) {
-      toast.error('No se encontro el slug del restaurante para la TV.');
+      toast.error('Completa la configuración del restaurante para abrir la TV.');
       return;
     }
 
@@ -395,7 +396,7 @@ export default function Promociones() {
 
   const copiarUrlTV = async () => {
     if (!tvDisplayUrl) {
-      toast.error('La URL de la TV aun no esta disponible.');
+      toast.error('El enlace de la TV aún no está disponible.');
       return;
     }
 
@@ -445,7 +446,7 @@ export default function Promociones() {
         <div className="promocion-card-body">
           <div className="promocion-copy">
             <h3>{promo.titulo}</h3>
-            <p>{promo.descripcion || 'Sin descripcion comercial todavia.'}</p>
+            <p>{promo.descripcion || 'Añade una descripción para presentar tu oferta.'}</p>
           </div>
 
           <div className="promocion-meta">
@@ -468,27 +469,27 @@ export default function Promociones() {
           </div>
 
           <div className="promocion-tv-box">
-            <span>Publicacion</span>
+            <span>Publicación</span>
             <strong>
               {esPantallaTV
                 ? 'Exclusiva para Pantalla TV'
-                : 'Visible dentro del menu QR'}
+                : 'Visible dentro del menú QR'}
             </strong>
             <p>
               {esPantallaTV
-                ? 'Se usa en el display del local cuando no hay un pedido listo en foco.'
-                : 'Esta promocion pertenece al menu QR del cliente.'}
+                ? 'Se muestra en la TV durante la espera entre llamados.'
+                : 'Tus clientes la verán al consultar la carta.'}
             </p>
           </div>
 
           <div className="promocion-actions">
-            <button type="button" className="promocion-action-btn" onClick={() => abrirEditor(promo)}>
+            <button type="button" className="promocion-action-btn" disabled={pendingAction !== null} aria-label={`Editar ${promo.titulo}`} onClick={() => abrirEditor(promo)}>
               Editar
             </button>
-            <button type="button" className="promocion-action-btn ghost" onClick={() => handleToggleEstado(promo)}>
+            <button type="button" className="promocion-action-btn ghost" disabled={pendingAction !== null} aria-label={`${promo.estado === 'activa' ? 'Pausar' : 'Activar'} ${promo.titulo}`} onClick={() => handleToggleEstado(promo)}>
               {promo.estado === 'activa' ? 'Pausar' : 'Activar'}
             </button>
-            <button type="button" className="promocion-action-btn danger" onClick={() => handleDelete(promo)}>
+            <button type="button" className="promocion-action-btn danger" disabled={pendingAction !== null} aria-label={`Eliminar ${promo.titulo}`} onClick={() => setDeletePromo(promo)}>
               Eliminar
             </button>
           </div>
@@ -498,22 +499,18 @@ export default function Promociones() {
   };
 
   return (
-    <div className="promociones-page">
+    <div className="promociones-page promociones-workspace">
       <section className="promociones-hero">
         <div className="promociones-hero-copy">
           <span className="promociones-kicker">Marketing visual</span>
-          <h1>Menu QR y Pantalla TV en un solo panel, pero separados</h1>
+          <h1>Promociones</h1>
           <p>
-            Gestiona promociones del menu QR y contenido exclusivo para Pantalla TV sin
-            mezclar canales. Cada pieza deja claro donde se publica.
+            Dale visibilidad a tus ofertas. Organiza las campañas de tu menú QR y el contenido de la pantalla TV.
           </p>
         </div>
 
         <div className="promociones-hero-actions">
           <div className="promociones-quick-actions">
-            <span>Crear contenido</span>
-            <strong>Elige el canal y publica sin confundir piezas.</strong>
-            <p>Para administradores nuevos o expertos: una accion, un canal, una vista previa.</p>
             <div className="promociones-quick-buttons">
               <button
                 type="button"
@@ -532,55 +529,57 @@ export default function Promociones() {
             </div>
           </div>
 
-          <div className="promociones-filter">
-            <span>Filtrar por estado</span>
-            <select value={filtroEstado} onChange={(event) => setFiltroEstado(event.target.value)}>
-              <option value="todos">Todos</option>
-              {ESTADOS.map((estado) => (
-                <option key={estado.value} value={estado.value}>
-                  {estado.label}
-                </option>
-              ))}
-            </select>
-          </div>
         </div>
       </section>
 
       <section className="promociones-summary">
         <article className="promociones-stat-card">
-          <span>Total campanas</span>
+          <span>Campañas</span>
           <strong>{resumen.total}</strong>
           <small>Contenido total registrado para marketing.</small>
         </article>
 
         <article className="promociones-stat-card">
-          <span>Menu QR</span>
+          <span>Menú QR</span>
           <strong>{resumen.menu}</strong>
-          <small>Piezas que si aparecen dentro del menu del cliente.</small>
+          <small>Banners, ventanas emergentes y tarjetas.</small>
         </article>
 
         <article className="promociones-stat-card">
           <span>Pantalla TV</span>
           <strong>{resumen.tv}</strong>
-          <small>Contenido exclusivo para el display de turnos y espera.</small>
+          <small>Fotos y videos para los momentos de espera.</small>
         </article>
 
         <article className="promociones-stat-card">
           <span>CTR promedio</span>
           <strong>{decimal.format(resumen.ctrPromedio)}%</strong>
-          <small>Promedio de interaccion por campana.</small>
+          <small>Promedio de clics por impresiones de cada campaña.</small>
         </article>
       </section>
+
+      <section className="pr-tools" aria-label="Filtros de promociones">
+        <nav className="pr-channels" aria-label="Canal de publicación">
+          {[['todos', 'Todos', resumen.total], ['menu', 'Menú QR', resumen.menu], ['tv', 'Pantalla TV', resumen.tv]].map(([value, label, count]) => <button key={value} type="button" aria-pressed={filtroCanal === value} onClick={() => setFiltroCanal(value)}>{label}<span>{count}</span></button>)}
+        </nav>
+        <div className="pr-filter-row">
+          <label className="pr-search">Buscar campaña<input type="search" value={busqueda} onChange={event => setBusqueda(event.target.value)} placeholder="Título o descripción…" /></label>
+          <label className="promociones-filter">Estado<select value={filtroEstado} onChange={event => setFiltroEstado(event.target.value)}><option value="todos">Todos los estados</option>{ESTADOS.map(estado => <option key={estado.value} value={estado.value}>{estado.label}</option>)}</select></label>
+          {(busqueda || filtroEstado !== 'todos' || filtroCanal !== 'todos') && <button className="promocion-action-btn ghost" type="button" onClick={() => { setBusqueda(''); setFiltroEstado('todos'); setFiltroCanal('todos'); }}>Limpiar filtros</button>}
+          <button className="promocion-action-btn ghost" type="button" disabled={loading || pendingAction !== null} onClick={cargarPromociones}>Actualizar</button>
+        </div>
+      </section>
+      {loadError && <div className="pr-error" role="alert"><span>{loadError}</span><button type="button" onClick={cargarPromociones}>Reintentar</button></div>}
 
       <section className="promociones-tv-spotlight">
         <div className="promociones-tv-guidelines">
           <div className="promociones-tv-access-card">
-            <span>URL profesional de la TV</span>
-            <strong>{restaurante?.slug ? 'Pantalla lista para instalar' : 'Configura el restaurante'}</strong>
+            <span>Pantalla de tu restaurante</span>
+            <strong>{restaurante?.slug ? 'Lleva tus novedades a la TV' : 'Configura el restaurante'}</strong>
             <p>
               {restaurante?.slug
-                ? 'Usa este enlace en el navegador de la TV del local. Queda conectado al display en tiempo real.'
-                : 'Cuando el restaurante tenga slug disponible, aqui aparecera la URL final para la TV.'}
+                ? 'Abre este enlace en el navegador de la TV del local.'
+                : 'Completa la configuración del restaurante para obtener el enlace.'}
             </p>
             <div className="promociones-tv-access-url">
               {tvDisplayUrl || 'URL no disponible'}
@@ -608,11 +607,11 @@ export default function Promociones() {
       </section>
 
       <section className="promociones-split-layout">
-        <div className="promociones-split-column">
+        <div className="promociones-split-column" hidden={filtroCanal === 'tv'}>
           <div className="promociones-section-head">
             <div>
-              <span className="promociones-kicker">Campanas Menu QR</span>
-              <h2>Piezas visibles dentro del menu del cliente</h2>
+              <span className="promociones-kicker">Campañas del menú QR</span>
+              <h2>Promociones en tu menú</h2>
             </div>
             <button
               type="button"
@@ -628,8 +627,8 @@ export default function Promociones() {
               <div className="promociones-empty">Cargando promociones...</div>
             ) : promocionesFiltradasMenu.length === 0 ? (
               <div className="promociones-empty">
-                <strong>No hay campanas de Menu QR para este estado.</strong>
-                <span>Crea banners, popups o tarjetas con el boton Nueva promo QR.</span>
+                <strong>{loadError ? 'No pudimos cargar tus campañas.' : 'No hay promociones QR en esta vista.'}</strong>
+                <span>Prueba otros filtros o crea una promoción para tu carta.</span>
               </div>
             ) : (
               <div className="promociones-grid promociones-grid-single">
@@ -639,11 +638,11 @@ export default function Promociones() {
           </div>
         </div>
 
-        <div className="promociones-split-column">
+        <div className="promociones-split-column" hidden={filtroCanal === 'menu'}>
           <div className="promociones-section-head">
             <div>
               <span className="promociones-kicker">Biblioteca Pantalla TV</span>
-              <h2>Fotos y videos cortos para el display del local</h2>
+              <h2>Contenido para tu pantalla</h2>
             </div>
             <button
               type="button"
@@ -659,8 +658,8 @@ export default function Promociones() {
               <div className="promociones-empty">Cargando contenido TV...</div>
             ) : promocionesFiltradasTV.length === 0 ? (
               <div className="promociones-empty">
-                <strong>Aun no hay contenido exclusivo para Pantalla TV.</strong>
-                <span>Sube una foto o video corto con el boton Nuevo contenido TV.</span>
+                <strong>{loadError ? 'No pudimos cargar tu contenido.' : 'No hay contenido TV en esta vista.'}</strong>
+                <span>Prueba otros filtros o añade una foto o un video.</span>
               </div>
             ) : (
               <div className="promociones-grid promociones-grid-single">
@@ -673,39 +672,46 @@ export default function Promociones() {
 
       {editorOpen && (
         <div className="promocion-editor-overlay">
-          <div className="promocion-editor-shell">
+          <div className="promocion-editor-shell" ref={editorRef} role="dialog" aria-modal="true" aria-labelledby="pr-editor-title">
             <section className="promocion-editor-panel">
               <div className="promocion-editor-head">
                 <div>
-                  <span className="promociones-kicker">Editor de campana</span>
-                  <h2>{promoEditando ? 'Editar campana' : 'Nueva campana'}</h2>
+                  <span className="promociones-kicker">Editor de campaña</span>
+                  <h2 id="pr-editor-title">{promoEditando ? 'Editar campaña' : 'Nueva campaña'}</h2>
                 </div>
-                <button type="button" className="promocion-close-btn" onClick={cerrarEditor}>
+                <button type="button" className="promocion-close-btn" disabled={saving} aria-label="Cerrar editor" onClick={cerrarEditor}>
                   X
                 </button>
               </div>
 
               <form className="promocion-form-grid" onSubmit={handleSubmit}>
+                {formError && <div className="pr-error promocion-field-span-2" role="alert" tabIndex={-1}>{formError}</div>}
                 <label className="promocion-field promocion-field-span-2">
-                  <span>Titulo</span>
+                  <span>Título *</span>
                   <input
+                    disabled={saving}
+                    name="titulo"
                     value={form.titulo}
                     onChange={(event) => updateField('titulo', event.target.value)}
                   />
                 </label>
 
                 <label className="promocion-field promocion-field-span-2">
-                  <span>Descripcion</span>
+                  <span>Descripción</span>
                   <textarea
+                    disabled={saving}
+                    name="descripcion"
                     value={form.descripcion}
                     onChange={(event) => updateField('descripcion', event.target.value)}
-                    placeholder="Cuenta la oferta, novedad o motivo de la campana."
+                    placeholder="Cuenta la oferta, novedad o motivo de la campaña."
                   />
                 </label>
 
                 <label className="promocion-field">
-                  <span>Donde se publica</span>
+                  <span>Dónde se publica</span>
                   <select
+                    disabled={saving}
+                    name="tipo"
                     value={form.tipo}
                     onChange={(event) => updateField('tipo', event.target.value)}
                   >
@@ -720,6 +726,8 @@ export default function Promociones() {
                 <label className="promocion-field">
                   <span>Estado</span>
                   <select
+                    disabled={saving}
+                    name="estado"
                     value={form.estado}
                     onChange={(event) => updateField('estado', event.target.value)}
                   >
@@ -732,23 +740,25 @@ export default function Promociones() {
                 </label>
 
                 <div className={`promocion-target-hint ${form.tipo === 'full' ? 'is-tv' : 'is-menu'}`}>
-                  <span>{form.tipo === 'full' ? 'Canal: Pantalla TV' : 'Canal: Menu QR'}</span>
+                  <span>{form.tipo === 'full' ? 'Canal: Pantalla TV' : 'Canal: Menú QR'}</span>
                   <strong>
                     {form.tipo === 'full'
-                      ? 'Esta pieza se publicara solo en la Pantalla TV del local.'
-                      : 'Esta pieza se publicara dentro del menu QR del cliente.'}
+                      ? 'Esta pieza se publicará solo en la Pantalla TV del local.'
+                      : 'Esta pieza se publicará dentro del menú QR del cliente.'}
                   </strong>
                   <p>
                     {form.tipo === 'full'
-                      ? 'Perfecta para fotos o videos cortos que no deben mezclarse con las promos del menu.'
-                      : 'Si tu objetivo es el display del local, cambia esta opcion a Pantalla TV.'}
+                      ? 'Perfecta para fotos o videos cortos que no deben mezclarse con las promociones del menú.'
+                      : 'Si tu objetivo es el display del local, cambia esta opción a Pantalla TV.'}
                   </p>
                 </div>
 
                 <label className="promocion-field">
                   <span>Fecha inicio</span>
                   <input
+                    disabled={saving}
                     type="date"
+                    name="fechaInicio"
                     value={form.fechaInicio}
                     onChange={(event) => updateField('fechaInicio', event.target.value)}
                   />
@@ -757,7 +767,9 @@ export default function Promociones() {
                 <label className="promocion-field">
                   <span>Fecha fin</span>
                   <input
+                    disabled={saving}
                     type="date"
+                    name="fechaFin"
                     value={form.fechaFin}
                     onChange={(event) => updateField('fechaFin', event.target.value)}
                   />
@@ -766,9 +778,11 @@ export default function Promociones() {
                 <label className="promocion-field">
                   <span>Prioridad</span>
                   <input
+                    disabled={saving}
                     type="number"
                     min="1"
                     max="10"
+                    name="prioridad"
                     value={form.prioridad}
                     onChange={(event) => updateField('prioridad', event.target.value)}
                   />
@@ -778,11 +792,16 @@ export default function Promociones() {
                   <span>Color principal</span>
                   <div className="promocion-color-row">
                     <input
+                    disabled={saving}
                       type="color"
+                      aria-label="Elegir color principal"
                       value={form.colorPrincipal}
                       onChange={(event) => updateField('colorPrincipal', event.target.value)}
                     />
                     <input
+                    disabled={saving}
+                      aria-label="Color principal hexadecimal"
+                      name="colorPrincipal"
                       value={form.colorPrincipal}
                       onChange={(event) => updateField('colorPrincipal', event.target.value)}
                     />
@@ -792,6 +811,8 @@ export default function Promociones() {
                 <label className="promocion-field promocion-field-span-2">
                   <span>Imagen o video desde enlace</span>
                   <input
+                    disabled={saving}
+                    name="imagenUrl"
                     value={form.imagenUrl}
                     onChange={(event) => updateField('imagenUrl', event.target.value)}
                     placeholder="https://... imagen o video corto"
@@ -801,6 +822,7 @@ export default function Promociones() {
                 <label className="promocion-field promocion-field-span-2">
                   <span>Subir imagen o video</span>
                   <input
+                    disabled={saving}
                     type="file"
                     accept="image/*,video/mp4,video/webm,video/quicktime"
                     onChange={handleMediaFile}
@@ -808,8 +830,10 @@ export default function Promociones() {
                 </label>
 
                 <label className="promocion-field">
-                  <span>Texto del boton</span>
+                  <span>Texto del botón</span>
                   <input
+                    disabled={saving}
+                    name="botonTexto"
                     value={form.botonTexto}
                     onChange={(event) => updateField('botonTexto', event.target.value)}
                   />
@@ -818,6 +842,8 @@ export default function Promociones() {
                 <label className="promocion-field">
                   <span>URL de destino</span>
                   <input
+                    disabled={saving}
+                    name="urlDestino"
                     value={form.urlDestino}
                     onChange={(event) => updateField('urlDestino', event.target.value)}
                     placeholder="https://tu-destino.com"
@@ -825,11 +851,11 @@ export default function Promociones() {
                 </label>
 
                 <div className="promocion-editor-actions promocion-field-span-2">
-                  <button type="button" className="promocion-action-btn ghost" onClick={cerrarEditor}>
+                  <button type="button" className="promocion-action-btn ghost" disabled={saving} onClick={cerrarEditor}>
                     Cancelar
                   </button>
                   <button type="submit" className="promociones-primary-btn" disabled={saving}>
-                    {saving ? 'Guardando...' : promoEditando ? 'Actualizar campana' : 'Crear campana'}
+                    {saving ? 'Guardando...' : promoEditando ? 'Actualizar campaña' : 'Crear campaña'}
                   </button>
                 </div>
               </form>
@@ -861,7 +887,7 @@ export default function Promociones() {
                     ) : (
                       <img
                         src={mediaPreview || normalizeAssetUrl(form.imagenUrl)}
-                        alt={form.titulo || 'Promocion'}
+                        alt={form.titulo || 'Promoción'}
                       />
                     )
                   ) : (
@@ -870,14 +896,14 @@ export default function Promociones() {
                 </div>
 
                 <div className="promocion-preview-copy">
-                  <h3>{form.titulo || 'Tu nueva campana'}</h3>
+                  <h3>{form.titulo || 'Tu nueva campaña'}</h3>
                   <p>{form.descripcion || 'Define el mensaje principal de la pieza.'}</p>
                   <button type="button">{form.botonTexto || 'Ver promo'}</button>
                 </div>
               </div>
 
               <div className="promocion-tv-preview-panel">
-                <span className="promociones-kicker">Preview Pantalla TV</span>
+                <span className="promociones-kicker">Vista previa de TV</span>
                 <div className="promocion-tv-preview-frame">
                   <div className="promocion-tv-preview-screen">
                     {mediaActual ? (
@@ -892,7 +918,7 @@ export default function Promociones() {
                       ) : (
                         <img
                           src={mediaPreview || normalizeAssetUrl(form.imagenUrl)}
-                          alt={form.titulo || 'Promocion TV'}
+                          alt={form.titulo || 'Promoción TV'}
                         />
                       )
                     ) : (
@@ -901,14 +927,14 @@ export default function Promociones() {
                       </div>
                     )}
                     <div className="promocion-tv-preview-overlay">
-                      <span>{form.tipo === 'full' ? 'Canal TV' : 'Canal menu QR'}</span>
-                      <strong>{form.titulo || 'Campana sin titulo'}</strong>
+                      <span>{form.tipo === 'full' ? 'Canal TV' : 'Canal menú QR'}</span>
+                      <strong>{form.titulo || 'Campaña sin título'}</strong>
                     </div>
                   </div>
                 </div>
                 <ul className="promocion-tv-checklist">
                   <li>Usa Pantalla TV para piezas exclusivas del display del local.</li>
-                  <li>Usa Menu QR para promociones dentro del menu del cliente.</li>
+                  <li>Usa Menú QR para promociones dentro del menú del cliente.</li>
                   <li>Video corto y texto grande funcionan mejor en TV.</li>
                 </ul>
               </div>
@@ -916,6 +942,11 @@ export default function Promociones() {
           </div>
         </div>
       )}
+      {deletePromo && <div className="promocion-editor-overlay"><section className="pr-confirm" ref={confirmRef} role="dialog" aria-modal="true" aria-labelledby="pr-delete-title" aria-describedby="pr-delete-description">
+        <span className="promociones-kicker">Eliminar campaña</span><h2 id="pr-delete-title">¿Eliminar «{deletePromo.titulo}»?</h2>
+        <p id="pr-delete-description">Esta acción elimina la campaña y su publicación. Puedes pausarla desde la tarjeta si deseas conservarla.</p>
+        <div className="promocion-actions"><button type="button" className="promocion-action-btn ghost" disabled={pendingAction !== null} onClick={() => setDeletePromo(null)}>Conservar campaña</button><button type="button" className="promocion-action-btn danger" disabled={pendingAction !== null} onClick={() => handleDelete(deletePromo)}>{pendingAction !== null ? 'Eliminando…' : 'Eliminar campaña'}</button></div>
+      </section></div>}
     </div>
   );
 }

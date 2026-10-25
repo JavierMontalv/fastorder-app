@@ -1,0 +1,108 @@
+.promociones-page.promociones-workspace{--pr-ink:#243c30;--pr-muted:#69736b;--pr-panel:#fff;--pr-soft:#f3f4ee;--pr-border:#dfe4db;--pr-accent:#b94b30;--pr-green:#315c43;gap:20px;padding:0 0 84px;overflow:visible;background:transparent;color:var(--pr-ink);animation:none;transform:none}
+html[data-theme='dark'] .promociones-page.promociones-workspace{--pr-ink:#e4eee6;--pr-muted:#a7b8ad;--pr-panel:#17251f;--pr-soft:#203229;--pr-border:#34473b;--pr-accent:#ffac8c;--pr-green:#3e7151}
+html .promociones-page.promociones-workspace *{box-sizing:border-box}
+html .promociones-page.promociones-workspace [hidden],html .promociones-page.promociones-workspace .promociones-split-column[hidden]{display:none}
+html .promociones-page.promociones-workspace::before{display:none}
+html .promociones-page.promociones-workspace :is(h1,h2,h3){color:var(--pr-ink);letter-spacing:-.035em}
+html .promociones-page.promociones-workspace :is(button,input,textarea,select){font-family:inherit}
+html .promociones-page.promociones-workspace :is(button,input,textarea,select):focus-visible{outline:3px solid var(--pr-accent);outline-offset:3px}
+html .promociones-page.promociones-workspace button:disabled{opacity:.55;cursor:wait}
+html .promociones-page.promociones-workspace .promociones-hero{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}
+html .promociones-page.promociones-workspace .promociones-hero h1{font-size:32px;line-height:1.2;margin:8px 0}
+html .promociones-page.promociones-workspace .promociones-hero p{font-size:12px;line-height:1.7;color:var(--pr-muted);max-width:580px}
+html .promociones-page.promociones-workspace .promociones-kicker{padding:0;background:transparent;color:var(--pr-accent);font-size:10px;letter-spacing:.08em;border-radius:0}
+html .promociones-page.promociones-workspace .promociones-hero-actions{min-width:0;flex-shrink:0}
+html .promociones-page.promociones-workspace .promociones-quick-actions{padding:0;background:transparent;border:0;border-radius:0}
+html .promociones-page.promociones-workspace .promociones-quick-buttons{display:flex;gap:8px;margin:0}
+html .promociones-page.promociones-workspace .promociones-quick-buttons button{width:auto;white-space:nowrap}
+html .promociones-page.promociones-workspace :is(.promocion-action-btn,.promociones-primary-btn,.pr-error button){min-height:40px;padding:10px 14px;border:1px solid var(--pr-green);border-radius:8px;background:var(--pr-green);color:#fff;font-size:12px;font-weight:650;line-height:1.4;box-shadow:none;cursor:pointer;transform:none}
+html .promociones-page.promociones-workspace .promocion-action-btn.ghost{border-color:var(--pr-border);color:var(--pr-ink);background:var(--pr-panel)}
+html .promociones-page.promociones-workspace .promocion-action-btn.danger{border-color:var(--pr-border);color:var(--pr-accent);background:var(--pr-panel)}
+html .promociones-page.promociones-workspace .promocion-action-btn:hover{filter:brightness(.96);transform:none}
+html .promociones-page.promociones-workspace .promociones-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--pr-border);border-radius:14px;padding:18px 0;background:var(--pr-panel)}
+html .promociones-page.promociones-workspace .promociones-stat-card{display:flex;flex-direction:column;gap:6px;padding:0 20px;border:0;border-right:1px solid var(--pr-border);border-radius:0;box-shadow:none;background:transparent}
+html .promociones-page.promociones-workspace .promociones-stat-card:last-child{border-right:0}
+html .promociones-page.promociones-workspace .promociones-stat-card span{font-size:10px;letter-spacing:.04em;color:var(--pr-muted)}
+html .promociones-page.promociones-workspace .promociones-stat-card strong{font-size:28px;line-height:1.3;color:var(--pr-ink)}
+html .promociones-page.promociones-workspace .promociones-stat-card small{font-size:10px;line-height:1.5;color:var(--pr-muted)}
+html .promociones-page.promociones-workspace .pr-tools{padding:16px;border:1px solid var(--pr-border);border-radius:14px;background:var(--pr-panel);display:flex;flex-direction:column;gap:16px}
+html .promociones-page.promociones-workspace .pr-channels{display:flex;gap:6px;flex-wrap:wrap}
+html .promociones-page.promociones-workspace .pr-channels button{display:flex;align-items:center;justify-content:center;gap:8px;padding:8px 12px;border:1px solid var(--pr-border);border-radius:8px;background:var(--pr-panel);color:var(--pr-muted);font-size:12px;cursor:pointer;min-height:40px}
+html .promociones-page.promociones-workspace .pr-channels button[aria-pressed='true']{background:var(--pr-green);color:#fff;border-color:var(--pr-green)}
+html .promociones-page.promociones-workspace .pr-channels span{font-size:10px;border-radius:4px;padding:2px 6px;background:#80808020}
+html .promociones-page.promociones-workspace .pr-filter-row{display:flex;align-items:end;gap:12px;flex-wrap:wrap}
+html .promociones-page.promociones-workspace .pr-search{flex:1;min-width:220px}
+html .promociones-page.promociones-workspace :is(.pr-search,.promociones-filter){display:flex;flex-direction:column;gap:7px;padding:0;background:transparent;border:0;font-size:11px;color:var(--pr-muted);font-weight:650}
+html .promociones-page.promociones-workspace .promociones-filter{min-width:180px}
+html .promociones-page.promociones-workspace :is(.pr-search input,.promociones-filter select,.promocion-field input,.promocion-field select,.promocion-field textarea){min-width:0;min-height:42px;padding:10px 12px;border:1px solid var(--pr-border);border-radius:8px;background:var(--pr-soft);color:var(--pr-ink);font-size:12px;box-shadow:none}
+html .promociones-page.promociones-workspace .promociones-tv-spotlight{display:block;padding:16px 18px;border:1px solid var(--pr-border);border-radius:12px;background:var(--pr-soft);box-shadow:none;min-height:0}
+html .promociones-page.promociones-workspace .promociones-tv-guidelines{display:block;width:100%}
+html .promociones-page.promociones-workspace .promociones-tv-access-card{display:grid;grid-template-columns:minmax(180px,1fr) minmax(180px,1.2fr) auto;gap:5px 20px;align-items:center;padding:0;border:0;background:transparent;border-radius:0}
+html .promociones-page.promociones-workspace .promociones-tv-access-card>span{grid-column:1;color:var(--pr-accent);font-size:9px;letter-spacing:.05em}
+html .promociones-page.promociones-workspace .promociones-tv-access-card>strong{grid-column:1;font-size:14px;color:var(--pr-ink)}
+html .promociones-page.promociones-workspace .promociones-tv-access-card>p{grid-column:1;color:var(--pr-muted);font-size:10px;line-height:1.5;margin:0}
+html .promociones-page.promociones-workspace .promociones-tv-access-url{grid-column:2;grid-row:1/4;overflow-wrap:anywhere;min-width:0;padding:10px 12px;border:1px solid var(--pr-border);background:var(--pr-panel);border-radius:8px;font-size:10px;color:var(--pr-muted)}
+html .promociones-page.promociones-workspace .promociones-tv-access-actions{grid-column:3;grid-row:1/4;display:flex;gap:6px;padding:0;border:0;background:transparent}
+html .promociones-page.promociones-workspace .promociones-tv-access-actions button{font-size:11px;min-height:36px;padding:8px 10px}
+html .promociones-page.promociones-workspace .promociones-split-layout{display:flex;flex-direction:column;align-items:stretch;gap:24px}
+html .promociones-page.promociones-workspace .promociones-split-column{min-width:0;display:flex;flex-direction:column;gap:12px}
+html .promociones-page.promociones-workspace .promociones-section-head{padding:0 0 12px;display:flex;align-items:center;justify-content:space-between;gap:12px;border:0;border-bottom:1px solid var(--pr-border);background:transparent;border-radius:0;box-shadow:none}
+html .promociones-page.promociones-workspace .promociones-section-head h2{font-size:20px;margin:6px 0 0;line-height:1.3}
+html .promociones-page.promociones-workspace .promociones-section-head button{font-size:11px;min-height:36px}
+html .promociones-page.promociones-workspace .promociones-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+html .promociones-page.promociones-workspace .promocion-card{width:100%;max-width:none;min-width:0;border:1px solid var(--pr-border);border-radius:14px;background:var(--pr-panel);box-shadow:0 3px 12px #243c3005;display:flex;flex-direction:column;overflow:hidden}
+html .promociones-page.promociones-workspace .promocion-card-media{position:relative;height:170px;min-height:0;aspect-ratio:auto;overflow:hidden}
+html .promociones-page.promociones-workspace .promocion-card-media :is(img,video){width:100%;height:100%;object-fit:contain;background:#e9ede5}
+html .promociones-page.promociones-workspace .promocion-card-placeholder{height:100%;min-height:0;display:grid;place-items:center;font-size:52px;color:#fff}
+html .promociones-page.promociones-workspace .promocion-badge{position:absolute;font-size:9px;line-height:1.4;max-width:calc(100% - 20px);padding:5px 7px;border-radius:5px;box-shadow:none}
+html .promociones-page.promociones-workspace .promocion-card-media .promocion-badge{top:10px;left:10px;background:#f3f4ee;color:#315c43}
+html .promociones-page.promociones-workspace .promocion-card-media .promocion-badge.tipo{left:auto;right:10px;background:#17251fe6;color:#fff;max-width:65%}
+html .promociones-page.promociones-workspace .promocion-card-media .promocion-badge.tv{top:auto;bottom:10px;color:#243c30}
+html .promociones-page.promociones-workspace .promocion-card-media .promocion-badge.media-kind{top:auto;bottom:10px;left:auto;right:10px}
+html .promociones-page.promociones-workspace .promocion-card-body{display:flex;flex-direction:column;gap:14px;padding:16px;flex:1}
+html .promociones-page.promociones-workspace .promocion-copy h3{font-size:17px;margin:0 0 6px;line-height:1.4;overflow-wrap:anywhere}
+html .promociones-page.promociones-workspace .promocion-copy p{font-size:11px;line-height:1.65;margin:0;color:var(--pr-muted);overflow-wrap:anywhere}
+html .promociones-page.promociones-workspace .promocion-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px 0;border-top:1px solid var(--pr-border);border-bottom:1px solid var(--pr-border)}
+html .promociones-page.promociones-workspace .promocion-meta>div{padding:0;background:transparent;border-radius:0;min-width:0}
+html .promociones-page.promociones-workspace .promocion-meta span{color:var(--pr-muted);font-size:9px;margin:0 0 4px}
+html .promociones-page.promociones-workspace .promocion-meta strong{color:var(--pr-ink);font-size:11px;line-height:1.5}
+html .promociones-page.promociones-workspace .promocion-tv-box{padding:0;background:transparent;border:0}
+html .promociones-page.promociones-workspace .promocion-tv-box>span{display:none}
+html .promociones-page.promociones-workspace .promocion-tv-box strong{font-size:11px;color:var(--pr-ink)}
+html .promociones-page.promociones-workspace .promocion-tv-box p{font-size:10px;color:var(--pr-muted);line-height:1.6;margin:4px 0 0}
+html .promociones-page.promociones-workspace .promocion-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+html .promociones-page.promociones-workspace .promocion-actions button{min-height:36px;font-size:11px;padding:8px 12px}
+html .promociones-page.promociones-workspace .promociones-empty{min-height:0;padding:24px;border:1px dashed var(--pr-border);border-radius:12px;display:flex;flex-direction:column;align-items:flex-start;gap:8px;background:var(--pr-panel);box-shadow:none}
+html .promociones-page.promociones-workspace .promociones-empty strong{font-size:13px;color:var(--pr-ink)}
+html .promociones-page.promociones-workspace .promociones-empty span{font-size:11px;color:var(--pr-muted)}
+html .promociones-page.promociones-workspace .pr-error{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#fff0e9;color:#923e29;border:1px solid #e4bcaa;padding:12px;border-radius:9px;font-size:12px;line-height:1.6}
+html .promociones-page.promociones-workspace .promocion-editor-overlay{z-index:1400;background:#13251cb3;padding:20px}
+html .promociones-page.promociones-workspace .promocion-editor-shell{border:1px solid var(--pr-border);border-radius:18px;background:var(--pr-panel);gap:0;max-height:calc(100dvh - 40px)}
+html .promociones-page.promociones-workspace :is(.promocion-editor-panel,.promocion-preview-panel){padding:24px;border:0;border-radius:0;background:var(--pr-panel);box-shadow:none;align-content:start}
+html .promociones-page.promociones-workspace .promocion-preview-panel{background:var(--pr-soft);border-left:1px solid var(--pr-border)}
+html .promociones-page.promociones-workspace .promocion-editor-head h2{font-size:23px;line-height:1.3;margin:6px 0 0}
+html .promociones-page.promociones-workspace .promocion-close-btn{background:var(--pr-soft);color:var(--pr-ink);border:1px solid var(--pr-border);min-width:36px;min-height:36px;border-radius:8px;cursor:pointer}
+html .promociones-page.promociones-workspace .promocion-field{min-width:0}
+html .promociones-page.promociones-workspace :is(.promocion-field-span-2,.promocion-target-hint){grid-column:1 / -1}
+html .promociones-page.promociones-workspace .promocion-form-grid{min-width:0;width:100%}
+html .promociones-page.promociones-workspace .promocion-field :is(input,select,textarea){width:100%}
+html .promociones-page.promociones-workspace .promocion-field>span{color:var(--pr-muted);font-size:11px}
+html .promociones-page.promociones-workspace .promocion-field input[type='file']{width:100%;font-size:10px}
+html .promociones-page.promociones-workspace .promocion-color-row{min-width:0}
+html .promociones-page.promociones-workspace .promocion-color-row input[type='color']{padding:4px;flex-shrink:0;max-width:48px}
+html .promociones-page.promociones-workspace .promocion-target-hint{padding:12px;border:1px solid var(--pr-border);background:var(--pr-soft);border-radius:10px}
+html .promociones-page.promociones-workspace .promocion-target-hint strong{font-size:12px;color:var(--pr-ink)}
+html .promociones-page.promociones-workspace .promocion-target-hint :is(span,p){font-size:10px;color:var(--pr-muted);line-height:1.6}
+html .promociones-page.promociones-workspace .promocion-preview-card{border-radius:12px;overflow:hidden}
+html .promociones-page.promociones-workspace .promocion-preview-top .promocion-badge{position:static}
+html .promociones-page.promociones-workspace .promocion-preview-copy :is(h3,p){color:#fff}
+html .promociones-page.promociones-workspace .promocion-preview-copy h3{font-size:22px;line-height:1.3}
+html .promociones-page.promociones-workspace .promocion-preview-copy p{font-size:12px}
+html .promociones-page.promociones-workspace .promocion-tv-preview-panel{background:transparent;border:0;padding:0}
+html .promociones-page.promociones-workspace .promocion-tv-checklist{font-size:11px;color:var(--pr-muted);line-height:1.8}
+html .promociones-page.promociones-workspace .pr-confirm{width:480px;max-width:100%;padding:24px;border:1px solid var(--pr-border);border-radius:16px;background:var(--pr-panel);box-shadow:0 20px 60px #0003}
+html .promociones-page.promociones-workspace .pr-confirm h2{font-size:22px;line-height:1.4;overflow-wrap:anywhere}
+html .promociones-page.promociones-workspace .pr-confirm p{font-size:12px;color:var(--pr-muted);line-height:1.8}
+@media(max-width:1050px){html .promociones-page.promociones-workspace .promociones-hero{align-items:flex-start;flex-direction:column;gap:16px}html .promociones-page.promociones-workspace .promociones-tv-access-card{grid-template-columns:minmax(0,1fr) auto}html .promociones-page.promociones-workspace .promociones-tv-access-url{grid-column:1;grid-row:auto;margin-top:6px}html .promociones-page.promociones-workspace .promociones-tv-access-actions{grid-column:2;grid-row:1/5}html .promociones-page.promociones-workspace .promocion-editor-shell{grid-template-columns:minmax(0,1fr)}html .promociones-page.promociones-workspace .promocion-preview-panel{border-left:0;border-top:1px solid var(--pr-border)}}
+@media(max-width:600px){html .promociones-page.promociones-workspace{gap:16px}html .promociones-page.promociones-workspace .promociones-hero h1{font-size:27px}html .promociones-page.promociones-workspace .promociones-summary{grid-template-columns:1fr 1fr;gap:18px 0}html .promociones-page.promociones-workspace .promociones-stat-card{padding:0 14px}html .promociones-page.promociones-workspace .promociones-stat-card:nth-child(2){border-right:0}html .promociones-page.promociones-workspace .promociones-quick-buttons{flex-wrap:wrap}html .promociones-page.promociones-workspace .pr-filter-row>label{width:100%;min-width:0}html .promociones-page.promociones-workspace .pr-channels button{flex:1;min-width:0;padding:8px;font-size:11px}html .promociones-page.promociones-workspace .pr-channels span{padding:2px 4px}html .promociones-page.promociones-workspace .promociones-tv-access-card{display:flex;flex-direction:column;align-items:stretch;gap:8px}html .promociones-page.promociones-workspace .promociones-tv-access-actions{flex-wrap:wrap}html .promociones-page.promociones-workspace .promociones-grid{grid-template-columns:minmax(0,1fr)}html .promociones-page.promociones-workspace .promociones-section-head h2{font-size:17px}html .promociones-page.promociones-workspace .promociones-section-head{align-items:flex-start}html .promociones-page.promociones-workspace .promociones-section-head button{max-width:120px}html .promociones-page.promociones-workspace .promocion-editor-overlay{padding:10px}html .promociones-page.promociones-workspace .promocion-editor-shell{max-height:calc(100dvh - 20px)}html .promociones-page.promociones-workspace :is(.promocion-editor-panel,.promocion-preview-panel){padding:16px}html .promociones-page.promociones-workspace .promocion-form-grid{grid-template-columns:minmax(0,1fr)}html .promociones-page.promociones-workspace .promocion-field-span-2{grid-column:1}html .promociones-page.promociones-workspace .promocion-editor-actions{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){html .promociones-page.promociones-workspace *{animation:none;transition:none}}
