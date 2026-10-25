@@ -834,7 +834,7 @@ export default function Configuracion() {
   const estadoOperacionTexto = useMemo(() => {
     return config.estadoOperacion === 'abierto'
       ? 'Abierto y recibiendo pedidos'
-      : 'Cerrado al publico';
+      : 'Cerrado al público';
   }, [config.estadoOperacion]);
 
   const resumenMesas = useMemo(() => {
@@ -1467,9 +1467,9 @@ export default function Configuracion() {
               <label className="config-field">
                 <span>Tema visual</span>
                 <select name="tema" value={config.tema} onChange={manejarCambio}>
-                  <option value="light">Light</option>
-                  <option value="dark">Dark</option>
-                  <option value="auto">Auto</option>
+                  <option value="light">Claro</option>
+                  <option value="dark">Oscuro</option>
+                  <option value="auto">Automático</option>
                 </select>
               </label>
             </div>

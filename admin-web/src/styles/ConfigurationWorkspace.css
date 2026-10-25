@@ -45,3 +45,6 @@ html[data-theme=dark] .config-workspace .config-panel h2,html[data-theme=dark] .
 html[data-theme=dark] .config-workspace .config-panel-head p,html[data-theme=dark] .config-section-nav button small{color:#b8cbb0}
 
 .config-workspace{padding:0 0 110px}
+
+/* Keep restaurant information readable beneath every cover photo. */
+.config-workspace .pv-hero-strip{align-items:center;margin:-28px 12px 0;padding:12px;background:#fff;border:1px solid #e0e6da;border-radius:12px}.config-workspace .pv-name{color:#20372a!important;text-shadow:none}.config-workspace .pv-desc{color:#5b6f57}.config-workspace .pv-logo{width:60px;height:60px}.config-workspace .pv-logo-img{object-fit:contain;padding:3px}
