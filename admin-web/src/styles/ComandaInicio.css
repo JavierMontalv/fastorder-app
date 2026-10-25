@@ -80,3 +80,11 @@
 @media(min-width:761px) and (max-width:900px){.cm-public .cm-hero{grid-template-columns:1fr;gap:40px}.cm-public .cm-hero-copy{max-width:650px}.cm-public .cm-product-art{width:100%;max-width:600px;margin:auto}.cm-public .cm-how{grid-template-columns:1fr}.cm-public .cm-access-grid{grid-template-columns:1fr;max-width:620px;gap:32px}.cm-public .cm-nav{gap:18px}.cm-public .cm-nav nav{gap:14px;font-size:12px}}
 @media(max-width:420px){.cm-public .cm-hero h1{font-size:clamp(30px,9.8vw,40px);letter-spacing:-.055em}.cm-public .cm-hero-actions{flex-wrap:wrap;gap:18px}.cm-public .cm-hero-foot{flex-wrap:wrap}.cm-public .cm-resource-main>nav{overflow-wrap:anywhere}.cm-public .cm-plan-top{align-items:flex-start}.cm-public .cm-footer{grid-template-columns:1fr}.cm-public .cm-closing h2{font-size:46px}}
 @media(max-width:760px){.cm-public input,.cm-public select,.cm-public textarea{font-size:16px}.cm-public .cm-form-grid{grid-template-columns:1fr}.cm-public .cm-access-footer{padding-inline:20px;line-height:1.9}.cm-public .cm-resource .cm-nav>.cm-text-link{font-size:12px}}
+
+/* Crawlable, useful navigation within the public editorial guides. */
+.cm-public .cm-resource-toc {display:grid;gap:10px;padding:22px 24px;margin:28px 0;border:1px solid #d8dfd3;border-radius:12px;background:#f1f4ed;}
+.cm-public .cm-resource-toc strong {font-size:12px;color:#294532;letter-spacing:.04em;}
+.cm-public .cm-resource-toc a {font-size:14px;line-height:1.5;color:#315c43;text-decoration:underline;text-underline-offset:4px;}
+.cm-public .cm-resource-toc a:hover {color:#b94b30;}
+.cm-public .cm-resource-content section {scroll-margin-top:100px;}
+@media(max-width:600px){.cm-public .cm-resource-toc {padding:18px;}}

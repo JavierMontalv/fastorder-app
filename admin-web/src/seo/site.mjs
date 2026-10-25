@@ -1,4 +1,4 @@
-export const SITE_ORIGIN = (import.meta.env?.VITE_PUBLIC_SITE_URL || 'https://admin.somoscomanda.com').replace(/\/$/, '');
+export const SITE_ORIGIN = (import.meta.env?.VITE_PUBLIC_SITE_URL || 'https://www.somoscomanda.com').replace(/\/$/, '');
 export const ADMIN_ORIGIN = 'https://admin.somoscomanda.com';
 export const HOME_PATH = SITE_ORIGIN.includes('admin.somoscomanda.com') ? '/inicio' : '/';
 export const HOME_TITLE = 'Comanda | Menú QR y pedidos para restaurantes en Colombia';
@@ -15,6 +15,7 @@ export const publicPages = [
       ['Una carta que puedes mantener al día', 'Actualiza productos, categorías, fotografías, descripciones, precios y disponibilidad. En lugar de reenviar un archivo cada vez que cambia tu carta, comparte el enlace de tu menú.'],
       ['Para restaurantes, cafeterías y bares', 'Organiza tu oferta por categorías para que cada cliente encuentre lo que busca. Puedes compartir el enlace en tus canales habituales y ubicar el QR en las mesas o en un lugar visible del establecimiento.'],
       ['Menú digital y pedidos son alcances diferentes', 'Comanda Básico permite publicar y administrar la carta QR. Si quieres recibir pedidos desde la mesa, revisa Pro o Premium. Las funciones y límites vigentes se muestran antes de solicitar activación.'],
+      ['Una configuración sencilla en cuatro pasos', 'Primero configura el nombre y la identidad del restaurante. Después crea las categorías y añade productos con precio, descripción y fotografía. Revisa la carta desde un celular y, por último, descarga el QR y comprueba que abre el enlace correcto antes de imprimirlo.'],
       ['Cómo empezar con tu restaurante', 'Elige un plan o solicita una demostración. Una vez se confirme la activación, configura tu marca y tus productos, revisa el menú en un celular y comparte el QR. Conserva una alternativa de consulta para clientes sin conexión.']
     ],
     related: ['/pedidos-qr-por-mesa', '/planes-comanda', '/guias/menu-qr-o-pdf']
@@ -27,6 +28,7 @@ export const publicPages = [
     intro: 'Un menú digital ayuda a mostrar tu oferta. Los pedidos QR por mesa dan el siguiente paso: permiten que el cliente envíe su selección y que tu equipo siga el pedido desde el panel de Comanda.',
     sections: [
       ['Qué cambia frente a una carta QR', 'Una carta digital muestra productos y precios. Con pedidos por mesa, el cliente puede avanzar desde la consulta del menú hasta el envío de su pedido. Esta función está incluida en Pro y Premium, no en Básico.'],
+      ['Recibir un pedido no equivale a cobrarlo', 'Define con tu equipo quién revisa el pedido, confirma su preparación y registra el pago. La recepción por QR y el cobro son pasos distintos: revisa el estado operativo y el estado de pago antes de cerrar el servicio.'],
       ['Organización para el servicio', 'Consulta los pedidos y sus estados desde el panel. La referencia de mesa ayuda al equipo a relacionar lo que debe preparar y entregar con el lugar correspondiente del restaurante.'],
       ['Un recorrido que debes probar antes de operar', 'Revisa el QR de cada mesa, la disponibilidad de productos y la recepción del pedido en el panel. Antes del primer servicio, recorre el flujo completo con tu equipo y confirma cómo manejarán cambios y cancelaciones.'],
       ['Internet y atención siguen siendo importantes', 'El cliente y el equipo necesitan conexión. El QR acompaña la atención del restaurante: ofrece ayuda para quien la necesite y conserva un procedimiento de contingencia si falla la conexión.'],
@@ -58,6 +60,7 @@ export const publicPages = [
     sections: [
       ['Cuándo puede servir un PDF', 'Un PDF puede ser suficiente si la carta cambia poco y tienes una versión legible en celular. Revisa su peso, el tamaño de letra y el proceso para reemplazar el archivo cuando cambian los precios.'],
       ['Cuándo aporta un menú digital', 'Una carta web permite presentar categorías y fichas de producto adaptadas al celular. En Comanda, el restaurante administra su contenido desde el panel y comparte el enlace del menú con sus clientes.'],
+      ['Cómo evaluar la legibilidad de tu carta', 'Comprueba que los nombres y precios tengan suficiente contraste, que los textos se puedan leer y que las fotos acompañen la descripción sin reemplazarla. Revisa también nombres largos, distintas orientaciones de pantalla y la navegación entre categorías.'],
       ['Qué debes probar en el celular', 'Escanea el QR con distintos teléfonos. Comprueba cuánto tarda en abrir, si se lee sin ampliar constantemente, cómo se consultan categorías y precios, y qué ve el cliente cuando un producto no está disponible.'],
       ['Si también necesitas recibir pedidos', 'No todos los QR permiten pedir. Verifica que el plan incluya pedidos por mesa y prueba la llegada al panel, los estados del pedido y el trabajo del equipo. Comanda ofrece este alcance en Pro y Premium.'],
       ['Una decisión que debe ayudar al servicio', 'Elige según la frecuencia de cambios, la cantidad de productos y la forma de atender. Publica fotografías útiles y precios claros. Ofrece una alternativa a quien no tenga conexión o necesite ayuda para consultar la carta.']
@@ -73,10 +76,15 @@ export function pageMetadata(path) {
 
 export function structuredData(path) {
   const home = SITE_ORIGIN + HOME_PATH;
-  const organization = { '@type': 'Organization', '@id': SITE_ORIGIN + '/#organization', name: 'Comanda', legalName: 'BREVIA TECH SAS', url: home, logo: SITE_ORIGIN + '/brand/comanda-icon.png', email: 'comercial@somosbreviatech.com', parentOrganization: { '@type': 'Organization', name: 'Brevia Tech SAS', url: 'https://www.somosbreviatech.com/' } };
+  const organization = { '@type': 'Organization', '@id': SITE_ORIGIN + '/#organization', name: 'Comanda', legalName: 'BREVIA TECH SAS', url: home, logo: { '@type': 'ImageObject', '@id': SITE_ORIGIN + '/#logo', url: SITE_ORIGIN + '/brand/comanda-favicon-512.png', contentUrl: SITE_ORIGIN + '/brand/comanda-favicon-512.png', width: 512, height: 512, caption: 'Comanda: libro naranja' }, email: 'comercial@somosbreviatech.com', parentOrganization: { '@type': 'Organization', name: 'Brevia Tech SAS', url: 'https://www.somosbreviatech.com/' } };
   const website = { '@type': 'WebSite', '@id': SITE_ORIGIN + '/#website', name: 'Comanda', alternateName: ['Somos Comanda', 'Comanda de Brevia Tech', 'somoscomanda.com'], url: home, inLanguage: 'es-CO', publisher: { '@id': organization['@id'] } };
   const page = publicPages.find(p => p.path === path);
-  const graph = [organization, website, { '@type': 'WebPage', name: page?.title || HOME_TITLE, url: SITE_ORIGIN + (page?.path || HOME_PATH), description: page?.description || HOME_DESCRIPTION, inLanguage: 'es-CO', isPartOf: { '@id': website['@id'] } }];
+  const application = { '@type': 'WebApplication', '@id': SITE_ORIGIN + '/#application', name: 'Comanda', url: home, applicationCategory: 'BusinessApplication', operatingSystem: 'Web', browserRequirements: 'Navegador web y conexión a internet', inLanguage: 'es-CO', description: HOME_DESCRIPTION, provider: { '@id': organization['@id'] } };
+  const graph = [organization, website, application, { '@type': 'WebPage', '@id': SITE_ORIGIN + (page?.path || HOME_PATH) + '#webpage', publisher: { '@id': organization['@id'] }, about: { '@id': application['@id'] }, primaryImageOfPage: { '@type': 'ImageObject', url: SITE_ORIGIN + '/brand/comanda-social.png', width: 1200, height: 630 }, name: page?.title || HOME_TITLE, url: SITE_ORIGIN + (page?.path || HOME_PATH), description: page?.description || HOME_DESCRIPTION, inLanguage: 'es-CO', isPartOf: { '@id': website['@id'] } }];
   if (page) graph.push({ '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Comanda', item: home }, { '@type': 'ListItem', position: 2, name: page.label, item: SITE_ORIGIN + page.path }] });
   return { '@context': 'https://schema.org', '@graph': graph };
+}
+
+export function sectionAnchor(heading) {
+  return heading.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }

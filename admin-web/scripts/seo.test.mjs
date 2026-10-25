@@ -50,3 +50,34 @@ test('the commercial router is separate from the existing restaurant menu router
   const embedded = template.split('  CommercialSeoFunction:')[1].split('  AdminDistribution:')[0].split('      FunctionCode: |\n')[1].split('\n').map(line => line.replace(/^        /, '')).join('\n').trim();
   assert.equal(embedded, functionSource.trim());
 });
+
+test('public identity uses the approved orange book with crawlable square assets', async () => {
+  for (const filename of ['landing.html', ...routeConfig.pages.map(p => `seo/${p.slice(1).replaceAll('/', '-')}.html`)]) {
+    const html = await fs.readFile(`dist/${filename}`, 'utf8');
+    assert.match(html, /rel="icon" type="image\/png" sizes="96x96" href="\/brand\/comanda-favicon-96.png"/);
+    assert.doesNotMatch(html, /rel="(?:shortcut )?icon"[^>]*(?:vite\.svg|brevia-tab-icon)/);
+    const schema = JSON.parse(html.match(/id="comanda-structured-data" type="application\/ld\+json">(.*?)<\/script>/s)[1]);
+    const organization = schema['@graph'].find(n => n['@type'] === 'Organization');
+    assert.equal(organization.logo.url, routeConfig.origin + '/brand/comanda-favicon-512.png');
+    assert.equal(organization.logo.width, 512);
+    assert.ok(schema['@graph'].some(n => n['@type'] === 'WebApplication' && n.provider['@id'] === organization['@id']));
+    assert.match(html, /name="twitter:image"/);
+    assert.doesNotMatch(html, /src="\/brand\/comanda-icon.png"/);
+  }
+  for (const size of [96, 192, 512]) {
+    const png = await fs.readFile(`dist/brand/comanda-favicon-${size}.png`);
+    assert.equal(png.subarray(1,4).toString(), 'PNG');
+    assert.equal(png.readUInt32BE(16), size); assert.equal(png.readUInt32BE(20), size);
+  }
+  assert.equal((await fs.readFile('dist/favicon.ico')).readUInt16LE(2), 1);
+});
+test('guide navigation targets existing readable sections without broken fragments', async () => {
+  for (const page of routeConfig.pages) {
+    const html = await fs.readFile(`dist/seo/${page.slice(1).replaceAll('/', '-')}.html`, 'utf8');
+    assert.match(html, /aria-label="En esta página"/);
+    const anchors = [...html.matchAll(/href="#([^"]+)"/g)].map(m => m[1]);
+    assert.ok(anchors.length >= 5);
+    assert.equal(new Set(anchors).size, anchors.length);
+    for (const anchor of anchors) assert.ok(html.includes(`id="${anchor}"`));
+  }
+});

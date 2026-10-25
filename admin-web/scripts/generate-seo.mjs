@@ -23,7 +23,10 @@ for (const route of ['/inicio', ...publicPages.map(p => p.path)]) {
 <meta property="og:locale" content="es_CO" /><meta property="og:title" content="${escape(metadata.title)}" />
 <meta property="og:description" content="${escape(metadata.description)}" /><meta property="og:url" content="${metadata.canonical}" />
 <meta property="og:image" content="${SITE_ORIGIN}/brand/comanda-social.png" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" />
-<meta name="twitter:card" content="summary_large_image" /><script id="comanda-structured-data" type="application/ld+json">${json(structuredData(route))}</script>`;
+<meta property="og:image:alt" content="Comanda: menú QR y pedidos para restaurantes" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="${escape(metadata.title)}" /><meta name="twitter:description" content="${escape(metadata.description)}" />
+<meta name="twitter:image" content="${SITE_ORIGIN}/brand/comanda-social.png" /><meta name="twitter:image:alt" content="Comanda: menú QR y pedidos para restaurantes" /><script id="comanda-structured-data" type="application/ld+json">${json(structuredData(route))}</script>`;
   const html = shell.replace(/<title>.*?<\/title>/s, `<title>${escape(metadata.title)}</title>`)
     .replace(/<meta name="description" content=".*?"\s*\/>/, `<meta name="description" content="${escape(metadata.description)}" />`)
     .replace(/<meta name="robots" content=".*?"\s*\/>/, tags)
