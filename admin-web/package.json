@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/generate-seo.mjs && node --test scripts/seo.test.mjs scripts/menu-guide.test.mjs scripts/product-intake.test.mjs scripts/bedrock-adapter.test.mjs scripts/reservas.test.mjs scripts/promociones.test.mjs scripts/analytics-workspace.test.mjs",
+    "build": "vite build && node scripts/generate-seo.mjs && node --test scripts/seo.test.mjs scripts/menu-guide.test.mjs scripts/product-intake.test.mjs scripts/bedrock-adapter.test.mjs scripts/reservas.test.mjs scripts/promociones.test.mjs scripts/analytics-workspace.test.mjs ../infra/aws/audit-backend/tests/audit.test.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
