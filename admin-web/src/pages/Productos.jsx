@@ -1,3 +1,4 @@
+import ProductIntake from '../components/ProductIntake';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -254,6 +255,7 @@ function obtenerTonoCategoria(categoria) {
 
 export default function Productos() {
   const location = useLocation();
+  const [showIntake, setShowIntake] = useState(() => new URLSearchParams(window.location.search).get('carga') === 'rapida');
   const navigate = useNavigate();
   const {
     canUseAI,
@@ -1415,6 +1417,9 @@ export default function Productos() {
             className="input-base input-search"
           />
 
+          <button type="button" className="btn-secondary" onClick={() => setShowIntake(value => !value)} aria-expanded={showIntake}>
+            {showIntake ? 'Ocultar carga rápida' : 'Cargar con fotos'}
+          </button>
           <button type="button" className="btn-secondary" onClick={() => setOpenCategoriaQuick(true)}>
             Nueva categoría
           </button>
@@ -1424,6 +1429,7 @@ export default function Productos() {
         </div>
       </div>
 
+      <div hidden={!showIntake}><ProductIntake categories={categorias} canAssist={canUseAI && hasCatalogAIFeature && !cargandoEstadoIA} remaining={cargandoPlan ? 0 : limiteProductosPlan > 0 ? productosDisponiblesPlan : 4} onNewCategory={() => setOpenCategoriaQuick(true)} onSaved={async () => { await Promise.all([cargarProductos(), cargarCategorias(), refreshPlan(), refreshIAState()]); }} /></div>
       <div className={`productos-plan-usage ${limiteProductosAlcanzado ? 'is-full' : ''}`}>
         <div>
           <span>Uso del plan</span>

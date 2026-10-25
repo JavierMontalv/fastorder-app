@@ -59,7 +59,7 @@ export default function MenuSetupGuide({ storageKey }) {
   }
   function visitStep() {
     closeGuide();
-    setDock(true);
+    setDock(false);
     navigate(step.route);
   }
   function markStep() {

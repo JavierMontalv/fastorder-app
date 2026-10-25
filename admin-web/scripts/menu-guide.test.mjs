@@ -27,6 +27,7 @@ test('saved progress resumes without marking unreviewed steps as complete', () =
 test('the guide uses the functional category flow and existing QR controls', () => {
   assert.equal(menuSetupSteps.length, 4);
   assert.equal(menuSetupSteps[1].route, '/productos');
-  assert.ok(menuSetupSteps.every(step => ['/configuracion', '/productos'].includes(step.route)));
+  assert.ok(menuSetupSteps.every(step => ['/configuracion', '/productos'].includes(new URL(step.route, 'https://example.com').pathname)));
+  assert.equal(menuSetupSteps[3].route, '/configuracion?seccion=publicar');
   assert.match(menuSetupSteps[3].tasks.join(' '), /Abrir app.*Descargar PNG.*Copiar enlace.*Escanea/s);
 });

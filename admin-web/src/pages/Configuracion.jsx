@@ -1,6 +1,6 @@
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { FiArrowRight, FiCheckCircle } from 'react-icons/fi';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import LogoUploader from '../components/LogoUploader';
 import PortadaUploader from '../components/PortadaUploader';
@@ -32,6 +32,8 @@ import { AuthContext } from '../context/AuthContext';
 import { useIAContext } from '../context/IAContext';
 import { PEDIDOS_REALTIME_EVENTS } from '../utils/pedidosRealtime';
 import '../styles/Configuracion.css';
+import '../styles/ConfigurationWorkspace.css';
+import { configurationSections, featureLabels } from '../config/configurationSections.mjs';
 
 const CONFIG_INICIAL = {
   nombre: '',
@@ -325,6 +327,9 @@ const esArchivoBrandingValido = (file, tipo = 'logo') => {
 
 export default function Configuracion() {
   const navigate = useNavigate();
+  const [sectionParams, setSectionParams] = useSearchParams();
+  const requestedSection = configurationSections.some(item => item.id === sectionParams.get('seccion')) ? sectionParams.get('seccion') : 'restaurante';
+  function selectSection(id) { setSectionParams(previous => { const next = new URLSearchParams(previous); next.set('seccion', id); return next; }, { replace: true }); }
   const { user, refreshProfile } = useContext(AuthContext);
   const [config, setConfig] = useState(CONFIG_INICIAL);
   const [logoArchivo, setLogoArchivo] = useState(null);
@@ -338,6 +343,7 @@ export default function Configuracion() {
   const [guardando, setGuardando] = useState(false);
   const [error, setError] = useState('');
   const [multisede, setMultisede] = useState({ multisede_habilitado: false, sedes: [] });
+  const activeSection = requestedSection === 'sedes' && !multisede.multisede_habilitado ? 'restaurante' : requestedSection;
   const [gestionandoSedeId, setGestionandoSedeId] = useState(null);
   const { estadoIA, planAllowsAI, hasFeature } = useIAContext();
 
@@ -1247,14 +1253,13 @@ export default function Configuracion() {
   }
 
   return (
-    <div className="configuracion-page">
+    <div className="configuracion-page config-workspace" data-config-section={activeSection}>
       <section className="configuracion-hero">
         <div className="configuracion-hero-copy">
-          <span className="configuracion-kicker">Comanda Business Settings</span>
-          <h1>Configuracion premium para tu operacion y tu marca</h1>
+          <span className="configuracion-kicker">TU RESTAURANTE, EN ORDEN</span>
+          <h1>Configura tu restaurante.</h1>
           <p>
-            Controla identidad visual, experiencia QR y funciones operativas desde un panel
-            conectado al backend real del restaurante.
+            Tu identidad, tu carta y tu operación. Elige una sección y guarda los cambios cuando termines.
           </p>
         </div>
 
@@ -1264,30 +1269,25 @@ export default function Configuracion() {
             <strong>{estadoOperacionTexto}</strong>
           </div>
           <div className="configuracion-stat-card">
-            <span>Idioma del menu</span>
+            <span>Idioma del menú</span>
             <strong>{config.idiomaMenu.toUpperCase()}</strong>
           </div>
-          <div className="configuracion-stat-card">
-            <span>IA del restaurante</span>
-            <strong>{config.activarIA ? `Activa · ${config.modoIA}` : 'Desactivada'}</strong>
-          </div>
-          <div className="configuracion-stat-card">
-            <span>Consumo IA del mes</span>
-            <strong>{estadoIA ? monedaCOP.format(Number(estadoIA.costoMesCOP || 0)) : 'Sin datos'}</strong>
-          </div>
+
         </div>
       </section>
 
+      <nav className="config-section-nav" aria-label="Secciones de configuración">{configurationSections.filter(item => item.id !== 'sedes' || multisede?.multisede_habilitado).map(item => <button key={item.id} type="button" aria-pressed={activeSection === item.id} onClick={() => selectSection(item.id)}><span>{item.label}</span><small>{item.hint}</small></button>)}</nav>
+      <div className="config-workspace-path"><span>{configurationSections.find(item => item.id === activeSection)?.hint}</span><button type="button" onClick={() => navigate('/productos?carga=rapida')}>Cargar productos con fotos <FiArrowRight size={16} /></button></div>
       {error && <div className="configuracion-feedback configuracion-feedback-error">{error}</div>}
 
       {multisede?.multisede_habilitado ? (
-        <section className="config-panel config-multisede-panel">
+        <section className="config-panel config-multisede-panel" hidden={activeSection !== 'sedes'}>
           <div className="config-panel-head">
             <div>
               <span className="config-panel-kicker">Operacion multisede</span>
-              <h2>Sedes disponibles para administrar</h2>
+              <h2>Elige la sede que vas a gestionar</h2>
             </div>
-            <p>Esta marca tiene gestion multisede activa desde SuperAdmin. Cada punto conserva su menu, mesas, pedidos y operacion.</p>
+            <p>Cada sede conserva su carta, mesas y pedidos. Confirma la sede seleccionada antes de editar.</p>
           </div>
 
           <div className="config-multisede-grid">
@@ -1303,7 +1303,7 @@ export default function Configuracion() {
                   <div>
                     <span>{sede.es_principal ? 'Sede principal' : 'Sede'}</span>
                     <strong>{sede.sede_nombre || sede.nombre}</strong>
-                    <p>{sede.direccion || 'Direccion pendiente por configurar'}</p>
+                    <p>{sede.direccion || 'Dirección pendiente por configurar'}</p>
                   </div>
                   <div className="config-multisede-card__meta">
                     <span>{sede.estado}</span>
@@ -1336,14 +1336,14 @@ export default function Configuracion() {
       ) : null}
 
       <form id="configuracion-form" className="configuracion-layout" onSubmit={manejarSubmit}>
-        <div className="configuracion-main">
-          <section className="config-panel config-panel-brand">
+        <div className="configuracion-main" hidden={! ['restaurante', 'menu'].includes(activeSection)}>
+          <section className="config-panel config-panel-brand" hidden={activeSection !== 'restaurante'}>
             <div className="config-panel-head">
               <div>
                 <span className="config-panel-kicker">Identidad del negocio</span>
-                <h2>Datos visibles para clientes y equipo</h2>
+                <h2>La información que verán tus clientes</h2>
               </div>
-              <p>La informacion de esta tarjeta alimenta el menu, el branding QR y la operacion.</p>
+              <p>Completa los datos esenciales de tu restaurante.</p>
             </div>
 
             <div className="config-form-grid">
@@ -1353,7 +1353,7 @@ export default function Configuracion() {
               </label>
 
               <label className="config-field config-field-span-2">
-                <span>Descripcion comercial</span>
+                <span>Descripción del restaurante</span>
                 <textarea
                   name="descripcion"
                   value={config.descripcion}
@@ -1363,12 +1363,12 @@ export default function Configuracion() {
               </label>
 
               <label className="config-field">
-                <span>Telefono</span>
+                <span>Teléfono</span>
                 <input name="telefono" value={config.telefono} onChange={manejarCambio} />
               </label>
 
               <label className="config-field">
-                <span>Direccion</span>
+                <span>Dirección</span>
                 <input name="direccion" value={config.direccion} onChange={manejarCambio} />
               </label>
 
@@ -1393,7 +1393,7 @@ export default function Configuracion() {
               </label>
 
               <label className="config-field">
-                <span>Tiempo promedio de preparacion</span>
+                <span>Tiempo promedio de preparación</span>
                 <input
                   type="number"
                   min="5"
@@ -1416,13 +1416,13 @@ export default function Configuracion() {
             </div>
           </section>
 
-          <section className="config-panel">
+          <section className="config-panel" hidden={activeSection !== 'menu'}>
             <div className="config-panel-head">
               <div>
-                <span className="config-panel-kicker">Experiencia QR y menu</span>
-                <h2>Como se ve y funciona tu catalogo digital</h2>
+                <span className="config-panel-kicker">Experiencia QR y menú</span>
+                <h2>Dale tu estilo a la carta</h2>
               </div>
-              <p>Esto impacta directamente la percepcion de marca y la conversion del cliente.</p>
+              <p>Elige los colores y el idioma de tu menú digital.</p>
             </div>
 
             <div className="config-form-grid">
@@ -1457,7 +1457,7 @@ export default function Configuracion() {
               </label>
 
               <label className="config-field">
-                <span>Idioma del menu</span>
+                <span>Idioma del menú</span>
                 <select name="idiomaMenu" value={config.idiomaMenu} onChange={manejarCambio}>
                   <option value="es">Español</option>
                   <option value="en">Inglés</option>
@@ -1475,15 +1475,14 @@ export default function Configuracion() {
             </div>
           </section>
 
-          <section className="config-panel config-panel-branding">
+          <section className="config-panel config-panel-branding" hidden={activeSection !== 'restaurante'}>
             <div className="config-panel-head config-branding-head">
               <div>
                 <span className="config-panel-kicker">Branding</span>
-                <h2>Logo, portada y acceso QR</h2>
+                <h2>Logo y portada</h2>
               </div>
               <p>
-                Organiza la identidad visual del restaurante en un bloque compacto que aprovecha
-                mejor el espacio del panel.
+                Añade tu logo y una portada que represente tu restaurante.
               </p>
             </div>
 
@@ -1499,7 +1498,7 @@ export default function Configuracion() {
                 </div>
 
                 <div className="config-branding-block">
-                  <p className="config-branding-label">Foto de portada (banner del menu QR)</p>
+                  <p className="config-branding-label">Portada del menú</p>
                   <PortadaUploader
                     preview={portadaPreview}
                     onChange={manejarPortada}
@@ -1508,29 +1507,20 @@ export default function Configuracion() {
                 </div>
               </div>
 
-              <div className="config-branding-block config-branding-qr">
-                <p className="config-branding-label">QR del restaurante</p>
-                <QRCard
-                  qrUrl={qrData.qrUrl}
-                  menuUrl={qrData.menuUrl}
-                  onDownload={descargarQR}
-                  onOpen={abrirMenuPublico}
-                  onCopy={copiarMenuUrl}
-                />
-              </div>
+
             </div>
           </section>
         </div>
 
-        <aside className="configuracion-side">
+        <aside className="configuracion-side" hidden={! ['asistente', 'operacion'].includes(activeSection)}>
           {estadoIA && (
-            <section className="config-panel config-panel-ia">
+            <section className="config-panel config-panel-ia" hidden={activeSection !== 'asistente'}>
               <div className="config-panel-head">
                 <div>
                   <span className="config-panel-kicker">Inteligencia artificial</span>
-                  <h2>Consumo real y limite por plan</h2>
+                  <h2>Tu asistente y su consumo</h2>
                 </div>
-                <p>Esta vista se conecta al mismo estado economico que usa Analiticas y Asistente IA.</p>
+                <p>Consulta la capacidad disponible antes de solicitar ayuda para organizar tu carta.</p>
               </div>
 
               <div className="config-ia-summary">
@@ -1591,7 +1581,7 @@ export default function Configuracion() {
                 <span>Funciones habilitadas</span>
                 <div className="config-ia-feature-cloud">
                   {(estadoIA.funcionesDisponibles || []).map((feature) => (
-                    <span key={feature} className="config-ia-feature-pill">{feature}</span>
+                    <span key={feature} className="config-ia-feature-pill">{featureLabels[feature] || 'Función adicional'}</span>
                   ))}
                   {!estadoIA.funcionesDisponibles?.length && (
                     <span className="config-ia-feature-pill muted">Sin funciones habilitadas</span>
@@ -1601,13 +1591,13 @@ export default function Configuracion() {
             </section>
           )}
 
-          <section className="config-panel">
+          <section className="config-panel" hidden={activeSection !== 'operacion'}>
             <div className="config-panel-head">
               <div>
                 <span className="config-panel-kicker">Funciones activas</span>
                 <h2>Capacidades del restaurante</h2>
               </div>
-              <p>Feature flags reales conectados al backend del tenant actual.</p>
+              <p>Activa únicamente las opciones que necesita tu servicio.</p>
             </div>
 
             <label className="config-toggle-row">
@@ -1706,11 +1696,21 @@ export default function Configuracion() {
           </section>
         </aside>
 
-        <section className="config-panel config-panel-horizontal config-app-preview">
+        <section className="config-panel config-share-panel" hidden={activeSection !== 'publicar'}><div className="config-panel-head"><div><span className="config-panel-kicker">COMPARTE TU CARTA</span><h2>Tu menú, a un escaneo.</h2></div><p>Abre el menú real, revisa los precios y prueba el QR antes de imprimirlo.</p></div>              <div className="config-branding-block config-branding-qr">
+                <p className="config-branding-label">QR del restaurante</p>
+                <QRCard
+                  qrUrl={qrData.qrUrl}
+                  menuUrl={qrData.menuUrl}
+                  onDownload={descargarQR}
+                  onOpen={abrirMenuPublico}
+                  onCopy={copiarMenuUrl}
+                />
+              </div></section>
+        <section className="config-panel config-panel-horizontal config-app-preview" hidden={activeSection !== 'publicar'}>
           <div className="config-panel-head config-panel-head-horizontal">
             <div>
               <span className="config-panel-kicker">App conectada</span>
-              <h2>Vista previa del menu digital</h2>
+              <h2>Así verán tu menú</h2>
             </div>
             <p>
               Revisa la experiencia real del cliente desde el panel admin y abre la app publica
@@ -1723,13 +1723,13 @@ export default function Configuracion() {
               <div className="config-app-preview-toolbar">
                 <div className="config-app-preview-meta">
                   <span className="config-app-preview-dot" />
-                  <strong>App publica enlazada</strong>
+                  <strong>Menú público</strong>
                   <span>{qrData.menuUrl}</span>
                 </div>
 
                 <div className="config-logo-actions">
                   <button type="button" className="config-inline-btn" onClick={abrirMenuPublico}>
-                    Abrir app completa
+                    Abrir menú completo
                   </button>
                   <button type="button" className="config-inline-btn ghost" onClick={copiarMenuUrl}>
                     Copiar enlace
@@ -1759,7 +1759,7 @@ export default function Configuracion() {
       {/* ══════════════════════════════════════════════
           🍽️ GESTIÓN DE MESAS Y CÓDIGOS QR
       ══════════════════════════════════════════════ */}
-      <section className="config-panel config-mesas-section">
+      <section className="config-panel config-mesas-section" hidden={activeSection !== 'operacion'}>
         <div className="config-mesas-hero">
           <div className="config-panel-head config-mesas-head">
             <div>
@@ -2476,14 +2476,14 @@ export default function Configuracion() {
         </div>
       )}
 
-      <div className="configuracion-footer">
+      <div className="configuracion-footer" hidden={activeSection === 'sedes'}><p>Guarda aquí los cambios de los formularios. Las acciones de mesas se aplican por separado.</p>
         <button
           type="submit"
           form="configuracion-form"
           className="configuracion-save"
           disabled={guardando}
         >
-          {guardando ? 'Guardando configuracion...' : 'Guardar cambios'}
+          {guardando ? 'Guardando cambios…' : 'Guardar cambios'}
         </button>
       </div>
     </div>

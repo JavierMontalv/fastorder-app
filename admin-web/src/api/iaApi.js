@@ -12,6 +12,11 @@ import api from './api';
 
 const IA_PROPOSAL_TIMEOUT_MS = 45000;
 
+export const organizarProductosDesdeFotos = async (items) => {
+  const response = await api.post('/ia/menu/organizar-productos', { items }, { timeout: IA_PROPOSAL_TIMEOUT_MS });
+  return response.data;
+};
+
 // ======================================================================
 // ✨ Mejorar descripción existente
 // POST /api/ia/mejorar-descripcion
