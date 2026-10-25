@@ -18,6 +18,7 @@ export default function MenuSetupGuide({ storageKey }) {
   const [dock, setDock] = useState(false);
   const [storageWarning, setStorageWarning] = useState(false);
   const dialogRef = useRef(null);
+  const dockRef = useRef(null);
   const stepHeadingRef = useRef(null);
   const step = menuSetupSteps[current];
   const Icon = icons[current];
@@ -35,6 +36,7 @@ export default function MenuSetupGuide({ storageKey }) {
       dialog.close();
       document.body.style.overflow = previousOverflow;
       if (previousFocus?.isConnected) previousFocus.focus();
+      else dockRef.current?.querySelector('button')?.focus();
     };
   }, [open]);
 
@@ -63,7 +65,7 @@ export default function MenuSetupGuide({ storageKey }) {
   }
 
   return <>
-    {!open && <aside className={`mq-guide-dock ${dock ? 'is-expanded' : ''}`} aria-label="Guía de configuración del menú QR">
+    {!open && <aside ref={dockRef} className={`mq-guide-dock ${dock ? 'is-expanded' : ''}`} aria-label="Guía de configuración del menú QR">
       {dock ? <>
         <div className="mq-dock-heading"><span>PASO {current + 1} DE 4 · {step.label}</span><button type="button" aria-label="Minimizar guía" onClick={() => setDock(false)}><FiChevronDown /></button></div>
         <p>{step.section}</p><small>Guarda los cambios en el panel antes de continuar.</small>
