@@ -1,0 +1,112 @@
+.reservas-page.reservas-workspace { --rw-ink:#243c30;--rw-muted:#69736b;--rw-panel:#fff;--rw-soft:#f3f4ee;--rw-border:#dfe4db;--rw-accent:#b94b30;--rw-green:#315c43;display:flex;flex-direction:column;gap:18px;width:100%;max-width:1440px;min-width:0;min-height:0;padding:0 0 84px;background:transparent;color:var(--rw-ink); }
+html[data-theme='dark'] .reservas-page.reservas-workspace { --rw-ink:#e4eee6;--rw-muted:#a7b8ad;--rw-panel:#17251f;--rw-soft:#203229;--rw-border:#34473b;--rw-accent:#ffac8c;--rw-green:#3e7151;background:transparent; }
+html .reservas-page.reservas-workspace * { box-sizing:border-box; }
+html .reservas-page.reservas-workspace :is(h1,h2,h3) { color:var(--rw-ink);letter-spacing:-.035em; }
+html .reservas-page.reservas-workspace .reservas-hero { align-items:center;padding:2px 0 8px;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible; }
+html .reservas-page.reservas-workspace .reservas-hero::after,html .reservas-page.reservas-workspace .reservas-kpis > div::before { display:none; }
+html .reservas-page.reservas-workspace .reservas-hero span { color:var(--rw-accent);font-size:10px;letter-spacing:.1em; }
+html .reservas-page.reservas-workspace .reservas-hero h1 { font-size:clamp(26px,2.6vw,36px);margin:8px 0;line-height:1.2; }
+html .reservas-page.reservas-workspace .reservas-hero p { font-size:12px;line-height:1.6;color:var(--rw-muted); }
+html .reservas-page.reservas-workspace :is(.reservas-hero > button,.reserva-submit,.rw-refresh) { display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:10px 16px;border:1px solid var(--rw-green);border-radius:9px;background:var(--rw-green);color:#fff;font-size:12px;font-weight:700;box-shadow:none;cursor:pointer;transform:none; }
+html .reservas-page.reservas-workspace .rw-refresh { background:var(--rw-panel);border-color:var(--rw-border);color:var(--rw-ink); }
+html .reservas-page.reservas-workspace :is(button,input,select,textarea) { font-family:inherit; }
+html .reservas-page.reservas-workspace button:disabled { opacity:.6;cursor:wait; }
+html .reservas-page.reservas-workspace :is(button,input,select,textarea,summary):focus-visible { outline:3px solid var(--rw-accent);outline-offset:3px; }
+html .reservas-page.reservas-workspace .reservas-kpis { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;padding:18px 4px;border:1px solid var(--rw-border);border-radius:16px;background:var(--rw-panel); }
+html .reservas-page.reservas-workspace .reservas-kpis > div { display:grid;grid-template-columns:30px minmax(0,1fr);gap:4px 12px;min-height:0;padding:4px 20px;border:0;border-right:1px solid var(--rw-border);border-radius:0;background:transparent;box-shadow:none; }
+html .reservas-page.reservas-workspace .reservas-kpis > div:last-child { border-right:0; }
+html .reservas-page.reservas-workspace .reservas-kpis svg { grid-row:1 / 4;align-self:start;color:var(--rw-accent);font-size:20px;margin-top:6px; }
+html .reservas-page.reservas-workspace .reservas-kpis span { color:var(--rw-muted);font-size:11px;line-height:1.5; }
+html .reservas-page.reservas-workspace .reservas-kpis strong { color:var(--rw-ink);font-size:30px;line-height:1.3; }
+html .reservas-page.reservas-workspace .reservas-kpis small { grid-column:2;font-size:10px;color:var(--rw-muted);line-height:1.6; }
+html .reservas-page.reservas-workspace :is(.reservas-agenda,.salon-visual) { padding:20px;border:1px solid var(--rw-border);border-radius:16px;background:var(--rw-panel);box-shadow:0 4px 18px #243c3005;min-width:0; }
+html .reservas-page.reservas-workspace .reservas-agenda > header { align-items:center;margin-bottom:16px; }
+html .reservas-page.reservas-workspace .reservas-agenda header span { color:var(--rw-accent);font-size:10px;letter-spacing:.08em; }
+html .reservas-page.reservas-workspace .reservas-agenda h2 { margin:6px 0;font-size:21px; }
+html .reservas-page.reservas-workspace .reservas-agenda header p { margin:0;color:var(--rw-muted);font-size:11px; }
+html .reservas-page.reservas-workspace .rw-tools { display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap; }
+html .reservas-page.reservas-workspace .reservas-filters { gap:6px; }
+html .reservas-page.reservas-workspace .reservas-filters button { min-height:38px;padding:8px 14px;border:1px solid var(--rw-border);background:var(--rw-panel);color:var(--rw-ink);border-radius:8px;font-size:12px;cursor:pointer; }
+html .reservas-page.reservas-workspace .reservas-filters button.active { background:var(--rw-green);border-color:var(--rw-green);color:#fff; }
+html .reservas-page.reservas-workspace .rw-search { display:flex;align-items:center;gap:8px;border:1px solid var(--rw-border);background:var(--rw-soft);border-radius:9px;padding:0 12px;min-height:40px;min-width:0;width:300px;max-width:100%;color:var(--rw-muted); }
+html .reservas-page.reservas-workspace .rw-search input { width:100%;min-width:0;border:0;background:transparent;color:var(--rw-ink);font-size:11px;min-height:38px; }
+html .reservas-page.reservas-workspace .rw-sr-only { position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0; }
+html .reservas-page.reservas-workspace .reservas-list { gap:0; }
+html .reservas-page.reservas-workspace .reserva-row { display:grid;grid-template-columns:minmax(150px,1.1fr) minmax(150px,1.3fr) minmax(90px,.6fr) 70px 105px 86px;gap:16px;min-height:88px;padding:16px 0;border:0;border-top:1px solid var(--rw-border);border-radius:0;transform:none;background:transparent; }
+html .reservas-page.reservas-workspace .reserva-row:hover { background:var(--rw-soft);transform:none; }
+html .reservas-page.reservas-workspace .reserva-row > :nth-child(4),html .reservas-page.reservas-workspace .reserva-row > :nth-child(5) { display:block; }
+html .reservas-page.reservas-workspace .reserva-row time { color:var(--rw-ink);font-size:12px;line-height:1.6; }
+html .reservas-page.reservas-workspace .reserva-row time small { display:block;font-size:10px;color:var(--rw-muted);font-weight:400; }
+html .reservas-page.reservas-workspace .reserva-client strong { font-size:13px;color:var(--rw-ink); }
+html .reservas-page.reservas-workspace .reserva-client span { overflow-wrap:anywhere;white-space:normal; }
+html .reservas-page.reservas-workspace .reserva-row > div > span { color:var(--rw-muted);font-size:10px; }
+html .reservas-page.reservas-workspace .reserva-row > div > strong { color:var(--rw-ink);font-size:13px; }
+html .reservas-page.reservas-workspace .reserva-state { border-radius:6px;font-size:10px;padding:6px 8px;background:#fdf0d5;color:#805718; }
+html .reservas-page.reservas-workspace .reserva-row-confirmada .reserva-state { background:#e9f0fa;color:#315b85; }
+html .reservas-page.reservas-workspace :is(.reserva-row-sentada,.reserva-row-completada) .reserva-state { background:#e0f0e5;color:#22613b; }
+html .reservas-page.reservas-workspace :is(.reserva-row-cancelada,.reserva-row-no_asistio) .reserva-state { background:var(--rw-soft);color:var(--rw-muted); }
+html .reservas-page.reservas-workspace .reserva-actions { display:flex;gap:6px;justify-content:flex-end; }
+html .reservas-page.reservas-workspace .reserva-actions button { border-radius:8px;border-color:var(--rw-border);color:var(--rw-ink);width:36px;height:36px;cursor:pointer; }
+html .reservas-page.reservas-workspace .reserva-actions button:last-child { color:var(--rw-accent); }
+html .reservas-page.reservas-workspace .reservas-empty { display:flex;flex-direction:column;align-items:center;gap:10px;padding:28px 14px;color:var(--rw-muted);font-size:12px;line-height:1.6; }
+html .reservas-page.reservas-workspace .reservas-empty svg { color:var(--rw-accent);font-size:23px; }
+html .reservas-page.reservas-workspace .reservas-empty p { margin:0; }
+html .reservas-page.reservas-workspace .salon-visual { --salon-panel:var(--rw-panel);--salon-soft:var(--rw-soft);--salon-ink:var(--rw-ink);--salon-muted:var(--rw-muted);--salon-border:var(--rw-border); }
+html .reservas-page.reservas-workspace .salon-visual-head { align-items:center;gap:16px;margin-bottom:14px;flex-wrap:wrap; }
+html .reservas-page.reservas-workspace .salon-eyebrow { color:var(--rw-accent);font-size:10px; }
+html .reservas-page.reservas-workspace .salon-visual h2 { font-size:20px;margin:5px 0; }
+html .reservas-page.reservas-workspace .salon-visual-head p { font-size:11px;line-height:1.6; }
+html .reservas-page.reservas-workspace .salon-legend { font-size:10px;gap:10px; }
+html .reservas-page.reservas-workspace .salon-summary-strip { grid-template-columns:repeat(6,minmax(0,1fr));gap:8px; }
+html .reservas-page.reservas-workspace .salon-summary-strip span { min-height:36px;font-size:10px;padding:7px 10px; }
+html .reservas-page.reservas-workspace .salon-summary-strip strong { font-size:17px; }
+html .reservas-page.reservas-workspace .salon-floor { grid-template-columns:repeat(auto-fill,minmax(160px,180px));gap:8px;padding:10px;min-height:0;border-radius:10px;background:var(--rw-soft); }
+html .reservas-page.reservas-workspace .salon-table { min-height:178px;padding:34px 12px 30px; }
+html .reservas-page.reservas-workspace .salon-table-surface { box-shadow:0 4px 12px #243c3010; }
+html .reservas-page.reservas-workspace .reserva-drawer { width:min(620px,100%);padding:26px;background:var(--rw-panel);color:var(--rw-ink);box-shadow:-20px 0 70px #14251924; }
+html .reservas-page.reservas-workspace .reserva-drawer > span { color:var(--rw-accent);font-size:10px;letter-spacing:.08em; }
+html .reservas-page.reservas-workspace .reserva-drawer h2 { font-size:26px;line-height:1.25;margin:8px 45px 8px 0; }
+html .reservas-page.reservas-workspace .reserva-drawer-close { border-radius:9px;border-color:var(--rw-border);cursor:pointer; }
+html .reservas-page.reservas-workspace .rw-form-intro { font-size:12px;line-height:1.7;color:var(--rw-muted);margin:0 0 24px; }
+html .reservas-page.reservas-workspace .reserva-drawer fieldset { border:0;border-top:1px solid var(--rw-border);padding:18px 0 8px;margin:0;display:grid;gap:14px;min-width:0; }
+html .reservas-page.reservas-workspace .reserva-drawer legend { padding:0 10px 0 0;color:var(--rw-accent);font-size:11px;font-weight:700; }
+html .reservas-page.reservas-workspace .reserva-drawer label { font-size:11px;line-height:1.5;font-weight:650;color:var(--rw-ink); }
+html .reservas-page.reservas-workspace .reserva-drawer :is(input,select,textarea) { min-width:0;width:100%;border-color:var(--rw-border);background:var(--rw-soft);color:var(--rw-ink);border-radius:8px;font-size:13px; }
+html .reservas-page.reservas-workspace .reserva-drawer [aria-invalid='true'] { border-color:#c75a3f; }
+html .reservas-page.reservas-workspace .rw-field-error { color:var(--rw-accent);font-size:11px;font-weight:500; }
+html .reservas-page.reservas-workspace .rw-form-hint { color:var(--rw-muted);font-size:11px;line-height:1.7;margin:0; }
+html .reservas-page.reservas-workspace .rw-form-actions { display:flex;gap:10px;justify-content:flex-end;position:sticky;bottom:-26px;background:var(--rw-panel);border-top:1px solid var(--rw-border);padding:16px 0;margin-top:6px; }
+html .reservas-page.reservas-workspace .reserva-submit { width:auto;margin:0; }
+html .reservas-page.reservas-workspace .rw-error { padding:14px;border:1px solid #c99269;border-radius:10px;background:var(--rw-soft);color:var(--rw-ink);font-size:12px;line-height:1.7;display:flex;gap:12px;justify-content:space-between;align-items:center; }
+html .reservas-page.reservas-workspace .rw-error button { padding:8px;border:1px solid var(--rw-border);border-radius:8px;background:var(--rw-panel);color:var(--rw-ink);cursor:pointer; }
+html .reservas-page.reservas-workspace .rw-confirm-backdrop { position:fixed;inset:0;z-index:1400;display:grid;place-items:center;padding:18px;background:#10241bb3; }
+html .reservas-page.reservas-workspace .rw-confirm { width:min(100%,460px);padding:24px;border:1px solid var(--rw-border);border-radius:18px;background:var(--rw-panel);color:var(--rw-ink); }
+html .reservas-page.reservas-workspace .rw-confirm h2 { font-size:22px;margin:0 0 12px; }
+html .reservas-page.reservas-workspace .rw-confirm p { font-size:13px;line-height:1.8;color:var(--rw-muted); }
+html .reservas-page.reservas-workspace .rw-confirm .rw-form-actions { position:static;padding:16px 0 0;flex-wrap:wrap; }
+html .reservas-page.reservas-workspace .rw-delete-confirm { min-height:42px;padding:10px 14px;border:0;border-radius:9px;background:#aa3c2e;color:#fff;font-weight:700;cursor:pointer; }
+@media(max-width:1050px) {
+  html .reservas-page.reservas-workspace .reserva-row { grid-template-columns:1.2fr 1.4fr .6fr .6fr;gap:12px; }
+  html .reservas-page.reservas-workspace .reserva-state { grid-column:2;grid-row:2; }
+  html .reservas-page.reservas-workspace .reserva-actions { grid-column:3 / 5;grid-row:2; }
+}
+@media(max-width:640px) {
+  html .reservas-page.reservas-workspace { gap:14px; }
+  html .reservas-page.reservas-workspace .reservas-kpis { grid-template-columns:minmax(0,1fr);padding:4px 16px; }
+  html .reservas-page.reservas-workspace .reservas-kpis > div { grid-template-columns:24px 1fr auto;padding:14px 0;border-right:0;border-bottom:1px solid var(--rw-border);align-items:center; }
+  html .reservas-page.reservas-workspace .reservas-kpis > div:last-child { border-bottom:0; }
+  html .reservas-page.reservas-workspace .reservas-kpis svg { grid-row:1 / 3;margin:0; }
+  html .reservas-page.reservas-workspace .reservas-kpis strong { grid-column:3;grid-row:1 / 3;font-size:26px; }
+  html .reservas-page.reservas-workspace :is(.reservas-agenda,.salon-visual) { padding:16px; }
+  html .reservas-page.reservas-workspace .rw-search { width:100%; }
+  html .reservas-page.reservas-workspace .reserva-row { grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;padding:16px 0; }
+  html .reservas-page.reservas-workspace .reserva-row time { grid-column:1 / -1; }
+  html .reservas-page.reservas-workspace .reserva-client { grid-column:1 / -1; }
+  html .reservas-page.reservas-workspace .reserva-state { grid-column:1;grid-row:4;align-self:center; }
+  html .reservas-page.reservas-workspace .reserva-actions { grid-column:2;grid-row:4; }
+  html .reservas-page.reservas-workspace .salon-summary-strip { grid-template-columns:repeat(3,minmax(0,1fr));gap:6px; }
+  html .reservas-page.reservas-workspace .salon-floor { grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));padding:4px;gap:0; }
+  html .reservas-page.reservas-workspace .reserva-drawer { padding:20px; }
+  html .reservas-page.reservas-workspace .rw-form-actions { bottom:-20px; }
+}
+@media(prefers-reduced-motion:reduce) { html .reservas-page.reservas-workspace * { transition:none!important;animation:none!important; } }
