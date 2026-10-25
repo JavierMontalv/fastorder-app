@@ -22,6 +22,7 @@ import PedidoCard from '../components/PedidoCard';
 import SalonVisual from '../components/SalonVisual';
 import { AuthContext } from '../context/AuthContext';
 import '../styles/Pedidos.css';
+import '../styles/PedidosWorkspace.css';
 import {
   agruparPedidosPorMesa,
   formatCurrency,
@@ -45,14 +46,14 @@ const ESTADOS = [
   { id: 'pendiente_pago', label: 'Pendiente de pago' },
   { id: 'pendiente', label: 'Pendientes' },
   { id: 'aceptado', label: 'Aceptados' },
-  { id: 'preparacion', label: 'En preparacion' },
+  { id: 'preparacion', label: 'En preparación' },
   { id: 'listo', label: 'Listos' },
   { id: 'entregado', label: 'Entregados' }
 ];
 
 const SUBFILTROS_TODOS = [
   { id: 'panorama', label: 'Vista general' },
-  { id: 'accion', label: 'Requieren accion' },
+  { id: 'accion', label: 'Requieren acción' },
   { id: 'listos', label: 'Listos para entregar' },
   { id: 'pagos', label: 'Pagos pendientes' },
   { id: 'cerrados', label: 'Cerrados' }
@@ -67,8 +68,8 @@ const MESA_STATUS_FILTERS = [
 const FECHA_PRESETS = [
   { id: 'all', label: 'Todo' },
   { id: 'today', label: 'Hoy' },
-  { id: '7d', label: '7 dias' },
-  { id: '30d', label: '30 dias' },
+  { id: '7d', label: '7 días' },
+  { id: '30d', label: '30 días' },
   { id: 'custom', label: 'Personalizado' }
 ];
 
@@ -400,6 +401,7 @@ export default function Pedidos() {
   const [mesaEstadoId, setMesaEstadoId] = useState(null);
   const [limpiandoDisplay, setLimpiandoDisplay] = useState(false);
   const syncRefreshTimerRef = useRef(null);
+  const displaySectionRef = useRef(null);
   const rolePresetAppliedRef = useRef(false);
 
   // â”€â”€ Unir mesas â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -469,7 +471,7 @@ export default function Pedidos() {
 
     return {
       etiqueta: 'Control operativo',
-      titulo: 'Operacion completa de pedidos, caja y llamados',
+      titulo: 'Pedidos y servicio',
       descripcion: 'Administra el flujo completo del servicio, pagos, TV del local y cierre de mesas.',
       foco: 'Prioridad: control total'
     };
@@ -835,16 +837,16 @@ export default function Pedidos() {
       case 'today':
         return 'Hoy';
       case '7d':
-        return 'Ultimos 7 dias';
+        return 'Últimos 7 días';
       case '30d':
-        return 'Ultimos 30 dias';
+        return 'Últimos 30 días';
       case 'custom':
         return fechaDesde && fechaHasta
           ? `${fechaDesde} a ${fechaHasta}`
           : 'Rango personalizado';
       case 'all':
       default:
-        return 'Historico completo';
+        return 'Histórico completo';
     }
   }, [fechaDesde, fechaHasta, fechaPreset]);
 
@@ -1227,7 +1229,7 @@ export default function Pedidos() {
   };
 
   return (
-    <div className="pedidos-page">
+    <div className="pedidos-page pedidos-workspace">
       <section className="pedidos-hero">
         <div className="pedidos-hero-copy">
           <span className="pedidos-kicker">{estacionOperativa.etiqueta}</span>
@@ -1238,12 +1240,17 @@ export default function Pedidos() {
         <div className="pedidos-hero-side">
           <div className="pedidos-hero-chip">
             <span>Estado del panel</span>
-            <strong>{actualizando ? 'Actualizando...' : 'Sincronizado'}</strong>
+            <strong role="status">{error ? 'Revisar conexión' : loading ? 'Cargando…' : actualizando ? 'Actualizando…' : 'Sincronizado'}</strong>
           </div>
           <div className="pedidos-hero-chip">
             <span>Pedidos abiertos</span>
             <strong>{resumen.total}</strong>
           </div>
+          {puedeVerDisplayConfig && <button type="button" className="pw-tv-shortcut" onClick={() => {
+            if (!displaySectionRef.current) return;
+            displaySectionRef.current.open = true;
+            displaySectionRef.current.scrollIntoView({ block: 'start', behavior: 'smooth' });
+          }}>Pantalla TV ↗</button>}
           <label className="pedidos-sonido-toggle">
             <input
               type="checkbox"
@@ -1269,386 +1276,37 @@ export default function Pedidos() {
         <article className="pedidos-summary-card pedidos-summary-card-pending">
           <span>Pendientes</span>
           <strong>{resumen.pendientes}</strong>
-          <p>Pedidos recien recibidos esperando aprobacion del equipo.</p>
+          <p>Pedidos recibidos, pendientes de aprobación.</p>
         </article>
 
         <article className="pedidos-summary-card pedidos-summary-card-progress">
           <span>En proceso</span>
           <strong>{resumen.enCurso}</strong>
-          <p>Pedidos en produccion entre aceptacion, preparacion y pase.</p>
+          <p>Aceptados, en preparación o listos para entregar.</p>
         </article>
 
         <article className="pedidos-summary-card pedidos-summary-card-payment">
           <span>Pagos pendientes</span>
           <strong>{resumen.pendientesPago}</strong>
-          <p>Ordenes que todavia necesitan conciliacion en caja.</p>
+          <p>Pedidos que requieren confirmación en caja.</p>
         </article>
       </section>
-
-      <section className="pedidos-context-strip">
-        <article className="pedidos-context-card">
-          <span>Base de calculo</span>
-          <strong>{etiquetaRangoFecha}</strong>
-          <p>
-            La lectura operativa se ajusta al rango temporal activo para que el tablero no mezcle
-            cierres antiguos con la operacion actual.
-          </p>
-        </article>
-
-        <article className="pedidos-context-card">
-          <span>Punto comun con panel</span>
-          <strong>{puedeVerMetricasFinancieras ? `${formatCurrency(ventasHoy)} hoy` : `${pedidosEnRango.length} pedidos visibles`}</strong>
-          <p>
-            {puedeVerMetricasFinancieras
-              ? `${pedidosHoy} pedido(s) registrados hoy. Esta es la referencia directa para comparar con el panel sin confundir historico con periodo.`
-              : 'Vista operativa sin acumulados financieros del dia, del mes ni del restaurante.'}
-          </p>
-        </article>
-
-        <article className="pedidos-context-card">
-          <span>Ahora mismo</span>
-          <strong>{resumen.total} abiertos</strong>
-          <p>
-            Los indicadores de pendientes, en proceso y pagos pendientes si representan solo lo
-            que requiere accion dentro del periodo filtrado.
-          </p>
-        </article>
-      </section>
-
-      {puedeVerDisplayConfig ? (
-      <section className="pedidos-display-panel">
-        <div className="pedidos-display-copy">
-          <span className="pedidos-priority-kicker">Pantalla TV</span>
-          <h2>Orquesta el llamado publico del pedido listo</h2>
-          <p>
-            Aqui configuras lo que aparece en la TV publica del local. No es el menu del cliente:
-            es la pantalla que anuncia pedidos listos en tiempo real.
-          </p>
-          <div className="pedidos-display-links">
-            <button type="button" className="pedidos-refresh-btn" onClick={abrirPantallaTV}>
-              Abrir pantalla TV
-            </button>
-            {restaurante?.slug && (
-              <span className="pedidos-display-url">/display/{restaurante.slug}</span>
-            )}
-          </div>
-        </div>
-
-        <div className="pedidos-display-controls">
-          <label className="pedidos-display-field">
-            <span>Duracion en pantalla</span>
-            <div className="pedidos-display-segmented">
-              {DISPLAY_DURATIONS.map((seconds) => (
-                <button
-                  key={seconds}
-                  type="button"
-                  className={displayConfig?.duracionSegundos === seconds ? 'active' : ''}
-                  onClick={() => setDisplayConfig((prev) => ({ ...prev, duracionSegundos: seconds }))}
-                >
-                  {seconds}s
-                </button>
-              ))}
-            </div>
-          </label>
-
-          <label className="pedidos-display-field pedidos-display-switch">
-            <span>Sonido en pantalla TV</span>
-            <input
-              type="checkbox"
-              checked={Boolean(displayConfig?.sonidoActivo)}
-              onChange={(e) => setDisplayConfig((prev) => ({ ...prev, sonidoActivo: e.target.checked }))}
-            />
-          </label>
-
-          <label className="pedidos-display-field pedidos-display-switch">
-            <span>Anuncio automatico al marcar listo</span>
-            <input
-              type="checkbox"
-              checked={Boolean(displayConfig?.anuncioAutomatico)}
-              onChange={(e) =>
-                setDisplayConfig((prev) => ({
-                  ...prev,
-                  anuncioAutomatico: e.target.checked
-                }))
-              }
-            />
-          </label>
-
-          <label className="pedidos-display-field">
-            <span>Modo de entrega</span>
-            <select
-              value={displayConfig?.modoEntrega || 'auto'}
-              onChange={(e) =>
-                setDisplayConfig((prev) => ({
-                  ...prev,
-                  modoEntrega: e.target.value
-                }))
-              }
-            >
-              <option value="auto">Automatico</option>
-              <option value="caja">Siempre pasa por caja</option>
-              <option value="mesa">Siempre servicio a mesa</option>
-            </select>
-          </label>
-
-          <label className="pedidos-display-field pedidos-display-field-full">
-            <span>Mensaje del llamado</span>
-            <textarea
-              value={displayConfig?.mensajeMesa || displayConfig?.mensajeCaja || ''}
-              maxLength={180}
-              rows={3}
-              onChange={(e) => {
-                const mensajeCliente = e.target.value;
-                setDisplayConfig((prev) => ({
-                  ...prev,
-                  mensajeCaja: mensajeCliente,
-                  mensajeMesa: mensajeCliente
-                }));
-              }}
-              placeholder="Ej: Te lo llevamos a la mesa. Gracias por esperar."
-            />
-            <small>
-              Este texto aparece igual en TV, estado del pedido y menu QR. Asi no hay cruces entre caja y servicio.
-            </small>
-          </label>
-
-          <p className="pedidos-display-helper">
-            El modo de entrega define la operacion interna; el mensaje visible queda unificado para el cliente.
-          </p>
-
-          <button
-            type="button"
-            className="pedido-btn pedido-btn-primary pedidos-display-save"
-            onClick={guardarDisplay}
-            disabled={guardandoDisplay || !displayConfig}
-          >
-            {guardandoDisplay ? 'Guardando...' : 'Guardar configuracion TV'}
-          </button>
-        </div>
-
-        <div className="pedidos-display-preview-grid">
-          <article className="pedidos-display-preview-card pedidos-display-preview-card-live">
-            <div className="pedidos-display-preview-head">
-              <div>
-                <span className="pedidos-priority-kicker">Vista previa en vivo</span>
-                <h3>Asi se ve la TV real</h3>
-              </div>
-              {restaurante?.slug ? (
-                <span className="pedidos-display-url">/display/{restaurante.slug}</span>
-              ) : null}
-            </div>
-
-            <div className="pedidos-display-iframe-shell">
-              {restaurante?.slug ? (
-                <iframe
-                  title="Vista previa TV"
-                  src={`/display/${restaurante.slug}`}
-                  className="pedidos-display-iframe"
-                />
-              ) : (
-                <div className="pedidos-display-iframe-fallback">
-                  Configura el restaurante para habilitar la vista previa.
-                </div>
-              )}
-            </div>
-          </article>
-
-          <article className="pedidos-display-preview-card pedidos-display-preview-card-call">
-            <div className="pedidos-display-preview-head">
-              <div>
-                <span className="pedidos-priority-kicker">Centro de relanzamiento</span>
-                <h3>Relanza el llamado en TV y client QR</h3>
-              </div>
-              <div className="pedidos-display-preview-meta">
-                <span className="pedidos-display-preview-duration">{displayConfig?.duracionSegundos || 10}s</span>
-                <span className="pedidos-display-preview-count">
-                  {pedidosListos.length} listo(s)
-                </span>
-              </div>
-            </div>
-
-            {pedidosListos.length === 0 ? (
-              <div className="pedidos-display-call-empty">
-                <strong>No hay pedidos listos para relanzar.</strong>
-                <p>
-                  Apenas un pedido pase a estado listo, podras editar el copy del llamado y
-                  volver a empujarlo a la TV y al panel del cliente.
-                </p>
-              </div>
-            ) : (
-              <>
-                <div className="pedidos-display-call-editor">
-                  <label className="pedidos-display-field pedidos-display-field-full">
-                    <span>Pedido listo a relanzar</span>
-                    <select
-                      value={pedidoLlamadoId || ''}
-                      onChange={(e) => setPedidoLlamadoId(e.target.value)}
-                    >
-                      {pedidosListos.map((pedido) => (
-                        <option key={pedido.id} value={pedido.id}>
-                          {pedido.mesaLabel} · Pedido #{pedido.numero || pedido.id} · {formatCurrency(pedido.total)}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-
-                  <div className="pedidos-display-call-context">
-                    <span>Impacto del relanzamiento</span>
-                    <div className="pedidos-display-call-chips">
-                      <span>TV publica del local</span>
-                      <span>Panel client QR en espera</span>
-                      <span>{previewModoEntrega}</span>
-                    </div>
-                    <p>
-                      El aviso se vuelve a emitir en la pantalla de llamados y, si el cliente sigue
-                      viendo su estado, recibe el mismo mensaje en vivo.
-                    </p>
-                  </div>
-
-                  <div className="pedidos-display-call-summary-grid">
-                    <article className="pedidos-display-call-summary-card">
-                      <span>Lectura principal</span>
-                      <strong>{previewMesaLabel}</strong>
-                      <small>Etiqueta visible en TV y cliente</small>
-                    </article>
-                    <article className="pedidos-display-call-summary-card">
-                      <span>Turno operativo</span>
-                      <strong>Pedido #{previewPedidoNumero}</strong>
-                      <small>{previewEstadoPago}</small>
-                    </article>
-                    <article className="pedidos-display-call-summary-card">
-                      <span>Cuenta asociada</span>
-                      <strong>{previewTotal}</strong>
-                      <small>{previewModoEntrega}</small>
-                    </article>
-                  </div>
-
-                  <label className="pedidos-display-field">
-                    <span>Titulo visible</span>
-                    <input
-                      type="text"
-                      value={llamadoDraft.titulo}
-                      onChange={(e) =>
-                        setLlamadoDraft((prev) => ({ ...prev, titulo: e.target.value }))
-                      }
-                      placeholder="Mesa 3"
-                    />
-                  </label>
-
-                  <label className="pedidos-display-field">
-                    <span>Mensaje principal</span>
-                    <input
-                      type="text"
-                      value={llamadoDraft.mensaje}
-                      onChange={(e) =>
-                        setLlamadoDraft((prev) => ({ ...prev, mensaje: e.target.value }))
-                      }
-                      placeholder="Tu pedido esta listo"
-                    />
-                  </label>
-
-                  <label className="pedidos-display-field pedidos-display-field-full">
-                    <span>Instruccion final para el cliente</span>
-                    <input
-                      type="text"
-                      value={llamadoDraft.submensaje}
-                      onChange={(e) =>
-                        setLlamadoDraft((prev) => ({ ...prev, submensaje: e.target.value }))
-                      }
-                      placeholder="Pasa por caja o te lo llevamos a la mesa"
-                    />
-                  </label>
-                </div>
-
-                <div className="pedidos-display-live-previews">
-                  <div className="pedidos-tv-call-preview">
-                    <div className="pedidos-tv-call-copy">
-                      <span className="pedidos-tv-call-tag">Pedido listo</span>
-                      <strong>{previewMesaLabel}</strong>
-                      <p>{previewMensajePrincipal}</p>
-                      <small>{previewMensajeEntrega}</small>
-                      <div className="pedidos-tv-call-chips">
-                        <span>Pedido #{previewPedidoNumero}</span>
-                        <span>{previewModoEntrega}</span>
-                      </div>
-                    </div>
-
-                    <div className="pedidos-tv-call-stage">
-                      <div className="pedidos-tv-call-ticket">
-                        <span>Turno</span>
-                        <strong>{previewPedidoNumero}</strong>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="pedidos-mobile-call-preview">
-                    <div className="pedidos-mobile-call-phone">
-                      <span className="pedidos-mobile-call-status">En vivo</span>
-                      <div className="pedidos-mobile-call-card">
-                        <span className="pedidos-mobile-call-tag">Comanda avisa</span>
-                        <strong>{previewMesaLabel}</strong>
-                        <p>{previewMensajePrincipal}</p>
-                        <small>{previewMensajeEntrega}</small>
-                        <div className="pedidos-mobile-call-meta">
-                          <span>Pedido #{previewPedidoNumero}</span>
-                          <span>{previewModoEntrega}</span>
-                        </div>
-                        <button type="button">Entendido</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="pedidos-display-call-actions">
-                  <button
-                    type="button"
-                    className="pedido-btn pedido-btn-ghost"
-                    onClick={restablecerDraftLlamado}
-                  >
-                    Restablecer copy
-                  </button>
-
-                  <button
-                    type="button"
-                    className="pedido-btn pedido-btn-ghost pedidos-display-reset-btn"
-                    onClick={limpiarPantallaTV}
-                    disabled={limpiandoDisplay}
-                  >
-                    {limpiandoDisplay ? 'Limpiando pantalla...' : 'Limpiar pantalla TV'}
-                  </button>
-
-                  <button
-                    type="button"
-                    className="pedido-btn pedido-btn-primary"
-                    onClick={() => anunciarPedido(pedidoLlamadoSeleccionado, llamadoDraft)}
-                    disabled={!pedidoLlamadoSeleccionado || pedidoAnuncioId === pedidoLlamadoSeleccionado?.id}
-                  >
-                    {pedidoAnuncioId === pedidoLlamadoSeleccionado?.id
-                      ? 'Relanzando aviso...'
-                      : 'Relanzar llamado ahora'}
-                  </button>
-                </div>
-              </>
-            )}
-          </article>
-        </div>
-      </section>
-      ) : null}
 
       <section className="pedidos-toolbar">
         <div className="pedidos-toolbar-main">
           <div className="pedidos-toolbar-state-group">
             <div className="pedidos-toolbar-secondary-copy">
               <span>Estado del pedido</span>
-              <p>Elige una etapa operativa. Los contadores respetan el rango de fecha activo.</p>
+              <p>Filtra por etapa del servicio.</p>
             </div>
 
-          <div className="pedidos-tabs" role="tablist" aria-label="Filtros de pedidos">
+          <div className="pedidos-tabs" role="group" aria-label="Filtros de pedidos">
             {ESTADOS.map((estado) => (
               <button
                 key={estado.id}
                 type="button"
                 className={`pedidos-tab ${estadoActivo === estado.id ? 'active' : ''}`}
+                aria-pressed={estadoActivo === estado.id}
                 onClick={() => seleccionarEstadoFiltro(estado.id)}
               >
                 <span>{estado.label}</span>
@@ -1684,23 +1342,24 @@ export default function Pedidos() {
           <div className="pedidos-toolbar-secondary-block">
             <div className="pedidos-toolbar-secondary-copy">
               <span>Rango temporal</span>
-              <p>Filtra las tarjetas por fecha para leer mejor la operacion y el historico reciente.</p>
+              <p>El rango se aplica a los pedidos y contadores.</p>
             </div>
 
-            <div className="pedidos-date-presets" role="tablist" aria-label="Filtros por fecha">
+            <div className="pedidos-date-presets" role="group" aria-label="Filtros por fecha">
               {FECHA_PRESETS.map((preset) => (
                 <button
                   key={preset.id}
                   type="button"
                   className={`pedidos-date-preset ${fechaPreset === preset.id ? 'active' : ''}`}
-                  onClick={() => setFechaPreset(preset.id)}
+                  aria-pressed={fechaPreset === preset.id}
+                onClick={() => setFechaPreset(preset.id)}
                 >
                   {preset.label}
                 </button>
               ))}
             </div>
 
-            <div className="pedidos-date-inputs">
+            <div className="pedidos-date-inputs" hidden={fechaPreset !== 'custom'}>
               <label className="pedidos-date-field">
                 <span>Desde</span>
                 <input
@@ -1734,16 +1393,17 @@ export default function Pedidos() {
               <div className="pedidos-toolbar-filter-cluster">
                 <div className="pedidos-toolbar-secondary-copy">
                   <span>Vista dentro de Todos</span>
-                  <p>Enfoca la operacion sin salir del panorama general del dia.</p>
+                  <p>Prioriza lo que necesita tu equipo.</p>
                 </div>
 
-                <div className="pedidos-subfilters" role="tablist" aria-label="Subfiltros de todos">
+                <div className="pedidos-subfilters" role="group" aria-label="Subfiltros de todos">
                   {SUBFILTROS_TODOS.map((filtro) => (
                     <button
                       key={filtro.id}
                       type="button"
                       className={`pedidos-subfilter ${subfiltroTodos === filtro.id ? 'active' : ''}`}
-                      onClick={() => seleccionarSubfiltroTodos(filtro.id)}
+                      aria-pressed={subfiltroTodos === filtro.id}
+                onClick={() => seleccionarSubfiltroTodos(filtro.id)}
                     >
                       <span>{filtro.label}</span>
                       <strong>{conteoSubfiltrosTodos[filtro.id] || 0}</strong>
@@ -1758,13 +1418,14 @@ export default function Pedidos() {
                   <p>Lee el salón con las mesas creadas en configuración y filtra por disponibilidad real.</p>
                 </div>
 
-                <div className="pedidos-subfilters pedidos-subfilters-mesas" role="tablist" aria-label="Filtros por estado de mesa">
+                <div className="pedidos-subfilters pedidos-subfilters-mesas" role="group" aria-label="Filtros por estado de mesa">
                   {MESA_STATUS_FILTERS.map((filtro) => (
                     <button
                       key={filtro.id}
                       type="button"
                       className={`pedidos-subfilter ${mesaEstadoFiltro === filtro.id ? 'active' : ''}`}
-                      onClick={() => setMesaEstadoFiltro(filtro.id)}
+                      aria-pressed={mesaEstadoFiltro === filtro.id}
+                onClick={() => setMesaEstadoFiltro(filtro.id)}
                     >
                       <span>{filtro.label}</span>
                       <strong>{conteoMesaEstado[filtro.id] || 0}</strong>
@@ -1781,13 +1442,14 @@ export default function Pedidos() {
                   <p>Filtra las tarjetas por ocupación o disponibilidad del salón configurado.</p>
                 </div>
 
-                <div className="pedidos-subfilters pedidos-subfilters-mesas" role="tablist" aria-label="Filtros por estado de mesa">
+                <div className="pedidos-subfilters pedidos-subfilters-mesas" role="group" aria-label="Filtros por estado de mesa">
                   {MESA_STATUS_FILTERS.map((filtro) => (
                     <button
                       key={filtro.id}
                       type="button"
                       className={`pedidos-subfilter ${mesaEstadoFiltro === filtro.id ? 'active' : ''}`}
-                      onClick={() => setMesaEstadoFiltro(filtro.id)}
+                      aria-pressed={mesaEstadoFiltro === filtro.id}
+                onClick={() => setMesaEstadoFiltro(filtro.id)}
                     >
                       <span>{filtro.label}</span>
                       <strong>{conteoMesaEstado[filtro.id] || 0}</strong>
@@ -1806,7 +1468,7 @@ export default function Pedidos() {
         onUpdateComensales={puedeLiberarMesa ? actualizarComensalesMesa : null}
         onReleaseMesa={puedeLiberarMesa ? marcarMesaDisponible : null}
         mesaActionId={mesaEstadoId}
-        title="Salon en tiempo real"
+        title="Salón en tiempo real"
         description="Mesas, comensales y pedidos activos organizados para una lectura inmediata."
       />
 
@@ -1818,7 +1480,7 @@ export default function Pedidos() {
               ? mesaDestacada.estadoDominante === 'listo'
                 ? `${mesaDestacada.mesaLabel} tiene un pedido listo para entregar`
                 : `${mesaDestacada.mesaLabel} requiere seguimiento`
-              : 'Operacion al dia, sin mesas pendientes'}
+              : 'Operación al día, sin mesas pendientes'}
           </h2>
           <p>
             {mesaDestacada
@@ -2160,6 +1822,355 @@ export default function Pedidos() {
           </section>
         </>
       )}
+      <details className="pw-reading"><summary>Cómo leer los indicadores <span>Rango, ventas y actividad actual</span></summary><div className="pedidos-context-strip">
+        <article className="pedidos-context-card">
+          <span>Base de cálculo</span>
+          <strong>{etiquetaRangoFecha}</strong>
+          <p>
+            La lectura operativa se ajusta al rango temporal activo para que el tablero no mezcle
+            cierres antiguos con la operacion actual.
+          </p>
+        </article>
+
+        <article className="pedidos-context-card">
+          <span>Referencia del Panel</span>
+          <strong>{puedeVerMetricasFinancieras ? `${formatCurrency(ventasHoy)} hoy` : `${pedidosEnRango.length} pedidos visibles`}</strong>
+          <p>
+            {puedeVerMetricasFinancieras
+              ? `${pedidosHoy} pedido(s) registrados hoy. Esta es la referencia directa para comparar con el panel sin confundir historico con periodo.`
+              : 'Vista operativa sin acumulados financieros del dia, del mes ni del restaurante.'}
+          </p>
+        </article>
+
+        <article className="pedidos-context-card">
+          <span>Ahora mismo</span>
+          <strong>{resumen.total} abiertos</strong>
+          <p>
+            Los indicadores de pendientes, en proceso y pagos pendientes si representan solo lo
+            que requiere accion dentro del periodo filtrado.
+          </p>
+        </article>
+      </div></details>
+
+      {puedeVerDisplayConfig ? (
+      <details className="pw-tv" id="pedidos-tv" ref={displaySectionRef}><summary><span><strong>Pantalla TV y llamados</strong><small>Configuración, vista previa y relanzamiento de avisos</small></span><span className="pw-disclosure-hint">Abrir / cerrar</span></summary><section className="pedidos-display-panel">
+        <div className="pedidos-display-copy">
+          <span className="pedidos-priority-kicker">Pantalla TV</span>
+          <h2>Configura los avisos de pedidos listos</h2>
+          <p>
+            Gestiona los avisos de la TV del local. Conserva el mismo mensaje para el cliente en TV y menú QR.
+          </p>
+          <div className="pedidos-display-links">
+            <button type="button" className="pedidos-refresh-btn" onClick={abrirPantallaTV}>
+              Abrir pantalla TV
+            </button>
+            {restaurante?.slug && (
+              <span className="pedidos-display-url">/display/{restaurante.slug}</span>
+            )}
+          </div>
+        </div>
+
+        <div className="pedidos-display-controls">
+          <div className="pedidos-display-field" role="group" aria-label="Duración del aviso en pantalla">
+            <span>Duración en pantalla</span>
+            <div className="pedidos-display-segmented">
+              {DISPLAY_DURATIONS.map((seconds) => (
+                <button
+                  key={seconds}
+                  type="button"
+                  className={displayConfig?.duracionSegundos === seconds ? 'active' : ''}
+                  onClick={() => setDisplayConfig((prev) => ({ ...prev, duracionSegundos: seconds }))}
+                >
+                  {seconds}s
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <label className="pedidos-display-field pedidos-display-switch">
+            <span>Sonido en pantalla TV</span>
+            <input
+              type="checkbox"
+              checked={Boolean(displayConfig?.sonidoActivo)}
+              onChange={(e) => setDisplayConfig((prev) => ({ ...prev, sonidoActivo: e.target.checked }))}
+            />
+          </label>
+
+          <label className="pedidos-display-field pedidos-display-switch">
+            <span>Anuncio automático al marcar listo</span>
+            <input
+              type="checkbox"
+              checked={Boolean(displayConfig?.anuncioAutomatico)}
+              onChange={(e) =>
+                setDisplayConfig((prev) => ({
+                  ...prev,
+                  anuncioAutomatico: e.target.checked
+                }))
+              }
+            />
+          </label>
+
+          <label className="pedidos-display-field">
+            <span>Modo de entrega</span>
+            <select
+              value={displayConfig?.modoEntrega || 'auto'}
+              onChange={(e) =>
+                setDisplayConfig((prev) => ({
+                  ...prev,
+                  modoEntrega: e.target.value
+                }))
+              }
+            >
+              <option value="auto">Automático</option>
+              <option value="caja">Siempre pasa por caja</option>
+              <option value="mesa">Siempre servicio a mesa</option>
+            </select>
+          </label>
+
+          <label className="pedidos-display-field pedidos-display-field-full">
+            <span>Mensaje del llamado</span>
+            <textarea
+              value={displayConfig?.mensajeMesa || displayConfig?.mensajeCaja || ''}
+              maxLength={180}
+              rows={3}
+              onChange={(e) => {
+                const mensajeCliente = e.target.value;
+                setDisplayConfig((prev) => ({
+                  ...prev,
+                  mensajeCaja: mensajeCliente,
+                  mensajeMesa: mensajeCliente
+                }));
+              }}
+              placeholder="Ej: Te lo llevamos a la mesa. Gracias por esperar."
+            />
+            <small>
+              Este texto aparece igual en TV, estado del pedido y menu QR. Asi no hay cruces entre caja y servicio.
+            </small>
+          </label>
+
+          <p className="pedidos-display-helper">
+            El modo de entrega define la operacion interna; el mensaje visible queda unificado para el cliente.
+          </p>
+
+          <button
+            type="button"
+            className="pedido-btn pedido-btn-primary pedidos-display-save"
+            onClick={guardarDisplay}
+            disabled={guardandoDisplay || !displayConfig}
+          >
+            {guardandoDisplay ? 'Guardando...' : 'Guardar configuración TV'}
+          </button>
+        </div>
+
+        <div className="pedidos-display-preview-grid">
+          <article className="pedidos-display-preview-card pedidos-display-preview-card-live">
+            <div className="pedidos-display-preview-head">
+              <div>
+                <span className="pedidos-priority-kicker">Vista previa en vivo</span>
+                <h3>Vista previa de la pantalla TV</h3>
+              </div>
+              {restaurante?.slug ? (
+                <span className="pedidos-display-url">/display/{restaurante.slug}</span>
+              ) : null}
+            </div>
+
+            <div className="pedidos-display-iframe-shell">
+              {restaurante?.slug ? (
+                <iframe
+                  title="Vista previa TV"
+                  src={`/display/${restaurante.slug}`}
+                  className="pedidos-display-iframe"
+                />
+              ) : (
+                <div className="pedidos-display-iframe-fallback">
+                  Configura el restaurante para habilitar la vista previa.
+                </div>
+              )}
+            </div>
+          </article>
+
+          <article className="pedidos-display-preview-card pedidos-display-preview-card-call">
+            <div className="pedidos-display-preview-head">
+              <div>
+                <span className="pedidos-priority-kicker">Centro de relanzamiento</span>
+                <h3>Relanza un aviso al cliente</h3>
+              </div>
+              <div className="pedidos-display-preview-meta">
+                <span className="pedidos-display-preview-duration">{displayConfig?.duracionSegundos || 10}s</span>
+                <span className="pedidos-display-preview-count">
+                  {pedidosListos.length} listo(s)
+                </span>
+              </div>
+            </div>
+
+            {pedidosListos.length === 0 ? (
+              <div className="pedidos-display-call-empty">
+                <strong>No hay pedidos listos para relanzar.</strong>
+                <p>
+                  Apenas un pedido pase a estado listo, podras editar el copy del llamado y
+                  volver a empujarlo a la TV y al panel del cliente.
+                </p>
+              </div>
+            ) : (
+              <>
+                <div className="pedidos-display-call-editor">
+                  <label className="pedidos-display-field pedidos-display-field-full">
+                    <span>Pedido listo a relanzar</span>
+                    <select
+                      value={pedidoLlamadoId || ''}
+                      onChange={(e) => setPedidoLlamadoId(e.target.value)}
+                    >
+                      {pedidosListos.map((pedido) => (
+                        <option key={pedido.id} value={pedido.id}>
+                          {pedido.mesaLabel} · Pedido #{pedido.numero || pedido.id} · {formatCurrency(pedido.total)}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+
+                  <div className="pedidos-display-call-context">
+                    <span>Impacto del relanzamiento</span>
+                    <div className="pedidos-display-call-chips">
+                      <span>TV pública del local</span>
+                      <span>Menú QR del cliente</span>
+                      <span>{previewModoEntrega}</span>
+                    </div>
+                    <p>
+                      El aviso se vuelve a emitir en la pantalla de llamados y, si el cliente sigue
+                      viendo su estado, recibe el mismo mensaje en vivo.
+                    </p>
+                  </div>
+
+                  <div className="pedidos-display-call-summary-grid">
+                    <article className="pedidos-display-call-summary-card">
+                      <span>Lectura principal</span>
+                      <strong>{previewMesaLabel}</strong>
+                      <small>Etiqueta visible en TV y cliente</small>
+                    </article>
+                    <article className="pedidos-display-call-summary-card">
+                      <span>Turno operativo</span>
+                      <strong>Pedido #{previewPedidoNumero}</strong>
+                      <small>{previewEstadoPago}</small>
+                    </article>
+                    <article className="pedidos-display-call-summary-card">
+                      <span>Cuenta asociada</span>
+                      <strong>{previewTotal}</strong>
+                      <small>{previewModoEntrega}</small>
+                    </article>
+                  </div>
+
+                  <label className="pedidos-display-field">
+                    <span>Titulo visible</span>
+                    <input
+                      type="text"
+                      value={llamadoDraft.titulo}
+                      onChange={(e) =>
+                        setLlamadoDraft((prev) => ({ ...prev, titulo: e.target.value }))
+                      }
+                      placeholder="Mesa 3"
+                    />
+                  </label>
+
+                  <label className="pedidos-display-field">
+                    <span>Mensaje principal</span>
+                    <input
+                      type="text"
+                      value={llamadoDraft.mensaje}
+                      onChange={(e) =>
+                        setLlamadoDraft((prev) => ({ ...prev, mensaje: e.target.value }))
+                      }
+                      placeholder="Tu pedido esta listo"
+                    />
+                  </label>
+
+                  <label className="pedidos-display-field pedidos-display-field-full">
+                    <span>Instruccion final para el cliente</span>
+                    <input
+                      type="text"
+                      value={llamadoDraft.submensaje}
+                      onChange={(e) =>
+                        setLlamadoDraft((prev) => ({ ...prev, submensaje: e.target.value }))
+                      }
+                      placeholder="Pasa por caja o te lo llevamos a la mesa"
+                    />
+                  </label>
+                </div>
+
+                <div className="pedidos-display-live-previews">
+                  <div className="pedidos-tv-call-preview">
+                    <div className="pedidos-tv-call-copy">
+                      <span className="pedidos-tv-call-tag">Pedido listo</span>
+                      <strong>{previewMesaLabel}</strong>
+                      <p>{previewMensajePrincipal}</p>
+                      <small>{previewMensajeEntrega}</small>
+                      <div className="pedidos-tv-call-chips">
+                        <span>Pedido #{previewPedidoNumero}</span>
+                        <span>{previewModoEntrega}</span>
+                      </div>
+                    </div>
+
+                    <div className="pedidos-tv-call-stage">
+                      <div className="pedidos-tv-call-ticket">
+                        <span>Turno</span>
+                        <strong>{previewPedidoNumero}</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pedidos-mobile-call-preview">
+                    <div className="pedidos-mobile-call-phone">
+                      <span className="pedidos-mobile-call-status">En vivo</span>
+                      <div className="pedidos-mobile-call-card">
+                        <span className="pedidos-mobile-call-tag">Comanda avisa</span>
+                        <strong>{previewMesaLabel}</strong>
+                        <p>{previewMensajePrincipal}</p>
+                        <small>{previewMensajeEntrega}</small>
+                        <div className="pedidos-mobile-call-meta">
+                          <span>Pedido #{previewPedidoNumero}</span>
+                          <span>{previewModoEntrega}</span>
+                        </div>
+                        <button type="button">Entendido</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pedidos-display-call-actions">
+                  <button
+                    type="button"
+                    className="pedido-btn pedido-btn-ghost"
+                    onClick={restablecerDraftLlamado}
+                  >
+                    Restablecer mensaje
+                  </button>
+
+                  <button
+                    type="button"
+                    className="pedido-btn pedido-btn-ghost pedidos-display-reset-btn"
+                    onClick={limpiarPantallaTV}
+                    disabled={limpiandoDisplay}
+                  >
+                    {limpiandoDisplay ? 'Limpiando pantalla...' : 'Limpiar pantalla TV'}
+                  </button>
+
+                  <button
+                    type="button"
+                    className="pedido-btn pedido-btn-primary"
+                    onClick={() => anunciarPedido(pedidoLlamadoSeleccionado, llamadoDraft)}
+                    disabled={!pedidoLlamadoSeleccionado || pedidoAnuncioId === pedidoLlamadoSeleccionado?.id}
+                  >
+                    {pedidoAnuncioId === pedidoLlamadoSeleccionado?.id
+                      ? 'Relanzando aviso...'
+                      : 'Relanzar llamado ahora'}
+                  </button>
+                </div>
+              </>
+            )}
+          </article>
+        </div>
+      </section></details>
+      ) : null}
+
     </div>
   );
 }

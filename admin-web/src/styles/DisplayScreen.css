@@ -248,6 +248,7 @@
 }
 
 .display-call-headline {
+  color: var(--display-text);
   margin: 0;
   font-size: clamp(2.8rem, 6.6vw, 6.1rem);
   line-height: 0.9;
