@@ -1,0 +1,47 @@
+/* A calm, task-based workspace. Existing forms remain mounted between sections. */
+.config-workspace{max-width:1280px;margin:auto;padding-bottom:110px;color:#20372a}
+.config-workspace [hidden]{display:none!important}
+.config-workspace .configuracion-hero{padding:30px 34px;border-radius:20px;background:linear-gradient(115deg,#faf7ef,#eef3e8);box-shadow:none;gap:28px;grid-template-columns:minmax(0,1.7fr) minmax(260px,1fr);border:1px solid #dce4d7}
+.config-workspace .configuracion-kicker,.config-workspace .config-panel-kicker{background:#f7e9df;color:#a63c25;letter-spacing:.09em;font-size:10px}
+.config-workspace .configuracion-hero h1{font-size:clamp(30px,3vw,42px);line-height:1.12;letter-spacing:-.045em;color:#1b3527;max-width:680px}
+.config-workspace .configuracion-hero-copy>p{font-size:14px;line-height:1.8;max-width:610px;color:#546b57}
+.config-workspace .configuracion-hero-stats{grid-template-columns:1fr 1fr;gap:12px;align-content:center}
+.config-workspace .configuracion-stat-card{background:#ffffffc9;border-color:#dce4d7;padding:17px}
+.config-workspace .configuracion-stat-card strong{font-size:17px;color:#20372a}
+.config-section-nav{display:flex;gap:8px;padding:18px 0 8px;overflow-x:auto;scrollbar-width:thin}
+.config-section-nav button{min-width:145px;flex:1;min-height:68px;border:1px solid #d9e1d4;border-radius:12px;padding:12px 14px;text-align:left;background:#fff;color:#35533b;cursor:pointer;font:inherit;transition:background .18s,border-color .18s}
+.config-section-nav button span{display:block;font-size:13px;font-weight:750;white-space:nowrap}
+.config-section-nav button small{display:block;font-size:10px;line-height:1.7;margin-top:4px;color:#657760;white-space:nowrap}
+.config-section-nav button:hover{background:#f0f4e9;border-color:#a8bca0}
+.config-section-nav button[aria-pressed=true]{background:#253f30;border-color:#253f30;color:#fff}
+.config-section-nav button[aria-pressed=true] small{color:#dce8d4}
+.config-section-nav button:focus-visible,.config-workspace-path button:focus-visible{outline:3px solid #c84228;outline-offset:3px}
+.config-workspace-path{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:12px 0 24px;font-size:12px;color:#63755e}
+.config-workspace-path button{border:0;background:none;color:#b33d24;font:inherit;font-size:13px;font-weight:750;display:inline-flex;align-items:center;gap:8px;cursor:pointer;min-height:44px}
+.config-workspace .configuracion-layout{grid-template-columns:minmax(0,1fr);gap:22px}
+.config-workspace .configuracion-main,.config-workspace .configuracion-side{min-width:0;display:grid;gap:22px}
+.config-workspace .config-panel{padding:28px 30px;border-radius:18px;background:#fff;border:1px solid #dce4d7;box-shadow:0 8px 28px #233c2906}
+.config-workspace .config-panel h2{font-size:25px;line-height:1.25;letter-spacing:-.035em;color:#20372a}
+.config-workspace .config-panel-head p{font-size:13px;line-height:1.8;color:#5c705b}
+.config-workspace .config-panel-head{align-items:flex-start;margin-bottom:24px}
+.config-workspace .config-field>span{font-size:11px;letter-spacing:.05em;color:#5a6f56}
+.config-workspace .config-field input,.config-workspace .config-field textarea,.config-workspace .config-field select{background:#fafbf8;border-color:#dce4d7;border-radius:9px;color:#20372a}
+.config-workspace .config-branding-layout{display:block}.config-workspace .config-branding-media{grid-template-columns:1fr 1fr;gap:28px}
+.config-workspace .config-branding-qr{max-width:700px;margin:auto}
+.config-workspace .config-qr-card{display:grid;grid-template-columns:230px minmax(0,1fr);gap:16px;background:#f7f9f3;padding:22px;border-radius:14px}
+.config-workspace .config-qr-head{grid-column:1/-1}.config-workspace .config-qr-preview{grid-row:2/4;padding:10px}.config-workspace .config-qr-link{overflow-wrap:anywhere;min-width:0}.config-workspace .config-qr-actions{align-content:flex-start;flex-wrap:wrap}
+.config-workspace .config-qr-image{max-width:210px;width:100%;height:auto;image-rendering:auto}
+.config-workspace .config-multisede-panel{background:#edf2e8}.config-workspace .config-multisede-panel h2{color:#20372a}.config-workspace .config-multisede-panel>.config-panel-head p{color:#53674f}
+.config-workspace .config-multisede-card{background:#fff;border-color:#d2dfcb;box-shadow:none}.config-workspace .config-multisede-card strong{color:#20372a}.config-workspace .config-multisede-card p,.config-workspace .config-multisede-card>div>span{color:#5b7055}.config-workspace .config-multisede-card__meta span{background:#eef3e8;color:#4c6547}
+.config-workspace .config-multisede-action,.config-workspace .configuracion-save{background:#c84228;border-color:#c84228;color:#fff;box-shadow:none}
+.config-workspace .configuracion-footer{position:sticky;bottom:12px;z-index:140;margin-top:26px;padding:16px 22px;border:1px solid #dce4d7;border-radius:14px;background:#fffffff5;box-shadow:0 10px 40px #243e2512;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.config-workspace .configuracion-footer>p{font-size:11px;line-height:1.7;color:#62755b;max-width:470px;margin:0}.config-workspace .configuracion-save{min-height:46px;min-width:210px;border-radius:8px}
+.config-workspace .pv-desc{color:#e9eee5}.config-workspace .pv-name{color:#fff!important;text-shadow:0 1px 6px #10241480}
+.config-workspace .pv-cover-gradient{background:linear-gradient(transparent,#15251cd9)}
+@media(max-width:900px){.config-workspace .configuracion-hero{grid-template-columns:1fr;padding:26px}.config-workspace .configuracion-hero-stats{max-width:520px}.config-workspace .config-panel{padding:24px}.config-workspace .config-panel-head{display:block}.config-workspace .config-panel-head p{margin-top:12px}.config-workspace .configuracion-footer{bottom:8px}.config-workspace .configuracion-footer>p{max-width:300px}}
+@media(max-width:600px){.config-workspace .configuracion-hero{padding:22px}.config-workspace .configuracion-stat-card strong{font-size:14px}.config-section-nav button{min-width:155px}.config-workspace-path{flex-wrap:wrap;gap:4px}.config-workspace .config-panel{padding:21px 18px}.config-workspace .config-branding-media{grid-template-columns:1fr}.config-workspace .config-qr-card{grid-template-columns:1fr;padding:16px}.config-workspace .config-qr-head{grid-column:auto}.config-workspace .config-qr-preview{grid-row:auto;max-width:240px;margin:auto}.config-workspace .configuracion-footer{display:block}.config-workspace .configuracion-footer>p{display:none}.config-workspace .configuracion-save{width:100%;min-width:0}.layout-container:has(.config-workspace) .mq-guide-dock{bottom:100px;width:min(300px,calc(100% - 24px))}}
+html[data-theme=dark] .config-workspace .config-panel,html[data-theme=dark] .config-section-nav button:not([aria-pressed=true]){background:#17251e;border-color:#39503d;color:#eef3e8}
+html[data-theme=dark] .config-workspace .config-panel h2,html[data-theme=dark] .config-workspace .config-panel strong,html[data-theme=dark] .config-section-nav button span{color:#eef3e8}
+html[data-theme=dark] .config-workspace .config-panel-head p,html[data-theme=dark] .config-section-nav button small{color:#b8cbb0}
+
+.config-workspace{padding:0 0 110px}

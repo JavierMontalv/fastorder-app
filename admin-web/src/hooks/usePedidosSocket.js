@@ -63,11 +63,11 @@ export default function usePedidosSocket({
   ]);
 
   useEffect(() => {
-    if (typeof Audio === 'undefined') return;
+    if (typeof Audio === 'undefined' || !activo || !sonidoActivado) return;
 
     try {
-      const audio = new Audio('/sounds/new-order.mp3');
-      audio.preload = 'auto';
+      const audio = new Audio('/sounds/new-order.wav');
+      audio.preload = 'none';
       audio.volume = 0.7;
       audioRef.current = audio;
     } catch {
@@ -75,9 +75,10 @@ export default function usePedidosSocket({
     }
 
     return () => {
+      audioRef.current?.pause();
       audioRef.current = null;
     };
-  }, []);
+  }, [activo, sonidoActivado]);
 
   // ======================================================
   // Deduplicación de eventos (tamaño acotado para evitar memory leak)
@@ -152,7 +153,7 @@ export default function usePedidosSocket({
 
       if (sonidoActivado) {
         try {
-          const audio = audioRef.current || new Audio('/sounds/new-order.mp3');
+          const audio = audioRef.current || new Audio('/sounds/new-order.wav');
           audio.currentTime = 0;
           audio.play().catch(() => {});
         } catch {}

@@ -3,7 +3,7 @@ export const menuSetupSteps = [
     id: 'restaurant', label: 'Tu restaurante', title: 'Dale identidad a tu menú.',
     description: 'Empieza por los datos que reconocerán tus clientes.',
     route: '/configuracion', action: 'Abrir configuración', section: 'Identidad del negocio',
-    tasks: ['Completa el nombre del restaurante y sus datos de contacto.', 'En «Logo, portada y acceso QR», añade tu logo y una foto de portada si los tienes.', 'Pulsa «Guardar cambios» y espera la confirmación.'],
+    tasks: ['Completa el nombre del restaurante y sus datos de contacto.', 'En «Logo y portada», añade tu logo y una foto de portada si los tienes.', 'Pulsa «Guardar cambios» y espera la confirmación.'],
     tip: 'Puedes comenzar con el nombre y completar las imágenes después.',
     example: ['La mesa de casa', 'Cocina fresca, hecha para compartir.']
   },
@@ -26,7 +26,7 @@ export const menuSetupSteps = [
   {
     id: 'share', label: 'Revisar y compartir', title: 'Prueba tu menú antes de compartirlo.',
     description: 'Mira la experiencia que tendrán tus clientes.',
-    route: '/configuracion', action: 'Revisar mi menú y QR', section: 'Logo, portada y acceso QR',
+    route: '/configuracion?seccion=publicar', action: 'Revisar mi menú y QR', section: 'Vista previa y QR',
     tasks: ['En «QR del restaurante», pulsa «Abrir app» y comprueba que aparezcan tus productos, fotos y precios.', 'Vuelve al panel: «Descargar PNG» guarda tu QR y «Copiar enlace» permite compartir tu menú.', 'Escanea el QR con otro celular y revisa el menú. Solo entonces compártelo o imprímelo.'],
     tip: 'Si el QR aún no aparece, espera a que termine la carga y revisa que la configuración esté guardada. Los pedidos por mesa dependen del plan.',
     example: ['Tu carta, lista para revisar', 'Abrir · comprobar · compartir']
