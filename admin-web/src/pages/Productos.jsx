@@ -1415,6 +1415,9 @@ export default function Productos() {
             className="input-base input-search"
           />
 
+          <button type="button" className="btn-secondary" onClick={() => setOpenCategoriaQuick(true)}>
+            Nueva categoría
+          </button>
           <button className="btn-primary" onClick={handleNuevo} disabled={limiteProductosAlcanzado}>
             ➕ Nuevo
           </button>
