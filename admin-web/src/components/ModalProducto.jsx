@@ -20,7 +20,7 @@ const MODOS_STOCK = [
   {
     id: 'inventario',
     titulo: 'Ligado a inventario',
-    descripcion: 'Usa un item operativo del restaurante como fuente de verdad.'
+    descripcion: 'Descuenta existencias de un artículo de tu inventario.'
   }
 ];
 
@@ -429,16 +429,16 @@ export default function ModalProducto({
 
   return (
     <div className="pm-overlay" onClick={(event) => { if (event.target === event.currentTarget && !guardando) onClose(); }}>
-      <div className="pm-modal" role="dialog" aria-modal="true">
+      <div className="pm-modal" role="dialog" aria-modal="true" aria-labelledby="pm-product-title">
         <div className="pm-header">
           <div className="pm-header-info">
             <div className={`pm-header-icon ${esEdicion ? 'pm-header-icon-edit' : 'pm-header-icon-new'}`}>
               {esEdicion ? <IconEditar /> : <IconNuevo />}
             </div>
             <div>
-              <h2 className="pm-title">{esEdicion ? 'Editar producto' : 'Nuevo producto'}</h2>
+              <h2 id="pm-product-title" className="pm-title">{esEdicion ? 'Editar producto' : 'Nuevo producto'}</h2>
               <p className="pm-subtitle">
-                {esEdicion ? `Modificando "${form.nombre || '...'}"` : 'Completa los datos y define como gobernar su stock.'}
+                {esEdicion ? `Modificando "${form.nombre || '...'}"` : 'Añade los datos de tu producto y elige cómo controlar sus existencias.'}
               </p>
             </div>
           </div>
@@ -453,8 +453,9 @@ export default function ModalProducto({
         <div className="pm-body">
           <div className="pm-col">
             <div className="pm-field">
-              <label className="pm-label">Nombre del producto <span className="pm-required">*</span></label>
+              <label className="pm-label" htmlFor="pm-nombre">Nombre del producto <span className="pm-required">*</span></label>
               <input
+                id="pm-nombre"
                 name="nombre"
                 value={form.nombre}
                 onChange={handleChange}
@@ -468,10 +469,11 @@ export default function ModalProducto({
             </div>
 
             <div className="pm-field">
-              <label className="pm-label">Precio (COP) <span className="pm-required">*</span></label>
+              <label className="pm-label" htmlFor="pm-precio">Precio (COP) <span className="pm-required">*</span></label>
               <div className="pm-input-prefix-wrap">
                 <span className="pm-input-prefix">$</span>
                 <input
+                  id="pm-precio"
                   name="precio"
                   type="text"
                   inputMode="numeric"
@@ -487,9 +489,10 @@ export default function ModalProducto({
             </div>
 
             <div className="pm-field">
-              <label className="pm-label">Categoria <span className="pm-required">*</span></label>
+              <label className="pm-label" htmlFor="pm-categoriaId">Categoría <span className="pm-required">*</span></label>
               <div className="pm-select-row">
                 <select
+                  id="pm-categoriaId"
                   name="categoriaId"
                   value={form.categoriaId || ''}
                   onChange={handleChange}
@@ -505,7 +508,7 @@ export default function ModalProducto({
                   type="button"
                   className="pm-btn-add-cat"
                   onClick={onOpenCategoriaQuickCreate}
-                  title="Nueva categoria"
+                  title="Nueva categoría"
                   disabled={guardando}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -536,7 +539,7 @@ export default function ModalProducto({
             </div>
 
             <div className="pm-field">
-              <label className="pm-label">Gobernanza de stock</label>
+              <label className="pm-label">Control de existencias</label>
               <div className="pm-stock-modes">
                 {MODOS_STOCK.map((modo) => (
                   <button
@@ -556,8 +559,9 @@ export default function ModalProducto({
             {form.modoStock === 'producto' && (
               <div className="pm-stock-grid">
                 <div className="pm-field">
-                  <label className="pm-label">Stock actual</label>
+                  <label className="pm-label" htmlFor="pm-stock">Stock actual</label>
                   <input
+                    id="pm-stock"
                     name="stock"
                     type="number"
                     min="0"
@@ -571,8 +575,9 @@ export default function ModalProducto({
                 </div>
 
                 <div className="pm-field">
-                  <label className="pm-label">Minimo recomendado</label>
+                  <label className="pm-label" htmlFor="pm-stockMinimo">Mínimo recomendado</label>
                   <input
+                    id="pm-stockMinimo"
                     name="stockMinimo"
                     type="number"
                     min="0"
@@ -589,15 +594,16 @@ export default function ModalProducto({
 
             {form.modoStock === 'inventario' && (
               <div className="pm-field">
-                <label className="pm-label">Item del inventario</label>
+                <label className="pm-label" htmlFor="pm-inventarioItemId">Artículo del inventario</label>
                 <select
+                  id="pm-inventarioItemId"
                   name="inventarioItemId"
                   value={form.inventarioItemId}
                   onChange={handleChange}
                   className={`pm-select ${errores.inventarioItemId ? 'pm-input-error' : ''}`}
                   disabled={guardando || loadingInventario}
                 >
-                  <option value="">{loadingInventario ? 'Cargando inventario...' : '- Selecciona un item -'}</option>
+                  <option value="">{loadingInventario ? 'Cargando inventario...' : '- Selecciona un artículo -'}</option>
                   {inventarioItems.map((item) => (
                     <option key={item.id} value={item.id}>
                       {item.nombre} · {item.stockActual} {item.unidad}
@@ -609,7 +615,7 @@ export default function ModalProducto({
                   <div className="pm-stock-link-card">
                     <strong>{itemSeleccionado.nombre}</strong>
                     <span>
-                      Stock actual {itemSeleccionado.stockActual} · Minimo {itemSeleccionado.stockMinimo} · Estado {itemSeleccionado.estadoStock}
+                      Stock actual {itemSeleccionado.stockActual} · Mínimo {itemSeleccionado.stockMinimo} · Estado {itemSeleccionado.estadoStock}
                     </span>
                   </div>
                 )}
@@ -619,12 +625,13 @@ export default function ModalProducto({
 
           <div className="pm-col">
             <div className="pm-field pm-field-grow">
-              <label className="pm-label">Descripcion <span className="pm-optional">Opcional</span></label>
+              <label className="pm-label" htmlFor="pm-descripcion">Descripción <span className="pm-optional">Opcional</span></label>
               <textarea
+                id="pm-descripcion"
                 name="descripcion"
                 value={form.descripcion}
                 onChange={handleChange}
-                placeholder="Describe ingredientes, sabor o presentacion del producto."
+                placeholder="Describe ingredientes, sabor o presentación del producto."
                 className="pm-textarea"
                 disabled={guardando}
                 maxLength={500}
@@ -637,22 +644,23 @@ export default function ModalProducto({
               <div className="pm-allergen-head">
                 <span className="pm-allergen-icon">!</span>
                 <div>
-                  <strong>Alergenos y trazas</strong>
-                  <p>Se mostrara como aviso informativo en el menu QR.</p>
+                  <strong>Alérgenos y trazas</strong>
+                  <p>Se mostrará como aviso informativo en el menú QR.</p>
                 </div>
               </div>
               <textarea
+                aria-label="Alérgenos y trazas"
                 name="alergenos"
                 value={form.alergenos}
                 onChange={handleChange}
-                placeholder="Ej: gluten, lactosa, mani, huevo, frutos secos. Puede contener trazas."
+                placeholder="Ej: gluten, lactosa, maní, huevo, frutos secos. Puede contener trazas."
                 className="pm-textarea pm-allergen-textarea"
                 disabled={guardando}
                 maxLength={200}
                 rows={3}
               />
-              <div className="pm-allergen-chips" aria-hidden="true">
-                {['Gluten', 'Lactosa', 'Mani', 'Huevo', 'Frutos secos'].map((item) => (
+              <div className="pm-allergen-chips">
+                {['Gluten', 'Lactosa', 'Maní', 'Huevo', 'Frutos secos'].map((item) => (
                   <button
                     key={item}
                     type="button"
@@ -721,7 +729,7 @@ export default function ModalProducto({
                     <p className="pm-dropzone-text">
                       <strong>Arrastra una imagen</strong> o haz clic para seleccionar
                     </p>
-                    <p className="pm-dropzone-hint">PNG · JPG · WebP · Max 2 MB</p>
+                    <p className="pm-dropzone-hint">PNG · JPG · WebP · Máx. 2 MB</p>
                   </div>
                 )}
               </div>
@@ -740,7 +748,7 @@ export default function ModalProducto({
 
             <div className="pm-stock-summary" aria-label="Resumen de control del producto">
               <div className="pm-stock-summary-item">
-                <strong>Fuente de verdad</strong>
+                <strong>Disponibilidad del producto</strong>
                 <span>
                   {form.modoStock === 'inventario'
                     ? 'El stock se descuenta desde inventario al aceptar pedidos.'
@@ -750,8 +758,8 @@ export default function ModalProducto({
                 </span>
               </div>
               <div className="pm-stock-summary-item">
-                <strong>Gobernanza por sede</strong>
-                <span>Solo se muestran items del restaurante actual para evitar cruces entre negocios.</span>
+                <strong>Inventario de esta sede</strong>
+                <span>Solo verás los artículos del restaurante que estás administrando.</span>
               </div>
             </div>
           </div>
