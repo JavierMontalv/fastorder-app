@@ -69,9 +69,10 @@ test('public identity uses the approved orange book with crawlable square assets
     const html = await fs.readFile(`dist/${filename}`, 'utf8');
     const explicitIcons = [...html.matchAll(/<link\b[^>]*\brel="icon"[^>]*>/g)];
     assert.equal(explicitIcons.length, 1, 'one unambiguous search favicon per public page');
-    assert.ok(explicitIcons[0][0].includes(`href="${routeConfig.origin}/brand/comanda-favicon-96.png"`));
-    assert.match(explicitIcons[0][0], /type="image\/png" sizes="96x96"/);
+    assert.ok(explicitIcons[0][0].includes(`href="${routeConfig.origin}/brand/comanda-favicon-192.png"`));
+    assert.match(explicitIcons[0][0], /type="image\/png" sizes="192x192"/);
     assert.doesNotMatch(html, /rel="(?:shortcut )?icon"[^>]*(?:vite\.svg|brevia-tab-icon)/);
+    assert.doesNotMatch(html, /rel="icon"[^>]*(?:comanda-favicon-32|comanda-favicon-96|comanda-icon)/);
     const schema = JSON.parse(html.match(/id="comanda-structured-data" type="application\/ld\+json">(.*?)<\/script>/s)[1]);
     const organization = schema['@graph'].find(n => n['@type'] === 'Organization');
     assert.equal(organization.logo.url, routeConfig.origin + '/brand/comanda-favicon-512.png');
