@@ -149,3 +149,20 @@
 }
 @media(max-width:420px){.cm-public .cm-product-art{height:470px}.cm-phone{right:8px}.cm-hero-qr div{display:none}.cm-hero-qr img{width:48px;height:48px}}
 @media(prefers-reduced-motion:reduce){.cm-floating-cta{animation:none}.cm-reel-track figure:nth-child(4){display:block}.cm-reel-track figure:nth-child(n+5){display:none}}
+
+/* Denser commercial rhythm: more information per viewport without crowding. */
+.cm-public .cm-section{padding-top:62px;padding-bottom:62px}
+.cm-public .cm-section-heading{align-items:center;margin-bottom:28px}
+.cm-public #solucion .cm-section-heading>p{max-width:390px;margin:0;padding:18px 20px;border:1px solid #d4ddd1;border-left:4px solid #e84a2d;border-radius:14px;background:linear-gradient(135deg,#fffdf8,#eef3ea);box-shadow:0 14px 34px #203a2810;color:#21372b;font-size:16px;font-weight:650;line-height:1.55;letter-spacing:-.015em}
+.cm-public .cm-benefits{gap:16px}
+.cm-public .cm-benefits article{padding-top:16px;padding-bottom:12px}
+.cm-public .cm-benefits article>div{margin-bottom:12px}
+.cm-public .cm-benefits h3{margin:9px 0 10px}
+.cm-public .cm-benefits p{line-height:1.65}
+.cm-public .cm-plans{padding-top:52px}
+.cm-photo-reel{padding-bottom:24px}
+.cm-reel-promise{margin-top:28px;padding-top:18px}
+.cm-floating-cta{animation:cm-cta-nudge 2s ease-in-out infinite}
+@keyframes cm-cta-nudge{0%,66%,100%{transform:translateX(0) rotate(0)}72%{transform:translateX(-3px) rotate(-1deg)}78%{transform:translateX(3px) rotate(1deg)}84%{transform:translateX(-2px) rotate(-.5deg)}90%{transform:translateX(2px) rotate(.5deg)}}
+@media(max-width:760px){.cm-public .cm-section{padding-top:44px;padding-bottom:44px}.cm-public #solucion .cm-section-heading>p{margin-top:20px;padding:16px 17px;font-size:15px}.cm-public .cm-benefits article{padding:16px 0}.cm-public .cm-plans{padding-top:40px}}
+@media(prefers-reduced-motion:reduce){.cm-floating-cta{animation:none}}
