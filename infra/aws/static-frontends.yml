@@ -128,7 +128,7 @@ Resources:
   CommercialSeoFunction:
     Type: AWS::CloudFront::Function
     Properties:
-      Name: comanda-commercial-seo
+      Name: comanda-commercial-seo-managed
       AutoPublish: true
       FunctionConfig:
         Comment: Public SEO pages, canonical hosts and protected administration routes.
