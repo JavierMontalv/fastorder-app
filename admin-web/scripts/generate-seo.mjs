@@ -11,8 +11,9 @@ const portal = (await configResponse.json()).data;
 if (!portal?.plans?.cards?.length) throw new Error('La configuración de planes no es válida');
 const snapshot = { plans: portal.plans, payment: { setupState: { checkoutReady: Boolean(portal.payment?.setupState?.checkoutReady) } } };
 const shell = await fs.readFile('dist/index.html', 'utf8');
-// Public search identity: one explicit PNG candidate, same stable approved asset.
-// Keep administrative/browser fallback icons in the untouched application shell.
+// Public search identity: one stable, explicit, high-resolution PNG candidate.
+// Keep administrative/browser fallback icons in the untouched application shell;
+// /favicon.ico remains publicly available for legacy clients.
 const publicShell = shell.replace(/<link\b[^>]*\brel="(?:shortcut )?icon"[^>]*>\s*/gi, '');
 const escape = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
 const json = value => JSON.stringify(value).replaceAll('<', '\\u003c');
@@ -22,7 +23,7 @@ for (const route of ['/inicio', ...publicPages.map(p => p.path)]) {
   const metadata = pageMetadata(route);
   const tags = `<meta name="robots" content="index,follow,max-image-preview:large" />
 <link rel="canonical" href="${metadata.canonical}" />
-<link rel="icon" type="image/png" sizes="96x96" href="${SITE_ORIGIN}/brand/comanda-favicon-96.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="${SITE_ORIGIN}/brand/comanda-favicon-192.png" />
 <meta property="og:type" content="website" /><meta property="og:site_name" content="Comanda" />
 <meta property="og:locale" content="es_CO" /><meta property="og:title" content="${escape(metadata.title)}" />
 <meta property="og:description" content="${escape(metadata.description)}" /><meta property="og:url" content="${metadata.canonical}" />
