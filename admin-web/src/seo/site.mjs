@@ -2,7 +2,7 @@ export const SITE_ORIGIN = (import.meta.env?.VITE_PUBLIC_SITE_URL || 'https://ww
 export const ADMIN_ORIGIN = 'https://admin.somoscomanda.com';
 export const HOME_PATH = SITE_ORIGIN.includes('admin.somoscomanda.com') ? '/inicio' : '/';
 export const HOME_TITLE = 'Comanda | Menú QR y pedidos para restaurantes en Colombia';
-export const HOME_DESCRIPTION = 'Comanda conecta tu menú digital QR, los pedidos por mesa y la gestión de tu restaurante. Compara planes en pesos colombianos y solicita una demo.';
+export const HOME_DESCRIPTION = 'Publica tu menú QR y recibe pedidos identificados por mesa en un solo panel. Conoce los planes de Comanda para restaurantes en Colombia.';
 export const publicPages = [
   {
     path: '/menu-qr-restaurantes', label: 'Menú QR para restaurantes',
