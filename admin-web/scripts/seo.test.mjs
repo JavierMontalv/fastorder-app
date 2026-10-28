@@ -4,7 +4,10 @@ import fs from 'node:fs/promises';
 import vm from 'node:vm';
 const routeConfig = JSON.parse(await fs.readFile('dist/seo-routes.json', 'utf8'));
 const functionSource = await fs.readFile('../infra/aws/comanda-seo-router.js', 'utf8');
+const noIndexFunctionSource = await fs.readFile('../infra/aws/admin-noindex-response.js', 'utf8');
 const route = (host, uri, querystring = {}) => vm.runInNewContext(functionSource + ';handler', {})({ request: { uri, querystring, headers: { host: { value: host } } } });
+const respond = host => vm.runInNewContext(noIndexFunctionSource + ';handler', {})({ request: { headers: { host: { value: host } } }, response: { statusCode: 200, headers: {} } });
+const embeddedFunction = (template, resource, nextResource) => template.split(`  ${resource}:`)[1].split(`  ${nextResource}:`)[0].split(/      FunctionCode: \|\r?\n/)[1].split(/\r?\n/).map(line => line.replace(/^        /, '')).join('\n').trim();
 
 test('all public pages ship readable content, a unique canonical and valid structured data', async () => {
   for (const page of ['/inicio', ...routeConfig.pages]) {
@@ -21,11 +24,20 @@ test('all public pages ship readable content, a unique canonical and valid struc
   }
 });
 test('administration is noindex; sitemap and robots identify only public canonical URLs', async () => {
-  assert.match(await fs.readFile('dist/index.html', 'utf8'), /name="robots" content="noindex,follow"/);
+  assert.match(await fs.readFile('dist/index.html', 'utf8'), /name="robots" content="noindex,nofollow,noarchive"/);
   const sitemap = await fs.readFile('dist/sitemap.xml', 'utf8');
   assert.equal((sitemap.match(/<loc>/g) || []).length, routeConfig.pages.length + 1);
   assert.doesNotMatch(sitemap, /\/admin|\/login|\?plan|\/superadmin/);
   assert.ok((await fs.readFile('dist/robots.txt', 'utf8')).includes(`Sitemap: ${routeConfig.origin}/sitemap.xml`));
+});
+test('every admin response is noindex while all commercial hosts stay indexable', async () => {
+  assert.equal(respond('admin.somoscomanda.com').headers['x-robots-tag'].value, 'noindex, nofollow, noarchive');
+  assert.equal(respond('www.somoscomanda.com').headers['x-robots-tag'], undefined);
+  assert.equal(respond('somoscomanda.com').headers['x-robots-tag'], undefined);
+  const template = await fs.readFile('../infra/aws/static-frontends.yml', 'utf8');
+  assert.match(template, /EventType: viewer-response\s+FunctionARN: !GetAtt AdminNoIndexFunction\.FunctionARN/);
+  const embedded = embeddedFunction(template, 'AdminNoIndexFunction', 'AdminDistribution');
+  assert.equal(embedded, noIndexFunctionSource.replaceAll('\r\n', '\n').trim());
 });
 test('the canonical host, old URLs and private routes preserve working destinations', () => {
   assert.equal(route('somoscomanda.com', '/').headers.location.value, 'https://www.somoscomanda.com/');
@@ -47,8 +59,8 @@ test('the commercial router is separate from the existing restaurant menu router
   const template = await fs.readFile('../infra/aws/static-frontends.yml', 'utf8');
   const menuSection = template.split('  MenuDistribution:')[1].split('  AdminBucketPolicy:')[0];
   assert.match(menuSection, /FunctionARN: !GetAtt SpaRewriteFunction.FunctionARN/);
-  const embedded = template.split('  CommercialSeoFunction:')[1].split('  AdminDistribution:')[0].split('      FunctionCode: |\n')[1].split('\n').map(line => line.replace(/^        /, '')).join('\n').trim();
-  assert.equal(embedded, functionSource.trim());
+  const embedded = embeddedFunction(template, 'CommercialSeoFunction', 'AdminNoIndexFunction');
+  assert.equal(embedded, functionSource.replaceAll('\r\n', '\n').trim());
 });
 
 test('public identity uses the approved orange book with crawlable square assets', async () => {
