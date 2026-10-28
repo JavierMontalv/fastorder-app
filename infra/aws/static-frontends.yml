@@ -146,7 +146,9 @@ Resources:
           });
           var search = queryParts.length ? '?' + queryParts.join('&') : '';
           function redirect(url) {
-            return { statusCode: 301, statusDescription: 'Moved Permanently', headers: { location: { value: url }, 'cache-control': { value: 'public,max-age=300' } } };
+            var headers = { location: { value: url }, 'cache-control': { value: 'public,max-age=300' } };
+            if (host === 'admin.somoscomanda.com') headers['x-robots-tag'] = { value: 'noindex, nofollow, noarchive' };
+            return { statusCode: 301, statusDescription: 'Moved Permanently', headers: headers };
           }
           if (host === 'somoscomanda.com') return redirect('https://www.somoscomanda.com' + uri + search);
           var routes = {
