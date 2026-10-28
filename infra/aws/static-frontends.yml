@@ -178,6 +178,24 @@ Resources:
           return { statusCode: 404, statusDescription: 'Not Found', headers: { 'content-type': { value: 'text/html; charset=utf-8' }, 'x-robots-tag': { value: 'noindex,follow' }, 'cache-control': { value: 'public,max-age=60' } }, body: { encoding: 'text', data: '<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Página no encontrada | Comanda</title><body style="font-family:system-ui;background:#faf9f5;color:#182821;padding:10vh 8vw"><p>COMANDA</p><h1>Esta página no está disponible.</h1><a href="https://www.somoscomanda.com/">Volver a Comanda</a></body></html>' } };
         }
 
+  AdminNoIndexFunction:
+    Type: AWS::CloudFront::Function
+    Properties:
+      Name: comanda-admin-noindex-response
+      AutoPublish: true
+      FunctionConfig:
+        Comment: Prevent indexing of every response served from the administration host.
+        Runtime: cloudfront-js-2.0
+      FunctionCode: |
+        function handler(event) {
+          var response = event.response;
+          var host = event.request.headers.host && event.request.headers.host.value;
+          if (host && host.toLowerCase() === 'admin.somoscomanda.com') {
+            response.headers['x-robots-tag'] = { value: 'noindex, nofollow, noarchive' };
+          }
+          return response;
+        }
+
   AdminDistribution:
     Type: AWS::CloudFront::Distribution
     Properties:
@@ -209,6 +227,8 @@ Resources:
           FunctionAssociations:
             - EventType: viewer-request
               FunctionARN: !GetAtt CommercialSeoFunction.FunctionARN
+            - EventType: viewer-response
+              FunctionARN: !GetAtt AdminNoIndexFunction.FunctionARN
         ViewerCertificate: !If
           - UseCustomDomains
           - AcmCertificateArn: !Ref CustomDomainCertificateArn
