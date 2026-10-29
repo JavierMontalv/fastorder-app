@@ -50,6 +50,9 @@ jobs:
       - name: Install locked dependencies
         run: npm ci
 
+      - name: Verify landing image integrity
+        run: node scripts/verify-landing-assets.mjs
+
       - name: Build static application
         run: npm run build
 
@@ -72,6 +75,11 @@ jobs:
         run: |
           INVALIDATION_ID="$(aws cloudfront create-invalidation --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" --paths '/*' --query 'Invalidation.Id' --output text)"
           aws cloudfront wait invalidation-completed --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" --id "${INVALIDATION_ID}"
+
+      - name: Verify public landing images after deployment
+        run: |
+          node scripts/verify-landing-assets.mjs https://www.somoscomanda.com/
+          node scripts/verify-landing-assets.mjs https://admin.somoscomanda.com/
 
       - name: Verify temporary CloudFront production origin
         working-directory: .

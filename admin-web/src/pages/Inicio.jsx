@@ -171,6 +171,21 @@ function HeroVisual() {
   </div>;
 }
 
+
+function JourneyImage({ src, alt, loading = 'lazy', onReady, ...props }) {
+  const [attempt, setAttempt] = useState(0);
+  const [loaded, setLoaded] = useState(false);
+  const [unavailable, setUnavailable] = useState(false);
+  const base = src.replace(/\.webp$/, '');
+  if (unavailable) return <span className="cm-image-unavailable" role="img" aria-label={alt + ': fotografía temporalmente no disponible'}>Fotografía temporalmente no disponible</span>;
+  return <img {...props} src={attempt === 1 ? src : base + '-960.jpg' + (attempt === 2 ? '?retry=1' : '')}
+    srcSet={attempt === 0 ? base + '-960.jpg 960w, ' + base + '-1600.jpg 1600w' : undefined}
+    sizes="(max-width: 760px) 82vw, (max-width: 1100px) 40vw, 510px"
+    alt={alt} loading={loading} decoding="async" data-ready={loaded}
+    onLoad={() => { setLoaded(true); onReady?.(); }}
+    onError={() => { setLoaded(false); if (attempt < 2) setAttempt(value => value + 1); else setUnavailable(true); }} />;
+}
+
 const reelItems = [
   { src: '/landing/journey-01-scan.webp', step: '01', label: 'Escanea', title: 'El QR abre el menú', text: 'Sin descargar aplicaciones.', status: 'QR listo' },
   { src: '/landing/journey-02-order.webp', step: '02', label: 'Elige y agrega', title: 'El cliente arma su pedido', text: 'Fotos, precios y botones claros.', status: '+ Agregar' },
@@ -184,6 +199,9 @@ function PhotoReel() {
   const [animated, setAnimated] = useState(true);
   const [paused, setPaused] = useState(false);
   const [selectionEpoch, setSelectionEpoch] = useState(0);
+  const [loadedPhotos, setLoadedPhotos] = useState({});
+  const photosReady = reelItems.every(item => loadedPhotos[item.src]);
+  function markPhotoReady(src) { setLoadedPhotos(value => value[src] ? value : { ...value, [src]: true }); }
   const trackRef = useRef(null);
   const viewportRef = useRef(null);
   const active = position % reelItems.length;
@@ -211,14 +229,14 @@ function PhotoReel() {
   }, []);
 
   useEffect(() => {
-    if (paused) return;
+    if (paused || !photosReady) return;
     const timer = window.setInterval(() => {
       if (document.visibilityState === 'hidden' || reelDrag.dragRef.current) return;
       setAnimated(true);
       setPosition(index => index + 1);
     }, 1500);
     return () => window.clearInterval(timer);
-  }, [paused, selectionEpoch]);
+  }, [paused, selectionEpoch, photosReady]);
 
   function selectStep(index) {
     setAnimated(true);
@@ -238,7 +256,7 @@ function PhotoReel() {
     <div className="cm-reel-heading"><span className="cm-eyebrow">EL RECORRIDO COMPLETO DE COMANDA</span><h2 id="cm-reel-title">Del QR a la mesa.<br /><em>Todo conectado.</em></h2><p>Cuatro momentos, una sola experiencia: el cliente pide con facilidad y tu equipo sabe qué hacer después.</p></div>
     <div className="cm-journey-line" role="group" aria-label="Elige un momento del recorrido">{reelItems.map((item, index) => <button type="button" key={item.step} className={active === index ? 'is-active' : ''} aria-pressed={active === index} aria-controls="cm-reel-viewport" onClick={() => selectStep(index)}><b aria-hidden="true">{item.step}</b>{item.label}</button>)}</div>
     <div className="cm-reel-toolbar"><CarouselArrows label="Recorrido fotográfico" light previous={() => moveReel(-1)} next={() => moveReel(1)} /><button type="button" className="cm-reel-toggle" aria-controls="cm-reel-viewport" aria-label={paused ? 'Reproducir recorrido automático' : 'Pausar recorrido automático'} aria-pressed={paused} onClick={() => setPaused(value => !value)}><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false">{paused ? <path d="M6 3.5 16 10 6 16.5Z" fill="currentColor" /> : <><rect x="5" y="4" width="3" height="12" rx="1" fill="currentColor" /><rect x="12" y="4" width="3" height="12" rx="1" fill="currentColor" /></>}</svg><span className="cm-reel-toggle-label">{paused ? 'Reproducir' : 'Pausar'}</span></button></div>
-    <div className="cm-reel-window" id="cm-reel-viewport" ref={viewportRef} aria-live="off" {...reelDrag.bind} data-dragging={reelDrag.dragging}><div className="cm-reel-track" ref={trackRef} data-active-step={active + 1} data-playing={!paused} onTransitionEnd={finishTransition} style={{ transform: `translate3d(${-(position * stepWidth) + reelDrag.offset}px, 0, 0)`, transition: animated && !reelDrag.dragging ? undefined : 'none' }}>{[...reelItems, ...reelItems, ...reelItems].map((item, index) => <figure key={`${item.src}-${index}`} aria-hidden={index < reelItems.length || index >= reelItems.length * 2}><img src={item.src} alt={index >= reelItems.length && index < reelItems.length * 2 ? item.title : ''} loading={index >= reelItems.length && index < reelItems.length + 2 ? 'eager' : 'lazy'} decoding="async" width="1600" height="900" /><span className={`cm-journey-status cm-journey-status-${item.step}`}>{item.status}</span><figcaption><small><b>{item.step}</b> {item.label} · {item.text}</small><strong>{item.title}</strong></figcaption></figure>)}</div></div>
+    <div className="cm-reel-window" id="cm-reel-viewport" ref={viewportRef} aria-live="off" {...reelDrag.bind} data-dragging={reelDrag.dragging}><div className="cm-reel-track" ref={trackRef} data-active-step={active + 1} data-playing={!paused && photosReady} aria-busy={!photosReady} onTransitionEnd={finishTransition} style={{ transform: `translate3d(${-(position * stepWidth) + reelDrag.offset}px, 0, 0)`, transition: animated && !reelDrag.dragging ? undefined : 'none' }}>{[...reelItems, ...reelItems, ...reelItems].map((item, index) => <figure key={`${item.src}-${index}`} aria-hidden={index < reelItems.length || index >= reelItems.length * 2}><JourneyImage src={item.src} onReady={() => markPhotoReady(item.src)} alt={index >= reelItems.length && index < reelItems.length * 2 ? item.title : ''} loading="eager" width="1600" height="900" /><span className={`cm-journey-status cm-journey-status-${item.step}`}>{item.status}</span><figcaption><small><b>{item.step}</b> {item.label} · {item.text}</small><strong>{item.title}</strong></figcaption></figure>)}</div></div>
     <div className="cm-reel-promise"><span><b>01</b> ESCANEA</span><span><b>02</b> PIDE</span><span><b>03</b> PREPARA</span><span><b>04</b> ENTREGA</span><strong>UN QR. TODO EL SERVICIO CONECTADO.</strong></div>
   </section>;
 }
@@ -278,7 +296,7 @@ function ServiceTimeline() {
     <div className="cm-service-window" aria-label="Recorrido ilustrativo de un pedido, en cinco etapas" {...timelineDrag.bind} data-dragging={timelineDrag.dragging}><div className="cm-service-roll" ref={rollRef} style={{ '--cm-service-cycle': `${cycleWidth}px`, translate: `${normalizedOffset}px 0`, animationPlayState: timelineDrag.dragging ? 'paused' : undefined }}>
       {[0,1,2].map(copy => <ol className="cm-service-sequence" key={copy} aria-hidden={copy !== 0 ? true : undefined}>{serviceJourney.map(item => <li className={'cm-service-moment cm-service-phase-' + item.phase} key={item.number}>
         <div className="cm-service-milestone"><span>{item.number}</span><small>{item.audience}</small><i aria-hidden="true" /></div>
-        <article className="cm-service-card"><div className="cm-service-photo"><img src={item.image} alt={copy === 0 ? item.alt : ''} width="1600" height="900" loading="lazy" decoding="async" /><span className="cm-service-photo-label">LA EXPERIENCIA HUMANA</span></div>
+        <article className="cm-service-card"><div className="cm-service-photo"><JourneyImage src={item.image} alt={copy === 0 ? item.alt : ''} width="1600" height="900" loading="eager" /><span className="cm-service-photo-label">LA EXPERIENCIA HUMANA</span></div>
           <div className="cm-service-story"><h3>{item.title}</h3><p>{item.person}</p></div>
           <div className="cm-service-ticket"><div className="cm-service-ticket-head"><img src="/brand/comanda-favicon-192.png" width="24" height="24" alt="" /><small>{item.systemLabel}</small><span aria-hidden="true">↗</span></div><strong>{item.systemTitle}</strong><p>{item.detail}</p><div className="cm-service-progress" aria-hidden="true">{[0,1,2,3].map(index => <i key={index} className={index <= item.phase ? 'is-complete' : ''} />)}</div><span className="cm-service-state"><i aria-hidden="true" />{item.state}</span></div>
         </article>
@@ -313,7 +331,7 @@ export default function Inicio({ initialPortal = null }) {
       <section className="cm-switch cm-sales-hero" aria-labelledby="cm-switch-title">
         <div className="cm-switch-copy">
           <span className="cm-eyebrow"><i /> DA EL SIGUIENTE PASO EN TU SERVICIO</span>
-          <h1 id="cm-switch-title">¿Todavía entregas un localizador <span className="cm-no-pager" role="img" aria-label="Deja atrás el localizador físico"><svg viewBox="0 0 100 100" width="64" height="64" aria-hidden="true" focusable="false"><defs><linearGradient id="cm-no-pager-shell" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#525b51"/><stop offset="1" stopColor="#14251a"/></linearGradient></defs><circle cx="50" cy="52" r="29" fill="#203221" opacity=".12"/><circle cx="50" cy="49" r="28" fill="url(#cm-no-pager-shell)" stroke="#7a8573" strokeWidth="2"/><circle cx="50" cy="49" r="20" fill="#f0f1e8" stroke="#9ca38e" strokeWidth="2"/><text x="50" y="55" textAnchor="middle" fontFamily="sans-serif" fontSize="17" fontWeight="700" fill="#324a36">08</text>{Array.from({length:12},(_,i)=><circle key={i} cx={50+24*Math.cos(i*Math.PI/6)} cy={49+24*Math.sin(i*Math.PI/6)} r="1.7" fill="#fa6850"/>)}<circle cx="50" cy="50" r="40" fill="none" stroke="#d83f2d" strokeWidth="5"/><path d="m22 22 56 56" fill="none" stroke="#fff9ed" strokeWidth="8" strokeLinecap="round"/><path d="m22 22 56 56" fill="none" stroke="#d83f2d" strokeWidth="5" strokeLinecap="round"/></svg></span><em>con cada pedido?</em></h1>
+          <h1 id="cm-switch-title" aria-label="¿Todavía entregas un localizador con cada pedido?">¿Todavía entregas un localizador <span className="cm-no-pager" role="img" aria-label="Deja atrás el localizador físico"><svg viewBox="0 0 100 100" width="64" height="64" aria-hidden="true" focusable="false"><defs><linearGradient id="cm-no-pager-shell" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#525b51"/><stop offset="1" stopColor="#14251a"/></linearGradient></defs><circle cx="50" cy="52" r="29" fill="#203221" opacity=".12"/><circle cx="50" cy="49" r="28" fill="url(#cm-no-pager-shell)" stroke="#7a8573" strokeWidth="2"/><circle cx="50" cy="49" r="20" fill="#f0f1e8" stroke="#9ca38e" strokeWidth="2"/><text x="50" y="55" textAnchor="middle" fontFamily="sans-serif" fontSize="17" fontWeight="700" fill="#324a36">08</text>{Array.from({length:12},(_,i)=><circle key={i} cx={50+24*Math.cos(i*Math.PI/6)} cy={49+24*Math.sin(i*Math.PI/6)} r="1.7" fill="#fa6850"/>)}<circle cx="50" cy="50" r="40" fill="none" stroke="#d83f2d" strokeWidth="5"/><path d="m22 22 56 56" fill="none" stroke="#fff9ed" strokeWidth="8" strokeLinecap="round"/><path d="m22 22 56 56" fill="none" stroke="#d83f2d" strokeWidth="5" strokeLinecap="round"/></svg></span><em>con cada pedido?</em></h1>
           <p className="cm-switch-lead">Pasa del localizador al QR que toma pedidos.</p>
           <p>Con COMANDA, escanea el QR, elige y pide desde la mesa. Tu equipo recibe la orden identificada en el panel y gestiona su preparación en un solo lugar.</p>
           {portal?.plans?.cards?.find(plan => plan.clave === 'base') ? <p className="cm-sales-price">Menú QR desde <strong>{currency(portal.plans.cards.find(plan => plan.clave === 'base').precioMensualCOP)} <span>COP/mes</span></strong><small>Pedidos por mesa en Pro y Premium.</small></p> : null}

@@ -371,3 +371,8 @@
 .cm-no-pager>svg{display:block;width:100%;height:auto;max-width:64px;overflow:visible;filter:drop-shadow(0 3px 3px #20391e12)}
 @media(max-width:760px){.cm-sales-hero h1 .cm-no-pager{width:43px;height:.85em;margin-left:.06em}}
 @media(max-width:360px){.cm-sales-hero h1 .cm-no-pager{width:36px}}
+
+/* Keep the photograph area stable while network loading/recovery completes. */
+.cm-reel-track img[data-ready=false],.cm-service-photo img[data-ready=false]{opacity:0}
+.cm-reel-track img[data-ready=true],.cm-service-photo img[data-ready=true]{opacity:1}
+.cm-image-unavailable{display:grid;place-items:center;width:100%;height:100%;padding:28px;text-align:center;color:#edf3e7;background:linear-gradient(145deg,#204232,#112a20);font:600 13px/1.7 'Plus Jakarta Sans',sans-serif}
