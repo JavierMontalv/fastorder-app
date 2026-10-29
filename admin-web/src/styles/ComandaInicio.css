@@ -365,3 +365,9 @@
 .cm-reel-toggle[aria-pressed=true]>svg{color:#315d3f}
 .cm-reel-toggle[aria-pressed=true] .cm-reel-toggle-label{color:#234431}
 @media(max-width:1023px),(hover:none),(pointer:coarse){.cm-reel-toolbar{justify-content:flex-start;gap:10px;margin-top:-7px}.cm-reel-toggle{min-width:110px;justify-content:center;min-height:44px}.cm-reel-toolbar .cm-carousel-arrows{display:none}}
+
+/* Inline vector cue: replaces no content and adds no extra row. */
+.cm-sales-hero h1 .cm-no-pager{display:inline-flex;vertical-align:middle;width:clamp(43px,4.6vw,64px);height:.86em;align-items:center;justify-content:center;margin-left:.08em;position:relative;top:-.03em;white-space:nowrap}
+.cm-no-pager>svg{display:block;width:100%;height:auto;max-width:64px;overflow:visible;filter:drop-shadow(0 3px 3px #20391e12)}
+@media(max-width:760px){.cm-sales-hero h1 .cm-no-pager{width:43px;height:.85em;margin-left:.06em}}
+@media(max-width:360px){.cm-sales-hero h1 .cm-no-pager{width:36px}}
