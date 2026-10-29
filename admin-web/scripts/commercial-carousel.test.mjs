@@ -21,3 +21,10 @@ test('hero cycles through visibly distinct, brand-safe ambient colors', () => {
   assert.match(styleSource, /#ffe8dc/);
   assert.match(styleSource, /#dff1e4/);
 });
+
+test('optional commercial guides collapse and the timeline hands off compactly to plans', () => {
+  assert.match(pageSource, /<details className="cm-section cm-resource-links cm-resource-disclosure">/);
+  assert.match(pageSource, /Despliega aquí/);
+  assert.match(styleSource, /\.cm-public \.cm-service-timeline\{padding-bottom:10px\}/);
+  assert.match(styleSource, /\.cm-public \.cm-plans\{padding-top:24px\}/);
+});
