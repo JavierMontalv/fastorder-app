@@ -80,8 +80,58 @@ function ProductPreview() {
 }
 
 
+
+function useHorizontalDrag(onRelease) {
+  const start = useRef(null);
+  const dragRef = useRef(false);
+  const [offset, setOffset] = useState(0);
+  const [dragging, setDragging] = useState(false);
+  function finish(event, cancelled = false) {
+    const point = start.current;
+    if (!point || point.id !== event.pointerId) return;
+    const delta = point.delta || 0;
+    start.current = null;
+    if (event.currentTarget.hasPointerCapture?.(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    if (!cancelled && dragRef.current) onRelease(delta);
+    dragRef.current = false;
+    setDragging(false); setOffset(0);
+  }
+  return { offset, dragging, dragRef, bind: {
+    onPointerDown(event) {
+      if (!event.isPrimary || (event.pointerType === 'mouse' && event.button !== 0) || event.target.closest('button,a,input')) return;
+      start.current = { id: event.pointerId, x: event.clientX, y: event.clientY, delta: 0 };
+    },
+    onPointerMove(event) {
+      const point = start.current;
+      if (!point || point.id !== event.pointerId) return;
+      const dx = event.clientX - point.x, dy = event.clientY - point.y;
+      if (!dragRef.current) {
+        if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 8) { start.current = null; return; }
+        if (Math.abs(dx) < 8) return;
+        dragRef.current = true; setDragging(true);
+        event.currentTarget.setPointerCapture(event.pointerId);
+      }
+      point.delta = dx; setOffset(dx);
+    },
+    onPointerUp: event => finish(event),
+    onPointerCancel: event => finish(event, true),
+    onLostPointerCapture: event => { if (start.current) finish(event, true); },
+    onDragStart: event => event.preventDefault()
+  }};
+}
+
+function CarouselArrows({ previous, next, label, light = false }) {
+  return <div className={'cm-carousel-arrows' + (light ? ' cm-carousel-arrows-light' : '')} role="group" aria-label={label}>
+    <button type="button" onClick={previous} aria-label={'Anterior: ' + label}><span aria-hidden="true">←</span></button>
+    <button type="button" onClick={next} aria-label={'Siguiente: ' + label}><span aria-hidden="true">→</span></button>
+  </div>;
+}
+
 function HeroVisual() {
   const [slide, setSlide] = useState(0);
+  const [heroEpoch, setHeroEpoch] = useState(0);
+  function moveHero(direction) { setSlide(value => (value + direction + 2) % 2); setHeroEpoch(value => value + 1); }
+  const heroDrag = useHorizontalDrag(delta => { if (Math.abs(delta) > 35) moveHero(delta < 0 ? 1 : -1); });
   const [paused, setPaused] = useState(false);
   useEffect(() => {
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -91,11 +141,11 @@ function HeroVisual() {
   }, []);
   useEffect(() => {
     if (paused) return;
-    const timer = window.setInterval(() => { if (document.visibilityState !== 'hidden') setSlide(value => (value + 1) % 2); }, 6000);
+    const timer = window.setInterval(() => { if (document.visibilityState !== 'hidden' && !heroDrag.dragRef.current) setSlide(value => (value + 1) % 2); }, 6000);
     return () => window.clearInterval(timer);
-  }, [paused]);
+  }, [paused, heroEpoch]);
   return <div className="cm-hero-carousel" role="region" aria-label="Conoce COMANDA" aria-roledescription="carrusel">
-    <div className="cm-hero-scenes" aria-live="off">
+    <div className="cm-hero-swipe-window" {...heroDrag.bind} data-dragging={heroDrag.dragging}><div className="cm-hero-scenes" aria-live="off" style={{translate: `${heroDrag.offset}px 0`}}>
       <div className="cm-hero-scene" hidden={slide !== 0}><div className="cm-comparison-intro"><strong>El localizador avisa.</strong><span>COMANDA recibe y organiza tus pedidos por mesa.</span></div><div className="cm-switch-visual" aria-label="Del localizador físico al pedido digital identificado por mesa">
           <div className="cm-switch-before"><span className="cm-switch-tag">EL LOCALIZADOR</span><svg className="cm-round-pagers" viewBox="0 0 260 300" role="img" aria-label="Localizadores redondos con luces rojas, apilados sobre su base de carga">
   <defs><linearGradient id="cm-pager-body" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#555854"/><stop offset=".4" stopColor="#252b29"/><stop offset="1" stopColor="#090e0d"/></linearGradient><linearGradient id="cm-pager-edge" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#656864"/><stop offset=".35" stopColor="#191f1d"/><stop offset="1" stopColor="#080d0b"/></linearGradient><radialGradient id="cm-pager-light"><stop stopColor="#fff5d8"/><stop offset=".27" stopColor="#ff7867"/><stop offset=".62" stopColor="#fc251c"/><stop offset="1" stopColor="#8e130d"/></radialGradient><radialGradient id="cm-pager-label"><stop stopColor="#fffefa"/><stop offset="1" stopColor="#d4d8cf"/></radialGradient><filter id="cm-pager-shadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="2" dy="8" stdDeviation="7" floodColor="#172c20" floodOpacity=".25"/></filter></defs>
@@ -116,7 +166,8 @@ function HeroVisual() {
         </div></div>
       <div className="cm-hero-scene cm-hero-product-scene" hidden={slide !== 1}><ProductPreview /></div>
     </div>
-    <div className="cm-hero-scene-controls"><div role="group" aria-label="Elige una vista"><button type="button" aria-pressed={slide === 0} onClick={() => setSlide(0)}>La diferencia COMANDA</button><button type="button" aria-pressed={slide === 1} onClick={() => setSlide(1)}>Menú y pedidos</button></div><button type="button" className="cm-hero-scene-pause" onClick={() => setPaused(value => !value)} aria-label={paused ? 'Reanudar vistas' : 'Pausar vistas'}>{paused ? '▷' : 'Ⅱ'}</button></div>
+    </div><CarouselArrows label="Vistas de COMANDA" previous={() => moveHero(-1)} next={() => moveHero(1)} />
+    <div className="cm-hero-scene-controls"><div role="group" aria-label="Elige una vista"><button type="button" aria-pressed={slide === 0} onClick={() => { setSlide(0); setHeroEpoch(value => value + 1); }}>La diferencia COMANDA</button><button type="button" aria-pressed={slide === 1} onClick={() => { setSlide(1); setHeroEpoch(value => value + 1); }}>Menú y pedidos</button></div><button type="button" className="cm-hero-scene-pause" onClick={() => setPaused(value => !value)} aria-label={paused ? 'Reanudar vistas' : 'Pausar vistas'}>{paused ? '▷' : 'Ⅱ'}</button></div>
   </div>;
 }
 
@@ -128,7 +179,7 @@ const reelItems = [
 ];
 
 function PhotoReel() {
-  const [position, setPosition] = useState(0);
+  const [position, setPosition] = useState(reelItems.length);
   const [stepWidth, setStepWidth] = useState(0);
   const [animated, setAnimated] = useState(true);
   const [paused, setPaused] = useState(false);
@@ -136,6 +187,8 @@ function PhotoReel() {
   const trackRef = useRef(null);
   const viewportRef = useRef(null);
   const active = position % reelItems.length;
+  function moveReel(direction) { setAnimated(true); setPosition(value => value + direction); setSelectionEpoch(value => value + 1); }
+  const reelDrag = useHorizontalDrag(delta => { if (Math.abs(delta) > Math.min(60, stepWidth * .18)) moveReel(delta < 0 ? 1 : -1); });
 
   useEffect(() => {
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -160,32 +213,32 @@ function PhotoReel() {
   useEffect(() => {
     if (paused) return;
     const timer = window.setInterval(() => {
-      if (document.visibilityState === 'hidden') return;
+      if (document.visibilityState === 'hidden' || reelDrag.dragRef.current) return;
       setAnimated(true);
-      setPosition(index => index >= reelItems.length ? 1 : index + 1);
+      setPosition(index => index + 1);
     }, 1500);
     return () => window.clearInterval(timer);
   }, [paused, selectionEpoch]);
 
   function selectStep(index) {
     setAnimated(true);
-    setPosition(index);
+    setPosition(reelItems.length + index);
     setSelectionEpoch(epoch => epoch + 1);
   }
 
   function finishTransition(event) {
     if (event.target !== event.currentTarget || event.propertyName !== 'transform') return;
-    if (position === reelItems.length) {
+    if (position >= reelItems.length * 2 || position < reelItems.length) {
       setAnimated(false);
-      setPosition(0);
+      setPosition(reelItems.length + ((position % reelItems.length) + reelItems.length) % reelItems.length);
     }
   }
 
   return <section className="cm-photo-reel" aria-labelledby="cm-reel-title" aria-roledescription="carrusel">
     <div className="cm-reel-heading"><span className="cm-eyebrow">EL RECORRIDO COMPLETO DE COMANDA</span><h2 id="cm-reel-title">Del QR a la mesa.<br /><em>Todo conectado.</em></h2><p>Cuatro momentos, una sola experiencia: el cliente pide con facilidad y tu equipo sabe qué hacer después.</p></div>
     <div className="cm-journey-line" role="group" aria-label="Elige un momento del recorrido">{reelItems.map((item, index) => <button type="button" key={item.step} className={active === index ? 'is-active' : ''} aria-pressed={active === index} aria-controls="cm-reel-viewport" onClick={() => selectStep(index)}><b aria-hidden="true">{item.step}</b>{item.label}</button>)}</div>
-    <div className="cm-reel-toolbar"><button type="button" className="cm-reel-toggle" aria-controls="cm-reel-viewport" onClick={() => setPaused(value => !value)}><span aria-hidden="true">{paused ? '▷' : 'Ⅱ'}</span>{paused ? 'Reanudar recorrido' : 'Pausar recorrido'}</button></div>
-    <div className="cm-reel-window" id="cm-reel-viewport" ref={viewportRef} aria-live="off"><div className="cm-reel-track" ref={trackRef} data-active-step={active + 1} data-playing={!paused} onTransitionEnd={finishTransition} style={{ transform: `translate3d(-${position * stepWidth}px, 0, 0)`, transition: animated ? undefined : 'none' }}>{[...reelItems, ...reelItems].map((item, index) => <figure key={`${item.src}-${index}`} aria-hidden={index >= reelItems.length}><img src={item.src} alt={index < reelItems.length ? item.title : ''} loading={index < 2 ? 'eager' : 'lazy'} decoding="async" width="1600" height="900" /><span className={`cm-journey-status cm-journey-status-${item.step}`}>{item.status}</span><figcaption><small><b>{item.step}</b> {item.label} · {item.text}</small><strong>{item.title}</strong></figcaption></figure>)}</div></div>
+    <div className="cm-reel-toolbar"><CarouselArrows label="Recorrido fotográfico" light previous={() => moveReel(-1)} next={() => moveReel(1)} /><button type="button" className="cm-reel-toggle" aria-controls="cm-reel-viewport" onClick={() => setPaused(value => !value)}><span aria-hidden="true">{paused ? '▷' : 'Ⅱ'}</span>{paused ? 'Reanudar recorrido' : 'Pausar recorrido'}</button></div>
+    <div className="cm-reel-window" id="cm-reel-viewport" ref={viewportRef} aria-live="off" {...reelDrag.bind} data-dragging={reelDrag.dragging}><div className="cm-reel-track" ref={trackRef} data-active-step={active + 1} data-playing={!paused} onTransitionEnd={finishTransition} style={{ transform: `translate3d(${-(position * stepWidth) + reelDrag.offset}px, 0, 0)`, transition: animated && !reelDrag.dragging ? undefined : 'none' }}>{[...reelItems, ...reelItems, ...reelItems].map((item, index) => <figure key={`${item.src}-${index}`} aria-hidden={index < reelItems.length || index >= reelItems.length * 2}><img src={item.src} alt={index >= reelItems.length && index < reelItems.length * 2 ? item.title : ''} loading={index >= reelItems.length && index < reelItems.length + 2 ? 'eager' : 'lazy'} decoding="async" width="1600" height="900" /><span className={`cm-journey-status cm-journey-status-${item.step}`}>{item.status}</span><figcaption><small><b>{item.step}</b> {item.label} · {item.text}</small><strong>{item.title}</strong></figcaption></figure>)}</div></div>
     <div className="cm-reel-promise"><span><b>01</b> ESCANEA</span><span><b>02</b> PIDE</span><span><b>03</b> PREPARA</span><span><b>04</b> ENTREGA</span><strong>UN QR. TODO EL SERVICIO CONECTADO.</strong></div>
   </section>;
 }
@@ -200,10 +253,30 @@ const serviceJourney = [
 ];
 
 function ServiceTimeline() {
+  const rollRef = useRef(null);
+  const [cycleWidth, setCycleWidth] = useState(0);
+  const [manualOffset, setManualOffset] = useState(0);
+  const timelineDrag = useHorizontalDrag(delta => setManualOffset(value => value + delta));
+  useEffect(() => {
+    const measure = () => {
+      const roll = rollRef.current;
+      if (roll?.firstElementChild) setCycleWidth(roll.firstElementChild.getBoundingClientRect().width + parseFloat(getComputedStyle(roll).columnGap || '0'));
+    };
+    measure(); const observer = new ResizeObserver(measure); observer.observe(rollRef.current.firstElementChild);
+    return () => observer.disconnect();
+  }, []);
+  const combinedOffset = manualOffset + timelineDrag.offset;
+  const normalizedOffset = cycleWidth ? -(((-combinedOffset % cycleWidth) + cycleWidth) % cycleWidth) : 0;
+  function moveTimeline(direction) {
+    const card = rollRef.current?.querySelector('.cm-service-moment');
+    const step = card ? card.getBoundingClientRect().width + parseFloat(getComputedStyle(rollRef.current).columnGap || '0') : 350;
+    setManualOffset(value => value - direction * step);
+  }
   return <section className="cm-service-timeline" id="solucion" aria-labelledby="cm-service-title">
     <div className="cm-service-heading"><div><span className="cm-eyebrow">PERSONAS Y TECNOLOGÍA, EN EL MISMO RECORRIDO</span><h2 id="cm-service-title">Tu cliente pide.<br /><em>Todo el equipo se conecta.</em></h2></div><div className="cm-service-summary"><p>Una misma orden. Dos experiencias que avanzan juntas: la de quien espera en la mesa y la de quien hace posible el servicio.</p><div className="cm-service-legend"><span><i /> Cliente</span><span><i /> Equipo + COMANDA</span></div></div></div>
-    <div className="cm-service-window" aria-label="Recorrido ilustrativo de un pedido, en cinco etapas"><div className="cm-service-roll">
-      {[0,1].map(copy => <ol className="cm-service-sequence" key={copy} aria-hidden={copy === 1 ? true : undefined}>{serviceJourney.map(item => <li className={'cm-service-moment cm-service-phase-' + item.phase} key={item.number}>
+    <div className="cm-service-navigation"><CarouselArrows label="Línea de tiempo del servicio" previous={() => moveTimeline(-1)} next={() => moveTimeline(1)} /></div>
+    <div className="cm-service-window" aria-label="Recorrido ilustrativo de un pedido, en cinco etapas" {...timelineDrag.bind} data-dragging={timelineDrag.dragging}><div className="cm-service-roll" ref={rollRef} style={{ '--cm-service-cycle': `${cycleWidth}px`, translate: `${normalizedOffset}px 0`, animationPlayState: timelineDrag.dragging ? 'paused' : undefined }}>
+      {[0,1,2].map(copy => <ol className="cm-service-sequence" key={copy} aria-hidden={copy !== 0 ? true : undefined}>{serviceJourney.map(item => <li className={'cm-service-moment cm-service-phase-' + item.phase} key={item.number}>
         <div className="cm-service-milestone"><span>{item.number}</span><small>{item.audience}</small><i aria-hidden="true" /></div>
         <article className="cm-service-card"><div className="cm-service-photo"><img src={item.image} alt={copy === 0 ? item.alt : ''} width="1600" height="900" loading="lazy" decoding="async" /><span className="cm-service-photo-label">LA EXPERIENCIA HUMANA</span></div>
           <div className="cm-service-story"><h3>{item.title}</h3><p>{item.person}</p></div>
