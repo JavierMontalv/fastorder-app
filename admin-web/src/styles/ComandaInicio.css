@@ -102,7 +102,7 @@
 .cm-reel-heading p{font-size:16px;line-height:1.8;color:#c4d1c8;max-width:430px;margin:0 0 5px auto}
 .cm-reel-window{overflow:hidden}
 .cm-reel-track{display:flex;gap:20px;width:max-content;padding:0 20px;animation:cm-reel-flow 34s linear infinite}
-.cm-reel-window:hover .cm-reel-track,.cm-reel-window:focus-within .cm-reel-track{animation-play-state:paused}
+
 .cm-reel-track figure{width:clamp(300px,37vw,510px);aspect-ratio:4/3;position:relative;overflow:hidden;border-radius:16px;background:#253d32;flex:none}
 .cm-reel-track img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
 .cm-reel-track figure:hover img{transform:scale(1.035)}
@@ -174,3 +174,20 @@
 .cm-journey-line b{flex:0 0 30px;width:30px;height:30px;border:1px solid #ff7658;background:#0d281f;color:#ff8066;box-shadow:0 0 0 4px #ff76580d}
 @media(max-width:760px){.cm-journey-line{margin:0 22px 24px;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.cm-journey-line span,.cm-journey-line span:not(:first-child),.cm-journey-line span:last-child{font-size:9px!important;padding:9px;justify-content:flex-start!important}.cm-journey-line b{width:27px;height:27px;flex-basis:27px}}
 @media(max-width:390px){.cm-journey-line{grid-template-columns:1fr}}
+
+/* Interactive journey: one scene every 1.5 s, independent of hover/focus. */
+.cm-reel-track{animation:none;transition:transform .52s cubic-bezier(.22,.68,.1,1);will-change:transform}
+.cm-reel-track figure{margin:0}
+.cm-journey-line button{appearance:none;position:relative;display:flex;align-items:center;justify-content:flex-start;gap:11px;min-height:54px;min-width:0;padding:11px 13px;border:1px solid #ffffff28;border-radius:13px;background:linear-gradient(145deg,#173b2f,#112c23);color:#e6eee6;box-shadow:inset 0 1px #ffffff0a,0 8px 22px #06140d24;font-family:inherit;font-size:12px;font-weight:700;line-height:1.4;letter-spacing:.055em;text-transform:uppercase;cursor:pointer;text-align:left;transition:background .22s,border-color .22s,box-shadow .22s,translate .22s}
+.cm-journey-line button.is-active{background:linear-gradient(130deg,#28503c,#1a3e2e);border-color:#ff977c;box-shadow:inset 0 1px #ffffff16,0 8px 25px #0002;color:#fff9eb}
+.cm-journey-line button.is-active b{background:#ff8066;color:#172c22;border-color:#ffac96;box-shadow:0 0 0 4px #ff80661a}
+.cm-journey-line button:focus-visible,.cm-reel-toggle:focus-visible{outline:3px solid #ffa88f;outline-offset:4px}
+.cm-reel-toolbar{display:flex;justify-content:flex-end;margin:-12px 48px 18px}
+.cm-reel-toggle{display:inline-flex;align-items:center;gap:8px;border:1px solid #ffffff36;border-radius:999px;padding:8px 13px;background:#ffffff08;color:#dfebdf;font:inherit;font-size:12px;min-height:38px;cursor:pointer;transition:background .2s,border-color .2s}
+.cm-reel-toggle span{font-size:15px;line-height:1;color:#ffa087}
+.cm-floating-cta{top:50%;bottom:auto;transform:translateY(-50%);animation:none}
+.cm-floating-cta:hover{transform:translateY(calc(-50% - 3px))}
+@media(hover:hover){.cm-journey-line button:hover{background:linear-gradient(130deg,#31513b,#1e3f2d);border-color:#ff9c80;translate:0 -2px;box-shadow:0 12px 30px #0003}.cm-reel-toggle:hover{background:#ffffff13;border-color:#ffa087}}
+@media(max-width:760px){.cm-journey-line{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.cm-journey-line button{font-size:11px;padding:10px;gap:9px;min-height:52px;white-space:normal}.cm-reel-toolbar{margin:-6px 22px 18px}.cm-reel-toggle{font-size:12px;min-height:40px}.cm-floating-cta{right:max(10px,env(safe-area-inset-right));top:50%;bottom:auto;padding:11px 13px}.cm-floating-cta span{font-size:12px}}
+@media(max-width:350px){.cm-journey-line button{font-size:10px;gap:7px;padding:9px}.cm-journey-line b{width:25px;height:25px;flex-basis:25px}}
+@media(prefers-reduced-motion:reduce){.cm-reel-track{transition:none!important}.cm-reel-track figure:nth-child(n){display:block}.cm-reel-window{overflow:hidden;scroll-snap-type:none}.cm-journey-line button,.cm-reel-toggle{transition:none;translate:none}.cm-floating-cta:hover{transform:translateY(-50%)}}

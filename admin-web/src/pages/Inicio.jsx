@@ -91,10 +91,64 @@ const reelItems = [
 ];
 
 function PhotoReel() {
-  return <section className="cm-photo-reel" aria-labelledby="cm-reel-title">
+  const [position, setPosition] = useState(0);
+  const [stepWidth, setStepWidth] = useState(0);
+  const [animated, setAnimated] = useState(true);
+  const [paused, setPaused] = useState(false);
+  const [selectionEpoch, setSelectionEpoch] = useState(0);
+  const trackRef = useRef(null);
+  const viewportRef = useRef(null);
+  const active = position % reelItems.length;
+
+  useEffect(() => {
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const syncMotion = () => setPaused(motion.matches);
+    syncMotion();
+    motion.addEventListener('change', syncMotion);
+    return () => motion.removeEventListener('change', syncMotion);
+  }, []);
+
+  useEffect(() => {
+    const measure = () => {
+      const track = trackRef.current;
+      if (!track?.firstElementChild) return;
+      setStepWidth(track.firstElementChild.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || '0'));
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(viewportRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (paused) return;
+    const timer = window.setInterval(() => {
+      if (document.visibilityState === 'hidden') return;
+      setAnimated(true);
+      setPosition(index => index >= reelItems.length ? 1 : index + 1);
+    }, 1500);
+    return () => window.clearInterval(timer);
+  }, [paused, selectionEpoch]);
+
+  function selectStep(index) {
+    setAnimated(true);
+    setPosition(index);
+    setSelectionEpoch(epoch => epoch + 1);
+  }
+
+  function finishTransition(event) {
+    if (event.target !== event.currentTarget || event.propertyName !== 'transform') return;
+    if (position === reelItems.length) {
+      setAnimated(false);
+      setPosition(0);
+    }
+  }
+
+  return <section className="cm-photo-reel" aria-labelledby="cm-reel-title" aria-roledescription="carrusel">
     <div className="cm-reel-heading"><span className="cm-eyebrow">EL RECORRIDO COMPLETO DE COMANDA</span><h2 id="cm-reel-title">Del QR a la mesa.<br /><em>Todo conectado.</em></h2><p>Cuatro momentos, una sola experiencia: el cliente pide con facilidad y tu equipo sabe qué hacer después.</p></div>
-    <div className="cm-journey-line" aria-hidden="true">{reelItems.map(item => <span key={item.step}><b>{item.step}</b>{item.label}</span>)}</div>
-    <div className="cm-reel-window"><div className="cm-reel-track">{[...reelItems, ...reelItems].map((item, index) => <figure key={`${item.src}-${index}`} aria-hidden={index >= reelItems.length}><img src={item.src} alt={index < reelItems.length ? item.title : ''} loading="lazy" width="1600" height="900" /><span className={`cm-journey-status cm-journey-status-${item.step}`}>{item.status}</span><figcaption><small><b>{item.step}</b> {item.label} · {item.text}</small><strong>{item.title}</strong></figcaption></figure>)}</div></div>
+    <div className="cm-journey-line" role="group" aria-label="Elige un momento del recorrido">{reelItems.map((item, index) => <button type="button" key={item.step} className={active === index ? 'is-active' : ''} aria-pressed={active === index} aria-controls="cm-reel-viewport" onClick={() => selectStep(index)}><b aria-hidden="true">{item.step}</b>{item.label}</button>)}</div>
+    <div className="cm-reel-toolbar"><button type="button" className="cm-reel-toggle" aria-controls="cm-reel-viewport" onClick={() => setPaused(value => !value)}><span aria-hidden="true">{paused ? '▷' : 'Ⅱ'}</span>{paused ? 'Reanudar recorrido' : 'Pausar recorrido'}</button></div>
+    <div className="cm-reel-window" id="cm-reel-viewport" ref={viewportRef} aria-live="off"><div className="cm-reel-track" ref={trackRef} data-active-step={active + 1} data-playing={!paused} onTransitionEnd={finishTransition} style={{ transform: `translate3d(-${position * stepWidth}px, 0, 0)`, transition: animated ? undefined : 'none' }}>{[...reelItems, ...reelItems].map((item, index) => <figure key={`${item.src}-${index}`} aria-hidden={index >= reelItems.length}><img src={item.src} alt={index < reelItems.length ? item.title : ''} loading={index < 2 ? 'eager' : 'lazy'} decoding="async" width="1600" height="900" /><span className={`cm-journey-status cm-journey-status-${item.step}`}>{item.status}</span><figcaption><small><b>{item.step}</b> {item.label} · {item.text}</small><strong>{item.title}</strong></figcaption></figure>)}</div></div>
     <div className="cm-reel-promise"><span><b>01</b> ESCANEA</span><span><b>02</b> PIDE</span><span><b>03</b> PREPARA</span><span><b>04</b> ENTREGA</span><strong>UN QR. TODO EL SERVICIO CONECTADO.</strong></div>
   </section>;
 }
