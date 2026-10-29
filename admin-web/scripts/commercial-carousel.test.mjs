@@ -28,3 +28,9 @@ test('optional commercial guides collapse and the timeline hands off compactly t
   assert.match(styleSource, /\.cm-public \.cm-service-timeline\{padding-bottom:10px\}/);
   assert.match(styleSource, /\.cm-public \.cm-plans\{padding-top:24px\}/);
 });
+
+test('commercial questions use compact two-item rows with a centered final question', () => {
+  assert.match(styleSource, /\.cm-public \.cm-faq>div:last-child\{display:grid;grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
+  assert.match(styleSource, /\.cm-public \.cm-faq details:last-child\{grid-column:1\/-1;width:calc\(50% - 6px\);justify-self:center\}/);
+  assert.match(styleSource, /@media\(max-width:760px\)[\s\S]*?\.cm-public \.cm-faq>div:last-child\{grid-template-columns:1fr/);
+});

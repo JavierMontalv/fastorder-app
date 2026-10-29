@@ -190,6 +190,16 @@
 @media(hover:hover){.cm-resource-disclosure>summary:hover{border-color:#6f8b72;box-shadow:0 14px 34px #203a2818}.cm-resource-disclosure>summary:hover .cm-disclosure-action i{background:#c64a30}}
 @media(max-width:760px){.cm-public .cm-service-timeline{padding-bottom:4px}.cm-public .cm-plans{padding-top:18px}.cm-resource-disclosure{padding-top:18px!important;padding-bottom:18px!important}.cm-resource-disclosure>summary{align-items:flex-start;padding:16px;gap:14px}.cm-resource-disclosure>summary strong{font-size:21px}.cm-disclosure-action{font-size:0;gap:0}.cm-disclosure-action i{width:30px;height:30px}.cm-resource-disclosure>div{margin-top:12px!important}}
 @media(prefers-reduced-motion:reduce){.cm-disclosure-action i{transition:none}}
+
+/* FAQ in two-question rows: compact on desktop, effortless to scan. */
+.cm-public .cm-faq{grid-template-columns:minmax(280px,.8fr) minmax(0,1.45fr);gap:44px;align-items:start;padding-top:46px;padding-bottom:46px}
+.cm-public .cm-faq>div:last-child{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.cm-public .cm-faq details,.cm-public .cm-faq details:first-child{margin:0;padding:18px 17px;border:1px solid #d4ddd0;border-radius:12px;background:#fffdf9;min-width:0}
+.cm-public .cm-faq details:last-child{grid-column:1/-1;width:calc(50% - 6px);justify-self:center}
+.cm-public .cm-faq summary{align-items:flex-start;line-height:1.45}
+.cm-public .cm-faq details p{margin:13px 0 0;padding-top:12px;border-top:1px solid #e1e6dc}
+@media(hover:hover){.cm-public .cm-faq details:hover{border-color:#7f977f;background:#f4f7f0}}
+@media(max-width:760px){.cm-public .cm-faq{grid-template-columns:1fr;gap:24px;padding-top:34px;padding-bottom:34px}.cm-public .cm-faq>div:last-child{grid-template-columns:1fr;gap:9px}.cm-public .cm-faq details:last-child{grid-column:auto;width:100%}.cm-public .cm-faq details,.cm-public .cm-faq details:first-child{padding:16px}}
 @media(max-width:390px){.cm-journey-line{grid-template-columns:1fr}}
 
 /* Interactive journey: one scene every 1.5 s, independent of hover/focus. */
