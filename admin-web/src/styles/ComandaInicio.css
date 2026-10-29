@@ -391,8 +391,9 @@
   border-radius:30px;
   margin-top:28px;
   margin-bottom:28px;
-  background:#f8f8f2;
+  background:#ffe8dc;
   box-shadow:0 28px 80px #1b35251a;
+  animation:cm-ambient-surface 14s cubic-bezier(.45,.05,.55,.95) infinite alternate;
 }
 .cm-home .cm-sales-hero::before,
 .cm-home .cm-sales-hero::after{
@@ -433,6 +434,12 @@
   0%{transform:translate3d(6%,5%,0) scale(1.08);opacity:.7}
   52%{transform:translate3d(-32%,-24%,0) scale(.96);opacity:.88}
   100%{transform:translate3d(-67%,-11%,0) scale(1.14);opacity:.66}
+}
+@keyframes cm-ambient-surface{
+  0%{background-color:#ffe8dc}
+  36%{background-color:#f8edd6}
+  68%{background-color:#e8f4e7}
+  100%{background-color:#dff1e4}
 }
 @media(max-width:760px){
   .cm-home .cm-sales-hero{margin:16px 12px 22px;padding-inline:22px;border-radius:22px}

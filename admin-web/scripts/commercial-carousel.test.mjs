@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import test from 'node:test';
+
+const pageSource = await readFile(new URL('../src/pages/Inicio.jsx', import.meta.url), 'utf8');
+const styleSource = await readFile(new URL('../src/styles/ComandaInicio.css', import.meta.url), 'utf8');
+
+test('commercial carousels autoplay independently from image and OS animation preferences', () => {
+  assert.doesNotMatch(pageSource, /setPaused\(motion\.matches\)/);
+  assert.doesNotMatch(pageSource, /paused\s*\|\|\s*!photosReady/);
+  assert.match(pageSource, /paused\s*\|\|\s*stepWidth\s*<=\s*0/);
+  assert.match(pageSource, /setInterval[\s\S]*?6000/);
+  assert.match(pageSource, /setInterval[\s\S]*?4200/);
+  assert.match(pageSource, /Pausar vistas/);
+  assert.match(pageSource, /Pausar recorrido automático/);
+});
+
+test('hero cycles through visibly distinct, brand-safe ambient colors', () => {
+  assert.match(styleSource, /animation:cm-ambient-surface 14s/);
+  assert.match(styleSource, /@keyframes cm-ambient-surface/);
+  assert.match(styleSource, /#ffe8dc/);
+  assert.match(styleSource, /#dff1e4/);
+});
