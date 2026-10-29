@@ -184,6 +184,8 @@ function JourneyImage({ src, alt, loading = 'lazy', onReady, ...props }) {
     if (image?.complete && image.naturalWidth > 0) {
       setLoaded(true);
       readyCallback.current?.();
+    } else if (image?.complete && image.naturalWidth === 0) {
+      if (attempt < 2) setAttempt(value => value + 1); else setUnavailable(true);
     }
   }, [src, attempt]);
   const base = src.replace(/\.webp$/, '');
