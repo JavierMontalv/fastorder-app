@@ -73,6 +73,45 @@ function Activation({ plan, ready, onLegal, onBack }) {
   </section>;
 }
 
+
+function ProductPreview() {
+  return <div className="cm-product-art" aria-label="Vista ilustrativa del menú y del panel de pedidos de Comanda">
+    <div className="cm-art-grid" /><span className="cm-art-caption">DISEÑADO PARA EL RITMO DE TU RESTAURANTE</span>
+    <div className="cm-hero-qr"><img src="/landing/comanda-qr.png" alt="Código QR de demostración para abrir Comanda" /><div><strong>Escanea el QR</strong><span>Abre el menú al instante</span></div></div>
+    <div className="cm-order-preview"><div className="cm-order-top"><img src="/brand/comanda-favicon-192.png" width="40" height="40" alt="" /><strong>Tu operación, conectada</strong><span>● En línea</span></div><div className="cm-order-heading"><h3>Pedidos en curso</h3><span>Vista demo</span></div><div className="cm-order-columns"><div><small>RECIBIDOS <b>02</b></small><article><span>Mesa 04 <em>Nuevo</em></span><strong>2 × Burger de la casa</strong><p>1 × Papas artesanales</p><div>$ 58.000 <span>Hace un momento</span></div></article><article><span>Mesa 08</span><strong>1 × Combo especial</strong><p>Sin cebolla</p></article></div><div><small>EN PREPARACIÓN <b>01</b></small><article><span>Mesa 02 <em>En cocina</em></span><strong>1 × Burger especial</strong><p>1 × Limonada natural</p><div>$ 32.000 <span>Hace 3 min</span></div></article></div></div></div>
+    <div className="cm-phone"><div className="cm-phone-notch" /><div className="cm-phone-cover"><img src="/landing/burger.webp" alt="Hamburguesa con pan artesanal, queso y vegetales" fetchPriority="high" /><span>MENÚ DIGITAL<br /><b>Tu restaurante</b></span></div><div className="cm-phone-body"><div className="cm-phone-greeting"><span>Elige lo que te gusta.</span><small>● Abierto</small></div><h3>Menú claro.<br />Pedido fácil.</h3><div className="cm-menu-tabs"><strong>Destacados</strong><span>Comidas</span><span>Bebidas</span></div><div className="cm-food-row"><div><strong>Burger de la casa</strong><p>Carne a la parrilla, queso<br />y salsa especial.</p><b>$ 24.900</b></div><div className="cm-food-visual"><img src="/landing/burger.webp" alt="" /><button type="button" tabIndex="-1" aria-hidden="true">+</button></div></div><div className="cm-food-row"><div><strong>Papas artesanales</strong><p>Crocantes y recién hechas.</p><b>$ 8.900</b></div><div className="cm-food-visual"><img src="/landing/fries.webp" alt="Papas fritas" /><button type="button" tabIndex="-1" aria-hidden="true">+</button></div></div><div className="cm-phone-cart"><strong>1 producto</strong><span>Ir a canasta →</span></div></div></div>
+    <small className="cm-art-disclaimer">Vista ilustrativa · Productos y pedidos de demostración</small>
+  </div>;
+}
+
+
+function HeroVisual() {
+  const [slide, setSlide] = useState(0);
+  const [paused, setPaused] = useState(false);
+  useEffect(() => {
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setPaused(motion.matches);
+    sync(); motion.addEventListener('change', sync);
+    return () => motion.removeEventListener('change', sync);
+  }, []);
+  useEffect(() => {
+    if (paused) return;
+    const timer = window.setInterval(() => { if (document.visibilityState !== 'hidden') setSlide(value => (value + 1) % 2); }, 6000);
+    return () => window.clearInterval(timer);
+  }, [paused]);
+  return <div className="cm-hero-carousel" role="region" aria-label="Conoce COMANDA" aria-roledescription="carrusel">
+    <div className="cm-hero-scenes" aria-live="off">
+      <div className="cm-hero-scene" hidden={slide !== 0}><div className="cm-switch-visual" aria-label="Del localizador físico al pedido digital identificado por mesa">
+          <div className="cm-switch-before"><span className="cm-switch-tag">EL LOCALIZADOR</span><div className="cm-pager" aria-hidden="true"><span className="cm-pager-leds">● ● ●</span><div><small>TURNO</small><b>08</b></div><span className="cm-pager-leds">● ● ●</span></div><p>Un dispositivo para llamar.</p></div>
+          <span className="cm-switch-arrow" aria-hidden="true">↗</span>
+          <div className="cm-switch-after"><span className="cm-switch-tag">LA EXPERIENCIA COMANDA</span><div className="cm-switch-order"><div className="cm-switch-order-top"><img src="/brand/comanda-favicon-192.png" width="32" height="32" alt="" /><strong>comanda</strong><span>EN LÍNEA</span></div><div className="cm-switch-table"><span>Pedido identificado</span><b>Mesa 08</b></div><div className="cm-switch-dish"><img src="/landing/burger.webp" alt="" width="64" height="64" loading="lazy" /><div><strong>2 × Burger de la casa</strong><span>La orden, clara para tu equipo.</span></div></div><div className="cm-switch-state"><i /> Recibido <span>→</span> En preparación</div></div><p>Menú, pedido y mesa. Conectados.</p></div>
+        </div></div>
+      <div className="cm-hero-scene cm-hero-product-scene" hidden={slide !== 1}><ProductPreview /></div>
+    </div>
+    <div className="cm-hero-scene-controls"><div role="group" aria-label="Elige una vista"><button type="button" aria-pressed={slide === 0} onClick={() => setSlide(0)}>Del localizador al QR</button><button type="button" aria-pressed={slide === 1} onClick={() => setSlide(1)}>Menú y pedidos</button></div><button type="button" className="cm-hero-scene-pause" onClick={() => setPaused(value => !value)} aria-label={paused ? 'Reanudar vistas' : 'Pausar vistas'}>{paused ? '▷' : 'Ⅱ'}</button></div>
+  </div>;
+}
+
 const reelItems = [
   { src: '/landing/journey-01-scan.webp', step: '01', label: 'Escanea', title: 'El QR abre el menú', text: 'Sin descargar aplicaciones.', status: 'QR listo' },
   { src: '/landing/journey-02-order.webp', step: '02', label: 'Elige y agrega', title: 'El cliente arma su pedido', text: 'Fotos, precios y botones claros.', status: '+ Agregar' },
@@ -174,11 +213,7 @@ export default function Inicio({ initialPortal = null }) {
           <div className="cm-switch-actions"><a className="cm-button" href="#planes">Quiero COMANDA en mi negocio <span aria-hidden="true">↗</span></a><a className="cm-text-link" href="#cm-reel-title">Mira cómo funciona <span aria-hidden="true">↓</span></a></div>
           <small>Pedidos por mesa en Pro y Premium. Requiere internet. La entrega la realiza tu equipo.</small>
         </div>
-        <div className="cm-switch-visual" aria-label="Del localizador físico al pedido digital identificado por mesa">
-          <div className="cm-switch-before"><span className="cm-switch-tag">EL LOCALIZADOR</span><div className="cm-pager" aria-hidden="true"><span className="cm-pager-leds">● ● ●</span><div><small>TURNO</small><b>08</b></div><span className="cm-pager-leds">● ● ●</span></div><p>Un dispositivo para llamar.</p></div>
-          <span className="cm-switch-arrow" aria-hidden="true">↗</span>
-          <div className="cm-switch-after"><span className="cm-switch-tag">LA EXPERIENCIA COMANDA</span><div className="cm-switch-order"><div className="cm-switch-order-top"><img src="/brand/comanda-favicon-192.png" width="32" height="32" alt="" /><strong>comanda</strong><span>EN LÍNEA</span></div><div className="cm-switch-table"><span>Pedido identificado</span><b>Mesa 08</b></div><div className="cm-switch-dish"><img src="/landing/burger.webp" alt="" width="64" height="64" loading="lazy" /><div><strong>2 × Burger de la casa</strong><span>La orden, clara para tu equipo.</span></div></div><div className="cm-switch-state"><i /> Recibido <span>→</span> En preparación</div></div><p>Menú, pedido y mesa. Conectados.</p></div>
-        </div>
+        <HeroVisual />
       </section>
       <PhotoReel />
       <section className="cm-section" id="solucion"><div className="cm-section-heading"><div><span className="cm-eyebrow">MENÚ, PEDIDOS Y CONTROL EN UN SOLO LUGAR</span><h2>Todo lo necesario para<br /><em>vender y atender mejor.</em></h2></div><p>Empieza con un menú QR y añade pedidos por mesa y analítica según las necesidades de tu restaurante.</p></div><div className="cm-benefits">{benefits.map(([number, title, text, label]) => <article key={number}><div><span>{number}</span><span className="cm-feature-icon" aria-hidden="true">{number === '01' ? '▦' : number === '02' ? '↗' : '◷'}</span></div><small>{label}</small><h3>{title}</h3><p>{text}</p></article>)}</div></section>
