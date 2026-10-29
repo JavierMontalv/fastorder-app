@@ -134,12 +134,6 @@ function HeroVisual() {
   const heroDrag = useHorizontalDrag(delta => { if (Math.abs(delta) > 35) moveHero(delta < 0 ? 1 : -1); });
   const [paused, setPaused] = useState(false);
   useEffect(() => {
-    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const sync = () => setPaused(motion.matches);
-    sync(); motion.addEventListener('change', sync);
-    return () => motion.removeEventListener('change', sync);
-  }, []);
-  useEffect(() => {
     if (paused) return;
     const timer = window.setInterval(() => { if (document.visibilityState !== 'hidden' && !heroDrag.dragRef.current) setSlide(value => (value + 1) % 2); }, 6000);
     return () => window.clearInterval(timer);
@@ -221,14 +215,6 @@ function PhotoReel() {
   const reelDrag = useHorizontalDrag(delta => { if (Math.abs(delta) > Math.min(60, stepWidth * .18)) moveReel(delta < 0 ? 1 : -1); });
 
   useEffect(() => {
-    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const syncMotion = () => setPaused(motion.matches);
-    syncMotion();
-    motion.addEventListener('change', syncMotion);
-    return () => motion.removeEventListener('change', syncMotion);
-  }, []);
-
-  useEffect(() => {
     const measure = () => {
       const track = trackRef.current;
       if (!track?.firstElementChild) return;
@@ -241,14 +227,14 @@ function PhotoReel() {
   }, []);
 
   useEffect(() => {
-    if (paused || !photosReady) return;
+    if (paused || stepWidth <= 0) return;
     const timer = window.setInterval(() => {
       if (document.visibilityState === 'hidden' || reelDrag.dragRef.current) return;
       setAnimated(true);
       setPosition(index => index + 1);
-    }, 1500);
+    }, 4200);
     return () => window.clearInterval(timer);
-  }, [paused, selectionEpoch, photosReady]);
+  }, [paused, selectionEpoch, stepWidth]);
 
   function selectStep(index) {
     setAnimated(true);
@@ -268,7 +254,7 @@ function PhotoReel() {
     <div className="cm-reel-heading"><span className="cm-eyebrow">EL RECORRIDO COMPLETO DE COMANDA</span><h2 id="cm-reel-title">Del QR a la mesa.<br /><em>Todo conectado.</em></h2><p>Cuatro momentos, una sola experiencia: el cliente pide con facilidad y tu equipo sabe qué hacer después.</p></div>
     <div className="cm-journey-line" role="group" aria-label="Elige un momento del recorrido">{reelItems.map((item, index) => <button type="button" key={item.step} className={active === index ? 'is-active' : ''} aria-pressed={active === index} aria-controls="cm-reel-viewport" onClick={() => selectStep(index)}><b aria-hidden="true">{item.step}</b>{item.label}</button>)}</div>
     <div className="cm-reel-toolbar"><CarouselArrows label="Recorrido fotográfico" light previous={() => moveReel(-1)} next={() => moveReel(1)} /><button type="button" className="cm-reel-toggle" aria-controls="cm-reel-viewport" aria-label={paused ? 'Reproducir recorrido automático' : 'Pausar recorrido automático'} aria-pressed={paused} onClick={() => setPaused(value => !value)}><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false">{paused ? <path d="M6 3.5 16 10 6 16.5Z" fill="currentColor" /> : <><rect x="5" y="4" width="3" height="12" rx="1" fill="currentColor" /><rect x="12" y="4" width="3" height="12" rx="1" fill="currentColor" /></>}</svg><span className="cm-reel-toggle-label">{paused ? 'Reproducir' : 'Pausar'}</span></button></div>
-    <div className="cm-reel-window" id="cm-reel-viewport" ref={viewportRef} aria-live="off" {...reelDrag.bind} data-dragging={reelDrag.dragging}><div className="cm-reel-track" ref={trackRef} data-active-step={active + 1} data-playing={!paused && photosReady} aria-busy={!photosReady} onTransitionEnd={finishTransition} style={{ transform: `translate3d(${-(position * stepWidth) + reelDrag.offset}px, 0, 0)`, transition: animated && !reelDrag.dragging ? undefined : 'none' }}>{[...reelItems, ...reelItems, ...reelItems].map((item, index) => <figure key={`${item.src}-${index}`} aria-hidden={index < reelItems.length || index >= reelItems.length * 2}><JourneyImage src={item.src} onReady={() => markPhotoReady(item.src)} alt={index >= reelItems.length && index < reelItems.length * 2 ? item.title : ''} loading="eager" width="1600" height="900" /><span className={`cm-journey-status cm-journey-status-${item.step}`}>{item.status}</span><figcaption><small><b>{item.step}</b> {item.label} · {item.text}</small><strong>{item.title}</strong></figcaption></figure>)}</div></div>
+    <div className="cm-reel-window" id="cm-reel-viewport" ref={viewportRef} aria-live="off" {...reelDrag.bind} data-dragging={reelDrag.dragging}><div className="cm-reel-track" ref={trackRef} data-active-step={active + 1} data-playing={!paused} aria-busy={!photosReady} onTransitionEnd={finishTransition} style={{ transform: `translate3d(${-(position * stepWidth) + reelDrag.offset}px, 0, 0)`, transition: animated && !reelDrag.dragging ? undefined : 'none' }}>{[...reelItems, ...reelItems, ...reelItems].map((item, index) => <figure key={`${item.src}-${index}`} aria-hidden={index < reelItems.length || index >= reelItems.length * 2}><JourneyImage src={item.src} onReady={() => markPhotoReady(item.src)} alt={index >= reelItems.length && index < reelItems.length * 2 ? item.title : ''} loading="eager" width="1600" height="900" /><span className={`cm-journey-status cm-journey-status-${item.step}`}>{item.status}</span><figcaption><small><b>{item.step}</b> {item.label} · {item.text}</small><strong>{item.title}</strong></figcaption></figure>)}</div></div>
     <div className="cm-reel-promise"><span><b>01</b> ESCANEA</span><span><b>02</b> PIDE</span><span><b>03</b> PREPARA</span><span><b>04</b> ENTREGA</span><strong>UN QR. TODO EL SERVICIO CONECTADO.</strong></div>
   </section>;
 }
