@@ -356,3 +356,12 @@
 @media(min-width:1024px) and (hover:hover) and (pointer:fine){.cm-carousel-arrows{display:flex}.cm-hero-swipe-window,.cm-reel-window,.cm-service-window{cursor:grab}}
 @media(max-width:1023px),(hover:none),(pointer:coarse){.cm-reel-toolbar{justify-content:flex-end}.cm-service-navigation{margin:0;padding:0}.cm-hero-carousel>.cm-carousel-arrows{display:none}}
 @media(prefers-reduced-motion:reduce){.cm-service-roll{animation:none;translate:0 0!important}.cm-carousel-arrows button{transition:none}.cm-service-navigation{display:none}}
+
+/* Compact playback control, kept away from the floating conversion action. */
+.cm-reel-toggle{min-height:44px;padding:9px 15px;gap:8px;border-radius:12px;background:#ffffff09;border-color:#ffffff30;box-shadow:inset 0 1px #ffffff08}
+.cm-reel-toggle>svg{flex:none;color:#ffa88d}
+.cm-reel-toggle .cm-reel-toggle-label{font-size:12px;font-weight:700;line-height:1.4;color:#edf3e8;letter-spacing:.02em}
+.cm-reel-toggle[aria-pressed=true]{background:#fff3de;color:#1a3929;border-color:#fff3de}
+.cm-reel-toggle[aria-pressed=true]>svg{color:#315d3f}
+.cm-reel-toggle[aria-pressed=true] .cm-reel-toggle-label{color:#234431}
+@media(max-width:1023px),(hover:none),(pointer:coarse){.cm-reel-toolbar{justify-content:flex-start;gap:10px;margin-top:-7px}.cm-reel-toggle{min-width:110px;justify-content:center;min-height:44px}.cm-reel-toolbar .cm-carousel-arrows{display:none}}
