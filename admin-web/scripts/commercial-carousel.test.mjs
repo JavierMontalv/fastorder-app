@@ -34,3 +34,12 @@ test('commercial questions use compact two-item rows with a centered final quest
   assert.match(styleSource, /\.cm-public \.cm-faq details:last-child\{grid-column:1\/-1;width:calc\(50% - 6px\);justify-self:center\}/);
   assert.match(styleSource, /@media\(max-width:760px\)[\s\S]*?\.cm-public \.cm-faq>div:last-child\{grid-template-columns:1fr/);
 });
+
+test('plan cards are compact, tiered and conversion-focused', () => {
+  assert.match(pageSource, /data-plan=\{plan\.clave\}/);
+  assert.match(pageSource, /MÁS ELEGIDO/);
+  assert.match(pageSource, /Empezar con Básico/);
+  assert.match(pageSource, /Crecer con Premium/);
+  assert.match(styleSource, /\.cm-public \.cm-plan\{[\s\S]*?min-height:500px/);
+  assert.match(styleSource, /\.cm-public \.cm-plan-pro\{[\s\S]*?transform:translateY\(-6px\)/);
+});

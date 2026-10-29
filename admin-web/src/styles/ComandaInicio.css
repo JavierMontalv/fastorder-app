@@ -200,6 +200,32 @@
 .cm-public .cm-faq details p{margin:13px 0 0;padding-top:12px;border-top:1px solid #e1e6dc}
 @media(hover:hover){.cm-public .cm-faq details:hover{border-color:#7f977f;background:#f4f7f0}}
 @media(max-width:760px){.cm-public .cm-faq{grid-template-columns:1fr;gap:24px;padding-top:34px;padding-bottom:34px}.cm-public .cm-faq>div:last-child{grid-template-columns:1fr;gap:9px}.cm-public .cm-faq details:last-child{grid-column:auto;width:100%}.cm-public .cm-faq details,.cm-public .cm-faq details:first-child{padding:16px}}
+
+/* Compact, premium plan cards designed for confident comparison and conversion. */
+.cm-public .cm-plan-grid{gap:14px;align-items:stretch}
+.cm-public .cm-plan{isolation:isolate;display:flex;flex-direction:column;min-height:500px;padding:22px 22px 20px;border-radius:18px;overflow:hidden;background:linear-gradient(160deg,#fff 0%,#fcfdf9 72%,#eef4ea 100%);box-shadow:0 14px 34px #1735250c;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.cm-public .cm-plan:before{content:'';position:absolute;z-index:-1;inset:0 0 auto;height:4px;background:linear-gradient(90deg,#6f9574,#b9ceb4)}
+.cm-public .cm-plan-pro{border-color:#e66b4d;background:linear-gradient(160deg,#fffaf6 0%,#fff 58%,#fff0e7 100%);box-shadow:0 20px 46px #b94b3020;transform:translateY(-6px)}
+.cm-public .cm-plan-pro:before{background:linear-gradient(90deg,#ff8062,#e93617,#ffad75)}
+.cm-public .cm-plan-ia{background:linear-gradient(160deg,#fff 0%,#f7fbf6 62%,#e4f0e7 100%)}
+.cm-public .cm-plan-ia:before{background:linear-gradient(90deg,#244b36,#5f8b68,#9fbea3)}
+.cm-public .cm-plan-top{min-height:28px;font-size:9px;line-height:1.4}
+.cm-public .cm-plan-top b{padding:6px 9px;border-radius:999px;background:#ffe1d6;color:#ae351f;font-size:7px;box-shadow:inset 0 0 0 1px #f4b6a3}
+.cm-public .cm-plan h3{margin:11px 0 5px;font-size:24px}
+.cm-public .cm-plan>p{min-height:18px;margin:0;font-size:11px;line-height:1.55}
+.cm-public .cm-price{margin:17px 0 13px;font-size:37px;line-height:1;letter-spacing:-2.4px}
+.cm-public .cm-price small{font-size:9px}
+.cm-public .cm-plan ul{min-height:150px;margin-top:10px;padding-top:14px}
+.cm-public .cm-plan li{gap:9px;margin-bottom:7px;font-size:10px;line-height:1.5}
+.cm-public .cm-plan li>span{display:grid;place-items:center;width:17px;height:17px;margin-top:1px;border-radius:50%;background:#fce9e1;color:#cf4327;font-size:9px}
+.cm-public .cm-plan-limits{margin-top:auto;padding:12px;border:0;border-radius:11px;background:#eef3ea;gap:7px;font-size:8px}
+.cm-public .cm-plan-pro .cm-plan-limits{background:#fff0e9}
+.cm-public .cm-plan-limits>span{padding:2px 0}
+.cm-public .cm-plan .cm-button{margin-top:13px;border-radius:11px;min-height:43px;font-size:11px;box-shadow:none}
+.cm-public .cm-plan-pro .cm-button{box-shadow:0 10px 25px #dc3d2326}
+@media(hover:hover){.cm-public .cm-plan:hover{transform:translateY(-5px);box-shadow:0 22px 48px #1735251a}.cm-public .cm-plan-pro:hover{transform:translateY(-10px);box-shadow:0 26px 54px #b94b3028}}
+@media(max-width:760px){.cm-public .cm-plan-grid{gap:16px}.cm-public .cm-plan,.cm-public .cm-plan-pro{min-height:0;padding:21px 19px 18px;transform:none}.cm-public .cm-plan ul{min-height:0}.cm-public .cm-plan>p{min-height:0}.cm-public .cm-price{font-size:38px}.cm-public .cm-plan-limits{margin-top:4px}}
+@media(prefers-reduced-motion:reduce){.cm-public .cm-plan{transition:none}.cm-public .cm-plan:hover,.cm-public .cm-plan-pro:hover{transform:none}}
 @media(max-width:390px){.cm-journey-line{grid-template-columns:1fr}}
 
 /* Interactive journey: one scene every 1.5 s, independent of hover/focus. */
