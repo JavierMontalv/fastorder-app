@@ -18,11 +18,6 @@ const planFeatures = {
   pro: ['Todo lo incluido en Comanda Básico.', 'Pedidos desde la mesa y QR por mesa.', 'Estados de los pedidos para organizar al equipo.', 'Promociones y analítica comercial.', 'Configuración inicial del restaurante.'],
   ia: ['Todo lo incluido en Comanda Pro.', 'Productos destacados y promociones.', 'Reportes de los productos más vistos o pedidos.', 'Mayor capacidad de productos, usuarios y pedidos.']
 };
-const benefits = [
-  ['01', 'Tu menú, listo para vender.', 'Muestra fotos, categorías, precios y disponibilidad en una carta diseñada para el celular.', 'Menú QR'],
-  ['02', 'Cada pedido con su mesa.', 'Con Pro y Premium, la orden llega al panel con la referencia que tu equipo necesita para atenderla.', 'Pedidos por mesa'],
-  ['03', 'Decide con datos reales.', 'Consulta qué productos ven o piden tus clientes y usa esa información para organizar tus promociones.', 'Control comercial']
-];
 const questions = [
   ['¿Necesito instalar una aplicación?', 'Tus clientes consultan el menú desde su navegador al escanear el QR. Tú administras el restaurante desde el panel web. Se necesita conexión a internet.'],
   ['¿Cuál es el plan para empezar?', 'Básico está pensado para publicar y actualizar tu carta digital. Si quieres recibir pedidos desde la mesa y consultar analítica comercial, elige Pro. Premium amplía tu capacidad de productos, usuarios y pedidos.'],
@@ -195,6 +190,32 @@ function PhotoReel() {
   </section>;
 }
 
+
+const serviceJourney = [
+  { number: '01', audience: 'CLIENTE', title: 'Elige y confirma.', image: '/landing/journey-02-order.webp', alt: 'Cliente eligiendo su pedido desde el celular en el restaurante', person: 'Consulta el menú, elige sus productos y confirma desde la mesa.', systemLabel: 'DESDE EL CELULAR', systemTitle: 'Mi pedido · Mesa 08', detail: '2 × Burger de la casa', state: 'Pedido enviado', phase: 0 },
+  { number: '02', audience: 'RESTAURANTE', title: 'La orden queda registrada.', image: '/landing/journey-03-kitchen.webp', alt: 'Integrante del equipo frente al panel de pedidos del restaurante', person: 'El equipo recibe los productos y la mesa en una orden clara.', systemLabel: 'EN EL PANEL COMANDA', systemTitle: 'Nueva orden · Mesa 08', detail: '2 productos · Una misma mesa', state: 'Recibido', phase: 1 },
+  { number: '03', audience: 'EQUIPO', title: 'Cocina toma el relevo.', image: '/landing/journey-03-kitchen.webp', alt: 'Cocinero preparando los alimentos de un pedido', person: 'Prepara la orden y actualiza su estado desde el panel.', systemLabel: 'EL EQUIPO ACTUALIZA', systemTitle: 'En preparación', detail: 'Mesa 08 · Orden en cocina', state: 'Preparando', phase: 2 },
+  { number: '04', audience: 'CLIENTE', title: 'Consulta cómo va.', image: '/landing/journey-01-scan.webp', alt: 'Persona consultando en su celular mientras espera en la mesa', person: 'Revisa el estado de su pedido desde la vista de seguimiento.', systemLabel: 'EL CLIENTE CONSULTA', systemTitle: 'Tu pedido está en preparación', detail: 'Recibido → En preparación → Listo', state: 'Estado del pedido', phase: 2 },
+  { number: '05', audience: 'MESA Y EQUIPO', title: 'Listo para disfrutar.', image: '/landing/journey-04-serve.webp', alt: 'Mesera entregando los platos a dos personas sentadas a la mesa', person: 'El equipo entrega los platos y marca la orden como entregada.', systemLabel: 'EL SERVICIO SE COMPLETA', systemTitle: 'Pedido entregado', detail: 'Mesa 08 · Del primer clic al plato', state: 'Entregado', phase: 3 }
+];
+
+function ServiceTimeline() {
+  return <section className="cm-service-timeline" id="solucion" aria-labelledby="cm-service-title">
+    <div className="cm-service-heading"><div><span className="cm-eyebrow">PERSONAS Y TECNOLOGÍA, EN EL MISMO RECORRIDO</span><h2 id="cm-service-title">Tu cliente pide.<br /><em>Todo el equipo se conecta.</em></h2></div><div className="cm-service-summary"><p>Una misma orden. Dos experiencias que avanzan juntas: la de quien espera en la mesa y la de quien hace posible el servicio.</p><div className="cm-service-legend"><span><i /> Cliente</span><span><i /> Equipo + COMANDA</span></div></div></div>
+    <div className="cm-service-window" aria-label="Recorrido ilustrativo de un pedido, en cinco etapas"><div className="cm-service-roll">
+      {[0,1].map(copy => <ol className="cm-service-sequence" key={copy} aria-hidden={copy === 1 ? true : undefined}>{serviceJourney.map(item => <li className={'cm-service-moment cm-service-phase-' + item.phase} key={item.number}>
+        <div className="cm-service-milestone"><span>{item.number}</span><small>{item.audience}</small><i aria-hidden="true" /></div>
+        <article className="cm-service-card"><div className="cm-service-photo"><img src={item.image} alt={copy === 0 ? item.alt : ''} width="1600" height="900" loading="lazy" decoding="async" /><span className="cm-service-photo-label">LA EXPERIENCIA HUMANA</span></div>
+          <div className="cm-service-story"><h3>{item.title}</h3><p>{item.person}</p></div>
+          <div className="cm-service-ticket"><div className="cm-service-ticket-head"><img src="/brand/comanda-favicon-192.png" width="24" height="24" alt="" /><small>{item.systemLabel}</small><span aria-hidden="true">↗</span></div><strong>{item.systemTitle}</strong><p>{item.detail}</p><div className="cm-service-progress" aria-hidden="true">{[0,1,2,3].map(index => <i key={index} className={index <= item.phase ? 'is-complete' : ''} />)}</div><span className="cm-service-state"><i aria-hidden="true" />{item.state}</span></div>
+        </article>
+      </li>)}</ol>)}
+    </div></div>
+    <div className="cm-service-footnote"><strong>Una orden conecta cada paso.</strong><span>Recorrido ilustrativo · Pedidos por mesa y estados en Pro y Premium.</span></div>
+  </section>;
+}
+
+
 export default function Inicio({ initialPortal = null }) {
   const [params, setParams] = useSearchParams();
   const [portal, setPortal] = useState(initialPortal);
@@ -229,7 +250,7 @@ export default function Inicio({ initialPortal = null }) {
         <HeroVisual />
       </section>
       <PhotoReel />
-      <section className="cm-section" id="solucion"><div className="cm-section-heading"><div><span className="cm-eyebrow">MENÚ, PEDIDOS Y CONTROL EN UN SOLO LUGAR</span><h2>Todo lo necesario para<br /><em>vender y atender mejor.</em></h2></div><p>Empieza con un menú QR y añade pedidos por mesa y analítica según las necesidades de tu restaurante.</p></div><div className="cm-benefits">{benefits.map(([number, title, text, label]) => <article key={number}><div><span>{number}</span><span className="cm-feature-icon" aria-hidden="true">{number === '01' ? '▦' : number === '02' ? '↗' : '◷'}</span></div><small>{label}</small><h3>{title}</h3><p>{text}</p></article>)}</div></section>
+      <ServiceTimeline />
       <section className="cm-section cm-plans" id="planes"><div className="cm-section-heading"><div><span className="cm-eyebrow">ELIGE LO QUE TU RESTAURANTE NECESITA</span><h2>Un plan claro.<br /><em>Sin pagar de más.</em></h2></div><p>Precios mensuales en pesos colombianos.<br />Compara funciones y capacidad antes de elegir.</p></div>
         {portal ? <div className="cm-plan-grid">{portal.plans.cards.filter(plan => names[plan.clave]).map(plan => <article key={plan.clave} className={`cm-plan ${plan.clave === 'pro' ? 'cm-plan-featured' : ''}`}><div className="cm-plan-top"><span>{copy[plan.clave][1]}</span>{plan.clave === 'pro' ? <b>PEDIDOS POR MESA</b> : null}</div><h3>Comanda {names[plan.clave]}</h3><p>{copy[plan.clave][0]}</p><div className="cm-price">{currency(plan.precioMensualCOP)}<small>COP / mes</small></div><ul>{planFeatures[plan.clave].map(item => <li key={item}><span>✓</span>{item}</li>)}</ul><div className="cm-plan-limits"><span><b>{plan.limites.productos.toLocaleString('es-CO')}</b> productos</span><span><b>{plan.limites.usuarios}</b> usuarios</span>{plan.limites.pedidosMes ? <span>Hasta <b>{plan.limites.pedidosMes.toLocaleString('es-CO')}</b> pedidos / mes</span> : null}</div><a className={`cm-button cm-plan-link ${plan.clave === 'pro' ? '' : 'cm-button-outline'}`} href={`${ADMIN_ORIGIN}/inicio?plan=${({ base: 'basico', ia: 'premium' }[plan.clave] || plan.clave)}&modo=activar`}>Elegir {names[plan.clave]} ↗</a></article>)}</div> : <div className="cm-plan-loading" role="status">{loadError ? <><p>No pudimos cargar los planes. Puedes volver a intentarlo o escribir a comercial@somosbreviatech.com.</p><button className="cm-button" onClick={() => { setLoadError(false); setAttempt(attempt + 1); }}>Volver a cargar planes</button></> : 'Cargando los planes vigentes…'}</div>}
         {loadError && portal ? <p className="cm-error" role="status">No pudimos actualizar los precios. Confírmalos con nuestro equipo antes de contratar.</p> : null}<p className="cm-plan-note">Activación sujeta a validación comercial y, cuando corresponda, confirmación de pago. ¿Varias sedes? <a href="mailto:comercial@somosbreviatech.com?subject=Cotizaci%C3%B3n%20Comanda%20multisede">Solicita una propuesta.</a></p>
