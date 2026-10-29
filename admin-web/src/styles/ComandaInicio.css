@@ -211,3 +211,16 @@
 .cm-floating-cta{animation:cm-cta-vibrate 1s ease-in-out infinite}
 .cm-floating-cta:hover{animation-play-state:running}
 @media(prefers-reduced-motion:reduce){.cm-floating-cta{animation:none;translate:0 0;rotate:0deg}}
+
+/* A single, responsive sales hero: problem, product, price and action together. */
+.cm-public .cm-sales-hero{margin:40px auto 34px;padding:clamp(28px,4vw,58px) clamp(22px,3.5vw,48px);gap:clamp(24px,3vw,48px);grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+.cm-sales-hero h1{font-size:clamp(36px,3.6vw,54px);line-height:1.1;letter-spacing:-.055em;margin:20px 0;max-width:680px;text-wrap:balance}.cm-sales-hero h1 em{display:block;color:#ba482f}
+.cm-sales-hero .cm-switch-copy>p{font-size:16px;line-height:1.75}.cm-sales-hero .cm-switch-lead{font-size:20px;line-height:1.5}
+.cm-sales-hero .cm-sales-price{margin:24px 0 0!important;padding:16px 0;border-block:1px solid #d8ddd0;color:#344b3d;font-size:14px}.cm-sales-price strong{font-size:23px;color:#172e22;white-space:nowrap;letter-spacing:-.7px}.cm-sales-price strong>span{font-size:12px;letter-spacing:0}.cm-sales-price small{display:block;font-size:12px;color:#5b6c5e;margin-top:5px}
+.cm-sales-hero .cm-switch-actions{margin:20px 0 14px}.cm-sales-hero .cm-switch-copy>small{font-size:11px}
+.cm-public main,.cm-public section,.cm-public .cm-switch-copy,.cm-public .cm-section-heading>div{min-width:0}
+.cm-public .cm-footer a{overflow-wrap:anywhere}
+@media(min-width:761px) and (max-width:1000px){.cm-public .cm-sales-hero{margin-inline:24px;grid-template-columns:1fr 1fr;padding:32px 24px;gap:24px}.cm-sales-hero h1{font-size:39px}.cm-sales-hero .cm-switch-copy>p{font-size:14px}.cm-sales-hero .cm-switch-lead{font-size:17px}.cm-sales-hero .cm-switch-actions{flex-direction:column;align-items:stretch}.cm-sales-hero .cm-text-link{text-align:center}.cm-switch-visual{gap:10px}.cm-switch-order-top strong{font-size:13px}.cm-switch-order-top>span{font-size:5px}}
+@media(max-width:760px){.cm-public .cm-sales-hero{grid-template-columns:1fr;margin:22px 16px 24px;padding:28px 22px;gap:30px}.cm-sales-hero h1{font-size:clamp(32px,8.7vw,50px);line-height:1.12}.cm-sales-hero .cm-switch-copy>p{font-size:16px}.cm-sales-hero .cm-switch-lead{font-size:18px}.cm-sales-hero .cm-switch-actions .cm-button{min-height:48px;font-size:13px}.cm-sales-hero .cm-switch-actions .cm-text-link{min-height:40px;display:flex;align-items:center;justify-content:center}.cm-public .cm-menu-button{min-height:44px}.cm-public .cm-faq summary{min-height:44px}.cm-public .cm-plan-link{min-height:48px}.cm-switch-visual{grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr)}}
+@media(max-width:360px){.cm-public .cm-sales-hero{margin-inline:12px;padding-inline:18px}.cm-sales-hero h1{font-size:32px}.cm-sales-price strong{font-size:21px}.cm-switch-visual{gap:12px}.cm-switch-order{padding:10px}.cm-switch-order-top{gap:4px}.cm-switch-order-top img{width:20px;height:20px}.cm-switch-order-top strong{font-size:12px}.cm-switch-order-top>span{font-size:4px}.cm-switch-dish{flex-wrap:wrap}.cm-switch-state{flex-wrap:wrap}.cm-switch-tag{font-size:6px}.cm-reel-heading h2{font-size:34px}.cm-public .cm-price{font-size:36px}}
+@media(min-width:1800px){.cm-public .cm-sales-hero{margin-top:52px}.cm-sales-hero h1{font-size:54px}.cm-switch-visual{gap:25px}}

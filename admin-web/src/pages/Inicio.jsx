@@ -73,16 +73,6 @@ function Activation({ plan, ready, onLegal, onBack }) {
   </section>;
 }
 
-function ProductPreview() {
-  return <div className="cm-product-art" aria-label="Vista ilustrativa del menú y del panel de pedidos de Comanda">
-    <div className="cm-art-grid" /><span className="cm-art-caption">DISEÑADO PARA EL RITMO DE TU RESTAURANTE</span>
-    <div className="cm-hero-qr"><img src="/landing/comanda-qr.png" alt="Código QR de demostración para abrir Comanda" /><div><strong>Escanea el QR</strong><span>Abre el menú al instante</span></div></div>
-    <div className="cm-order-preview"><div className="cm-order-top"><img src="/brand/comanda-favicon-192.png" width="40" height="40" alt="" /><strong>Tu operación, conectada</strong><span>● En línea</span></div><div className="cm-order-heading"><h3>Pedidos en curso</h3><span>Vista demo</span></div><div className="cm-order-columns"><div><small>RECIBIDOS <b>02</b></small><article><span>Mesa 04 <em>Nuevo</em></span><strong>2 × Burger de la casa</strong><p>1 × Papas artesanales</p><div>$ 58.000 <span>Hace un momento</span></div></article><article><span>Mesa 08</span><strong>1 × Combo especial</strong><p>Sin cebolla</p></article></div><div><small>EN PREPARACIÓN <b>01</b></small><article><span>Mesa 02 <em>En cocina</em></span><strong>1 × Burger especial</strong><p>1 × Limonada natural</p><div>$ 32.000 <span>Hace 3 min</span></div></article></div></div></div>
-    <div className="cm-phone"><div className="cm-phone-notch" /><div className="cm-phone-cover"><img src="/landing/burger.webp" alt="Hamburguesa con pan artesanal, queso y vegetales" fetchPriority="high" /><span>MENÚ DIGITAL<br /><b>Tu restaurante</b></span></div><div className="cm-phone-body"><div className="cm-phone-greeting"><span>Elige lo que te gusta.</span><small>● Abierto</small></div><h3>Menú claro.<br />Pedido fácil.</h3><div className="cm-menu-tabs"><strong>Destacados</strong><span>Comidas</span><span>Bebidas</span></div><div className="cm-food-row"><div><strong>Burger de la casa</strong><p>Carne a la parrilla, queso<br />y salsa especial.</p><b>$ 24.900</b></div><div className="cm-food-visual"><img src="/landing/burger.webp" alt="" /><button type="button" tabIndex="-1" aria-hidden="true">+</button></div></div><div className="cm-food-row"><div><strong>Papas artesanales</strong><p>Crocantes y recién hechas.</p><b>$ 8.900</b></div><div className="cm-food-visual"><img src="/landing/fries.webp" alt="Papas fritas" /><button type="button" tabIndex="-1" aria-hidden="true">+</button></div></div><div className="cm-phone-cart"><strong>1 producto</strong><span>Ir a canasta →</span></div></div></div>
-    <small className="cm-art-disclaimer">Vista ilustrativa · Productos y pedidos de demostración</small>
-  </div>;
-}
-
 const reelItems = [
   { src: '/landing/journey-01-scan.webp', step: '01', label: 'Escanea', title: 'El QR abre el menú', text: 'Sin descargar aplicaciones.', status: 'QR listo' },
   { src: '/landing/journey-02-order.webp', step: '02', label: 'Elige y agrega', title: 'El cliente arma su pedido', text: 'Fotos, precios y botones claros.', status: '+ Agregar' },
@@ -174,15 +164,13 @@ export default function Inicio({ initialPortal = null }) {
     <a className="cm-skip" href="#contenido">Saltar al contenido</a>
     <header className="cm-nav"><a className="cm-brand" href={`${SITE_ORIGIN}${HOME_PATH}`}><img src="/brand/comanda-favicon-192.png" width="40" height="40" alt="" /><strong>comanda</strong></a><button className="cm-menu-button" aria-expanded={menu} aria-controls="cm-navigation" onClick={() => setMenu(!menu)}>Menú {menu ? '×' : '+'}</button><nav id="cm-navigation" className={menu ? 'is-open' : ''} aria-label="Navegación principal"><a href="#solucion" onClick={() => setMenu(false)}>La solución</a><a href="#como-funciona" onClick={() => setMenu(false)}>Cómo funciona</a><a href="#planes" onClick={() => setMenu(false)}>Planes</a><a className="cm-nav-access" href={`${ADMIN_ORIGIN}/admin`}>Ingresar a mi restaurante ↗</a></nav></header>
     <main id="contenido">
-      <section className="cm-hero"><div className="cm-hero-copy"><span className="cm-eyebrow"><i /> MENÚ QR Y PEDIDOS PARA RESTAURANTES</span><h1>Tu menú en un QR.<br /><em>Tus pedidos en orden.</em></h1><p>Haz que pedir sea fácil y atender sea más simple.</p><div className="cm-hero-actions"><a className="cm-button" href="#planes">Empieza con Comanda <span>↗</span></a><a className="cm-text-link" href="#como-funciona">Ver cómo funciona →</a></div>{portal?.plans?.cards?.find(plan => plan.clave === 'base') ? <p className="cm-entry-price">Menú QR desde <strong>{currency(portal.plans.cards.find(plan => plan.clave === 'base').precioMensualCOP)} COP/mes</strong> · Pedidos por mesa en Pro y Premium.</p> : null}<div className="cm-hero-foot"><span>MENOS CONFUSIÓN.<br /><b>MEJOR SERVICIO.</b></span><div><strong>QR</strong><span>Sin descargar apps.<br />Desde cualquier celular.</span></div></div></div><ProductPreview /></section>
-      <div className="cm-trust-strip"><span>DE LA MESA A TU PANEL.</span><strong>Menú fácil de consultar <i>↗</i></strong><strong>Pedidos identificados <i>↗</i></strong><strong>Operación más clara <i>↗</i></strong></div>
-
-      <section className="cm-switch" aria-labelledby="cm-switch-title">
+      <section className="cm-switch cm-sales-hero" aria-labelledby="cm-switch-title">
         <div className="cm-switch-copy">
           <span className="cm-eyebrow"><i /> DA EL SIGUIENTE PASO EN TU SERVICIO</span>
-          <h2 id="cm-switch-title">¿Todavía entregas un localizador <em>con cada pedido?</em></h2>
+          <h1 id="cm-switch-title">¿Todavía entregas un localizador <em>con cada pedido?</em></h1>
           <p className="cm-switch-lead">El siguiente paso está en el celular de tu cliente.</p>
           <p>Con COMANDA, escanea el QR, elige y pide desde la mesa. Tu equipo recibe la orden identificada en el panel y gestiona su preparación en un solo lugar.</p>
+          {portal?.plans?.cards?.find(plan => plan.clave === 'base') ? <p className="cm-sales-price">Menú QR desde <strong>{currency(portal.plans.cards.find(plan => plan.clave === 'base').precioMensualCOP)} <span>COP/mes</span></strong><small>Pedidos por mesa en Pro y Premium.</small></p> : null}
           <div className="cm-switch-actions"><a className="cm-button" href="#planes">Quiero COMANDA en mi negocio <span aria-hidden="true">↗</span></a><a className="cm-text-link" href="#cm-reel-title">Mira cómo funciona <span aria-hidden="true">↓</span></a></div>
           <small>Pedidos por mesa en Pro y Premium. Requiere internet. La entrega la realiza tu equipo.</small>
         </div>
