@@ -247,3 +247,18 @@
 @media(max-width:760px){.cm-hero-scenes{min-height:390px}.cm-public .cm-hero-carousel .cm-product-art{height:410px;border-top-left-radius:65px}.cm-hero-carousel .cm-phone{width:180px;right:7px;top:90px}.cm-hero-carousel .cm-order-preview{top:48px;padding:10px}.cm-hero-carousel .cm-art-caption{font-size:5px;right:10px;top:21px}.cm-hero-carousel .cm-hero-qr{bottom:26px;left:8px}.cm-hero-carousel .cm-hero-qr div{display:none}.cm-hero-carousel .cm-hero-qr img{width:39px;height:39px}.cm-hero-scene-controls{gap:6px}.cm-hero-scene-controls button{padding:9px;font-size:9px}.cm-hero-carousel .cm-art-disclaimer{font-size:5px;bottom:8px;left:12px}}
 @media(max-width:360px){.cm-public .cm-hero-carousel .cm-product-art{height:390px}.cm-hero-carousel .cm-phone{width:165px;right:4px}.cm-hero-carousel .cm-phone-cover{height:103px}.cm-hero-scenes{min-height:390px}}
 @media(prefers-reduced-motion:reduce){.cm-hero-scene{animation:none}.cm-floating-cta{animation:none}}
+
+/* Original vector illustration of the familiar round pager charging system. */
+.cm-round-pagers{display:block;width:100%;max-width:220px;height:auto;margin:auto;overflow:visible}
+.cm-switch-before .cm-switch-tag{margin-bottom:8px}
+.cm-switch-before>p{margin-top:8px}
+.cm-hero-scenes{min-height:550px}
+.cm-public .cm-hero-carousel .cm-product-art{height:530px}
+.cm-hero-carousel .cm-phone{top:80px}
+.cm-hero-scene-controls{min-height:44px}
+.cm-hero-scene-controls>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;flex:1}
+.cm-hero-scene-controls button{min-height:44px;line-height:1.3}
+.cm-hero-scene-controls .cm-hero-scene-pause{flex:none}
+@media(min-width:761px) and (max-width:1000px){.cm-public .cm-hero-carousel .cm-product-art{height:510px}.cm-hero-scenes{min-height:530px}.cm-round-pagers{max-width:180px}}
+@media(max-width:760px){.cm-hero-scenes{min-height:520px}.cm-public .cm-hero-carousel .cm-product-art{height:500px}.cm-hero-carousel .cm-phone{top:70px}.cm-round-pagers{max-width:180px}.cm-hero-scene-controls{gap:5px}.cm-hero-scene-controls>div{gap:5px}.cm-hero-scene-controls button{font-size:9px;padding:8px 5px}.cm-hero-scene-controls .cm-hero-scene-pause{width:38px}}
+@media(max-width:360px){.cm-public .cm-hero-carousel .cm-product-art{height:490px}.cm-hero-scenes{min-height:510px}.cm-round-pagers{max-width:145px}.cm-hero-scene-controls button{font-size:8px}.cm-sales-hero .cm-switch-copy>small{font-size:10px}}
