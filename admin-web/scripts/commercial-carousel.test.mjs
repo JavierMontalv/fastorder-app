@@ -43,3 +43,10 @@ test('plan cards are compact, tiered and conversion-focused', () => {
   assert.match(styleSource, /\.cm-public \.cm-plan\{[\s\S]*?min-height:500px/);
   assert.match(styleSource, /\.cm-public \.cm-plan-pro\{[\s\S]*?transform:translateY\(-6px\)/);
 });
+
+test('commercial header and hero keep a compact premium first fold', () => {
+  assert.match(styleSource, /\.cm-home>\.cm-nav\{[\s\S]*?padding-block:18px/);
+  assert.match(styleSource, /\.cm-home \.cm-sales-hero\{[\s\S]*?margin-top:14px/);
+  assert.match(styleSource, /padding-block:clamp\(26px,3vw,42px\)/);
+  assert.match(styleSource, /@media\(max-width:760px\)[\s\S]*?\.cm-home>\.cm-nav\{padding-block:14px\}/);
+});

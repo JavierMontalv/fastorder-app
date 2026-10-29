@@ -442,11 +442,23 @@
   overflow:hidden;
   border:1px solid #dce3d9;
   border-radius:30px;
-  margin-top:28px;
+  margin-top:14px;
   margin-bottom:28px;
   background:#ffe8dc;
   box-shadow:0 28px 80px #1b35251a;
   animation:cm-ambient-surface 14s cubic-bezier(.45,.05,.55,.95) infinite alternate;
+}
+
+/* Compact commercial entry: less empty space, same calm premium hierarchy. */
+.cm-home>.cm-nav{
+  padding-block:18px;
+}
+.cm-home>.cm-nav .cm-brand img{
+  width:37px;
+  height:37px;
+}
+.cm-home .cm-sales-hero{
+  padding-block:clamp(26px,3vw,42px);
 }
 .cm-home .cm-sales-hero::before,
 .cm-home .cm-sales-hero::after{
@@ -495,7 +507,8 @@
   100%{background-color:#dff1e4}
 }
 @media(max-width:760px){
-  .cm-home .cm-sales-hero{margin:16px 12px 22px;padding-inline:22px;border-radius:22px}
+  .cm-home>.cm-nav{padding-block:14px}
+  .cm-home .cm-sales-hero{margin:10px 12px 22px;padding:24px 22px;border-radius:22px}
   .cm-home .cm-sales-hero::before,.cm-home .cm-sales-hero::after{width:125%;filter:blur(18px)}
   .cm-home .cm-sales-hero::before{top:-35%;left:-68%}
   .cm-home .cm-sales-hero::after{right:-70%;bottom:-40%}
