@@ -376,3 +376,70 @@
 .cm-reel-track img[data-ready=false],.cm-service-photo img[data-ready=false]{opacity:0}
 .cm-reel-track img[data-ready=true],.cm-service-photo img[data-ready=true]{opacity:1}
 .cm-image-unavailable{display:grid;place-items:center;width:100%;height:100%;padding:28px;text-align:center;color:#edf3e7;background:linear-gradient(145deg,#204232,#112a20);font:600 13px/1.7 'Plus Jakarta Sans',sans-serif}
+
+/*
+ * Brand ambient hero.
+ * Two GPU-composited color fields drift behind the commercial message. The
+ * content keeps a stable color and contrast while the atmosphere moves softly
+ * through Comanda's coral, sage and warm-cream palette.
+ */
+.cm-home .cm-sales-hero{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  border:1px solid #dce3d9;
+  border-radius:30px;
+  margin-top:28px;
+  margin-bottom:28px;
+  background:#f8f8f2;
+  box-shadow:0 28px 80px #1b35251a;
+}
+.cm-home .cm-sales-hero::before,
+.cm-home .cm-sales-hero::after{
+  content:'';
+  position:absolute;
+  z-index:0;
+  width:78%;
+  aspect-ratio:1;
+  border-radius:50%;
+  pointer-events:none;
+  will-change:transform,opacity;
+  filter:blur(22px);
+}
+.cm-home .cm-sales-hero::before{
+  top:-74%;
+  left:-24%;
+  background:radial-gradient(circle,rgba(255,112,79,.46) 0%,rgba(247,181,112,.25) 36%,rgba(255,255,255,0) 70%);
+  animation:cm-ambient-coral 18s cubic-bezier(.45,.05,.55,.95) infinite alternate;
+}
+.cm-home .cm-sales-hero::after{
+  right:-27%;
+  bottom:-83%;
+  background:radial-gradient(circle,rgba(113,174,135,.42) 0%,rgba(185,213,171,.27) 38%,rgba(255,255,255,0) 72%);
+  animation:cm-ambient-sage 21s cubic-bezier(.45,.05,.55,.95) infinite alternate;
+}
+.cm-home .cm-sales-hero>.cm-switch-copy,
+.cm-home .cm-sales-hero>.cm-hero-carousel{position:relative;z-index:1}
+.cm-home .cm-product-art{
+  background:rgba(233,236,227,.86);
+  backdrop-filter:blur(10px) saturate(108%);
+}
+@keyframes cm-ambient-coral{
+  0%{transform:translate3d(-4%,-2%,0) scale(.94);opacity:.72}
+  48%{transform:translate3d(35%,20%,0) scale(1.08);opacity:.9}
+  100%{transform:translate3d(72%,10%,0) scale(1.16);opacity:.62}
+}
+@keyframes cm-ambient-sage{
+  0%{transform:translate3d(6%,5%,0) scale(1.08);opacity:.7}
+  52%{transform:translate3d(-32%,-24%,0) scale(.96);opacity:.88}
+  100%{transform:translate3d(-67%,-11%,0) scale(1.14);opacity:.66}
+}
+@media(max-width:760px){
+  .cm-home .cm-sales-hero{margin:16px 12px 22px;padding-inline:22px;border-radius:22px}
+  .cm-home .cm-sales-hero::before,.cm-home .cm-sales-hero::after{width:125%;filter:blur(18px)}
+  .cm-home .cm-sales-hero::before{top:-35%;left:-68%}
+  .cm-home .cm-sales-hero::after{right:-70%;bottom:-40%}
+}
+@media(prefers-reduced-motion:reduce){
+  .cm-home .cm-sales-hero::before,.cm-home .cm-sales-hero::after{animation:none;will-change:auto}
+}
