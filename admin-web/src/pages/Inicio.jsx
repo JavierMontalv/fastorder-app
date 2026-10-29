@@ -176,9 +176,19 @@ function JourneyImage({ src, alt, loading = 'lazy', onReady, ...props }) {
   const [attempt, setAttempt] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [unavailable, setUnavailable] = useState(false);
+  const imageRef = useRef(null);
+  const readyCallback = useRef(onReady);
+  readyCallback.current = onReady;
+  useEffect(() => {
+    const image = imageRef.current;
+    if (image?.complete && image.naturalWidth > 0) {
+      setLoaded(true);
+      readyCallback.current?.();
+    }
+  }, [src, attempt]);
   const base = src.replace(/\.webp$/, '');
   if (unavailable) return <span className="cm-image-unavailable" role="img" aria-label={alt + ': fotografía temporalmente no disponible'}>Fotografía temporalmente no disponible</span>;
-  return <img {...props} src={attempt === 1 ? src : base + '-960.jpg' + (attempt === 2 ? '?retry=1' : '')}
+  return <img {...props} ref={imageRef} src={attempt === 1 ? src : base + '-960.jpg' + (attempt === 2 ? '?retry=1' : '')}
     srcSet={attempt === 0 ? base + '-960.jpg 960w, ' + base + '-1600.jpg 1600w' : undefined}
     sizes="(max-width: 760px) 82vw, (max-width: 1100px) 40vw, 510px"
     alt={alt} loading={loading} decoding="async" data-ready={loaded}
