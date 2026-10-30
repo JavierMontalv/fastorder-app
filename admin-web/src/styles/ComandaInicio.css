@@ -446,7 +446,7 @@
   margin-bottom:28px;
   background:#ffe8dc;
   box-shadow:0 28px 80px #1b35251a;
-  animation:cm-ambient-surface 14s cubic-bezier(.45,.05,.55,.95) infinite alternate;
+  animation:cm-ambient-surface 10s cubic-bezier(.45,.05,.55,.95) infinite alternate;
 }
 
 /* Compact commercial entry: less empty space, same calm premium hierarchy. */
@@ -476,13 +476,13 @@
   top:-74%;
   left:-24%;
   background:radial-gradient(circle,rgba(255,112,79,.46) 0%,rgba(247,181,112,.25) 36%,rgba(255,255,255,0) 70%);
-  animation:cm-ambient-coral 18s cubic-bezier(.45,.05,.55,.95) infinite alternate;
+  animation:cm-ambient-coral 13s cubic-bezier(.45,.05,.55,.95) infinite alternate;
 }
 .cm-home .cm-sales-hero::after{
   right:-27%;
   bottom:-83%;
   background:radial-gradient(circle,rgba(113,174,135,.42) 0%,rgba(185,213,171,.27) 38%,rgba(255,255,255,0) 72%);
-  animation:cm-ambient-sage 21s cubic-bezier(.45,.05,.55,.95) infinite alternate;
+  animation:cm-ambient-sage 15s cubic-bezier(.45,.05,.55,.95) infinite alternate;
 }
 .cm-home .cm-sales-hero>.cm-switch-copy,
 .cm-home .cm-sales-hero>.cm-hero-carousel{position:relative;z-index:1}
@@ -529,3 +529,5 @@
 .cm-switch-arrow{color:#3f704c;background:#eff1e4}
 @media(max-width:760px){.cm-retired-device{max-width:110px}.cm-retired-mark{border-width:2px;box-shadow:0 0 0 2px #fff6e9aa}.cm-retired-mark:after{height:2px}.cm-switch-before .cm-switch-tag{font-size:6px;letter-spacing:.6px}.cm-switch-before>p{font-size:8px}}
 @media(max-width:360px){.cm-switch-before>p{font-size:7px}.cm-retired-mark{box-shadow:none}}
+
+@media(prefers-reduced-motion:reduce){.cm-home .cm-sales-hero{animation:none}}
