@@ -170,7 +170,7 @@ Resources:
           }
           if (uri === '/descubre') return redirect('https://www.somoscomanda.com/' + search);
           if (uri === '/') { request.uri = host === 'admin.somoscomanda.com' ? '/index.html' : '/landing.html'; return request; }
-          var privateRoute = /^\/(admin|login|cambiar-password|onboarding|pedidos|productos|reservas|promociones|categorias|configuracion|analiticas|auditoria|usuarios|soporte-ia|superadmin|display)(\/|$)/.test(uri) || uri === '/planes/gracias';
+          var privateRoute = /^\/(pagos|admin|login|cambiar-password|onboarding|pedidos|productos|reservas|promociones|categorias|configuracion|analiticas|auditoria|usuarios|soporte-ia|superadmin|display)(\/|$)/.test(uri) || uri === '/planes/gracias';
           if (privateRoute) {
             if (host !== 'admin.somoscomanda.com') return redirect('https://admin.somoscomanda.com' + uri + search);
             request.uri = '/index.html'; return request;
