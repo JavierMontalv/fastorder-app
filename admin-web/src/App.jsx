@@ -1,3 +1,4 @@
+import Billing, { BillingResult } from './pages/Billing';
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import './App.css';
@@ -63,6 +64,8 @@ export default function App() {
               />
 
               <Routes>
+                <Route path="/pagos" element={<Billing />} />
+                <Route path="/pagos/resultado" element={<BillingResult />} />
                 <Route path="/inicio" element={<Inicio />} />
                 <Route path="/admin" element={<AdminLogin />} />
                 <Route path="/login" element={<LegacyLogin />} />
