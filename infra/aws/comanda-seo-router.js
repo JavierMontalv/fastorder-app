@@ -34,12 +34,12 @@ function handler(event) {
   }
   if (uri === '/descubre') return redirect('https://www.somoscomanda.com/' + search);
   if (uri === '/') { request.uri = host === 'admin.somoscomanda.com' ? '/index.html' : '/landing.html'; return request; }
-  var privateRoute = /^\/(admin|login|cambiar-password|onboarding|pedidos|productos|reservas|promociones|categorias|configuracion|analiticas|auditoria|usuarios|soporte-ia|superadmin|display)(\/|$)/.test(uri) || uri === '/planes/gracias';
+  var privateRoute = /^\/(pagos|admin|login|cambiar-password|onboarding|pedidos|productos|reservas|promociones|categorias|configuracion|analiticas|auditoria|usuarios|soporte-ia|superadmin|display)(\/|$)/.test(uri) || uri === '/planes/gracias';
   if (privateRoute) {
     if (host !== 'admin.somoscomanda.com') return redirect('https://admin.somoscomanda.com' + uri + search);
     request.uri = '/index.html'; return request;
   }
   var segment = uri.substring(uri.lastIndexOf('/') + 1);
   if (segment.indexOf('.') !== -1) return request;
-  return { statusCode: 404, statusDescription: 'Not Found', headers: { 'content-type': { value: 'text/html; charset=utf-8' }, 'x-robots-tag': { value: 'noindex,follow' }, 'cache-control': { value: 'public,max-age=60' } }, body: { encoding: 'text', data: '<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Página no encontrada | Comanda</title><body style="font-family:system-ui;background:#faf9f5;color:#182821;padding:10vh 8vw"><p>COMANDA</p><h1>Esta página no está disponible.</h1><a href="https://www.somoscomanda.com/">Volver a Comanda</a></body></html>' } };
+  return { statusCode: 404, statusDescription: 'Not Found', headers: { 'content-type': { value: 'text/html; charset=utf-8' }, 'x-robots-tag': { value: 'noindex,follow' }, 'cache-control': { value: 'public,max-age=60' } }, body: { encoding: 'text', data: '<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PÃ¡gina no encontrada | Comanda</title><body style="font-family:system-ui;background:#faf9f5;color:#182821;padding:10vh 8vw"><p>COMANDA</p><h1>Esta pÃ¡gina no estÃ¡ disponible.</h1><a href="https://www.somoscomanda.com/">Volver a Comanda</a></body></html>' } };
 }
