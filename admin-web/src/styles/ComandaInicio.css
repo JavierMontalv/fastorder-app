@@ -531,3 +531,6 @@
 @media(max-width:360px){.cm-switch-before>p{font-size:7px}.cm-retired-mark{box-shadow:none}}
 
 @media(prefers-reduced-motion:reduce){.cm-home .cm-sales-hero{animation:none}}
+
+/* Clip the drifting color fields without creating an internal keyboard-scroll area. */
+.cm-home .cm-sales-hero{overflow:clip}
