@@ -16,7 +16,7 @@ test('commercial carousels autoplay independently from image and OS animation pr
 });
 
 test('hero cycles through visibly distinct, brand-safe ambient colors', () => {
-  assert.match(styleSource, /animation:cm-ambient-surface 14s/);
+  assert.match(styleSource, /animation:cm-ambient-surface 10s/);
   assert.match(styleSource, /@keyframes cm-ambient-surface/);
   assert.match(styleSource, /#ffe8dc/);
   assert.match(styleSource, /#dff1e4/);
