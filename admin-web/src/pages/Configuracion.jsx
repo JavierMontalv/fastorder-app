@@ -1255,6 +1255,7 @@ export default function Configuracion() {
   return (
     <div className="configuracion-page config-workspace" data-config-section={activeSection}>
       <section className="configuracion-hero">
+        <a href="/pagos?modo=mensualidad" className="config-workspace-pay" style={{padding:16,borderRadius:12,background:"#183e2c",color:"white",fontWeight:700,alignSelf:"center"}}>Pagar mensualidad ↗</a>
         <div className="configuracion-hero-copy">
           <span className="configuracion-kicker">TU RESTAURANTE, EN ORDEN</span>
           <h1>Configura tu restaurante.</h1>

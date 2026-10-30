@@ -112,6 +112,8 @@ export default function Sidebar({
       {abierto && <div className="sidebar-section-label">Inicio</div>}
 
       <nav className="sidebar-menu">
+        {['admin','owner'].includes(user?.rol) && <NavLink to="/pagos?modo=mensualidad" className={linkClass} onClick={handleNavigation} {...tooltipProps('Pagar mensualidad')}><FiCreditCard /><span>Pagar mensualidad</span></NavLink>}
+
         {capacidadadesToBool(capacidades?.puedeVerDashboard) && (
           <SidebarLink
             to="/"
