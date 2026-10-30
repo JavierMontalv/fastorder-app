@@ -38,8 +38,8 @@ test('commercial questions use compact two-item rows with a centered final quest
 test('plan cards are compact, tiered and conversion-focused', () => {
   assert.match(pageSource, /data-plan=\{plan\.clave\}/);
   assert.match(pageSource, /MÁS ELEGIDO/);
-  assert.match(pageSource, /Empezar con Básico/);
-  assert.match(pageSource, /Crecer con Premium/);
+  assert.match(pageSource, /Contratar plan/);
+  assert.ok(pageSource.includes('/pagos?plan=${plan.clave}'));
   assert.match(styleSource, /\.cm-public \.cm-plan\{[\s\S]*?min-height:500px/);
   assert.match(styleSource, /\.cm-public \.cm-plan-pro\{[\s\S]*?transform:translateY\(-6px\)/);
 });
