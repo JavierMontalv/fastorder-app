@@ -1,3 +1,4 @@
+import OfficialContact from '../src/components/OfficialContact';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import Inicio from '../src/pages/Inicio';
@@ -7,5 +8,6 @@ export { publicPages, pageMetadata, structuredData, SITE_ORIGIN, HOME_PATH } fro
 
 export function render(path, portal) {
   const page = publicPages.find(p => p.path === path);
-  return renderToString(<StaticRouter location={path}>{page ? <ComandaResource page={page} /> : <Inicio initialPortal={portal} />}</StaticRouter>);
+  return renderToString(<StaticRouter location={path}><OfficialContact />{page ? <ComandaResource page={page} /> : <Inicio initialPortal={portal} />}</StaticRouter>);
 }
+
