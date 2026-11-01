@@ -270,7 +270,7 @@ export default function Login() {
   };
 
   const handleEnterpriseContact = () => {
-    const phone = String(portal?.brand?.supportWhatsApp || '').replace(/\D/g, '');
+    const phone = '573016399943';
     const message = 'Hola, quiero cotizar Comanda para varias sedes de mi restaurante.';
 
     if (phone) {
@@ -742,3 +742,4 @@ export default function Login() {
     </div>
   );
 }
+

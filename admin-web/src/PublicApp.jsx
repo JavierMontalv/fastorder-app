@@ -1,3 +1,4 @@
+import OfficialContact from './components/OfficialContact';
 import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import Inicio from './pages/Inicio';
@@ -11,5 +12,6 @@ function ScrollReset() {
 }
 
 export default function PublicApp({ initialPortal }) {
-  return <BrowserRouter><ScrollReset /><Routes><Route path="/" element={<Inicio initialPortal={initialPortal} />} /><Route path="/inicio" element={<Inicio initialPortal={initialPortal} />} />{publicPages.map(page => <Route key={page.path} path={page.path} element={<ComandaResource page={page} />} />)}</Routes></BrowserRouter>;
+  return <BrowserRouter><OfficialContact /><ScrollReset /><Routes><Route path="/" element={<Inicio initialPortal={initialPortal} />} /><Route path="/inicio" element={<Inicio initialPortal={initialPortal} />} />{publicPages.map(page => <Route key={page.path} path={page.path} element={<ComandaResource page={page} />} />)}</Routes></BrowserRouter>;
 }
+

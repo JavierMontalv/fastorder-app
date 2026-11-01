@@ -1,3 +1,4 @@
+import OfficialContact from './components/OfficialContact';
 import Billing, { BillingResult } from './pages/Billing';
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -232,6 +233,7 @@ export default function App() {
           </IAProvider>
         </AuthProvider>
       </ThemeProvider>
-    </BrowserRouter>
+    <OfficialContact /></BrowserRouter>
   );
 }
+
