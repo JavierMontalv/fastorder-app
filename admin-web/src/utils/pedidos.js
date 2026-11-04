@@ -376,3 +376,35 @@ export function agruparPedidosPorMesa(pedidos = []) {
     total: Math.round(grupo.total)
   }));
 }
+
+const MARGEN_INICIO_SESION_MS = 15000;
+
+/**
+ * Evita que una mesa ocupada arrastre tickets de servicios anteriores.
+ * `ocupadaDesde` es el límite contable de la atención vigente; el margen
+ * cubre la creación del primer pedido y la actualización de la mesa dentro
+ * de la misma transacción.
+ */
+export function filtrarPedidosPorSesionMesa(pedidos = [], mesas = []) {
+  const mesasPorId = new Map(
+    mesas
+      .filter((mesa) => mesa?.id)
+      .map((mesa) => [String(mesa.id), mesa])
+  );
+
+  return pedidos.filter((pedidoRaw) => {
+    const pedido = normalizarPedidoBackend(pedidoRaw);
+    if (!pedido.mesaId) return true;
+
+    const mesa = mesasPorId.get(String(pedido.mesaId));
+    if (!mesa || String(mesa.estado || '').toLowerCase() !== 'ocupada' || !mesa.ocupadaDesde) {
+      return true;
+    }
+
+    const inicioSesion = new Date(mesa.ocupadaDesde).getTime();
+    const fechaPedido = new Date(pedido.createdAt).getTime();
+    if (!Number.isFinite(inicioSesion) || !Number.isFinite(fechaPedido)) return true;
+
+    return fechaPedido >= inicioSesion - MARGEN_INICIO_SESION_MS;
+  });
+}
