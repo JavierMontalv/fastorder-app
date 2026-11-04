@@ -1,3 +1,4 @@
+import FichaOperativa from './FichaOperativa';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { buildAssetUrl } from '../config/env';
 import { formatCopInput, parseCopInput } from '../utils/copCurrency';
@@ -766,7 +767,8 @@ export default function ModalProducto({
         </div>
 
         <div className="pm-ediciones-wrap">
-          <ProductoEdiciones
+          <FichaOperativa productoId={productoActual?.id} />
+                  <ProductoEdiciones
             productoId={esEdicion ? productoActual.id : null}
             value={ediciones}
             onChange={setEdiciones}

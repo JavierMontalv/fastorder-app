@@ -3,6 +3,7 @@ export const configurationSections = [
   { id: 'menu', label: 'Tu carta', hint: 'Colores e idioma' },
   { id: 'publicar', label: 'Vista previa y QR', hint: 'Revisar y compartir' },
   { id: 'operacion', label: 'Mesas y servicio', hint: 'Opciones de tu operación' },
+  { id: 'impresion', label: 'Imprimir comanda', hint: 'Tickets de 58 y 80 mm' },
   { id: 'asistente', label: 'Asistente', hint: 'Capacidad y consumo' },
   { id: 'sedes', label: 'Sedes', hint: 'Gestionar cada ubicación' }
 ];

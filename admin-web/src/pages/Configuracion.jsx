@@ -1,3 +1,4 @@
+import {PrintSettings} from '../components/TicketPrinter';
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { FiArrowRight, FiCheckCircle } from 'react-icons/fi';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -1277,6 +1278,7 @@ export default function Configuracion() {
         </div>
       </section>
 
+      {activeSection === 'impresion' && <PrintSettings key={String(user?.sedeActivaId||user?.restauranteId)} />}
       <nav className="config-section-nav" aria-label="Secciones de configuración">{configurationSections.filter(item => item.id !== 'sedes' || multisede?.multisede_habilitado).map(item => <button key={item.id} type="button" aria-pressed={activeSection === item.id} onClick={() => selectSection(item.id)}><span>{item.label}</span><small>{item.hint}</small></button>)}</nav>
       <div className="config-workspace-path"><span>{configurationSections.find(item => item.id === activeSection)?.hint}</span><button type="button" onClick={() => navigate('/productos?carga=rapida')}>Cargar productos con fotos <FiArrowRight size={16} /></button></div>
       {error && <div className="configuracion-feedback configuracion-feedback-error">{error}</div>}
