@@ -1,0 +1,52 @@
+.mesas-page { --mesa-green:#07503f; --mesa-coral:#ff5b4d; --mesa-ink:#102033; --mesa-muted:#66778b; }
+.mesas-heading { display:flex; justify-content:space-between; gap:24px; align-items:flex-end; margin-bottom:20px; }
+.mesas-heading h1 { margin:4px 0 5px; color:var(--mesa-green); font-size:clamp(30px,4vw,48px); letter-spacing:-.045em; }
+.mesas-heading p { margin:0; max-width:680px; color:var(--mesa-muted); line-height:1.55; }
+.mesas-kicker { color:var(--mesa-coral); font-size:11px; font-weight:900; letter-spacing:.13em; }
+.mesas-refresh { display:inline-flex; align-items:center; gap:8px; border:1px solid #cbd9d3; background:#fff; color:var(--mesa-green); border-radius:999px; padding:11px 16px; font-weight:800; cursor:pointer; }
+.is-spinning { animation:mesa-spin .8s linear infinite; }
+@keyframes mesa-spin { to { transform:rotate(360deg); } }
+.mesas-summary { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-bottom:22px; }
+.mesas-summary div { display:flex; justify-content:space-between; align-items:center; border:1px solid #dce5e1; background:#fff; border-radius:18px; padding:17px 20px; color:var(--mesa-muted); }
+.mesas-summary strong { color:var(--mesa-ink); font-size:26px; }
+.mesas-summary .is-free { background:#edfbf4; border-color:#b8ebd1; }
+.mesas-summary .is-busy { background:#fff2ef; border-color:#ffd0c9; }
+.mesas-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:15px; }
+.mesa-card { min-height:220px; border:1px solid #dbe4e0; border-top:4px solid #20ba76; border-radius:22px; background:#fff; padding:18px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; color:var(--mesa-ink); cursor:pointer; box-shadow:0 10px 30px rgba(20,48,42,.06); transition:transform .2s ease,box-shadow .2s ease; }
+.mesa-card:hover { transform:translateY(-4px); box-shadow:0 18px 42px rgba(20,48,42,.12); }
+.mesa-card.is-busy { border-top-color:var(--mesa-coral); background:linear-gradient(180deg,#fff 0%,#fff8f6 100%); }
+.mesa-card-status { align-self:stretch; display:flex; align-items:center; gap:7px; color:#118757; font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.08em; }
+.mesa-card.is-busy .mesa-card-status { color:#dc493d; }
+.mesa-card-status i { width:8px; height:8px; border-radius:50%; background:currentColor; box-shadow:0 0 0 5px color-mix(in srgb,currentColor 13%,transparent); }
+.mesa-card-table { width:92px; height:70px; margin:5px 0 8px; border-radius:50%; background:#eef4f1; border:7px solid #dbe6e1; display:grid; place-items:center; position:relative; }
+.mesa-card.is-busy .mesa-card-table { background:#fff0ed; border-color:#ffd0c9; }
+.mesa-card-table b { font-size:28px; color:var(--mesa-green); }
+.mesa-card > strong { font-size:18px; }
+.mesa-card > small { color:var(--mesa-muted); }
+.mesa-card-orders { margin-top:6px; border-radius:999px; background:#102033; color:white; padding:6px 10px; font-size:11px; font-weight:800; }
+.mesas-error { margin-bottom:16px; padding:12px 16px; border-radius:12px; background:#fff1ef; color:#b63229; }
+.mesa-drawer-backdrop { position:fixed; inset:0; z-index:1000; background:rgba(4,20,17,.45); backdrop-filter:blur(5px); display:flex; justify-content:flex-end; }
+.mesa-drawer { width:min(520px,100%); height:100%; overflow:auto; background:#f9fbfa; padding:32px; box-shadow:-20px 0 50px rgba(0,0,0,.18); position:relative; }
+.mesa-drawer-close { position:absolute; top:22px; right:22px; width:40px; height:40px; border:0; border-radius:50%; background:#eaf1ee; display:grid; place-items:center; cursor:pointer; }
+.mesa-account-status { display:inline-block; color:#118757; font-size:11px; font-weight:900; letter-spacing:.1em; }
+.mesa-account-status.is-busy { color:#dc493d; }
+.mesa-drawer h2 { margin:8px 0 24px; font-size:38px; color:var(--mesa-green); }
+.mesa-account-total { display:grid; grid-template-columns:1.2fr 1fr; gap:10px; }
+.mesa-account-total div { border-radius:18px; padding:17px; background:var(--mesa-green); color:#fff; }
+.mesa-account-total div:last-child { background:#fff; color:var(--mesa-ink); border:1px solid #dce5e1; }
+.mesa-account-total span,.mesa-account-total strong { display:block; }
+.mesa-account-total span { font-size:11px; opacity:.75; text-transform:uppercase; font-weight:800; }
+.mesa-account-total strong { margin-top:7px; font-size:22px; }
+.mesa-account-metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:12px 0; }
+.mesa-account-metrics span { display:grid; gap:4px; justify-items:center; padding:12px 6px; border:1px solid #dce5e1; border-radius:14px; background:white; color:var(--mesa-muted); font-size:11px; }
+.mesa-account-metrics b { color:var(--mesa-ink); font-size:18px; }
+.mesa-account-copy,.mesa-empty { margin:16px 0; padding:17px; border-radius:17px; background:#eef7f2; color:var(--mesa-green); }
+.mesa-account-copy strong,.mesa-account-copy span { display:block; }
+.mesa-account-copy span,.mesa-empty p { margin-top:5px; color:var(--mesa-muted); line-height:1.45; }
+.mesa-account-items { background:white; border:1px solid #dce5e1; border-radius:18px; overflow:hidden; }
+.mesa-account-items div { display:flex; justify-content:space-between; gap:15px; padding:14px 16px; border-bottom:1px solid #edf1ef; }
+.mesa-account-items div:last-child { border-bottom:0; }
+html[data-theme='dark'] .mesas-page { --mesa-ink:#f5f8f7; --mesa-muted:#9eb0aa; }
+html[data-theme='dark'] .mesa-card,html[data-theme='dark'] .mesas-summary div,html[data-theme='dark'] .mesa-account-total div:last-child,html[data-theme='dark'] .mesa-account-items { background:#0d1e1a; border-color:#294139; }
+html[data-theme='dark'] .mesa-drawer { background:#081511; }
+@media (max-width:720px) { .mesas-heading{align-items:flex-start;flex-direction:column}.mesas-summary{grid-template-columns:1fr}.mesas-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.mesa-card{min-height:185px;padding:12px}.mesa-drawer{padding:26px 18px}.mesa-account-total{grid-template-columns:1fr}.mesa-account-metrics{grid-template-columns:1fr 1fr 1fr} }
