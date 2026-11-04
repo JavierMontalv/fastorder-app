@@ -31,7 +31,7 @@ export async function ajustarStock(itemIdOrPayload, tipo, cantidad, motivo = '')
 
   if (!itemId) throw new Error('itemId es obligatorio');
   if (!tipoAjuste) throw new Error('tipo de ajuste es obligatorio');
-  if (!cantidadAjuste || Number(cantidadAjuste) <= 0) throw new Error('cantidad invalida');
+  if (!Number.isFinite(Number(cantidadAjuste)) || Number(cantidadAjuste) < 0 || (Number(cantidadAjuste) === 0 && tipoAjuste !== 'ajuste')) throw new Error('cantidad invalida');
 
   const payload = {
     tipo: tipoAjuste,

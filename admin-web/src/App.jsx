@@ -1,3 +1,4 @@
+import Inventario from './pages/InventarioDetallado';
 import OfficialContact from './components/OfficialContact';
 import Billing, { BillingResult } from './pages/Billing';
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
@@ -111,7 +112,8 @@ export default function App() {
                   />
 
                   <Route
-                    path="productos"
+                    path="inventario" element={<ProtectedRoute roles={['admin','owner','superadmin']}><Inventario /></ProtectedRoute>} />
+                  <Route path="productos"
                     element={
                       <ProtectedRoute roles={['admin', 'owner', 'superadmin']}>
                         <Productos />

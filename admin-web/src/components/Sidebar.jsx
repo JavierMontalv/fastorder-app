@@ -81,7 +81,7 @@ export default function Sidebar({
         esMovil ? (mobileOpen ? 'movil-abierto' : 'movil-cerrado') : ''
       }`}
       aria-hidden={esMovil ? !mobileOpen : false}
-      inert={esMovil && !mobileOpen ? '' : undefined}
+      inert={esMovil && !mobileOpen}
     >
       <button
         type="button"
@@ -181,6 +181,16 @@ export default function Sidebar({
               abierto={abierto}
               label="Productos"
               helper="Carta y disponibilidad"
+            />
+            <SidebarLink
+              to="/inventario"
+              className={linkClass}
+              tooltipProps={tooltipProps('Inventario')}
+              onClick={handleNavigation}
+              icon={<FiPackage size={17} />}
+              abierto={abierto}
+              label="Inventario"
+              helper="Existencias, costos y movimientos"
             />
             <SidebarLink
               to="/categorias"
@@ -362,7 +372,7 @@ export default function Sidebar({
             <button
               type="button"
               className="sidebar-footer-button"
-              onClick={() => window.open('https://comanda.soporte', '_blank', 'noopener,noreferrer')}
+              onClick={() => window.open('https://wa.me/573016399943?text=Hola%20COMANDA%2C%20necesito%20ayuda%20con%20mi%20restaurante.', '_blank', 'noopener,noreferrer')}
             >
               Hablar con soporte
             </button>

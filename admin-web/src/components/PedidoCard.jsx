@@ -1,3 +1,4 @@
+import TicketPrinter from './TicketPrinter';
 import { useMemo, useState } from 'react';
 import '../styles/Pedidos.css';
 import {
@@ -247,6 +248,7 @@ export default function PedidoCard({
           </div>
 
           <div className="pedido-card-total-block">
+            {tienePedidos && <TicketPrinter grupo={grupo} />}
             <span>{totalBlockTitle}</span>
             <strong>{totalBlockValue}</strong>
             <small>{totalBlockHint}</small>

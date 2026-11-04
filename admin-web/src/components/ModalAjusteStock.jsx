@@ -72,6 +72,7 @@ export default function ModalAjusteStock({ abierto, item, onCerrar, onGuardar })
   const [cantidad, setCantidad] = useState('');
   const [motivo,   setMotivo]   = useState('');
   const [loading,  setLoading]  = useState(false);
+  const [saveError,setSaveError]=useState('');
 
   // Reset completo cada vez que se abre un item diferente
   useEffect(() => {
@@ -87,7 +88,7 @@ export default function ModalAjusteStock({ abierto, item, onCerrar, onGuardar })
 
   const nuevoStock    = calcularNuevoStock(item.stockActual, tipo, cantidad);
   const cantNum       = Number(cantidad) || 0;
-  const previewValida = cantNum > 0;
+  const previewValida = cantidad !== '' && Number.isFinite(cantNum) && (cantNum > 0 || (tipo === 'ajuste' && cantNum === 0));
 
   const clasePreview = previewValida
     ? tipo === 'entrada' ? 'inv-modal-preview__value--positive'
@@ -96,11 +97,12 @@ export default function ModalAjusteStock({ abierto, item, onCerrar, onGuardar })
     : 'inv-modal-preview__value--muted';
 
   async function handleGuardar() {
-    if (!cantNum || cantNum <= 0) return;
+    if (!previewValida) return;
+    setSaveError('');
     try {
       setLoading(true);
       await onGuardar({ itemId: item.id, tipo, cantidad: cantNum, motivo });
-    } finally {
+    } catch(error) { setSaveError(error.response?.data?.message||error.message||'No se pudo guardar.'); } finally {
       setLoading(false);
     }
   }
@@ -154,6 +156,7 @@ export default function ModalAjusteStock({ abierto, item, onCerrar, onGuardar })
 
         {/* Formulario */}
         <div className="inv-modal-body">
+          {saveError&&<p role="alert" style={{color:'#b43a23'}}>{saveError}</p>}
 
           {/* Tipo de ajuste */}
           <div className="inv-field">
@@ -184,7 +187,7 @@ export default function ModalAjusteStock({ abierto, item, onCerrar, onGuardar })
                 className="inv-cantidad-input"
                 type="number"
                 min="0"
-                step="1"
+                step="0.001"
                 placeholder="0"
                 value={cantidad}
                 onChange={(e) => setCantidad(e.target.value)}
@@ -215,7 +218,7 @@ export default function ModalAjusteStock({ abierto, item, onCerrar, onGuardar })
           <button
             type="button"
             className="inv-modal-save"
-            disabled={loading || !cantNum || cantNum <= 0}
+            disabled={loading || !previewValida}
             onClick={handleGuardar}
           >
             {loading && <span className="inv-spinner" />}
