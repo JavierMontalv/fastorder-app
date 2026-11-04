@@ -9,6 +9,7 @@ import {
   FiHome,
   FiLayers,
   FiMessageSquare,
+  FiCoffee,
   FiPackage,
   FiCreditCard,
   FiPlusCircle,
@@ -147,6 +148,19 @@ export default function Sidebar({
                 ? 'Ordena, controla y entrega'
                 : 'Lectura operativa del servicio'
             }
+          />
+        )}
+
+        {capacidadadesToBool(capacidades?.puedeConfigurarLocal) && featureEnabled('pedidos_qr') && (
+          <SidebarLink
+            to="/mesas"
+            className={linkClass}
+            tooltipProps={tooltipProps('Mesas')}
+            onClick={handleNavigation}
+            icon={<FiCoffee size={17} />}
+            abierto={abierto}
+            label="Mesas"
+            helper="Ocupación y cuenta actual"
           />
         )}
 
