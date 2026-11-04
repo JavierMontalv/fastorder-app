@@ -19,7 +19,7 @@ import useInventarioSocket from './useInventarioSocket';
 
 export default function useInventario({ autoLoad = true, activo = true } = {}) {
   const { user } = useContext(AuthContext);
-  const esAdmin = user?.rol === 'admin' || user?.rol === 'superadmin';
+  const esAdmin = ['admin', 'owner', 'superadmin'].includes(user?.rol);
 
   const [resumen,     setResumen]     = useState(null);
   const [alertas,     setAlertas]     = useState([]);

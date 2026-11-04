@@ -378,3 +378,18 @@
 .inv-tipo-pill--entrada { background: rgba(16,185,129,.12); color: #047857; }
 .inv-tipo-pill--salida  { background: rgba(239,68,68,.10);  color: #b91c1c; }
 .inv-tipo-pill--ajuste  { background: rgba(59,130,246,.10); color: #1d4ed8; }
+.inv-header-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.inv-receta-modal { width: min(760px, calc(100vw - 32px)); max-width: 760px; }
+.inv-receta-intro { margin: 0 0 18px; color: var(--fo-text-muted, #64748b); line-height: 1.55; }
+.inv-receta-lines { display: grid; gap: 10px; margin: 14px 0; }
+.inv-receta-line { display: grid; grid-template-columns: minmax(220px, 1.8fr) minmax(110px, .7fr) 70px 36px; gap: 8px; align-items: center; }
+.inv-receta-unit { color: #64748b; font-size: 12px; font-weight: 700; }
+.inv-receta-remove { border: 1px solid #fecaca; color: #dc2626; background: #fff; width: 34px; height: 34px; border-radius: 10px; font-size: 20px; cursor: pointer; }
+.inv-receta-add { margin-bottom: 16px; }
+.inv-receta-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 14px; border-radius: 16px; background: linear-gradient(135deg, #f6faf7, #fff7f3); border: 1px solid #dbe7df; }
+.inv-receta-summary > div { display: grid; gap: 5px; }
+.inv-receta-summary span { color: #64748b; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
+.inv-receta-summary strong { color: #10291f; font-size: 18px; }
+.inv-receta-summary .is-warning strong { color: #c2410c; }
+.inv-receta-summary .is-good strong { color: #16834b; }
+@media (max-width: 680px) { .inv-receta-line { grid-template-columns: 1fr 100px 34px; } .inv-receta-unit { display: none; } .inv-receta-summary { grid-template-columns: 1fr; } }

@@ -14,7 +14,10 @@ export default function ModalInventarioItem({
     categoria: '',
     unidad: 'unidad',
     stockMinimo: '',
-    costoUnitario: ''
+    costoUnitario: '',
+    stockInicial: '',
+    mermaPorcentaje: '',
+    codigoBarras: ''
   });
   const [loading, setLoading] = useState(false);
   const [errores, setErrores] = useState({});
@@ -26,7 +29,10 @@ export default function ModalInventarioItem({
       categoria: '',
       unidad: 'unidad',
       stockMinimo: '',
-      costoUnitario: ''
+      costoUnitario: '',
+      stockInicial: '',
+      mermaPorcentaje: '',
+      codigoBarras: ''
     });
     setErrores({});
     setLoading(false);
@@ -52,6 +58,8 @@ export default function ModalInventarioItem({
     if (!form.nombre.trim()) next.nombre = 'El nombre es obligatorio.';
     if (form.stockMinimo !== '' && Number(form.stockMinimo) < 0) next.stockMinimo = 'Debe ser mayor o igual a cero.';
     if (form.costoUnitario !== '' && Number(form.costoUnitario) < 0) next.costoUnitario = 'Debe ser mayor o igual a cero.';
+    if (form.stockInicial !== '' && Number(form.stockInicial) < 0) next.stockInicial = 'Debe ser mayor o igual a cero.';
+    if (Number(form.mermaPorcentaje || 0) < 0 || Number(form.mermaPorcentaje || 0) >= 100) next.mermaPorcentaje = 'Debe estar entre 0 y 99,99.';
     setErrores(next);
     return Object.keys(next).length === 0;
   };
@@ -66,7 +74,10 @@ export default function ModalInventarioItem({
         categoria: form.categoria.trim(),
         unidad: form.unidad,
         stockMinimo: form.stockMinimo === '' ? 0 : Number(form.stockMinimo),
-        costoUnitario: form.costoUnitario === '' ? null : Number(form.costoUnitario)
+        costoUnitario: form.costoUnitario === '' ? null : Number(form.costoUnitario),
+        stockInicial: form.stockInicial === '' ? 0 : Number(form.stockInicial),
+        mermaPorcentaje: form.mermaPorcentaje === '' ? 0 : Number(form.mermaPorcentaje),
+        codigoBarras: form.codigoBarras.trim()
       });
       onCerrar();
     } finally {
@@ -140,6 +151,18 @@ export default function ModalInventarioItem({
               placeholder="0"
             />
             {errores.costoUnitario && <small className="pm-error">{errores.costoUnitario}</small>}
+
+            <label>Stock inicial</label>
+            <input className="fo-input" type="number" min="0" step="0.001" name="stockInicial" value={form.stockInicial} onChange={handleChange} placeholder="0" />
+            {errores.stockInicial && <small className="pm-error">{errores.stockInicial}</small>}
+
+            <label>Merma de preparación (%)</label>
+            <input className="fo-input" type="number" min="0" max="99.99" step="0.01" name="mermaPorcentaje" value={form.mermaPorcentaje} onChange={handleChange} placeholder="Ej: 8" />
+            <small>COMANDA calcula el consumo bruto sin ocultar la pérdida por limpieza o cocción.</small>
+            {errores.mermaPorcentaje && <small className="pm-error">{errores.mermaPorcentaje}</small>}
+
+            <label>Código de barras (opcional)</label>
+            <input className="fo-input" name="codigoBarras" value={form.codigoBarras} onChange={handleChange} placeholder="Escanea o escribe el código" />
           </div>
         </div>
 

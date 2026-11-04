@@ -62,6 +62,21 @@ export async function obtenerRecomendacionesIA() {
   }
 }
 
+export async function obtenerProductosParaReceta() {
+  const { data } = await api.get('/inventario/productos');
+  return Array.isArray(data?.data) ? data.data : [];
+}
+
+export async function obtenerRecetaProducto(productoId) {
+  const { data } = await api.get(`/inventario/productos/${productoId}/receta`);
+  return data?.data || { receta: [], costoEstimado: 0 };
+}
+
+export async function guardarRecetaProducto(productoId, ingredientes) {
+  const { data } = await api.put(`/inventario/productos/${productoId}/receta`, { ingredientes });
+  return data?.data || null;
+}
+
 export async function resolverAlerta(alertaId) {
   if (!alertaId) throw new Error('ID de alerta invalido');
   const { data } = await api.patch(`/inventario/alertas/${alertaId}/resolver`);
@@ -82,6 +97,9 @@ export default {
   obtenerAlertasInventario,
   obtenerMovimientosInventario,
   obtenerRecomendacionesIA,
+  obtenerProductosParaReceta,
+  obtenerRecetaProducto,
+  guardarRecetaProducto,
   resolverAlerta,
   marcarAlertaLeida
 };
