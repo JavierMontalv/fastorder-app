@@ -16,6 +16,7 @@ export default function OfficialContact() {
         const rect = sidebar?.getBoundingClientRect();
         const menuVisible = mobile && rect && rect.right > 20 && rect.left >= -10;
         const modal = Boolean(document.querySelector('.op-product-details[open],.pm-overlay,.op-overlay,.ticket-overlay,.pro-modal-overlay,.inv-modal-overlay,[aria-modal="true"]'));
+        if((menuVisible||modal)&&widget.current?.open)widget.current.open=false;
         setHidden(Boolean(menuVisible || modal));
         setLeft(layout && !mobile && rect ? Math.max(16, Math.ceil(rect.right) + 16) : 16);
       });
