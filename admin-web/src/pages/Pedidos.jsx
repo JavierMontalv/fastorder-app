@@ -25,6 +25,7 @@ import '../styles/Pedidos.css';
 import '../styles/PedidosWorkspace.css';
 import {
   agruparPedidosPorMesa,
+  filtrarPedidosPorSesionMesa,
   formatCurrency,
   normalizarPedidoBackend,
   obtenerAccionPrimariaPedido,
@@ -713,24 +714,29 @@ export default function Pedidos() {
     [fechaDesde, fechaHasta, pedidos]
   );
 
-  const pedidosFiltrados = useMemo(() => {
-    if (estadoActivo === 'todos') return pedidosEnRango;
-
-    if (estadoActivo === 'pendiente_pago') {
-      return pedidosEnRango.filter((pedido) => pedidoPagoPendienteOperativo(pedido));
-    }
-
-    return pedidosEnRango.filter((pedido) => pedido.estado === estadoActivo);
-  }, [pedidosEnRango, estadoActivo]);
-
-  const mesasAgrupadasTodas = useMemo(
-    () => fusionarMesasConfiguradasConPedidos(agruparPedidosPorMesa(pedidosEnRango), mesasConfiguradas)
-      .filter((grupo) => grupoVisibleEnTableroSalon(grupo)),
+  const pedidosEnRangoSesion = useMemo(
+    () => filtrarPedidosPorSesionMesa(pedidosEnRango, mesasConfiguradas),
     [mesasConfiguradas, pedidosEnRango]
   );
+
+  const pedidosFiltrados = useMemo(() => {
+    if (estadoActivo === 'todos') return pedidosEnRangoSesion;
+
+    if (estadoActivo === 'pendiente_pago') {
+      return pedidosEnRangoSesion.filter((pedido) => pedidoPagoPendienteOperativo(pedido));
+    }
+
+    return pedidosEnRangoSesion.filter((pedido) => pedido.estado === estadoActivo);
+  }, [pedidosEnRangoSesion, estadoActivo]);
+
+  const mesasAgrupadasTodas = useMemo(
+    () => fusionarMesasConfiguradasConPedidos(agruparPedidosPorMesa(pedidosEnRangoSesion), mesasConfiguradas)
+      .filter((grupo) => grupoVisibleEnTableroSalon(grupo)),
+    [mesasConfiguradas, pedidosEnRangoSesion]
+  );
   const pedidosListos = useMemo(
-    () => pedidosEnRango.filter((pedido) => pedido.estado === 'listo'),
-    [pedidosEnRango]
+    () => pedidosEnRangoSesion.filter((pedido) => pedido.estado === 'listo'),
+    [pedidosEnRangoSesion]
   );
   const mesasAgrupadasFiltradas = useMemo(
     () => fusionarMesasConfiguradasConPedidos(agruparPedidosPorMesa(pedidosFiltrados), mesasConfiguradas, false)
@@ -739,14 +745,14 @@ export default function Pedidos() {
   );
 
   const conteoEstados = useMemo(() => ({
-    todos: pedidosEnRango.length,
-    pendiente_pago: pedidosEnRango.filter((pedido) => pedidoPagoPendienteOperativo(pedido)).length,
-    pendiente: pedidosEnRango.filter((pedido) => pedido.estado === 'pendiente').length,
-    aceptado: pedidosEnRango.filter((pedido) => pedido.estado === 'aceptado').length,
-    preparacion: pedidosEnRango.filter((pedido) => pedido.estado === 'preparacion').length,
-    listo: pedidosEnRango.filter((pedido) => pedido.estado === 'listo').length,
-    entregado: pedidosEnRango.filter((pedido) => pedido.estado === 'entregado').length
-  }), [pedidosEnRango]);
+    todos: pedidosEnRangoSesion.length,
+    pendiente_pago: pedidosEnRangoSesion.filter((pedido) => pedidoPagoPendienteOperativo(pedido)).length,
+    pendiente: pedidosEnRangoSesion.filter((pedido) => pedido.estado === 'pendiente').length,
+    aceptado: pedidosEnRangoSesion.filter((pedido) => pedido.estado === 'aceptado').length,
+    preparacion: pedidosEnRangoSesion.filter((pedido) => pedido.estado === 'preparacion').length,
+    listo: pedidosEnRangoSesion.filter((pedido) => pedido.estado === 'listo').length,
+    entregado: pedidosEnRangoSesion.filter((pedido) => pedido.estado === 'entregado').length
+  }), [pedidosEnRangoSesion]);
 
   const conteoSubfiltrosTodos = useMemo(() => ({
     panorama: mesasAgrupadasTodas.filter((mesa) => grupoTieneActividadOperativa(mesa)).length,
