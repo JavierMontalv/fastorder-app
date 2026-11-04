@@ -1694,6 +1694,14 @@ export default function Configuracion() {
                 Las funciones de IA se habilitan solo para restaurantes con plan IA.
               </div>
             )}
+
+            <div className="configuracion-feedback">
+              <strong>La gestión de mesas ahora tiene su propio módulo.</strong>
+              <p>Crea mesas, consulta sus QR y revisa las cuentas activas sin mezclarlo con la configuración general.</p>
+              <button type="button" className="config-inline-btn" onClick={() => navigate('/mesas')}>
+                Abrir módulo Mesas
+              </button>
+            </div>
           </section>
         </aside>
 
@@ -1760,7 +1768,7 @@ export default function Configuracion() {
       {/* ══════════════════════════════════════════════
           🍽️ GESTIÓN DE MESAS Y CÓDIGOS QR
       ══════════════════════════════════════════════ */}
-      <section className="config-panel config-mesas-section" hidden={activeSection !== 'operacion'}>
+      <section className="config-panel config-mesas-section" hidden>
         <div className="config-mesas-hero">
           <div className="config-panel-head config-mesas-head">
             <div>
@@ -2388,7 +2396,7 @@ export default function Configuracion() {
         )}
       </section>
 
-      {cuentaGrupoModal && (
+      {cuentaGrupoModal && activeSection === '__legacy_mesas' && (
         <div
           className="config-mesas-modal-overlay"
           onClick={() => {
@@ -2477,7 +2485,7 @@ export default function Configuracion() {
         </div>
       )}
 
-      <div className="configuracion-footer" hidden={activeSection === 'sedes'}><p>Guarda aquí los cambios de los formularios. Las acciones de mesas se aplican por separado.</p>
+      <div className="configuracion-footer" hidden={activeSection === 'sedes'}><p>Guarda aquí los cambios generales del restaurante.</p>
         <button
           type="submit"
           form="configuracion-form"
