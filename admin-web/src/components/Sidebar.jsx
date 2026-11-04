@@ -9,7 +9,6 @@ import {
   FiHome,
   FiLayers,
   FiMessageSquare,
-  FiCoffee,
   FiPackage,
   FiCreditCard,
   FiPlusCircle,
@@ -20,6 +19,7 @@ import {
   FiUsers,
   FiX
 } from 'react-icons/fi';
+import { MdTableRestaurant } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
 
 import { AuthContext } from '../context/AuthContext';
@@ -157,7 +157,7 @@ export default function Sidebar({
             className={linkClass}
             tooltipProps={tooltipProps('Mesas')}
             onClick={handleNavigation}
-            icon={<FiCoffee size={17} />}
+            icon={<MdTableRestaurant size={18} />}
             abierto={abierto}
             label="Mesas"
             helper="Ocupación y cuenta actual"
