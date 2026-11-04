@@ -58,7 +58,7 @@ export default function InventarioAlertaCard({ alerta, onResolver, onMarcarLeida
 
   const severidad   = alerta.severidad ?? 'media';
   const config      = SEVERIDAD_CONFIG[severidad] ?? SEVERIDAD_CONFIG.media;
-  const puedeActuar = user?.rol === 'admin' || user?.rol === 'superadmin';
+  const puedeActuar = ['admin', 'owner', 'superadmin'].includes(user?.rol);
 
   const stockActual   = alerta?.contexto?.stockActual;
   const stockMinimo   = alerta?.contexto?.stockMinimo;

@@ -26,6 +26,7 @@ import Onboarding from './pages/Onboarding';
 import Pedidos from './pages/Pedidos';
 import PlanCheckoutSuccess from './pages/PlanCheckoutSuccess';
 import Productos from './pages/Productos';
+import Inventario from './pages/Inventario';
 import Promociones from './pages/Promociones';
 import Reservas from './pages/Reservas';
 import SoporteIA from './pages/SoporteIA';
@@ -115,6 +116,15 @@ export default function App() {
                     element={
                       <ProtectedRoute roles={['admin', 'owner', 'superadmin']}>
                         <Productos />
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="inventario"
+                    element={
+                      <ProtectedRoute roles={['admin', 'owner', 'superadmin']}>
+                        <Inventario />
                       </ProtectedRoute>
                     }
                   />

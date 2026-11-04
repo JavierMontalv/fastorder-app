@@ -192,6 +192,16 @@ export default function Sidebar({
               label="Categorias"
               helper="Orden de la carta"
             />
+            <SidebarLink
+              to="/inventario"
+              className={linkClass}
+              tooltipProps={tooltipProps('Inventario')}
+              onClick={handleNavigation}
+              icon={<FiGrid size={17} />}
+              abierto={abierto}
+              label="Inventario"
+              helper="Ingredientes, recetas y costos"
+            />
             {featureEnabled('promociones') && (
               <SidebarLink
                 to="/promociones"

@@ -10,6 +10,7 @@ import InventarioRecomendaciones from '../components/InventarioRecomendaciones';
 import InventarioTabla from '../components/InventarioTabla';
 import ModalAjusteStock from '../components/ModalAjusteStock';
 import ModalInventarioItem from '../components/ModalInventarioItem';
+import ModalRecetaProducto from '../components/ModalRecetaProducto';
 import useInventario from '../hooks/useInventario';
 
 import '../styles/Dashboard.css';
@@ -71,6 +72,7 @@ export default function Inventario() {
   const [itemSeleccionado, setItemSeleccionado] = useState(null);
   const [modalAjusteAbierto, setModalAjusteAbierto] = useState(false);
   const [modalNuevoItemAbierto, setModalNuevoItemAbierto] = useState(false);
+  const [modalRecetaAbierto, setModalRecetaAbierto] = useState(false);
   const [busqueda, setBusqueda] = useState('');
   const [seccionActiva, setSeccionActiva] = useState('todas');
   const [estadoActivo, setEstadoActivo] = useState('todos');
@@ -181,9 +183,10 @@ export default function Inventario() {
           <h1>Inventario</h1>
           <p>Stock real por secciones, productos ligados y trazabilidad de movimientos.</p>
         </div>
-        <button className="fo-btn fo-btn-primary" onClick={() => setModalNuevoItemAbierto(true)}>
-          <IconoPlus /> Nuevo item
-        </button>
+        <div className="inv-header-actions">
+          <button className="fo-btn fo-btn-outline" onClick={() => setModalRecetaAbierto(true)}>Recetas por producto</button>
+          <button className="fo-btn fo-btn-primary" onClick={() => setModalNuevoItemAbierto(true)}><IconoPlus /> Nuevo ingrediente</button>
+        </div>
       </div>
 
       {/* KPI principal (riesgo + alertas + críticos) */}
@@ -334,6 +337,7 @@ export default function Inventario() {
         onGuardar={onCrearItem}
         seccionesDisponibles={secciones.map((s) => s.nombre)}
       />
+      <ModalRecetaProducto abierto={modalRecetaAbierto} items={items} onCerrar={() => setModalRecetaAbierto(false)} onGuardado={cargarInventario} />
     </div>
   );
 }
