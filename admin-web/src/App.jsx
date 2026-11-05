@@ -32,6 +32,8 @@ import Promociones from './pages/Promociones';
 import Reservas from './pages/Reservas';
 import Gastos from './pages/Gastos';
 import Nomina from './pages/Nomina';
+import Finanzas from './pages/Finanzas';
+import Recetas from './pages/Recetas';
 import Reportes from './pages/Reportes';
 import SoporteIA from './pages/SoporteIA';
 import UsuariosEquipo from './pages/Usuarios';
@@ -168,6 +170,8 @@ export default function App() {
                       </ProtectedRoute>
                     }
                   />
+                  <Route path="finanzas" element={<ProtectedRoute roles={['admin', 'owner', 'superadmin']}><Finanzas /></ProtectedRoute>} />
+                  <Route path="recetas" element={<ProtectedRoute roles={['admin', 'owner', 'superadmin']}><Recetas /></ProtectedRoute>} />
 
                   <Route
                     path="promociones"

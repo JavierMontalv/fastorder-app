@@ -14,6 +14,8 @@ import {
   FiCreditCard,
   FiDollarSign,
   FiBriefcase,
+  FiBookOpen,
+  FiTrendingUp,
   FiPlusCircle,
   FiSettings,
   FiShield,
@@ -190,6 +192,16 @@ export default function Sidebar({
         {capacidadadesToBool(capacidades?.puedeConfigurarLocal) && (
           <>
             <SidebarLink
+              to="/finanzas"
+              className={linkClass}
+              tooltipProps={tooltipProps('Finanzas')}
+              onClick={handleNavigation}
+              icon={<FiTrendingUp size={17} />}
+              abierto={abierto}
+              label="Finanzas"
+              helper="Ingresos, egresos y utilidad"
+            />
+            <SidebarLink
               to="/gastos"
               className={linkClass}
               tooltipProps={tooltipProps('Gastos')}
@@ -249,6 +261,16 @@ export default function Sidebar({
               abierto={abierto}
               label="Inventario"
               helper="Ingredientes, recetas y costos"
+            />
+            <SidebarLink
+              to="/recetas"
+              className={linkClass}
+              tooltipProps={tooltipProps('Recetas')}
+              onClick={handleNavigation}
+              icon={<FiBookOpen size={17} />}
+              abierto={abierto}
+              label="Recetas"
+              helper="Food cost y margen por plato"
             />
             {featureEnabled('promociones') && (
               <SidebarLink
