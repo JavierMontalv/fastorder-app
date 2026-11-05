@@ -11,6 +11,8 @@ import {
   FiMessageSquare,
   FiPackage,
   FiCreditCard,
+  FiDollarSign,
+  FiBriefcase,
   FiPlusCircle,
   FiSettings,
   FiShield,
@@ -177,6 +179,37 @@ export default function Sidebar({
           />
         )}
 
+      </nav>
+
+      {capacidadadesToBool(capacidades?.puedeConfigurarLocal) && abierto && (
+        <div className="sidebar-section-label">Gestion financiera</div>
+      )}
+
+      <nav className="sidebar-menu">
+        {capacidadadesToBool(capacidades?.puedeConfigurarLocal) && (
+          <>
+            <SidebarLink
+              to="/gastos"
+              className={linkClass}
+              tooltipProps={tooltipProps('Gastos')}
+              onClick={handleNavigation}
+              icon={<FiDollarSign size={17} />}
+              abierto={abierto}
+              label="Gastos"
+              helper="Costos fijos y variables"
+            />
+            <SidebarLink
+              to="/nomina"
+              className={linkClass}
+              tooltipProps={tooltipProps('Nomina')}
+              onClick={handleNavigation}
+              icon={<FiBriefcase size={17} />}
+              abierto={abierto}
+              label="Nómina"
+              helper="Pagos y turnos del equipo"
+            />
+          </>
+        )}
       </nav>
 
       {capacidadadesToBool(capacidades?.puedeGestionarCatalogo) && abierto && (
