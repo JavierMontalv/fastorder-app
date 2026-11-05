@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import ModalRecetaProducto from '../components/ModalRecetaProducto';
 import { guardarRecetaProducto, obtenerItemsInventario, obtenerProductosParaReceta } from '../services/inventarioService';
 import '../styles/BusinessIntelligence.css';
+import '../styles/BusinessIntelligenceNeutral.css';
 
 const cop = (value) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(Number(value || 0));
 
