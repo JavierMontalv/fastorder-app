@@ -2192,7 +2192,22 @@ html[data-theme='light'] .dashboard-container {
 
 html[data-theme='light'] .layout-container,
 html[data-theme='light'] .layout-content {
-  background: #f7f6f2;
+  background-color: #d7e7f2;
+}
+
+html[data-theme='light'] .layout-container {
+  background: #d7e7f2;
+}
+
+html[data-theme='light'] .layout-main {
+  background: #d7e7f2;
+}
+
+html[data-theme='light'] .layout-content {
+  background:
+    radial-gradient(circle at 86% 4%, rgba(255, 255, 255, 0.72), transparent 28%),
+    radial-gradient(circle at 12% 20%, rgba(85, 150, 191, 0.16), transparent 34%),
+    linear-gradient(145deg, #dcebf5 0%, #cfe2ee 52%, #c8ddea 100%);
 }
 
 html[data-theme='light'] .db-command-hero,

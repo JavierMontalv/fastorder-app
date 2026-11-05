@@ -1,10 +1,10 @@
 /* Home dashboard only: preserve shared layout, metrics and other modules. */
 .dashboard-container.dashboard-container.dashboard-workspace {
-  --dw-ink: #243c30;
-  --dw-muted: #69736b;
+  --dw-ink: #153247;
+  --dw-muted: #4f6574;
   --dw-surface: #fff;
   --dw-soft: #f3f4ee;
-  --dw-border: #dfe4db;
+  --dw-border: #c8d7e0;
   --dw-accent: #ba4b30;
   width: 100%; max-width: 1440px; min-width: 0;
   display: flex; flex-direction: column; gap: 18px;
