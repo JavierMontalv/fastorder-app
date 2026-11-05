@@ -11,10 +11,14 @@ import InventarioTabla from '../components/InventarioTabla';
 import ModalAjusteStock from '../components/ModalAjusteStock';
 import ModalInventarioItem from '../components/ModalInventarioItem';
 import ModalRecetaProducto from '../components/ModalRecetaProducto';
+import InventarioOperaciones from '../components/InventarioOperaciones';
 import useInventario from '../hooks/useInventario';
+import { pdfInventario } from '../utils/inventoryPdf';
+import { FiDownload } from 'react-icons/fi';
 
 import '../styles/Dashboard.css';
 import '../styles/InventarioAdmin.css';
+import '../styles/InventarioOperaciones.css';
 
 const ESTADOS_FILTER = [
   { id: 'todos',   label: 'Todos'    },
@@ -63,8 +67,10 @@ export default function Inventario() {
     resolverAlerta,
     marcarAlertaLeida,
     cargarInventario,
+    cargarItems,
     ajustarStock,
     crearItem,
+    actualizarItem,
     tieneAlertas,
     tieneRecomendaciones
   } = useInventario({ autoLoad: true });
@@ -72,6 +78,7 @@ export default function Inventario() {
   const [itemSeleccionado, setItemSeleccionado] = useState(null);
   const [modalAjusteAbierto, setModalAjusteAbierto] = useState(false);
   const [modalNuevoItemAbierto, setModalNuevoItemAbierto] = useState(false);
+  const [itemEnEdicion, setItemEnEdicion] = useState(null);
   const [modalRecetaAbierto, setModalRecetaAbierto] = useState(false);
   const [busqueda, setBusqueda] = useState('');
   const [seccionActiva, setSeccionActiva] = useState('todas');
@@ -136,8 +143,14 @@ export default function Inventario() {
   }
 
   async function onCrearItem(payload) {
-    await crearItem(payload);
-    toast.success('Item de inventario creado.');
+    if (itemEnEdicion) {
+      await actualizarItem(itemEnEdicion.id, payload);
+      toast.success('Item actualizado.');
+    } else {
+      await crearItem(payload);
+      toast.success('Item de inventario creado.');
+    }
+    setItemEnEdicion(null);
     setModalNuevoItemAbierto(false);
   }
 
@@ -184,6 +197,7 @@ export default function Inventario() {
           <p>Stock real por secciones, productos ligados y trazabilidad de movimientos.</p>
         </div>
         <div className="inv-header-actions">
+          <button className="fo-btn fo-btn-outline" onClick={() => pdfInventario(items)}><FiDownload /> Consulta PDF</button>
           <button className="fo-btn fo-btn-outline" onClick={() => setModalRecetaAbierto(true)}>Recetas por producto</button>
           <button className="fo-btn fo-btn-primary" onClick={() => setModalNuevoItemAbierto(true)}><IconoPlus /> Nuevo ingrediente</button>
         </div>
@@ -309,9 +323,12 @@ export default function Inventario() {
         <InventarioTabla
           items={itemsFiltrados}
           onAjustarStock={abrirModalAjuste}
+          onEditar={(item) => { setItemEnEdicion(item); setModalNuevoItemAbierto(true); }}
           cargando={loadingItems}
         />
       </div>
+
+      <div className="fo-section"><InventarioOperaciones items={items} onChanged={() => Promise.all([cargarInventario(), cargarItems()])} /></div>
 
       {/* Bitácora de movimientos */}
       <div className="fo-section">
@@ -333,7 +350,8 @@ export default function Inventario() {
 
       <ModalInventarioItem
         abierto={modalNuevoItemAbierto}
-        onCerrar={() => setModalNuevoItemAbierto(false)}
+        item={itemEnEdicion}
+        onCerrar={() => { setModalNuevoItemAbierto(false); setItemEnEdicion(null); }}
         onGuardar={onCrearItem}
         seccionesDisponibles={secciones.map((s) => s.nombre)}
       />

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef } from 'react';
 import {
   FiBarChart2,
+  FiFileText,
   FiCalendar,
   FiChevronLeft,
   FiChevronRight,
@@ -270,6 +271,9 @@ export default function Sidebar({
       )}
 
       <nav className="sidebar-menu">
+        {capacidadadesToBool(capacidades?.puedeVerAnaliticas) && (
+          <SidebarLink to="/reportes" className={linkClass} tooltipProps={tooltipProps('Reportes')} onClick={handleNavigation} icon={<FiFileText size={17} />} abierto={abierto} label="Reportes" helper="Inventario y movimientos" />
+        )}
         {capacidadadesToBool(capacidades?.puedeVerAnaliticas) && featureEnabled('analytics_avanzado') && (
           <SidebarLink
             to="/analiticas"

@@ -55,7 +55,7 @@ function IconoVacio() {
   );
 }
 
-export default function InventarioTabla({ items = [], onAjustarStock, cargando = false }) {
+export default function InventarioTabla({ items = [], onAjustarStock, onEditar, cargando = false }) {
   const lista = Array.isArray(items) ? items : [];
 
   if (cargando) {
@@ -161,7 +161,7 @@ export default function InventarioTabla({ items = [], onAjustarStock, cargando =
 
                 {/* Acción */}
                 <td className="inv-td inv-td--right">
-                  <button
+                  <div className="inv-row-actions"><button type="button" className="inv-edit-btn" onClick={() => onEditar?.(item)}>Editar</button><button
                     type="button"
                     className="inv-ajustar-btn"
                     disabled={!puedeAjustar}
@@ -169,7 +169,7 @@ export default function InventarioTabla({ items = [], onAjustarStock, cargando =
                   >
                     <IconoAjustar />
                     Ajustar
-                  </button>
+                  </button></div>
                 </td>
               </tr>
             );
