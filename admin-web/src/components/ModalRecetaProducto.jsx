@@ -6,7 +6,7 @@ import '../styles/InventarioAdmin.css';
 
 const dinero = (value) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(Number(value || 0));
 
-export default function ModalRecetaProducto({ abierto, items = [], onCerrar, onGuardado }) {
+export default function ModalRecetaProducto({ abierto, items = [], productoInicialId = '', onCerrar, onGuardado }) {
   const [productos, setProductos] = useState([]);
   const [productoId, setProductoId] = useState('');
   const [lineas, setLineas] = useState([]);
@@ -16,8 +16,8 @@ export default function ModalRecetaProducto({ abierto, items = [], onCerrar, onG
   useEffect(() => {
     if (!abierto) return;
     obtenerProductosParaReceta().then(setProductos).catch(() => toast.error('No fue posible cargar los productos.'));
-    setProductoId(''); setLineas([]);
-  }, [abierto]);
+    setProductoId(productoInicialId ? String(productoInicialId) : ''); setLineas([]);
+  }, [abierto, productoInicialId]);
 
   useEffect(() => {
     if (!productoId) { setLineas([]); return; }
@@ -58,7 +58,7 @@ export default function ModalRecetaProducto({ abierto, items = [], onCerrar, onG
           <button className="inv-modal-close" onClick={onCerrar} aria-label="Cerrar">×</button>
         </div>
         <div className="inv-modal-body">
-          <p className="inv-receta-intro">Define cuánto consume una unidad del producto. COMANDA descuenta una sola vez cuando el pedido entra en preparación y revierte si se cancela.</p>
+          <p className="inv-receta-intro">Define cuánto consume una unidad del producto. COMANDA descuenta los ingredientes una sola vez cuando el pedido es aceptado.</p>
           <label className="inv-field__label">Plato o producto</label>
           <select className="fo-input" value={productoId} onChange={(e) => setProductoId(e.target.value)}>
             <option value="">Selecciona un producto…</option>{productos.map((p) => <option key={p.id} value={p.id}>{p.nombre}</option>)}
