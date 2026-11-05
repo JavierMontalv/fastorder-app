@@ -14,7 +14,7 @@
   grid-template-columns: clamp(220px, 18vw, 260px) 1fr;
   width: 100%;
   min-height: 100dvh;
-  background: #e7f0f6;
+  background: #d7e5ef;
   transition: grid-template-columns 0.25s ease;
 }
 
@@ -26,7 +26,7 @@
 .layout-main {
   display: flex;
   flex-direction: column;
-  background: #e7f0f6;
+  background: #d7e5ef;
   min-width: 0;
   min-height: 100dvh;
 }
@@ -42,8 +42,9 @@
   scroll-behavior: smooth;
 
   background:
-    radial-gradient(circle at 78% 4%, rgba(255,255,255,.7), transparent 28%),
-    linear-gradient(180deg, #edf4f8 0%, #e1ecf3 100%);
+    radial-gradient(circle at 82% 2%, rgba(255,255,255,.58), transparent 25%),
+    radial-gradient(circle at 14% 16%, rgba(111,169,205,.16), transparent 30%),
+    linear-gradient(180deg, #e3edf4 0%, #d5e4ee 58%, #cfdfeb 100%);
 
   display: flex;
   justify-content: center;
@@ -57,6 +58,12 @@
   border: none;
   background: var(--overlay-soft);
   backdrop-filter: blur(3px);
+}
+
+.bi-kpis small {
+  color: #60756d;
+  font-size: 10px;
+  line-height: 1.45;
 }
 
 /* ------------------------------------------------------------
