@@ -34,7 +34,7 @@ function handler(event) {
   }
   if (uri === '/descubre') return redirect('https://www.somoscomanda.com/' + search);
   if (uri === '/') { request.uri = host === 'admin.somoscomanda.com' ? '/index.html' : '/landing.html'; return request; }
-  var privateRoute = /^\/(pagos|admin|login|cambiar-password|onboarding|pedidos|productos|inventario|mesas|reservas|promociones|categorias|configuracion|analiticas|auditoria|usuarios|soporte-ia|superadmin|display)(\/|$)/.test(uri) || uri === '/planes/gracias';
+  var privateRoute = /^\/(pagos|admin|login|cambiar-password|onboarding|pedidos|productos|inventario|mesas|gastos|nomina|reservas|promociones|categorias|configuracion|analiticas|auditoria|usuarios|soporte-ia|superadmin|display)(\/|$)/.test(uri) || uri === '/planes/gracias';
   if (privateRoute) {
     if (host !== 'admin.somoscomanda.com') return redirect('https://admin.somoscomanda.com' + uri + search);
     request.uri = '/index.html'; return request;
