@@ -4,6 +4,7 @@ import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YA
 import { toast } from 'react-toastify';
 import { obtenerResumenFinanciero } from '../services/finanzasService';
 import '../styles/BusinessIntelligence.css';
+import '../styles/BusinessIntelligenceNeutral.css';
 
 const cop = (value) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(Number(value || 0));
 const monthValue = () => new Date().toISOString().slice(0, 7);

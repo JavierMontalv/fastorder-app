@@ -1,0 +1,19 @@
+/* Neutral typography for finance and recipe workspaces.
+   Semantic color belongs to surfaces, borders and icons—not words or figures. */
+html[data-theme='light'] .bi-page,
+html[data-theme='light'] .bi-page :is(h1, h2, h3, strong, b),
+html[data-theme='light'] .bi-hero span,
+html[data-theme='light'] .bi-panel > header span,
+html[data-theme='light'] .recipe-metrics div:first-child strong,
+html[data-theme='light'] .margin-line b,
+html[data-theme='light'] .movement-row .ingreso,
+html[data-theme='light'] .movement-row .egreso,
+html[data-theme='light'] .profit-grid article > footer strong {
+  color: #101828;
+}
+
+html[data-theme='light'] .bi-page :is(p, small),
+html[data-theme='light'] .bi-kpis span,
+html[data-theme='light'] .movement-row small {
+  color: #526173;
+}
