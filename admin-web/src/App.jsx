@@ -30,6 +30,8 @@ import Inventario from './pages/Inventario';
 import Mesas from './pages/Mesas';
 import Promociones from './pages/Promociones';
 import Reservas from './pages/Reservas';
+import Gastos from './pages/Gastos';
+import Nomina from './pages/Nomina';
 import SoporteIA from './pages/SoporteIA';
 import UsuariosEquipo from './pages/Usuarios';
 
@@ -144,6 +146,24 @@ export default function App() {
                     element={
                       <ProtectedRoute roles={['admin', 'owner', 'superadmin']}>
                         <Reservas />
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="gastos"
+                    element={
+                      <ProtectedRoute roles={['admin', 'owner', 'superadmin']}>
+                        <Gastos />
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="nomina"
+                    element={
+                      <ProtectedRoute roles={['admin', 'owner', 'superadmin']}>
+                        <Nomina />
                       </ProtectedRoute>
                     }
                   />
