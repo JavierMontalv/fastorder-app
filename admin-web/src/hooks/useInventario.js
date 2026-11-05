@@ -5,6 +5,7 @@ import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import {
   ajustarStock as ajustarStockService,
   crearItemInventario,
+  actualizarItemInventario,
   marcarAlertaLeida,
   obtenerAlertasInventario,
   obtenerItemsInventario,
@@ -152,6 +153,13 @@ export default function useInventario({ autoLoad = true, activo = true } = {}) {
     [esAdmin, cargarInventario, cargarItems]
   );
 
+  const actualizarItem = useCallback(async (itemId, payload) => {
+    if (!esAdmin || !itemId) return null;
+    const actualizado = await actualizarItemInventario(itemId, payload);
+    await Promise.all([cargarItems(), cargarInventario()]);
+    return actualizado;
+  }, [esAdmin, cargarInventario, cargarItems]);
+
   const resolverAlertaInventario = useCallback(
     async (alertaId) => {
       if (!alertaId || !esAdmin) return;
@@ -207,6 +215,7 @@ export default function useInventario({ autoLoad = true, activo = true } = {}) {
     cargarMovimientos,
     ajustarStock,
     crearItem,
+    actualizarItem,
     resolverAlerta:    resolverAlertaInventario,
     marcarAlertaLeida: marcarAlertaLeidaInventario,
     puedeActuar:       esAdmin,

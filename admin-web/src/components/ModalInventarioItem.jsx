@@ -7,6 +7,7 @@ export default function ModalInventarioItem({
   abierto,
   onCerrar,
   onGuardar,
+  item = null,
   seccionesDisponibles = []
 }) {
   const [form, setForm] = useState({
@@ -25,18 +26,18 @@ export default function ModalInventarioItem({
   useEffect(() => {
     if (!abierto) return;
     setForm({
-      nombre: '',
-      categoria: '',
-      unidad: 'unidad',
-      stockMinimo: '',
-      costoUnitario: '',
+      nombre: item?.nombre || '',
+      categoria: item?.seccion || item?.categoria || '',
+      unidad: item?.unidad || 'unidad',
+      stockMinimo: item?.stockMinimo ?? '',
+      costoUnitario: item?.costoUnitario ?? '',
       stockInicial: '',
       mermaPorcentaje: '',
       codigoBarras: ''
     });
     setErrores({});
     setLoading(false);
-  }, [abierto]);
+  }, [abierto, item]);
 
   const secciones = useMemo(
     () => [...new Set((seccionesDisponibles || []).map((value) => String(value || '').trim()).filter(Boolean))],
@@ -75,7 +76,7 @@ export default function ModalInventarioItem({
         unidad: form.unidad,
         stockMinimo: form.stockMinimo === '' ? 0 : Number(form.stockMinimo),
         costoUnitario: form.costoUnitario === '' ? null : Number(form.costoUnitario),
-        stockInicial: form.stockInicial === '' ? 0 : Number(form.stockInicial),
+        stockInicial: item ? undefined : (form.stockInicial === '' ? 0 : Number(form.stockInicial)),
         mermaPorcentaje: form.mermaPorcentaje === '' ? 0 : Number(form.mermaPorcentaje),
         codigoBarras: form.codigoBarras.trim()
       });
@@ -89,7 +90,7 @@ export default function ModalInventarioItem({
     <div className="pro-modal-overlay">
       <div className="pro-modal">
         <div className="pro-modal-header">
-          <h2>Nuevo item de stock</h2>
+          <h2>{item ? 'Editar item de stock' : 'Nuevo item de stock'}</h2>
           <button className="pro-close-btn" onClick={onCerrar}>✖</button>
         </div>
 
@@ -152,9 +153,7 @@ export default function ModalInventarioItem({
             />
             {errores.costoUnitario && <small className="pm-error">{errores.costoUnitario}</small>}
 
-            <label>Stock inicial</label>
-            <input className="fo-input" type="number" min="0" step="0.001" name="stockInicial" value={form.stockInicial} onChange={handleChange} placeholder="0" />
-            {errores.stockInicial && <small className="pm-error">{errores.stockInicial}</small>}
+            {!item && <><label>Stock inicial</label><input className="fo-input" type="number" min="0" step="0.001" name="stockInicial" value={form.stockInicial} onChange={handleChange} placeholder="0" />{errores.stockInicial && <small className="pm-error">{errores.stockInicial}</small>}</>}
 
             <label>Merma de preparación (%)</label>
             <input className="fo-input" type="number" min="0" max="99.99" step="0.01" name="mermaPorcentaje" value={form.mermaPorcentaje} onChange={handleChange} placeholder="Ej: 8" />
@@ -171,7 +170,7 @@ export default function ModalInventarioItem({
             Cancelar
           </button>
           <button className="fo-btn fo-btn-primary" disabled={loading} onClick={handleGuardar}>
-            {loading ? 'Creando...' : 'Crear item'}
+            {loading ? 'Guardando...' : item ? 'Guardar cambios' : 'Crear item'}
           </button>
         </div>
       </div>

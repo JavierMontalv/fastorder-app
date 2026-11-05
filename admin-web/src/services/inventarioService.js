@@ -16,6 +16,31 @@ export async function crearItemInventario(payload) {
   return data?.data || null;
 }
 
+export async function actualizarItemInventario(itemId, payload) {
+  const { data } = await api.put(`/inventario/items/${itemId}`, payload);
+  return data?.data || null;
+}
+
+export async function obtenerEntradasMercancia() {
+  const { data } = await api.get('/inventario/entradas');
+  return Array.isArray(data?.data) ? data.data : [];
+}
+
+export async function crearEntradaMercancia(payload) {
+  const { data } = await api.post('/inventario/entradas', payload);
+  return data?.data || null;
+}
+
+export async function obtenerTransformaciones() {
+  const { data } = await api.get('/inventario/transformaciones');
+  return Array.isArray(data?.data) ? data.data : [];
+}
+
+export async function crearTransformacion(payload) {
+  const { data } = await api.post('/inventario/transformaciones', payload);
+  return data?.data || null;
+}
+
 export async function ajustarStock(itemIdOrPayload, tipo, cantidad, motivo = '') {
   const entrada =
     typeof itemIdOrPayload === 'object' && itemIdOrPayload !== null
@@ -93,6 +118,11 @@ export default {
   obtenerResumenOperativo,
   obtenerItemsInventario,
   crearItemInventario,
+  actualizarItemInventario,
+  obtenerEntradasMercancia,
+  crearEntradaMercancia,
+  obtenerTransformaciones,
+  crearTransformacion,
   ajustarStock,
   obtenerAlertasInventario,
   obtenerMovimientosInventario,

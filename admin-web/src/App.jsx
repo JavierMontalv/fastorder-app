@@ -32,6 +32,7 @@ import Promociones from './pages/Promociones';
 import Reservas from './pages/Reservas';
 import Gastos from './pages/Gastos';
 import Nomina from './pages/Nomina';
+import Reportes from './pages/Reportes';
 import SoporteIA from './pages/SoporteIA';
 import UsuariosEquipo from './pages/Usuarios';
 
@@ -203,6 +204,7 @@ export default function App() {
                       </ProtectedRoute>
                     }
                   />
+                  <Route path="reportes" element={<ProtectedRoute roles={['admin', 'owner', 'superadmin']}><Reportes /></ProtectedRoute>} />
 
                   <Route
                     path="auditoria"

@@ -14,10 +14,7 @@
   grid-template-columns: clamp(220px, 18vw, 260px) 1fr;
   width: 100%;
   min-height: 100dvh;
-  background:
-    radial-gradient(circle at 22% 0%, rgba(255, 95, 87, 0.06), transparent 30%),
-    radial-gradient(circle at 78% 8%, rgba(14, 165, 233, 0.07), transparent 28%),
-    var(--bg-body);
+  background: #e7f0f6;
   transition: grid-template-columns 0.25s ease;
 }
 
@@ -29,7 +26,7 @@
 .layout-main {
   display: flex;
   flex-direction: column;
-  background: var(--bg-body);
+  background: #e7f0f6;
   min-width: 0;
   min-height: 100dvh;
 }
@@ -45,7 +42,8 @@
   scroll-behavior: smooth;
 
   background:
-    linear-gradient(180deg, rgba(246, 248, 251, 0.94) 0%, rgba(238, 243, 248, 0.98) 100%);
+    radial-gradient(circle at 78% 4%, rgba(255,255,255,.7), transparent 28%),
+    linear-gradient(180deg, #edf4f8 0%, #e1ecf3 100%);
 
   display: flex;
   justify-content: center;

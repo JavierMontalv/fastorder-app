@@ -47,6 +47,7 @@ test('the canonical host, old URLs and private routes preserve working destinati
   assert.equal(route('admin.somoscomanda.com', '/productos').uri, '/index.html');
   assert.equal(route('admin.somoscomanda.com', '/gastos').uri, '/index.html');
   assert.equal(route('admin.somoscomanda.com', '/nomina').uri, '/index.html');
+  assert.equal(route('admin.somoscomanda.com', '/reportes').uri, '/index.html');
   assert.equal(route('admin.somoscomanda.com', '/descubre').headers['x-robots-tag'].value, 'noindex, nofollow, noarchive');
   assert.equal(route('admin.somoscomanda.com', '/inicio', { modo: { value: 'activar' }, plan: { value: 'premium' } }).uri, '/activation.html');
   assert.equal(route('www.somoscomanda.com', '/login', { plan: { value: 'pro' } }).headers.location.value, 'https://admin.somoscomanda.com/login?plan=pro');
